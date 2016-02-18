@@ -1,0 +1,23 @@
+<div>
+    <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
+    <table class="fls logstable">
+        <tr>
+            <th translate="LogId"></th>
+            <th translate="EventDateTime"></th>
+            <th translate="LogLevel"></th>
+            <th translate="EventType"></th>
+            <th translate="Logger"></th>
+            <th translate="Message"></th>
+            <th translate="UserName"></th>
+        </tr>
+        <tr ng-repeat="log in logs | filter:searchString:comparator">
+            <td ng-bind="log.LogId"></td>
+            <td ng-bind="log.EventDateTime | date:'dd.MM.yyyy'"></td>
+            <td ng-bind="log.LogLevel"></td>
+            <td ng-bind="log.EventType"></td>
+            <td><pre ng-bind="log.Logger"></pre></td>
+            <td><pre ng-bind="log.Message"></pre></td>
+            <td ng-bind="log.UserName"></td>
+        </tr>
+    </table>
+</div>

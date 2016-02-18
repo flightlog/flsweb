@@ -1,0 +1,21 @@
+<div>
+    <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
+    <table class="fls" ng-show="!busy && !error">
+        <tr>
+            <th translate="NAME"></th>
+            <th translate="COUNTRY"></th>
+            <th class="hidden-print">&nbsp;</th>
+        </tr>
+        <tr ng-repeat="club in clubs | filter:searchString">
+            <td ng-bind="club.ClubName"></td>
+            <td ng-bind="club.CountryName"></td>
+            <td class="hidden-print controls-column">
+                <a ng-click="editClub(club)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-pencil"
+                                                                           style="color:#111123;font-weight: 800;"></span></a>
+                <a ng-click="deleteClub(club)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-trash-o"
+                                                                             style="color:#a70000;font-weight: 800;"></span></a>
+                <fls-history entity-name="Club" entity-id="club.ClubId" class="col-xs-4"></fls-history>
+            </td>
+        </tr>
+    </table>
+</div>

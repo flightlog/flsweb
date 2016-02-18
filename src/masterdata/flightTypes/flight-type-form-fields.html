@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="form-group col-md-4">
+        <label for="FlightCode"><span translate="CODE"></span></label>
+        <input class="form-control" id="FlightCode" ng-model="flightType.FlightCode">
+    </div>
+    <div class="form-group col-md-8">
+        <label for="FlightTypeName"><span translate="NAME"></span></label>
+        <input class="form-control" id="FlightTypeName" ng-model="flightType.FlightTypeName">
+    </div>
+
+    <div class="checkbox col-md-12">
+        <fls-labelled-checkbox entity="flightType" attribute="InstructorRequired"
+                               translation-key="IS_INSTRUCTOR_REQUIRED"></fls-labelled-checkbox>
+        <fls-labelled-checkbox entity="flightType" attribute="ObserverPilotOrInstructorRequired"
+                               translation-key="IS_OBSERVERPILOT_OR_INSTRUCTOR_REQUIRED"></fls-labelled-checkbox>
+        <fls-labelled-checkbox entity="flightType" attribute="IsCheckFlight"
+                               translation-key="IS_CHECKFLIGHT"></fls-labelled-checkbox>
+        <fls-labelled-checkbox entity="flightType" attribute="IsPassengerFlight"
+                               translation-key="IS_PASSENGERFLIGHT"></fls-labelled-checkbox>
+        <fls-labelled-checkbox entity="flightType" attribute="IsSoloFlight"
+                               translation-key="IS_SOLOFLIGHT"></fls-labelled-checkbox>
+        <fls-labelled-checkbox entity="flightType" attribute="IsFlightCostBalanceSelectable"
+                               translation-key="IS_FLIGHTCOSTBALANCE_SELECTABLE"></fls-labelled-checkbox>
+        <fls-labelled-checkbox entity="flightType" attribute="IsForGliderFlights"
+                               translation-key="IS_FOR_GLIDERFLIGHTS"></fls-labelled-checkbox>
+        <fls-labelled-checkbox entity="flightType" attribute="IsForMotorFlights"
+                               translation-key="IS_FOR_MOTORFLIGHTS"></fls-labelled-checkbox>
+        <fls-labelled-checkbox entity="flightType" attribute="IsForTowFlights"
+                               translation-key="IS_FOR_TOWFLIGHTS"></fls-labelled-checkbox>
+        <fls-labelled-checkbox entity="flightType" attribute="IsCouponNumberRequired"
+                               translation-key="IS_COUPONNUMBER_REQUIRED"></fls-labelled-checkbox>
+    </div>
+</div>

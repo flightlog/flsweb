@@ -1,0 +1,155 @@
+<div class="col-md-6 col-sm-12 col-xs-12" ng-if="needsTowplane(flightDetails.StartType)">
+    <div class="form-group col-md-2 col-sm-2 col-xs-2" ng-bind="towplaneRegistration"
+         style="text-align:center;font-size: 40px;font-weight: 800;padding-top:30px;color:#5d5d5d;"></div>
+    <div class="form-group col-md-8 col-sm-8 col-xs-8" style="text-align:center;">
+        <img ng-src="{{towPlaneImg}}" style="max-width:100%;height:100px;margin-top:20px;">
+    </div>
+    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        <label><span translate="TOWING_PLANE">Aircraft</span>:</label>
+
+        <selectize name="TowAircraftId" options="towerAircrafts"
+                   config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'AircraftId',
+                                labelField: 'Immatriculation',
+                                searchField: ['Immatriculation', 'CompetitionSign', 'AircraftModel'],
+                                render: renderAircraft,
+                                onChange: towingAircraftSelectionChanged
+                            }"
+                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   ng-model="flightDetails.TowFlightDetailsData.AircraftId">
+        </selectize>
+    </div>
+    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        <label><span translate="TOWING_PILOT"></span>:</label>
+
+        <div class="input-group col-md-12 col-sm-12 col-xs-12">
+            <selectize name="towingPilot" options="towingPilots"
+                       config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'PersonId',
+                                searchField: ['Firstname', 'Lastname', 'City'],
+                                render: renderPerson
+                            }"
+                       ng-model="flightDetails.TowFlightDetailsData.PilotPersonId"
+                       ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+                       ng-required="flightDetails.TowFlightDetailsData.AircraftId">
+            </selectize>
+
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="newTowingPilot()" translate="NEW"
+                        ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+                        ng-show="flightDetails.CanUpdateRecord"></button>
+            </span>
+        </div>
+    </div>
+    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        <label><span translate="FLIGHT_TYPE"></span>:</label>
+
+        <selectize name="towingFlightType" options="towingFlightTypes"
+                   config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'FlightTypeId',
+                                searchField: ['FlightCode', 'FlightTypeName'],
+                                render: renderFlighttype,
+                                onChange: flightTypeChanged
+                            }"
+                   ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+                   ng-model="flightDetails.TowFlightDetailsData.FlightTypeId">
+        </selectize>
+    </div>
+    <div class="form-group col-md-4 col-sm-6 col-xs-6">
+        <label for="TowFlightDetailsData.StartDateTime"><span translate="TAKEOFF"></span>:</label>
+
+        <input class="form-control" id="TowFlightDetailsData.StartDateTime"
+               ng-model="times.gliderStart" disabled="disabled">
+    </div>
+    <div class="form-group col-md-4 col-sm-6 col-xs-6">
+        <label for="TowFlightDetailsData.LdgDateTime"><span translate="LANDING"></span>:</label>
+
+        <div class="input-group">
+            <input name="towingLanding" class="form-control" id="TowFlightDetailsData.LdgDateTime"
+                   ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+                   ng-model="times.towingLanding"
+                   ng-blur="formatTowLanding()">
+              <span class="input-group-btn">
+                <button ng-show="flightDetails.CanUpdateRecord"
+                        class="btn btn-default" type="button" ng-click="setTowLanding()"
+                        ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+                        ng-blur="flightDetails.TowFlightDetailsData.NrOfLdgs = flightDetails.TowFlightDetailsData.NrOfLdgs || 1;"><span
+                        class="fa fa-clock-o"></span></button>
+              </span>
+        </div>
+    </div>
+    <div class="form-group col-md-4 col-sm-12 col-xs-12">
+        <label for="towingDuration"><span translate="DURATION"></span>:</label>
+        <input class="form-control" ng-class="{'highlight':warnTowFlightLongerThanGliderFlight}" id="towingDuration"
+               ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+               ng-model="times.towingDuration"
+               ng-blur="formatTowDuration()">
+    </div>
+    <div class="form-group col-md-5 col-sm-6 col-xs-6">
+        <label><span translate="START_LOCATION"></span>:</label>
+
+        <selectize name="TowStartLocationId" options="locations"
+                   config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'LocationId',
+                                labelField: 'LocationName',
+                                searchField: ['LocationName'],
+                                onChange: startLocationChanged
+                            }"
+                   ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+                   ng-model="flightDetails.GliderFlightDetailsData.StartLocationId">
+        </selectize>
+    </div>
+    <div class="form-group col-md-4 col-sm-6 col-xs-6">
+        <label><span translate="LANDING_LOCATION"></span>:</label>
+
+        <selectize name="TowLdgLocationId" options="locations"
+                   config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'LocationId',
+                                labelField: 'LocationName',
+                                searchField: ['LocationName'],
+                                onChange: towLandingLocationChanged
+                            }"
+                   ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+                   ng-model="flightDetails.TowFlightDetailsData.LdgLocationId">
+        </selectize>
+    </div>
+    <div class="form-group col-md-3 col-sm-12 col-xs-12">
+        <label for="TowFlightDetailsData.NrOfLdgs"><span translate="NR_LANDINGS"></span>:</label>
+        <input name="TowNrOfLdgs" type="number" class="form-control" id="TowFlightDetailsData.NrOfLdgs"
+               ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+               ng-model="flightDetails.TowFlightDetailsData.NrOfLdgs">
+    </div>
+    <div class="form-group col-md-8 col-sm-12 col-xs-12">
+        <label for="TowFlightDetailsData.FlightComment"><span translate="COMMENT"></span>:</label>
+        <input name="TowFlightComment" type="text" class="form-control" id="TowFlightDetailsData.FlightComment"
+               ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+               ng-model="flightDetails.TowFlightDetailsData.FlightComment">
+    </div>
+    <div class="form-group col-md-2 col-sm-6 col-xs-6" ng-show="isOutboundRouteRequired">
+        <label for="TowFlightDetailsData.OutboundRoute"><span translate="OUTBOUND_ROUTE"></span>:</label>
+        <input type="text" class="form-control" id="TowFlightDetailsData.OutboundRoute"
+               ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+               ng-model="flightDetails.TowFlightDetailsData.OutboundRoute">
+    </div>
+    <div class="form-group col-md-2 col-sm-6 col-xs-6" ng-show="isInboundRouteForTowFlightRequired">
+        <label for="TowFlightDetailsData.InboundRoute"><span translate="INBOUND_ROUTE"></span>:</label>
+        <input type="text" class="form-control" id="TowFlightDetailsData.InboundRoute"
+               ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+               ng-model="flightDetails.TowFlightDetailsData.InboundRoute">
+    </div>
+    <div ng-show="warnTowFlightLongerThanGliderFlight" class="form-group col-md-12 col-sm-12 col-xs-12">
+        <div class="alert alert-danger" style="margin-top: 10px; font-weight: 700;">
+            <span class="fa fa-warning"></span> <span translate="WARN_TOWFLIGHT_LONGER_THAN_GLIDERFLIGHT"></span>
+        </div>
+    </div>
+</div>

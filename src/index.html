@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Flight Logging System</title>
+    <style>
+        .wrapper {
+            padding-left: 1em;
+            padding-right: 1em;
+            margin: auto;
+            display: block;
+            width: 195px;
+        }
+
+        .cssload-loader {
+            width: 49px;
+            height: 49px;
+            border-radius: 50%;
+            margin: 3em;
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+            background: rgb(36, 57, 90);
+        }
+        .cssload-loader,
+        .cssload-loader:before,
+        .cssload-loader:after {
+            animation: 1.15s infinite ease-in-out;
+            -o-animation: 1.15s infinite ease-in-out;
+            -ms-animation: 1.15s infinite ease-in-out;
+            -webkit-animation: 1.15s infinite ease-in-out;
+            -moz-animation: 1.15s infinite ease-in-out;
+        }
+        .cssload-loader:before,
+        .cssload-loader:after {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .cssload-loader { animation-name: cssload-loader;
+            -o-animation-name: cssload-loader;
+            -ms-animation-name: cssload-loader;
+            -webkit-animation-name: cssload-loader;
+            -moz-animation-name: cssload-loader; }
+
+
+        @keyframes cssload-loader {
+            from { transform: scale(0); opacity: 1; }
+            to	 { transform: scale(1); opacity: 0; }
+        }
+
+        @-o-keyframes cssload-loader {
+            from { -o-transform: scale(0); opacity: 1; }
+            to	 { -o-transform: scale(1); opacity: 0; }
+        }
+
+        @-ms-keyframes cssload-loader {
+            from { -ms-transform: scale(0); opacity: 1; }
+            to	 { -ms-transform: scale(1); opacity: 0; }
+        }
+
+        @-webkit-keyframes cssload-loader {
+            from { -webkit-transform: scale(0); opacity: 1; }
+            to	 { -webkit-transform: scale(1); opacity: 0; }
+        }
+
+        @-moz-keyframes cssload-loader {
+            from { -moz-transform: scale(0); opacity: 1; }
+            to	 { -moz-transform: scale(1); opacity: 0; }
+        }
+    </style>
+</head>
+
+<body ng-controller="AppController">
+
+<!-- Navigation -->
+<fls-navigation-bar></fls-navigation-bar>
+
+<div ng-view="" style="padding-top:50px;">
+    <div class="wrapper">
+        <div class="cssload-loader" style="width:100px;height:100px;"></div>
+    </div>
+    <div style="width:100%;font-family:Arial,SansSerif;text-align:center;color:gray;">
+        <p style="font-size:2em;">Loading FLS Application...</p>
+        <p>please wait until all application modules are downloaded and the application is bootstrapped.</p>
+    </div>
+</div>
+
+<!-- served from webpack-dev-server -->
+<script src="bundle.js"></script>
+</body>
+</html>

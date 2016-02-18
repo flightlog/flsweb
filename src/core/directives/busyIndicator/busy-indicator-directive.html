@@ -1,0 +1,8 @@
+<div class="row">
+    <div ng-show="busy" class="wrapper">
+        <div class="cssload-loader"></div>
+    </div>
+    <div ng-if="!busy && !error">
+        <ng-transclude></ng-transclude>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div>
+    <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
+    <table class="fls">
+        <tr>
+            <th translate="CODE"></th>
+            <th translate="NAME"></th>
+			<th class="flag-title" translate="IS_INSTRUCTOR_REQUIRED"></th>
+			<th class="flag-title" translate="IS_OBSERVERPILOT_OR_INSTRUCTOR_REQUIRED"></th>
+			<th class="flag-title" translate="IS_CHECKFLIGHT"></th>
+			<th class="flag-title" translate="IS_PASSENGERFLIGHT"></th>
+			<th class="flag-title" translate="IS_SOLOFLIGHT"></th>
+			<th class="flag-title" translate="IS_FLIGHTCOSTBALANCE_SELECTABLE"></th>
+			<th class="flag-title" translate="IS_FOR_GLIDERFLIGHTS"></th>
+			<th class="flag-title" translate="IS_FOR_MOTORFLIGHTS"></th>
+			<th class="flag-title" translate="IS_FOR_TOWFLIGHTS"></th>
+			<th class="flag-title" translate="IS_COUPONNUMBER_REQUIRED"></th>
+            <th class="hidden-print">&nbsp;</th>
+        </tr>
+        <tr ng-repeat-start="flightType in flightTypes | filter:searchString:comparator">
+            <td ng-bind="flightType.FlightCode"></td>
+            <td ng-bind="flightType.FlightTypeName"></td>
+			<td><fls-checkbox is-checked="flightType.InstructorRequired"></fls-checkbox></td>
+			<td><fls-checkbox is-checked="flightType.ObserverPilotOrInstructorRequired"></fls-checkbox></td>
+			<td><fls-checkbox is-checked="flightType.IsCheckFlight"></fls-checkbox></td>
+			<td><fls-checkbox is-checked="flightType.IsPassengerFlight"></fls-checkbox></td>
+			<td><fls-checkbox is-checked="flightType.IsSoloFlight"></fls-checkbox></td>
+			<td><fls-checkbox is-checked="flightType.IsFlightCostBalanceSelectable"></fls-checkbox></td></td>
+			<td><fls-checkbox is-checked="flightType.IsForGliderFlights"></fls-checkbox></td>
+			<td><fls-checkbox is-checked="flightType.IsForMotorFlights"></fls-checkbox></td>
+			<td><fls-checkbox is-checked="flightType.IsForTowFlights"></fls-checkbox></td>
+			<td><fls-checkbox is-checked="flightType.IsCouponNumberRequired"></fls-checkbox></td>
+            <td class="hidden-print controls-column">
+                <a ng-click="editFlightType(flightType)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-pencil"
+                                                                                   style="color:#111123;font-weight: 800;"></span></a>
+                <a ng-click="deleteFlightType(flightType)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-trash-o"
+                                                                                     style="color:#a70000;font-weight: 800;"></span></a>
+				<fls-history entity-name="FlightType" entity-id="flightType.FlightTypeId" class="col-xs-4"></fls-history>
+            </td>
+        </tr>
+        <tr ng-repeat-end></tr>
+    </table>
+</div>

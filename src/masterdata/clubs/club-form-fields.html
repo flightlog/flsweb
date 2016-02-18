@@ -1,0 +1,144 @@
+<div>
+    <accordion close-others="false">
+        <accordion-group is-open="status1" ng-init="status1 = true">
+            <accordion-heading>
+                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status1, 'glyphicon-chevron-right': !status1}" style="margin-right: 0.8em;"></i> <span
+                    translate="CLUB_SETTINGS"></span>
+            </accordion-heading>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group col-md-4">
+                        <label for="ClubName"><span translate="CLUB_NAME"></span></label>
+                        <input class="form-control" id="ClubName" ng-model="club.ClubName">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="ClubKey"><span translate="CLUB_KEY"></span></label>
+                        <input class="form-control" id="ClubKey" ng-model="club.ClubKey">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="HomebaseId"><span translate="CLUB_HOME_BASE"></span></label>
+                        <select id="HomebaseId" class="form-control" ng-model="club.HomebaseId" ng-options="location.LocationId as location.LocationName for location in locations">
+                            <option value="">--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group col-md-12">
+                        <label for="ContactName"><span translate="CONTACT"></span></label>
+                        <input class="form-control" id="ContactName" ng-model="club.ContactName">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group col-md-12">
+                        <label for="Address"><span translate="ADDRESS"></span></label>
+                        <input class="form-control" id="Address" ng-model="club.Address">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group col-md-4">
+                        <label for="ZipCode"><span translate="ZIP_CODE"></span></label>
+                        <input class="form-control" id="ZipCode" ng-model="club.ZipCode">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="City"><span translate="CITY"></span></label>
+                        <input class="form-control" id="City" ng-model="club.City">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group col-md-12">
+                        <label for="Country"><span translate="COUNTRY"></span></label>
+                        <select id="Country" class="form-control" ng-model="club.CountryId" ng-options="country.CountryId as country.CountryName for country in countries">
+                            <option value="">--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group col-md-4">
+                        <label for="EmailAddress"><span translate="EMAIL"></span></label>
+                        <input class="form-control" id="EmailAddress" ng-model="club.EmailAddress">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="PhoneNumber"><span translate="PHONE_NUMBER"></span></label>
+                        <input class="form-control" id="PhoneNumber" ng-model="club.PhoneNumber">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="FaxNumber"><span translate="FAX_NUMBER"></span></label>
+                        <input class="form-control" id="FaxNumber" ng-model="club.FaxNumber">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group col-md-12">
+                        <label for="WebPage"><span translate="WEB_PAGE"></span></label>
+                        <input class="form-control" id="WebPage" ng-model="club.WebPage">
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+        <accordion-group is-open="status2">
+            <accordion-heading>
+                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status2, 'glyphicon-chevron-right': !status2}" style="margin-right: 0.8em;"></i> <span
+                    translate="NOTIFICATION_SETTINGS"></span>
+            </accordion-heading>
+            <div class="col-md-12">
+                <div class="form-group col-md-12">
+                    <label for="SendAircraftStatisticReportTo"><span translate="SEND_AIRCRAFT_STATISTIC_REPORT_TO"></span></label>
+                    <input class="form-control" id="SendAircraftStatisticReportTo" ng-model="club.SendAircraftStatisticReportTo">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="SendPlanningDayInfoMailTo"><span translate="SEND_PLANNING_DAY_INFO_MAIL_TO"></span></label>
+                    <input class="form-control" id="SendPlanningDayInfoMailTo" ng-model="club.SendPlanningDayInfoMailTo">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="SendInvoiceReportsTo"><span translate="SEND_INVOICE_REPORTS_TO"></span></label>
+                    <input class="form-control" id="SendInvoiceReportsTo" ng-model="club.SendInvoiceReportsTo">
+                </div>
+            </div>
+        </accordion-group>
+        <accordion-group is-open="status3">
+            <accordion-heading>
+                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status3, 'glyphicon-chevron-right': !status3}" style="margin-right: 0.8em;"></i> <span
+                    translate="DEFAULT_SETTINGS"></span>
+            </accordion-heading>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label for="Starttype"><span translate="START_TYPE"></span>:</label>
+                        <select id="Starttype" class="form-control" ng-model="club.DefaultStartType"
+                                ng-options="starttype.StartTypeId as starttype.StartTypeId + ' - ' + starttype.StartTypeName for starttype in starttypes">
+                            <option value="">--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label for="gliderFlightType"><span translate="DEFAULT_GLIDER_FLIGHT_TYPE"></span>:</label>
+                        <select id="gliderFlightType" class="form-control" ng-model="club.DefaultGliderFlightTypeId"
+                                ng-options="flightType.FlightTypeId as flightType.FlightCode + ' - ' + flightType.FlightTypeName for flightType in gliderFlightTypes">
+                            <option value="">--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label for="towingFlightType"><span translate="DEFAULT_TOWING_FLIGHT_TYPE"></span>:</label>
+                        <select id="towingFlightType" class="form-control" ng-model="club.DefaultTowFlightTypeId"
+                                ng-options="flightType.FlightTypeId as flightType.FlightTypeName for flightType in towingFlightTypes">
+                            <option value="">--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label for="motorFlightType"><span translate="DEFAULT_MOTOR_FLIGHT_TYPE"></span>:</label>
+                        <select id="motorFlightType" class="form-control" ng-model="club.DefaultMotorFlightTypeId"
+                                ng-options="flightType.FlightTypeId as flightType.FlightTypeName for flightType in motorFlightTypes">
+                            <option value="">--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+
+</div>

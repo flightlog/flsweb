@@ -1,0 +1,39 @@
+<div class="container flscontainer">
+    <div class="row">
+        <h1 translate="CHOOSE_PASSWORD"></h1>
+    </div>
+    <div class="row">
+        <fls-message-bar ng-show="!busy"></fls-message-bar>
+        <fls-busy-indicator busy="ctrl.busy" error="ctrl.error">
+            <div ng-show="ctrl.success" class="col-xs-12">
+                <p class="col-xs-12 col-sm-12 col-md-6 col-lg-6" translate="CHOOSE_PASSWORD_FORM_EXPLANATION"></p>
+
+                <form role="form" ng-submit="ctrl.choosePassword(ctrl.newPassword)"
+                      class="fls col-xs-12 col-sm-12 col-md-6 col-lg-6" name="ctrl.choosePasswordForm">
+                    <div class="form-group col-xs-12">
+                        <label for="newPassword"><span translate="PASSWORD"></span>:</label>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword"
+                               ng-model="ctrl.newPassword"
+                               ng-change="ctrl.checkMatch()"
+                               required>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label for="newPasswordConfirm"><span translate="PASSWORD_CONFIRM"></span>:</label>
+                        <input type="password" class="form-control" id="newPasswordConfirm" name="newPasswordConfirm"
+                               ng-model="ctrl.newPasswordConfirm"
+                               ng-change="ctrl.checkMatch()"
+                               required>
+                    </div>
+                    <div class="form-group col-xs-12" ng-messages="ctrl.choosePasswordForm.$error" style="color:red;" ng-if="ctrl.choosePasswordForm.$submitted">
+                        <div ng-message="match" translate="PASSWORD_MISMATCH"></div>
+                    </div>
+                    <div class="col-xs-12">
+                        <button type="submit" class="btn btn-default pull-right"
+                                translate="SET_PASSWORD" ng-disabled="ctrl.choosePasswordForm.$submitted && !ctrl.choosePasswordForm.$valid">
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </fls-busy-indicator>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div>
+<span ng-class="{
+                             'fa fa-cloud': status.glider === 'AIRBORN',
+                             'lnr lnr-checkmark-circle': status.glider === 'LANDED',
+                             'lnr lnr-hand': status.glider === 'WAITING'
+                           }" style="color:#9f8ab3;width:18px;" title="{{'GLIDER_PLANE' | translate}} {{status.glider | translate}}">
+</span>
+<span ng-if="status.tow" ng-class="{
+                             'fa fa-cloud': status.tow === 'AIRBORN',
+                             'lnr lnr-checkmark-circle': status.tow === 'LANDED',
+                             'lnr lnr-hand': status.tow === 'WAITING'
+                           }" style="color:#c3a57f;" title="{{'TOWING_PLANE' | translate}} {{status.tow | translate}}">
+</span>
+</div>

@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-12 error-bar">
+        <div ng-repeat="message in messages">
+            <div class="alert" ng-class="{'alert-danger': message.isError, 'alert-success': !message.isError}">
+                <span class="fa fa-times pull-right" ng-click="dismiss(message)" style="cursor:pointer;"></span>
+                <span ng-bind="message | json" ng-show="debug"></span>
+
+                <h3 ng-show="message.operation">Failed to <span ng-bind="message.operation"></span> <span ng-bind="message.entity"></span></h3>
+                <h3 ng-show="message.msg" ng-bind="message.msg"></h3>
+                <p ng-bind="message.data.Message"></p>
+
+                <div ng-repeat="invalidField in message.invalidFields" style="font-size: 90%;">
+                    <p>
+                        <span ng-bind="invalidField.name" style="font-weight:700;"></span>:
+                        <span ng-bind="invalidField.value" style="font-weight:300;"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

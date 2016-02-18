@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group col-md-6">
+            <label for="UserName"><span translate="USER_NAME"></span></label>
+            <input class="form-control" id="UserName" ng-model="user.UserName">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="FriendlyName"><span translate="FRIENDLY_USER_NAME"></span></label>
+            <input class="form-control" id="FriendlyName" ng-model="user.FriendlyName">
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group col-md-12">
+            <label for="NotificationEmail"><span translate="NOTIFICATION_EMAIL"></span></label>
+            <input class="form-control" id="NotificationEmail" ng-model="user.NotificationEmail">
+        </div>
+    </div>
+    <div class="col-md-12">
+        <label class="checkbox col-md-11 col-md-offset-1" for="{{role.RoleApplicationKeyString}}"
+               ng-repeat="role in roles">
+            <input type="checkbox" id="{{role.RoleApplicationKeyString}}"
+                   ng-click="toggleRoleSelection(user, role.RoleId)"
+                   ng-checked="user.UserRoleIds.indexOf(role.RoleId) > -1">
+            <span ng-bind="role.RoleName"></span>
+        </label>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group col-md-8">
+            <label for="PersonId"><span translate="USER_RELATED_PERSON"></span></label>
+
+            <div class="input-group col-md-12 col-sm-12 col-xs-12">
+                <selectize name="PersonId" options="persons" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'PersonId',
+                                searchField: ['Firstname', 'Lastname', 'City'],
+                                render: renderPerson
+                            }" ng-model="user.PersonId"></selectize>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="newPerson()" translate="NEW"></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="UserAccountState"><span translate="USER_ACCOUNT_STATE"></span></label>
+            <select id="UserAccountState" class="form-control"
+                    ng-bind="user.AccountState"
+                    ng-options="userAccountState.UserAccountStateId as userAccountState.AccountStateName for userAccountState in userAccountStates" disabled>
+                <option value="">--</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12" ng-show="isSystemAdmin">
+        <div class="form-group col-md-12">
+            <label for="ClubId"><span translate="CLUB"></span></label>
+            <select id="ClubId" class="form-control"
+                    ng-model="user.ClubId"
+                    ng-options="club.ClubId as club.ClubName for club in clubs">
+                <option value="">--</option>
+            </select>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <h3 class="modal-title"><span translate="HISTORY_OF"></span> <span translate="{{ctrl.entityName.toUpperCase()}}"></span></h3>
+</div>
+<div class="modal-body">
+    <style>
+        table.tableSection {
+            display: table;
+            width: 100%;
+        }
+
+        table.tableSection thead, table.tableSection tbody {
+            float: left;
+            width: 100%;
+        }
+
+        table.tableSection tbody {
+            overflow: auto;
+            height: 400px;
+        }
+
+        table.tableSection tr {
+            width: 100%;
+            display: table;
+            text-align: left;
+        }
+
+        table.tableSection th, table.tableSection td {
+            width: 25%;
+        }
+    </style>
+    <fls-busy-indicator busy="ctrl.busy">
+        <table class="tableSection">
+            <tr>
+                <th translate="DATE"></th>
+                <th translate="TIME"></th>
+                <th translate="USER_NAME"></th>
+                <th translate="MODIFICATION"></th>
+            </tr>
+            <tr ng-repeat="historyEntry in historyEntries">
+                <td ng-bind="historyEntry.EventDateTime | date:'dd.MM.yyyy'"></td>
+                <td ng-bind="historyEntry.EventDateTime | date:'HH:mm:ss'"></td>
+                <td ng-bind="historyEntry.UserName"></td>
+                <td ng-bind="historyEntry.EventTypeName"></td>
+            </tr>
+        </table>
+    </fls-busy-indicator>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="ctrl.close()" translate="CLOSE"></button>
+</div>

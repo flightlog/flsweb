@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group col-md-4">
+            <label for="LocationName"><span translate="LOCATION_NAME"></span></label>
+            <input class="form-control" id="LocationName" ng-model="location.LocationName">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="IcaoCode"><span translate="ICAO_CODE"></span></label>
+            <input class="form-control" id="IcaoCode" ng-model="location.IcaoCode">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="locationType"><span translate="LOCATION_TYPE"></span></label>
+            <select id="locationType" class="form-control"
+                    ng-model="location.LocationTypeId"
+                    ng-options="locationType.LocationTypeId as locationType.LocationTypeName for locationType in locationTypes">
+                <option value="">--</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group col-md-12">
+            <label for="Country"><span translate="COUNTRY"></span></label>
+            <select id="Country" class="form-control"
+                    ng-model="location.CountryId"
+                    ng-options="country.CountryId as country.CountryName for country in countries">
+                <option value="">--</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group col-md-4">
+            <label for="RunwayLength"><span translate="RUNWAY_LENGTH"></span></label>
+            <input class="form-control" id="RunwayLength" ng-model="location.RunwayLength">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="lengthUnitType"><span translate="LENGTH_UNIT"></span></label>
+            <select id="lengthUnitType" class="form-control"
+                    ng-model="location.RunwayLengthUnitType"
+                    ng-options="lengthUnitType.LengthUnitTypeId as (lengthUnitType.LengthUnitTypeName + ' (' + lengthUnitType.LengthUnitTypeShortName + ')') for lengthUnitType in lengthUnitTypes">
+                <option value="">--</option>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="RunwayDirection"><span translate="RUNWAY_DIRECTION"></span></label>
+            <input class="form-control" id="RunwayDirection" ng-model="location.RunwayDirection">
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group col-md-4">
+            <label for="RunwayDirection"><span translate="RUNWAY_ELEVATION"></span></label>
+            <input class="form-control" id="RunwayDirection" ng-model="location.Elevation">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="ElevationUnitType"><span translate="ELEVATION_UNIT"></span></label>
+            <select id="ElevationUnitType" class="form-control"
+                    ng-model="location.ElevationUnitType"
+                    ng-options="elevationUnitType.ElevationUnitTypeId as (elevationUnitType.ElevationUnitTypeName + ' (' + elevationUnitType.ElevationUnitTypeShortName + ')') for elevationUnitType in elevationUnitTypes">
+                <option value="">--</option>
+            </select>
+        </div>
+        <label class="checkbox col-md-11 col-md-offset-1" for="IsInboundRouteRequired">
+            <input type="checkbox" id="IsInboundRouteRequired" ng-model="location.IsInboundRouteRequired">
+            <span translate="IS_INBOUND_ROUTE_REQUIRED"></span>
+        </label>
+        <label class="checkbox col-md-11 col-md-offset-1" for="IsOutboundRouteRequired">
+            <input type="checkbox" id="IsOutboundRouteRequired" ng-model="location.IsOutboundRouteRequired">
+            <span translate="IS_OUTBOUND_ROUTE_REQUIRED"></span>
+        </label>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group col-md-6">
+            <label for="Latitude"><span translate="LATITUDE"></span></label>
+            <input class="form-control" id="Latitude" ng-model="location.Latitude" ng-blur="positionChanged()">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="Longitude"><span translate="LONGITUDE"></span></label>
+            <input class="form-control" id="Longitude" ng-model="location.Longitude" ng-blur="positionChanged()">
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group col-md-12">
+            <label for="Description"><span translate="DESCRIPTION"></span></label>
+            <input class="form-control" id="Description" ng-model="location.Description">
+        </div>
+    </div>
+    <div class="col-md-12" ng-if="location.Latitude && location.Longitude" style="margin-top:10px;">
+        <iframe class="col-md-12" ng-src="{{openAipUrl}}" width="100%" height="500px;" frameBorder="0">
+        </iframe>
+    </div>
+</div>

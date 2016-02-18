@@ -1,0 +1,40 @@
+<div class="container flscontainer">
+    <div class="row">
+        <h1 translate="MY_PROFILE"></h1>
+        <fls-message-bar ng-show="!busy"></fls-message-bar>
+    </div>
+    <fls-busy-indicator busy="busy" error="error">
+        <form role="form" ng-submit="updatePassword(myUser, OldPassword, NewPassword)" class="col-xs-12 col-sm-12 col-md-6 col-lg-6" name="profileForm">
+            <div class="form-group col-md-12">
+                <label for="username"><span translate="USERNAME"></span>:</label>
+                <input type="text" class="form-control" id="username" ng-model="myUser.UserName" disabled>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="OldPassword"><span translate="OLD_PASSWORD"></span>:</label>
+                <input type="password" class="form-control" id="OldPassword" ng-model="OldPassword">
+            </div>
+            <div class="form-group col-md-12">
+                <label for="NewPassword"><span translate="NEW_PASSWORD"></span>:</label>
+                <input type="password" class="form-control" id="NewPassword" ng-model="NewPassword">
+            </div>
+            <div class="form-group col-md-12">
+                <label for="NewPassword2"><span translate="NEW_PASSWORD_CONFIRM"></span>:</label>
+                <input type="password" class="form-control" id="NewPassword2" ng-model="NewPasswordConfirmation">
+            </div>
+            <div class=" col-md-12">
+                <button type="submit" class="btn btn-default pull-right" style="margin-right:10px;" translate="UPDATE_PASSWORD" ng-disabled="profileForm.$pristine">Save
+                </button>
+            </div>
+        </form>
+
+        <form role="form" ng-submit="save(person)" class="col-xs-12 col-sm-12 col-md-6 col-lg-6" name="personForm" ng-if="myUser.PersonId">
+            <div>
+                <fls-person-form></fls-person-form>
+            </div>
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-default pull-right" ng-disabled="personForm.$invalid || personForm.$pristine" style="margin-right:10px;"
+                        translate="UPDATE_PERSON_DATA"></button>
+            </div>
+        </form>
+    </fls-busy-indicator>
+</div>

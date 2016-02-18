@@ -1,0 +1,21 @@
+<div class="row hidden-print">
+    <div class="col-md-12" style="text-align:right;">
+        <a class="search-bar-btn" ng-bind="user.FriendlyName"
+           ng-click="searchString = user.FriendlyName"></a>
+        <a class="search-bar-btn" ng-show="home" ng-bind="home.LocationName"
+           ng-click="searchString = home.LocationName"></a>
+        <a class="search-bar-btn" ng-bind="todayFormatted"
+           ng-click="searchString = todayFormatted"></a>
+        <a class="search-bar-btn" ng-bind="monthFormatted"
+           ng-click="searchString = monthFormatted"></a>
+        <a class="search-bar-btn" ng-bind="yearFormatted"
+           ng-click="searchString = yearFormatted" style="margin-right:70px;"></a>
+
+        <div class="input-group search-bar">
+            <input class="form-control" ng-model="searchString" placeholder="Suche...">
+            <span class="input-group-btn">
+               <button class="btn btn-default" type="button" ng-click="searchString = undefined">Reset</button>
+            </span>
+        </div>
+    </div>
+</div>

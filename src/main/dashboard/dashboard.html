@@ -1,0 +1,83 @@
+<div class="container flscontainer">
+    <div class="row">
+        <h1 translate="MY_DASHBOARD"></h1>
+        <fls-message-bar></fls-message-bar>
+    </div>
+    <fls-busy-indicator busy="ctrl.busy" error="ctrl.error">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+                <h4 translate="MY_FLIGHTS" style="margin-bottom: 40px;"></h4>
+                <highchart config="ctrl.myDashboardConfig.flightsChartConfig" style="height: 300px;"></highchart>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-md-4 col-sm-4 col-xs-4" style="text-align:center;">
+                <h4 translate="MY_SAFETY_STATUS" style="margin-bottom: 40px;"></h4>
+                <div>
+                    <highchart config="ctrl.myDashboardConfig.safetyGauge" style="height:250px;"></highchart>
+                </div>
+                <div style="font-size: 0.8em;padding-left:10px;">
+                    <section style="text-align: left;">
+                        <div style="color:gray;text-align:right;" class="pull-right">
+                            Starts: <span ng-bind="ctrl.myDashboardConfig.safety.starts"></span><br>
+                            Flugstunden: <span ng-bind="ctrl.myDashboardConfig.safety.hours"></span>h
+                        </div>
+                        <h3 translate="SAFETY_{{ctrl.myDashboardConfig.safety.labelKey}}_TITLE"></h3>
+                        <h4 translate="SAFETY_{{ctrl.myDashboardConfig.safety.labelKey}}_SUBTITLE"></h4>
+                        <p translate="SAFETY_{{ctrl.myDashboardConfig.safety.labelKey}}_DESCRIPTION"></p>
+                    </section>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-4" style="text-align:center;">
+                <h4 translate="MY_MEDICAL" style="margin-bottom: 40px;"></h4>
+                <div style="margin: 0.8em;" ng-show="ctrl.myDashboardConfig.person.MedicalClass1ExpireDate">
+                    Class 1 <span translate="EXPIRES_AT" style="color:gray;"></span>
+                    <div style="font-size: 1.5em;"><span ng-bind="ctrl.myDashboardConfig.person.MedicalClass1ExpireDate | date: 'dd.MM.yyyy'"></span>
+                    </div>
+                </div>
+                <div style="margin: 0.8em;" ng-show="ctrl.myDashboardConfig.person.MedicalClass2ExpireDate">
+                    Class 2 <span translate="EXPIRES_AT" style="color:gray;"></span>
+                    <div style="font-size: 1.5em;"><span ng-bind="ctrl.myDashboardConfig.person.MedicalClass2ExpireDate | date: 'dd.MM.yyyy'"></span>
+                    </div>
+                </div>
+                <div style="margin: 0.8em;" ng-show="ctrl.myDashboardConfig.person.MedicalLaplExpireDate">
+                    LAPL <span translate="EXPIRES_AT" style="color:gray;"></span>
+                    <div style="font-size: 1.5em;"><span ng-bind="ctrl.myDashboardConfig.person.MedicalLaplExpireDate | date: 'dd.MM.yyyy'"></span></div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4" style="text-align:center;">
+                <h4 translate="MY_START_PERMISSIONS" style="margin-bottom: 40px;"></h4>
+                <div ng-if="ctrl.myDashboardConfig.person.HasGliderInstructorLicence
+                     || ctrl.myDashboardConfig.person.HasGliderPilotLicence
+                     || ctrl.myDashboardConfig.person.HasGliderTraineeLicence
+                     || ctrl.myDashboardConfig.person.HasGliderPassengerLicenc
+                     || ctrl.myDashboardConfig.person.HasTMGLicence" style="margin: 20px;">
+                    <div ng-show="ctrl.myDashboardConfig.person.HasGliderInstructorLicence">
+                        <span translate="HAS_GLIDER_INSTRUCTOR_LICENCE"></span>
+                        <span style="font-weight:300;" ng-show="ctrl.myDashboardConfig.person.GliderInstructorLicenceExpireDate">
+                            (<span translate="EXPIRES_AT"></span> <span ng-bind="ctrl.myDashboardConfig.person.GliderInstructorLicenceExpireDate | date: 'dd.MM.yyyy'"></span>)
+                        </span>
+                    </div>
+                    <div ng-show="ctrl.myDashboardConfig.person.HasGliderPilotLicence" translate="HAS_GLIDER_PILOT_LICENCE"></div>
+                    <div ng-show="ctrl.myDashboardConfig.person.HasGliderTraineeLicence" translate="HAS_GLIDER_TRAINEE_LICENCE"></div>
+                    <div ng-show="ctrl.myDashboardConfig.person.HasGliderPassengerLicence" translate="HAS_GLIDER_PASSENGER_LICENCE"></div>
+                    <div ng-show="ctrl.myDashboardConfig.person.HasTMGLicence" translate="HAS_TMG_LICENCE"></div>
+                    <img ng-src="{{ctrl.gliderImg}}" style="max-width:100%;max-height:60px;margin-top:10px;margin-bottom: 10px;">
+                </div>
+
+                <div ng-if="ctrl.myDashboardConfig.person.HasMotorPilotLicence
+                     || ctrl.myDashboardConfig.person.HasTowPilotLicence" style="margin: 20px;">
+                    <div ng-show="ctrl.myDashboardConfig.person.HasMotorPilotLicence" translate="HAS_MOTOR_PILOT_LICENCE"></div>
+                    <div ng-show="ctrl.myDashboardConfig.person.HasTowPilotLicence" translate="HAS_TOW_PILOT_LICENCE"></div>
+                    <img ng-src="{{ctrl.towPlaneImg}}" style="max-width:100%;max-height:80px;margin-top:10px;margin-bottom: 10px;">
+                </div>
+
+                <div ng-if="ctrl.myDashboardConfig.person.HasWinchOperatorLicence" style="margin: 20px;">
+                    <div translate="HAS_WINCH_OPERATOR_LICENCE"></div>
+                </div>
+            </div>
+        </div>
+        <pre ng-if="ctrl.debug" ng-bind="ctrl.dashboardData | json"></pre>
+    </fls-busy-indicator>
+</div>

@@ -1,0 +1,97 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" ng-show="isLoggedin()"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/main">Flight Logging System</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-show="features.reservations && isLoggedin()">
+                    <a href="#/reservations" ng-class="{'active':isPath('/reservations')}" translate="RESERVATIONS"></a>
+                </li>
+                <li ng-show="features.planning && isLoggedin()">
+                    <a href="#/planning" ng-class="{'active':isPath('/planning')}" translate="PLANNING"></a>
+                </li>
+                <li ng-show="features.flights && isLoggedin()">
+                    <a href="#/airmovements" ng-class="{'active':isPath('/flights')}" translate="MOTOR_MOVEMENTS"></a>
+                </li>
+                <li ng-show="features.flights && isLoggedin()">
+                    <a href="#/flights" ng-class="{'active':isPath('/flights')}" translate="GLIDER_STARTLIST"></a>
+                </li>
+                <li ng-show="features.system && isLoggedin()">
+                    <a ng-click="" class="dropdown-toggle clickable" data-toggle="dropdown" role="button"
+                       ng-class="{'active':isPath('/system')}"><span translate="SYSTEM"></span>
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#/system/logs" translate="LOGS" class="clickable"></a></li>
+                    </ul>
+                </li>
+                <li ng-show="features.masterdata && isLoggedin()">
+                    <a ng-click="" class="dropdown-toggle clickable" data-toggle="dropdown" role="button"
+                       ng-class="{'active':isPath('/masterdata')}"><span translate="MASTERDATA"></span>
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#/masterdata/persons" translate="PERSONS" class="clickable"></a></li>
+                        <li><a href="#/masterdata/clubs" translate="CLUBS" class="clickable"></a></li>
+                        <li><a href="#/masterdata/aircrafts" translate="AIRCRAFTS" class="clickable"></a></li>
+                        <li><a href="#/masterdata/locations" translate="LOCATIONS" class="clickable"></a></li>
+                        <li><a href="#/masterdata/users" translate="USERS" class="clickable"></a></li>
+                        <li><a href="#/masterdata/flightTypes" translate="FLIGHT_TYPES" class="clickable"></a></li>
+                    </ul>
+                </li>
+                <li ng-show="isLoggedin()">
+                    <a ng-click="" class="dropdown-toggle clickable" data-toggle="dropdown" role="button"><span
+                            ng-bind="user.username"></span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#/profile" translate="MY_PROFILE" class="clickable"></a></li>
+                        <li><a ng-click="logout()" translate="LOGOUT" class="clickable"></a></li>
+                    </ul>
+                </li>
+                <li ng-show="!isLoggedin()">
+                    <a class="hidden-xs" ng-click="showLoginForm()" style="cursor:pointer;">Login</a>
+
+                    <div ng-show="isLoginFormVisible()" class="hidden-xs"
+                         style="background-color: rgba(255,255,255,0.7);color:black;position:absolute;right:50px;margin-top:20px;width:300px;border-radius:7px;border:2px solid #dcd9dc;padding:10px;">
+                        <form ng-submit="login()">
+                            <fls-busy-indicator busy="loginBusy" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="form-group">
+                                    <label for="username" translate="USERNAME"></label>
+                                    <input type="text" id="username" name="username" ng-model="user.username"
+                                           class="form-control">
+                                </div>
+                                <div class="form-group" ng-show="!loginBusy">
+                                    <label for="password" translate="PASSWORD"></label>
+                                    <input type="password" id="password" name="password" ng-model="user.password"
+                                           class="form-control">
+                                </div>
+                                <div>
+                                    <a href ng-click="lostPassword()" translate="LOST_PASSWORD"></a>
+                                </div>
+                                <div class="form-group" ng-show="!loginBusy">
+                                    <a class="btn btn-default pull-right" ng-click="hideLoginForm()">Cancel</a>
+                                    <button class="btn btn-default pull-right" type="submit" style="margin-right:10px;">
+                                        Login
+                                    </button>
+                                </div>
+                                <div class="col-md-12" ng-show="loginError" style="text-align:left;margin-top:20px;">
+                                    <pre ng-bind="loginError | json" ng-show="debug"></pre>
+                                    <div class="alert alert-danger" ng-bind="loginError.error_description || loginError.Message"></div>
+                                </div>
+                            </fls-busy-indicator>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>

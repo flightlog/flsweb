@@ -1,0 +1,213 @@
+h1 {
+    font-size: 20px;
+    margin: 0 0 10px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e1e1e1;
+    color: #888888;
+}
+
+div.flscontainer {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+table.fls {
+    border-collapse: separate;
+    border-radius: 4px;
+    border: 1px solid #d3d3d3;
+    border-spacing: 0;
+    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+}
+
+tr th{
+    padding: 5px 10px;
+}
+tr td {
+    padding: 5px 10px;
+    border-top: 1px solid #d3d3d3;
+}
+
+tr th {
+    background-color: #efefef;
+}
+
+tr td {
+    font-weight: 100;
+}
+
+tr.saturday,
+tr.saturday td {
+    background-color: #fafafa;
+}
+
+tr.sunday,
+tr.sunday td {
+    background-color: #f4f4f4;
+}
+
+div.flsdatepicker > td {
+}
+
+.btn-default:hover {
+    background: #f6f8f9; /* Old browsers */
+    background: -moz-linear-gradient(top, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f6f8f9), color-stop(50%, #e5ebee), color-stop(51%, #d7dee3), color-stop(100%, #f5f7f9)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f8f9', endColorstr='#f5f7f9', GradientType=0); /* IE6-9 */
+}
+
+td.formbg {
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0); /* IE6-9 */
+}
+
+.last-line {
+    border-bottom: 2px solid gray;
+}
+
+.readonly-form .form-control,
+.readonly-form label {
+    background-color: rgba(255, 255, 255, 0);
+    cursor: default;
+    height: 1.2em;
+    line-height: 1em;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+}
+
+.readonly-form .form-control {
+    border: 1px dotted #d5d5d5;
+    padding: 3px;
+    height: 1.9em;
+}
+
+.readonly-form label {
+    color: gray;
+    font-weight: 200;
+}
+
+.readonly-form .form-group {
+    margin: 0;
+    padding: 10px;
+}
+
+.readonly-form .form-group input,
+.readonly-form .form-group select {
+    margin-left: -4px;
+}
+
+.search-bar,
+.search-bar-btn {
+    margin-bottom: 10px;
+}
+
+.search-bar-btn {
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 80%;
+    color: gray;
+}
+
+.error-bar p {
+    margin: 0;
+    padding: 0;
+}
+
+.error-bar h3 {
+    font-size: 1.2em;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+div.masterdata-widget {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 300px;
+    margin-bottom: 10px;
+    border: 1px solid gray;
+}
+
+h3.masterdata-widget {
+    color: #878787;
+    margin: 10px;
+}
+
+.from-to-filter > input {
+    margin: 0;
+}
+
+@media (max-width: 750px) {
+    .from-to-filter a {
+        font-size: 1.2em;
+        line-height: 2em;
+        margin-right: 70px;
+    }
+}
+
+.dropdown-menu > li > a {
+    cursor: default;
+}
+
+.dropdown-menu > li > a > strong {
+    color: black;
+    background-color: yellow;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+td.controls-column {
+    width: 120px;
+}
+
+.form-group {
+    margin-bottom: 8px;
+}
+
+input.highlight {
+    border: 1px solid black;
+    box-shadow: 0 0 10px red;
+}
+
+th.flag-title {
+    font-size: 0.8em;
+}
+
+[date-picker] table {
+    border: 1px solid #9a9a9a;
+}
+
+[date-picker] .active.active:hover,
+[date-picker] .now.active:hover,
+[date-picker] .now:hover {
+    color: black;
+}
+
+table.logstable tr td pre {
+    overflow: auto;
+    max-width: 380px;
+    max-height: 200px;
+}
+
+table.logstable tr td {
+    vertical-align: top;
+}
+
+form .ng-invalid,
+input.ng-invalid {
+    background-color: #FA787E;
+}

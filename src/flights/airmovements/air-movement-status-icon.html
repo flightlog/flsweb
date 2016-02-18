@@ -1,0 +1,8 @@
+<div>
+<span ng-class="{
+                             'fa fa-cloud': status.motor === 'AIRBORN',
+                             'lnr lnr-checkmark-circle': status.motor === 'LANDED',
+                             'lnr lnr-hand': status.motor === 'WAITING',
+                           }" style="color:#a9b0c6;" title="{{'MOTOR_PLANE' | translate}} {{status.motor | translate}}">
+</span>
+</div>
