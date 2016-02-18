@@ -21,6 +21,7 @@
   "homepage": "http://www.glider-fls.ch",
   "devDependencies": {
     "angular-mocks": "1.4.7",
+    "babel-core": "6.5.2",
     "babel-loader": "6.2.3",
     "expose-loader": "0.7.1",
     "file-loader": "0.8.4",
