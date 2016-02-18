@@ -1,4 +1,5 @@
 # FLS Client
+[![Build Status](https://travis-ci.org/flightlog/flsweb.svg?branch=master)](https://travis-ci.org/flightlog/flsweb)
 
 ### How to run:
 2. run `npm start`
