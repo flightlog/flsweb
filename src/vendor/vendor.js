@@ -1,6 +1,7 @@
 require("expose?$!jquery");
 require("expose?jQuery!jquery");
 require("bootstrap");
+require("font-awesome-webpack");
 require("moment");
 require("angular-datepicker");
 require("selectize");
