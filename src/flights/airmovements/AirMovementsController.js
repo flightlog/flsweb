@@ -288,6 +288,7 @@ export default class AirMovementsController {
             return $q.all([loadFlightPromise, loadInitialMasterdataPromise])
                 .then(() => {
                     $scope.flightTypeChanged();
+                    $scope.recalcRouteRequirements();
                 })
                 .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'))
                 .finally(() => {
@@ -538,7 +539,7 @@ export default class AirMovementsController {
     }
 
     parseLongHoursString(formatted) {
-        if(!formatted) {
+        if (!formatted) {
             return {hours: 0, minutes: 0};
         }
         var colonPosition = formatted.indexOf(":");
@@ -552,7 +553,7 @@ export default class AirMovementsController {
         var beginMinutes = this.longDurationFormatToMinutes(begin);
 
         let minutes = endMinutes - beginMinutes;
-        if(minutes < 0) {
+        if (minutes < 0) {
             return '';
         }
 
@@ -560,7 +561,7 @@ export default class AirMovementsController {
     }
 
     formatMinutesToLongHoursFormat(resultMinutes) {
-        if(resultMinutes) {
+        if (resultMinutes) {
             let resultHours = Math.floor(resultMinutes / 60);
             resultMinutes = resultMinutes - (resultHours * 60);
 
