@@ -417,6 +417,7 @@ export default class FlightsController {
             }
             flightDetails.TowFlightDetailsData.StartDateTime = $scope.flightDetails.GliderFlightDetailsData.StartDateTime;
             flightDetails.TowFlightDetailsData.StartLocationId = $scope.flightDetails.GliderFlightDetailsData.StartLocationId;
+            flightDetails.TowFlightDetailsData.OutboundRoute = $scope.flightDetails.GliderFlightDetailsData.OutboundRoute;
             flightDetails.TowFlightDetailsData.LdgDateTime = TimeService.parseDateTime(flightDate, $scope.times.towingLanding);
 
             if (!$scope.needsTowplane(flightDetails.StartType) || !flightDetails.TowFlightDetailsData.AircraftId) {
