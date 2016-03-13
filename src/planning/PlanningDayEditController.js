@@ -1,5 +1,5 @@
 export default class PlanningDayEditController {
-    constructor($scope, GLOBALS, $q, $routeParams, $location, PlanningDays,
+    constructor($scope, GLOBALS, $q, $routeParams, $location, PlanningDayReader,
                 PlanningDaysUpdater, Locations, Persons,
                 ReservationsByPlanningDay, ReservationService, NavigationCache,
                 MessageManager) {
@@ -16,7 +16,7 @@ export default class PlanningDayEditController {
                 });
                 return deferred.promise;
             }
-            return PlanningDays.get({dest: $routeParams.id}).$promise;
+            return PlanningDayReader.get({id: $routeParams.id}).$promise;
         }
 
         var loadingDayPromise = loadPlanningDay()

@@ -1,21 +1,22 @@
 var app = angular.module('fls.planning');
 
 app.factory('PlanningDays', function ($resource, GLOBALS) {
-    return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/:dest', null, {
+    return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/overview/future', null, {
         query: {
             method: 'GET',
-            isArray: true,
-            params: {
-                dest: 'overview'
-            }
-        },
+            isArray: true
+        }
+    });
+});
+
+app.factory('PlanningDayReader', function ($resource, GLOBALS) {
+    return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/:id', null, {
         get: {
             method: 'GET',
             isArray: false
         }
     });
 });
-
 
 app.factory('PlanningDaysUpdater', function ($resource, GLOBALS) {
     return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/:id', null, {
