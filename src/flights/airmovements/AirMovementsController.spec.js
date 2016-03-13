@@ -1,5 +1,6 @@
 import AirMovementsController from "./AirMovementsController";
 import airMovementsModule from "./AirMovementsModule";
+import TimeService from "../../core/TimeService";
 import moment from "moment";
 
 describe('AirMovementsController', () => {
@@ -15,10 +16,9 @@ describe('AirMovementsController', () => {
     it('should format long time', () => {
         // arrange
         $scope = scope();
-        let ctrl = new AirMovementsController($scope, q(), timeout());
 
         // act
-        let result = ctrl.formatTime('12345');
+        let result = timeService().formatTime('12345');
 
         // assert
         expect(result).toBe('123:45');
@@ -27,7 +27,7 @@ describe('AirMovementsController', () => {
     it('should reset block end time if negative', () => {
         // arrange
         $scope = scope();
-        new AirMovementsController($scope, q(), timeout());
+        new AirMovementsController($scope, q(), timeout(), timeService());
         $scope.times.engineMinutesCounterBegin = '100:00';
         $scope.times.engineMinutesCounterEnd = '50:00';
 
@@ -41,7 +41,7 @@ describe('AirMovementsController', () => {
     it('should calculate block duration for high counter states', () => {
         // arrange
         $scope = scope();
-        new AirMovementsController($scope, q(), timeout());
+        new AirMovementsController($scope, q(), timeout(), timeService());
         $scope.times.engineMinutesCounterBegin = '1200:00';
         $scope.times.engineMinutesCounterEnd = '1203:50';
 
@@ -70,7 +70,12 @@ describe('AirMovementsController', () => {
     }
 
     function timeout() {
-        return () => {};
+        return () => {
+        };
+    }
+
+    function timeService() {
+        return new TimeService();
     }
 
 });

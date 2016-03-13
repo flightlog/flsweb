@@ -1,11 +1,12 @@
 import moment from 'moment';
 import * as _ from 'lodash';
 import AddPersonController from '../../masterdata/persons/modal/AddPersonController';
+import TimeService from '../../core/TimeService';
 
 export default class AirMovementsController {
 
-    constructor($scope, $q, $timeout, $log, $modal, MessageManager,
-                TimeService, AirMovements, AirMovementsDateRange,
+    constructor($scope, $q, $timeout, TimeService, $log, $modal, MessageManager,
+                AirMovements, AirMovementsDateRange,
                 Locations, Persons, PersonPersister, PassengerPersister, Aircrafts, FlightTypes,
                 SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters) {
         this.format = 'HH:mm';
