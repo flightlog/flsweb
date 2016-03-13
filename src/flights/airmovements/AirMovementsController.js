@@ -148,6 +148,7 @@ export default class AirMovementsController {
                                 AircraftOperatingCounters.query({AircraftId: motorAircraft.AircraftId}).$promise.then((result) => {
                                     $scope.operatingCounters = result;
                                     $scope.times.lastOperatingCounterFormatted = formatMinutesToLongHoursFormat(result.EngineOperatingCounterInMinutes);
+                                    $scope.times.engineMinutesCounterBegin = $scope.times.lastOperatingCounterFormatted;
                                 }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
                             }
                         }
