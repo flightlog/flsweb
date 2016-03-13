@@ -7,8 +7,9 @@ export default class FlightsController {
                 TimeService, Flights, FlightsDateRange,
                 FlightTypes, Locations, Persons, PersonPersister, PassengerPersister,
                 Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes,
-                SoloFlightCheckboxEnablementCalculator, Clubs) {
+                SoloFlightCheckboxEnablementCalculator, Clubs, AircraftOperatingCounters) {
         $scope.busy = true;
+        this.TimeService = TimeService;
         $scope.debug = GLOBALS.DEBUG;
         $scope.showChart = false;
         var format = 'HH:mm';
@@ -148,7 +149,16 @@ export default class FlightsController {
                             var glider = $scope.gliderAircrafts[i];
                             if (glider.AircraftId === $scope.flightDetails.GliderFlightDetailsData.AircraftId) {
                                 $scope.flightDetails.GliderFlightDetailsData.IsSoloFlight = glider.NrOfSeats === 1;
+                                $scope.selectedGliderAircraft = glider;
                                 $scope.gliderCompetitionSign = glider.CompetitionSign;
+
+                                if(glider.HasEngine) {
+                                    AircraftOperatingCounters.query({AircraftId: glider.AircraftId}).$promise.then((result) => {
+                                        $scope.operatingCounters = result;
+                                        $scope.times.lastOperatingCounterFormatted = TimeService.formatMinutesToLongHoursFormat(result.EngineOperatingCounterInMinutes);
+                                        $scope.times.engineMinutesCounterBegin = $scope.times.lastOperatingCounterFormatted;
+                                    }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
+                                }
                             }
                         }
                     }
@@ -337,7 +347,9 @@ export default class FlightsController {
                     gliderStart: TimeService.time(gld && gld.StartDateTime),
                     gliderLanding: TimeService.time(gld && gld.LdgDateTime),
                     towingStart: TimeService.time(gld && gld.StartDateTime),
-                    towingLanding: TimeService.time(tow && tow.LdgDateTime)
+                    towingLanding: TimeService.time(tow && tow.LdgDateTime),
+                    engineMinutesCounterBegin: TimeService.formatMinutesToLongHoursFormat(gld.EngineStartOperatingCounterInMinutes),
+                    engineMinutesCounterEnd: TimeService.formatMinutesToLongHoursFormat(gld.EngineEndOperatingCounterInMinutes)
                 };
                 $scope.times.gliderDuration = calcDuration($scope.times.gliderStart, $scope.times.gliderLanding);
                 $scope.times.towingDuration = calcDuration($scope.times.gliderStart, $scope.times.towingLanding);
@@ -364,23 +376,6 @@ export default class FlightsController {
                 .finally(function () {
                     $scope.busyLoadingFlight = false;
                 });
-        }
-
-        function formatTime(time) {
-            if (time === undefined) {
-                return;
-            }
-            if (time.length === 3) {
-                time = '0' + time;
-            }
-            if (time.length > 2 && time.indexOf(':') === -1) {
-                return time.substring(0, 2) + ':' + time.substring(2);
-            } else if (time.length <= 1) {
-                return '00:0' + time
-            } else if (time.length <= 2) {
-                return '00:' + time
-            }
-            return time;
         }
 
         $scope.select = function (flight, toBeCopied) {
@@ -412,6 +407,8 @@ export default class FlightsController {
             flightDetails.GliderFlightDetailsData.StartDateTime = TimeService.parseDateTime(flightDate, $scope.times.gliderStart);
             flightDetails.GliderFlightDetailsData.FlightDate = flightDetails.GliderFlightDetailsData.StartDateTime;
             flightDetails.GliderFlightDetailsData.LdgDateTime = TimeService.parseDateTime(flightDate, $scope.times.gliderLanding);
+            flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInMinutes = TimeService.longDurationFormatToMinutes($scope.times.engineMinutesCounterBegin);
+            flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInMinutes = TimeService.longDurationFormatToMinutes($scope.times.engineMinutesCounterEnd);
             if (!flightDetails.TowFlightDetailsData) {
                 flightDetails.TowFlightDetailsData = {};
             }
@@ -671,7 +668,7 @@ export default class FlightsController {
 
         $scope.formatGliderStart = function () {
             var times = $scope.times;
-            times.gliderStart = formatTime(times.gliderStart);
+            times.gliderStart = this.TimeService.formatTime(times.gliderStart);
             times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
             times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
         };
@@ -685,7 +682,7 @@ export default class FlightsController {
 
         $scope.formatGliderLanding = function () {
             var times = $scope.times;
-            times.gliderLanding = formatTime(times.gliderLanding);
+            times.gliderLanding = this.TimeService.formatTime(times.gliderLanding);
             times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
             calcDurationWarning();
         };
@@ -699,14 +696,14 @@ export default class FlightsController {
 
         $scope.formatGliderDuration = function () {
             var times = $scope.times;
-            times.gliderDuration = formatTime(times.gliderDuration);
+            times.gliderDuration = this.TimeService.formatTime(times.gliderDuration);
             times.gliderLanding = calcLanding(times.gliderStart, times.gliderDuration);
             calcDurationWarning();
         };
 
         $scope.formatTowLanding = function () {
             var times = $scope.times;
-            times.towingLanding = formatTime(times.towingLanding);
+            times.towingLanding = this.TimeService.formatTime(times.towingLanding);
             times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
             calcDurationWarning();
         };
@@ -720,9 +717,21 @@ export default class FlightsController {
 
         $scope.formatTowDuration = function () {
             var times = $scope.times;
-            times.towingDuration = formatTime(times.towingDuration);
+            times.towingDuration = this.TimeService.formatTime(times.towingDuration);
             times.towingLanding = calcLanding(times.gliderStart, times.towingDuration);
             calcDurationWarning();
         };
+
+        $scope.engineMinutesCountersChanged = () => {
+            this.engineMinutesCountersChanged($scope.times);
+        };
+    }
+
+    engineMinutesCountersChanged(times) {
+        times.engineMinutesCounterBegin = this.TimeService.formatTime(times.engineMinutesCounterBegin);
+        times.engineMinutesCounterEnd = this.TimeService.formatTime(times.engineMinutesCounterEnd);
+        if (times.engineMinutesCounterBegin && times.engineMinutesCounterEnd) {
+            times.engineDuration = this.TimeService.calcLongDuration(times.engineMinutesCounterBegin, times.engineMinutesCounterEnd);
+        }
     }
 }
