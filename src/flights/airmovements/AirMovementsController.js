@@ -9,6 +9,7 @@ export default class AirMovementsController {
                 Locations, Persons, PersonPersister, PassengerPersister, Aircrafts, FlightTypes,
                 SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters) {
         this.format = 'HH:mm';
+        this.TimeService = TimeService;
         var masterDataLoaded = false;
         $scope.busy = true;
         $scope.debug = GLOBALS && GLOBALS.DEBUG;
@@ -131,7 +132,7 @@ export default class AirMovementsController {
             return $scope.flightDetails && $scope.flightDetails.MotorFlightDetailsData !== undefined;
         }
 
-        let formatMinutesToLongHoursFormat = this.formatMinutesToLongHoursFormat.bind(this);
+        let formatMinutesToLongHoursFormat = TimeService.formatMinutesToLongHoursFormat.bind(this);
 
         $scope.motorAircraftSelectionChanged = () => {
             $timeout(() => {
@@ -273,8 +274,8 @@ export default class AirMovementsController {
                     motorLanding: TimeService.time(motorFlight.LdgDateTime),
                     blockTimeStart: TimeService.time(motorFlight.BlockStartDateTime),
                     blockTimeEnd: TimeService.time(motorFlight.BlockEndDateTime),
-                    engineMinutesCounterBegin: formatMinutesToLongHoursFormat(motorFlight.EngineStartOperatingCounterInMinutes),
-                    engineMinutesCounterEnd: formatMinutesToLongHoursFormat(motorFlight.EngineEndOperatingCounterInMinutes)
+                    engineMinutesCounterBegin: TimeService.formatMinutesToLongHoursFormat(motorFlight.EngineStartOperatingCounterInMinutes),
+                    engineMinutesCounterEnd: TimeService.formatMinutesToLongHoursFormat(motorFlight.EngineEndOperatingCounterInMinutes)
                 };
                 $scope.times.motorDuration = this.calcDuration($scope.times.motorStart, $scope.times.motorLanding);
                 $scope.times.blockDuration = this.calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd);
@@ -317,8 +318,6 @@ export default class AirMovementsController {
             $scope.select($scope.newFlight, toBeCopied);
         };
 
-        let longDurationFormatToMinutes = this.longDurationFormatToMinutes.bind(this);
-
         $scope.save = (flightDetails) => {
             MessageManager.reset();
             $scope.busyLoadingFlight = true;
@@ -327,8 +326,8 @@ export default class AirMovementsController {
             flightDetails.MotorFlightDetailsData.LdgDateTime = TimeService.parseDateTime(flightDate, $scope.times.motorLanding);
             flightDetails.MotorFlightDetailsData.BlockStartDateTime = TimeService.parseDateTime(flightDate, $scope.times.blockTimeStart);
             flightDetails.MotorFlightDetailsData.BlockEndDateTime = TimeService.parseDateTime(flightDate, $scope.times.blockTimeEnd);
-            flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInMinutes = longDurationFormatToMinutes($scope.times.engineMinutesCounterBegin);
-            flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInMinutes = longDurationFormatToMinutes($scope.times.engineMinutesCounterEnd);
+            flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInMinutes = TimeService.longDurationFormatToMinutes($scope.times.engineMinutesCounterBegin);
+            flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInMinutes = TimeService.longDurationFormatToMinutes($scope.times.engineMinutesCounterEnd);
 
             if (flightDetails.FlightId) {
                 new AirMovements(flightDetails).$saveFlight({id: flightDetails.FlightId})
@@ -455,13 +454,13 @@ export default class AirMovementsController {
 
         $scope.formatMotorStart = () => {
             let times = $scope.times;
-            times.motorStart = this.formatTime(times.motorStart);
+            times.motorStart = this.TimeService.formatTime(times.motorStart);
             times.motorDuration = this.calcDuration(times.motorStart, times.motorLanding);
         };
 
         $scope.formatMotorLanding = () => {
             let times = $scope.times;
-            times.motorLanding = this.formatTime(times.motorLanding);
+            times.motorLanding = this.TimeService.formatTime(times.motorLanding);
             times.motorDuration = this.calcDuration(times.motorStart, times.motorLanding);
         };
 
@@ -491,13 +490,13 @@ export default class AirMovementsController {
 
         $scope.formatBlockTimeStart = () => {
             let times = $scope.times;
-            times.blockTimeStart = this.formatTime(times.blockTimeStart);
+            times.blockTimeStart = this.TimeService.formatTime(times.blockTimeStart);
             times.blockDuration = this.calcDuration(times.blockTimeStart, times.blockTimeEnd);
         };
 
         $scope.formatBlockTimeEnd = () => {
             let times = $scope.times;
-            times.blockTimeEnd = this.formatTime(times.blockTimeEnd);
+            times.blockTimeEnd = this.TimeService.formatTime(times.blockTimeEnd);
             times.blockDuration = this.calcDuration(times.blockTimeStart, times.blockTimeEnd);
         };
 
@@ -514,65 +513,12 @@ export default class AirMovementsController {
         }
     }
 
-    formatTime(time) {
-        if (time === undefined) {
-            return;
-        }
-        if (time.length === 3) {
-            time = '0' + time;
-        }
-        if (time.length > 2 && time.indexOf(':') === -1) {
-            return time.substring(0, time.length - 2) + ':' + time.substring(time.length - 2);
-        } else if (time.length <= 1) {
-            return '00:0' + time
-        } else if (time.length <= 2) {
-            return '00:' + time
-        }
-        return time;
-    }
-
     engineMinutesCountersChanged(times) {
-        times.engineMinutesCounterBegin = this.formatTime(times.engineMinutesCounterBegin);
-        times.engineMinutesCounterEnd = this.formatTime(times.engineMinutesCounterEnd);
+        times.engineMinutesCounterBegin = this.TimeService.formatTime(times.engineMinutesCounterBegin);
+        times.engineMinutesCounterEnd = this.TimeService.formatTime(times.engineMinutesCounterEnd);
         if (times.engineMinutesCounterBegin && times.engineMinutesCounterEnd) {
-            times.engineDuration = this.calcLongDuration(times.engineMinutesCounterBegin, times.engineMinutesCounterEnd);
+            times.engineDuration = this.TimeService.calcLongDuration(times.engineMinutesCounterBegin, times.engineMinutesCounterEnd);
         }
-    }
-
-    parseLongHoursString(formatted) {
-        if (!formatted) {
-            return {hours: 0, minutes: 0};
-        }
-        var colonPosition = formatted.indexOf(":");
-        let hours = parseInt(formatted.substring(0, colonPosition));
-        let minutes = parseInt(formatted.substring(colonPosition + 1, formatted.length));
-        return {hours: hours, minutes: minutes};
-    }
-
-    calcLongDuration(begin, end) {
-        var endMinutes = this.longDurationFormatToMinutes(end);
-        var beginMinutes = this.longDurationFormatToMinutes(begin);
-
-        let minutes = endMinutes - beginMinutes;
-        if (minutes < 0) {
-            return '';
-        }
-
-        return this.formatMinutesToLongHoursFormat(minutes);
-    }
-
-    formatMinutesToLongHoursFormat(resultMinutes) {
-        if (resultMinutes) {
-            let resultHours = Math.floor(resultMinutes / 60);
-            resultMinutes = resultMinutes - (resultHours * 60);
-
-            return resultHours + ":" + String("0" + resultMinutes).slice(-2);
-        }
-    }
-
-    longDurationFormatToMinutes(longMoment) {
-        let parsed = this.parseLongHoursString(longMoment);
-        return (parsed.hours * 60) + parsed.minutes;
     }
 
 }
