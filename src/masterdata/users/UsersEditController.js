@@ -71,6 +71,9 @@ export default class UsersEditController {
         }
 
         $scope.toggleRoleSelection = (user, RoleId) => {
+            if(!user.UserRoleIds) {
+                user.UserRoleIds = [];
+            }
             var idx = user.UserRoleIds.indexOf(RoleId);
             if (idx > -1) {
                 user.UserRoleIds.splice(idx, 1);

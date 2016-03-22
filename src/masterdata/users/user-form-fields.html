@@ -12,7 +12,7 @@
     <div class="col-md-12">
         <div class="form-group col-md-12">
             <label for="NotificationEmail"><span translate="NOTIFICATION_EMAIL"></span></label>
-            <input class="form-control" id="NotificationEmail" ng-model="user.NotificationEmail">
+            <input type="email" class="form-control" id="NotificationEmail" ng-model="user.NotificationEmail">
         </div>
     </div>
     <div class="col-md-12">
@@ -20,7 +20,7 @@
                ng-repeat="role in roles">
             <input type="checkbox" id="{{role.RoleApplicationKeyString}}"
                    ng-click="toggleRoleSelection(user, role.RoleId)"
-                   ng-checked="user.UserRoleIds.indexOf(role.RoleId) > -1">
+                   ng-checked="user.UserRoleIds && user.UserRoleIds.indexOf(role.RoleId) > -1">
             <span ng-bind="role.RoleName"></span>
         </label>
     </div>
