@@ -39,10 +39,15 @@ export default class FlightsController {
             return '<div class="option">' + escape(person.Firstname) + ' ' + escape(person.Lastname) + (person.City ? ' (' + escape(person.City) + ')' : '') + '</div>';
         }
 
+        function seatLabel(NrOfSeats) {
+            return ' Seat' + ((NrOfSeats > 1) ? 's' : '');
+        }
+
         function renderAircraft(aircraft, escape) {
             return '<div class="option">' + escape(aircraft.Immatriculation) +
                 (aircraft.CompetitionSign ? ' [' + escape(aircraft.CompetitionSign) + ']' : '') +
-                (aircraft.AircraftModel ? ' (' + escape(aircraft.AircraftModel) + ')' : '') + '</div>';
+                (aircraft.AircraftModel ? ' (' + escape(aircraft.AircraftModel) + ')' : '') +
+                (aircraft.NrOfSeats ? ' - ' + escape(aircraft.NrOfSeats) + seatLabel(aircraft.NrOfSeats) : '') + ' </div>';
         }
 
         $scope.renderStarttype = {
@@ -151,7 +156,7 @@ export default class FlightsController {
                                 $scope.selectedGliderAircraft = glider;
                                 $scope.gliderCompetitionSign = glider.CompetitionSign;
 
-                                if(glider.HasEngine) {
+                                if (glider.HasEngine) {
                                     AircraftOperatingCounters.query({AircraftId: glider.AircraftId}).$promise.then((result) => {
                                         $scope.operatingCounters = result;
                                         $scope.times.lastOperatingCounterFormatted = TimeService.formatMinutesToLongHoursFormat(result.EngineOperatingCounterInMinutes);

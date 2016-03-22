@@ -35,10 +35,15 @@ export default class AirMovementsController {
             return '<div class="option">' + escape(person.Firstname) + ' ' + escape(person.Lastname) + (person.City ? ' (' + escape(person.City) + ')' : '') + '</div>';
         }
 
+        function seatLabel(NrOfSeats) {
+            return ' Seat' + ((NrOfSeats > 1) ? 's' : '');
+        }
+
         function renderAircraft(aircraft, escape) {
             return '<div class="option">' + escape(aircraft.Immatriculation) +
                 (aircraft.CompetitionSign ? ' [' + escape(aircraft.CompetitionSign) + ']' : '') +
-                (aircraft.AircraftModel ? ' (' + escape(aircraft.AircraftModel) + ')' : '') + '</div>';
+                (aircraft.AircraftModel ? ' (' + escape(aircraft.AircraftModel) + ')' : '') +
+                (aircraft.NrOfSeats ? ' - ' + escape(aircraft.NrOfSeats) + seatLabel(aircraft.NrOfSeats) : '') + ' </div>';
         }
 
         $scope.renderStarttype = {
