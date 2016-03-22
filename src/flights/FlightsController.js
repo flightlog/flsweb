@@ -142,7 +142,6 @@ export default class FlightsController {
         $scope.gliderAircraftSelectionChanged = () => {
             $timeout(() => {
                 if (hasDetails()) {
-                    recalcCheckboxState();
                     $scope.gliderCompetitionSign = '?';
                     if ($scope.flightDetails && $scope.gliderAircrafts) {
                         for (var i = 0; i < $scope.gliderAircrafts.length; i++) {
@@ -162,6 +161,7 @@ export default class FlightsController {
                             }
                         }
                     }
+                    recalcCheckboxState();
                 }
             }, 0);
         };
