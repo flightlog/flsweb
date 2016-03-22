@@ -167,6 +167,7 @@ export default class FlightsController {
                         }
                     }
                     recalcCheckboxState();
+                    calcNumberOfSeatWarning();
                 }
             }, 0);
         };
@@ -480,6 +481,7 @@ export default class FlightsController {
                     if (hasDetails() && t.FlightTypeId === $scope.flightDetails.GliderFlightDetailsData.FlightTypeId) {
                         $scope.selectedFlightType = t;
                         recalcCheckboxState();
+                        calcNumberOfSeatWarning();
                     }
                 }
             });
@@ -571,6 +573,13 @@ export default class FlightsController {
                 recalcCheckboxState();
             }
         };
+
+        function calcNumberOfSeatWarning() {
+            $scope.warnNumberOfSeatsInsufficientForFlightType = false;
+            if($scope.selectedFlightType && $scope.selectedGliderAircraft) {
+                $scope.warnNumberOfSeatsInsufficientForFlightType = $scope.selectedGliderAircraft.NrOfSeats < $scope.selectedFlightType.MinNrOfAircraftSeatsRequired;
+            }
+        }
 
         function calcDurationWarning() {
             var gliderDuration = moment($scope.times.gliderDuration, format);
