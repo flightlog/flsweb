@@ -57,6 +57,22 @@
                                 onChange: flightTypeChanged
                             }" ng-model="flightDetails.MotorFlightDetailsData.FlightTypeId"></selectize>
                 </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12" ng-show="selectedFlightType.InstructorRequired">
+                    <label><span translate="INSTRUCTOR"></span>:</label>
+
+                    <selectize name="InstructorPersonId" options="instructors" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'PersonId',
+                                searchField: ['Firstname', 'Lastname', 'City'],
+                                render: renderPerson
+                            }" ng-model="flightDetails.MotorFlightDetailsData.InstructorPersonId"></selectize>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label for="MotorFlightDetailsData.NrOfPassengers"><span translate="NR_OF_PASSENGERS"></span>:</label>
+                    <input type="number" class="form-control" id="MotorFlightDetailsData.NrOfPassengers" ng-disabled="!flightDetails.CanUpdateRecord"
+                           ng-model="flightDetails.MotorFlightDetailsData.NrOfPassengers">
+                </div>
             </div>
 
             <div class="col-md-6 col-sm-12 col-xs-12" style="text-align:center;margin-top: 50px;">

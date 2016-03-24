@@ -221,6 +221,7 @@ export default class AirMovementsController {
                 }));
                 promises.push(Persons.getMotorPilots().$promise.then((result) => {
                     angular.copy(result, $scope.motorPilots);
+                    angular.copy(result, $scope.instructors);
                 }));
                 promises.push(Persons.getPassengers().$promise.then((result) => {
                     angular.copy(result, $scope.passengers);
