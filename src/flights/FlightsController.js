@@ -160,7 +160,6 @@ export default class FlightsController {
                                     AircraftOperatingCounters.query({AircraftId: glider.AircraftId}).$promise.then((result) => {
                                         $scope.operatingCounters = result;
                                         $scope.times.lastOperatingCounterFormatted = TimeService.formatMinutesToLongHoursFormat(result.EngineOperatingCounterInMinutes);
-                                        $scope.times.engineMinutesCounterBegin = $scope.times.lastOperatingCounterFormatted;
                                     }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
                                 }
                             }
