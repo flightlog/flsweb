@@ -70,8 +70,8 @@ export default class PersonsEditController {
                 .catch(_.partial(MessageManager.raiseError, 'remove', 'person'));
         };
 
-        $scope.testSpotLink = () => {
-            $window.open($scope.person.SpotLink);
+        $scope.testSpotLink = (SpotLink) => {
+            $window.open(SpotLink);
         };
 
     }

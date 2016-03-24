@@ -1,5 +1,5 @@
 export default class ProfileController {
-    constructor($scope, Persons, Countries, AuthService, MessageManager, $http, PersonPersister, GLOBALS) {
+    constructor($scope, $window, Persons, Countries, AuthService, MessageManager, $http, PersonPersister, GLOBALS) {
         $scope.busy = true;
 
         $scope.updatePassword = function (user, OldPassword, NewPassword) {
@@ -26,7 +26,7 @@ export default class ProfileController {
             if (person.PersonId) {
                 p.$savePerson({id: person.PersonId})
                     .then(function () {
-                        MessageManager.showMessage('successfully saved person details for ' + person.FirstName);
+                        MessageManager.showMessage('successfully saved person details for ' + person.Firstname);
                     })
                     .catch(_.partial(MessageManager.raiseError, 'update', 'own person'))
                     .finally(function () {
@@ -48,6 +48,10 @@ export default class ProfileController {
             .finally(function () {
                 $scope.busy = false;
             });
+
+        $scope.testSpotLink = (SpotLink) => {
+            $window.open(SpotLink);
+        };
     }
 }
 
