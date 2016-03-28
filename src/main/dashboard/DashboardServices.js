@@ -45,6 +45,7 @@ export class DashboardDataModelAdapter {
         }
 
         let safety = this.calculateSafetyValues(dashboardData.SafetyDashboardDetails);
+        let convertToMonthLabel = this.convertToMonthLabel;
 
         return {
             person: dashboardData.PersonDashboardDetails || {},
@@ -104,7 +105,7 @@ export class DashboardDataModelAdapter {
                     categories: monthIndexes,
                     labels: {
                         formatter: function () {
-                            return moment().subtract(1, 'year').month(this.value + 1).format("MMMM YYYY");
+                            return convertToMonthLabel(this.value);
                         }
                     }
                 },
@@ -114,6 +115,10 @@ export class DashboardDataModelAdapter {
                 }
             }
         };
+    }
+
+    convertToMonthLabel(monthIndex) {
+        return moment().subtract(1, 'year').month(monthIndex + 2).format("MMMM YYYY");
     }
 
     convertToMonthsArray(landingsByDate) {

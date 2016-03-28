@@ -37,6 +37,17 @@ describe('DashboardDataModelAdapter Directive', () => {
         expect(result).toEqual([0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 3]);
     });
 
+    it('last index should convert current month label', () => {
+        // arrange
+        var monthIndex = 12;
+
+        // act
+        let result = dashboardDataModelAdapter.convertToMonthLabel(monthIndex);
+
+        // assert
+        expect(result).toEqual(moment().format("MMMM YYYY"));
+    });
+
     it('should calculate the safety values for unsafe pilots', () => {
         // arrange
         let dashboardConfig = {
