@@ -3,8 +3,8 @@
 
 ### How to run:
 2. run `npm start`
-4. navigate to 'localhost/3000'
+4. navigate to 'http://localhost:3000'
 
 ### bundle for deploy
-- run `npm run bundle` to package your code for deploy
+- run `npm run bundle` to package your code for deployment
 - find it in the `dist` folder
