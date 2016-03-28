@@ -9,7 +9,7 @@ app.factory('Reservations', function ($resource, GLOBALS) {
             method: 'GET',
             isArray: true,
             params: {
-                subpath: 'overview'
+                subpath: 'future'
             }
         },
         get: {
