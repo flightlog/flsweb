@@ -5,17 +5,6 @@ var webpack = require('webpack');
 var TARGET = minimist(process.argv.slice(2)).TARGET || 'PROD';
 const SERVER_URL = minimist(process.argv.slice(2)).SERVER_URL;
 
-var DEFAULT_LOGIN = {
-    username: 'fgzo',
-    password: 'fgzo'
-};
-
-if (TARGET === "PROD") {
-    DEFAULT_LOGIN = {
-        username: '',
-        password: ''
-    };
-}
 
 var config = {
 
@@ -50,9 +39,6 @@ var config = {
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: false,
             mangle: false
-        }),
-        new webpack.DefinePlugin({
-            DEFAULT_LOGIN: JSON.stringify(DEFAULT_LOGIN)
         })
     ],
 

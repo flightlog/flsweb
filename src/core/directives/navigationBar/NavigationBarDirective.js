@@ -17,12 +17,17 @@ class NavigationBarController {
             });
 
         $scope.features = GLOBALS.FEATURES;
-        $scope.features.masterdata = isClubAdmin();
-        $scope.features.system = isSystemAdmin();
         $scope.baseurl = GLOBALS.BASE_URL;
+        $scope.user = {};
 
-        //noinspection JSUnresolvedVariable
-        $scope.user = DEFAULT_LOGIN;
+        $scope.$watch(AuthService.getUser(), () => {
+            var user = AuthService.getUser();
+            $scope.user = {
+                username: user && user.UserName
+            };
+            $scope.features.masterdata = isClubAdmin();
+            $scope.features.system = isSystemAdmin();
+        });
 
         $scope.isPath = function (path) {
             return $location.path().indexOf(path) !== -1;
@@ -33,10 +38,6 @@ class NavigationBarController {
             $scope.loginError = undefined;
             AuthService.login($scope.user.username, $scope.user.password)
                 .then(() => {
-                    $scope.user = {
-                        username: AuthService.getUser().UserName
-                    };
-                    $scope.features.masterdata = isClubAdmin();
                     $location.path('/dashboard');
                 })
                 .catch((reason) => {

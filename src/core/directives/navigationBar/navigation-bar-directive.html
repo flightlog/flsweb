@@ -29,7 +29,7 @@
                 <li ng-show="features.system && isLoggedin()">
                     <a ng-click="" class="dropdown-toggle clickable" data-toggle="dropdown" role="button"
                        ng-class="{'active':isPath('/system')}"><span translate="SYSTEM"></span>
-                        <span class="caret"></span></a>
+                        <span class="fa fa-caret-down"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#/system/logs" translate="LOGS" class="clickable"></a></li>
                     </ul>
@@ -37,7 +37,7 @@
                 <li ng-show="features.masterdata && isLoggedin()">
                     <a ng-click="" class="dropdown-toggle clickable" data-toggle="dropdown" role="button"
                        ng-class="{'active':isPath('/masterdata')}"><span translate="MASTERDATA"></span>
-                        <span class="caret"></span></a>
+                        <span class="fa fa-caret-down"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#/masterdata/persons" translate="PERSONS" class="clickable"></a></li>
                         <li><a href="#/masterdata/clubs" translate="CLUBS" class="clickable"></a></li>
@@ -49,7 +49,7 @@
                 </li>
                 <li ng-show="isLoggedin()">
                     <a ng-click="" class="dropdown-toggle clickable" data-toggle="dropdown" role="button"><span
-                            ng-bind="user.username"></span> <span class="caret"></span></a>
+                            ng-bind="user.username"></span> <span class="fa fa-caret-down"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#/profile" translate="MY_PROFILE" class="clickable"></a></li>
                         <li><a ng-click="logout()" translate="LOGOUT" class="clickable"></a></li>

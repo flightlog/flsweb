@@ -56,9 +56,10 @@ export default class AuthService {
                     });
             },
             logout: function () {
-                $location.path('/main');
                 delete $sessionStorage.loginResult;
                 delete $sessionStorage.user;
+                delete $sessionStorage.userRoles;
+                $location.path('/main');
             },
             getToken: function () {
                 var loginResult = storage.loginResult;
