@@ -170,7 +170,7 @@ export class DashboardDataModelAdapter {
         }
 
         return {
-            safetyPercentage: Math.round(safetyPercentage * 100) / 100,
+            safetyPercentage: Math.min(100, Math.round(safetyPercentage * 100) / 100),
             starts: numStarts,
             hours: Math.round(flightTimeInHours),
             labelKey: labelKey
