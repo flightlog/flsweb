@@ -8,9 +8,15 @@ export default class AddPersonController {
 
         $scope.person = {
             HasGliderPilotLicence: flags.GliderPilot,
+            HasGliderPassengerLicence: flags.Passenger,
             HasTowPilotLicence: flags.TowingPilot,
             HasMotorPilotLicence: flags.TowingPilot,
-            ClubRelatedPersonDetails: {}
+            ClubRelatedPersonDetails: {
+                IsGliderPilot: flags.GliderPilot,
+                IsPassenger: flags.Passenger,
+                IsTowPilot: flags.TowingPilot,
+                IsMotorPilot: flags.TowingPilot
+            }
         };
         $scope.flags = flags;
 

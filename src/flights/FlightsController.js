@@ -21,11 +21,11 @@ export default class FlightsController {
         $scope.towingFlightTypes = [];
         $scope.gliderAircrafts = [];
         $scope.towerAircrafts = [];
+        $scope.allPersons = [];
         $scope.gliderPilots = [];
         $scope.towingPilots = [];
         $scope.observers = [];
         $scope.winchOperators = [];
-        $scope.passengers = [];
         $scope.instructors = [];
         $scope.flightCostBalanceTypes = [];
 
@@ -277,9 +277,6 @@ export default class FlightsController {
                 }));
                 promises.push(Persons.getWinchOperators().$promise.then((result) => {
                     angular.copy(result, $scope.winchOperators);
-                }));
-                promises.push(Persons.getPassengers().$promise.then((result) => {
-                    angular.copy(result, $scope.passengers);
                 }));
                 promises.push(Locations.getLocations().$promise.then((result) => {
                     angular.copy(result, $scope.locations);
@@ -548,7 +545,7 @@ export default class FlightsController {
                 new PassengerPersister(passenger).$save()
                     .then(function (savedPassenger) {
                         console.log('successfully saved ' + JSON.stringify(savedPassenger));
-                        $scope.passengers.push(savedPassenger);
+                        $scope.allPersons.push(savedPassenger);
                         $scope.flightDetails.GliderFlightDetailsData.PassengerPersonId = savedPassenger.PersonId;
                     })
                     .catch(_.partial(MessageManager.raiseError, 'save', 'passenger'));

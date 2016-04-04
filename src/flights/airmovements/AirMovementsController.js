@@ -22,7 +22,6 @@ export default class AirMovementsController {
         $scope.motorAircrafts = [];
         $scope.motorPilots = [];
         $scope.observers = [];
-        $scope.passengers = [];
         $scope.instructors = [];
 
         function renderWithId(idName, labelName) {
@@ -217,14 +216,11 @@ export default class AirMovementsController {
             if (!masterDataLoaded) {
                 let promises = [];
                 promises.push(Persons.getAllPersons().$promise.then((result) => {
-                    $scope.allPersons = result;
+                    angular.copy(result, $scope.allPersons);
                 }));
                 promises.push(Persons.getMotorPilots().$promise.then((result) => {
                     angular.copy(result, $scope.motorPilots);
                     angular.copy(result, $scope.instructors);
-                }));
-                promises.push(Persons.getPassengers().$promise.then((result) => {
-                    angular.copy(result, $scope.passengers);
                 }));
                 promises.push(Locations.getLocations().$promise.then((result) => {
                     angular.copy(result, $scope.locations);
@@ -424,7 +420,7 @@ export default class AirMovementsController {
                 new PassengerPersister(passenger).$save()
                     .then(function (savedPassenger) {
                         console.log('successfully saved ' + JSON.stringify(savedPassenger));
-                        $scope.passengers.push(savedPassenger);
+                        $scope.allPersons.push(savedPassenger);
                         $scope.flightDetails.MotorFlightDetailsData.PassengerPersonId = savedPassenger.PersonId;
                     })
                     .catch(_.partial(MessageManager.raiseError, 'save', 'passenger'));
