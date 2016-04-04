@@ -679,56 +679,56 @@ export default class FlightsController {
             }, 0);
         }
 
-        $scope.formatGliderStart = function () {
+        $scope.formatGliderStart = () => {
             var times = $scope.times;
             times.gliderStart = this.TimeService.formatTime(times.gliderStart);
             times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
             times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
         };
 
-        $scope.setGliderStart = function () {
+        $scope.setGliderStart = () => {
             var times = $scope.times;
             times.gliderStart = $scope.getTimeNow();
             times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
             times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
         };
 
-        $scope.formatGliderLanding = function () {
+        $scope.formatGliderLanding = () => {
             var times = $scope.times;
             times.gliderLanding = this.TimeService.formatTime(times.gliderLanding);
             times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
             calcDurationWarning();
         };
 
-        $scope.setGliderLanding = function () {
+        $scope.setGliderLanding = () => {
             var times = $scope.times;
             times.gliderLanding = $scope.getTimeNow();
             times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
             calcDurationWarning();
         };
 
-        $scope.formatGliderDuration = function () {
+        $scope.formatGliderDuration = () => {
             var times = $scope.times;
             times.gliderDuration = this.TimeService.formatTime(times.gliderDuration);
             times.gliderLanding = calcLanding(times.gliderStart, times.gliderDuration);
             calcDurationWarning();
         };
 
-        $scope.formatTowLanding = function () {
+        $scope.formatTowLanding = () => {
             var times = $scope.times;
             times.towingLanding = this.TimeService.formatTime(times.towingLanding);
             times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
             calcDurationWarning();
         };
 
-        $scope.setTowLanding = function () {
+        $scope.setTowLanding = () => {
             var times = $scope.times;
             times.towingLanding = $scope.getTimeNow();
             times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
             calcDurationWarning();
         };
 
-        $scope.formatTowDuration = function () {
+        $scope.formatTowDuration = () => {
             var times = $scope.times;
             times.towingDuration = this.TimeService.formatTime(times.towingDuration);
             times.towingLanding = calcLanding(times.gliderStart, times.towingDuration);
