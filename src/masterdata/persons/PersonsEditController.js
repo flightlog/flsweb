@@ -1,5 +1,5 @@
 export default class PersonsEditController {
-    constructor($scope, GLOBALS, $q, $location, $routeParams, $window, Persons, PersonService, PersonPersister, MessageManager, Countries) {
+    constructor($scope, GLOBALS, $q, $location, $routeParams, $window, Persons, PersonService, PersonPersister, MessageManager, Countries, TimeService) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
@@ -42,8 +42,13 @@ export default class PersonsEditController {
         $scope.cancel = function () {
             $location.path('/masterdata/persons');
         };
-        $scope.save = function (person) {
+
+        $scope.save = (person) => {
             $scope.busy = true;
+            person.MedicalClass1ExpireDate = TimeService.removeTimeOffset(person.MedicalClass1ExpireDate);
+            person.MedicalClass2ExpireDate = TimeService.removeTimeOffset(person.MedicalClass2ExpireDate);
+            person.MedicalLaplExpireDate = TimeService.removeTimeOffset(person.MedicalLaplExpireDate);
+
             var p = new PersonPersister(person);
             if (person.PersonId) {
                 p.$savePerson({id: person.PersonId})

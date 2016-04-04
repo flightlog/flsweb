@@ -1,5 +1,5 @@
 export default class ProfileController {
-    constructor($scope, $window, Persons, Countries, AuthService, MessageManager, $http, PersonPersister, GLOBALS) {
+    constructor($scope, $window, Persons, Countries, AuthService, MessageManager, $http, PersonPersister, TimeService, GLOBALS) {
         $scope.busy = true;
 
         $scope.updatePassword = function (user, OldPassword, NewPassword) {
@@ -22,6 +22,10 @@ export default class ProfileController {
         $scope.save = function (person) {
             MessageManager.reset();
             $scope.busy = true;
+            person.MedicalClass1ExpireDate = TimeService.removeTimeOffset(person.MedicalClass1ExpireDate);
+            person.MedicalClass2ExpireDate = TimeService.removeTimeOffset(person.MedicalClass2ExpireDate);
+            person.MedicalLaplExpireDate = TimeService.removeTimeOffset(person.MedicalLaplExpireDate);
+
             var p = new PersonPersister(person);
             if (person.PersonId) {
                 p.$savePerson({id: person.PersonId})
