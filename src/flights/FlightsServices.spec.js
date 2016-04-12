@@ -1,12 +1,11 @@
 import flightsModule from './FlightsModule';
 
 describe('flights controller', function () {
-    var $httpBackend, SoloFlightCheckboxEnablementCalculator;
+    var SoloFlightCheckboxEnablementCalculator;
 
     beforeEach(function () {
         angular.mock.module(flightsModule.name);
-        inject(function (_$httpBackend_, _SoloFlightCheckboxEnablementCalculator_) {
-            $httpBackend = _$httpBackend_;
+        inject((_SoloFlightCheckboxEnablementCalculator_) => {
             SoloFlightCheckboxEnablementCalculator = _SoloFlightCheckboxEnablementCalculator_;
         });
     });

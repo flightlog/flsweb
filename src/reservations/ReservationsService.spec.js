@@ -1,12 +1,11 @@
 import reservationsModule from './ReservationsModule';
 
 describe('reservation validator', function () {
-    var $httpBackend, ReservationValidator;
+    var ReservationValidator;
 
     beforeEach(() => {
         angular.mock.module(reservationsModule.name)
-        inject(function (_$httpBackend_, _ReservationValidator_) {
-            $httpBackend = _$httpBackend_;
+        inject(function (_ReservationValidator_) {
             ReservationValidator = _ReservationValidator_;
         });
     });

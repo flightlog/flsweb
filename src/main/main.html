@@ -65,7 +65,7 @@
 
     <!-- Page Content -->
 
-<div class="content-section-a" ng-show="features.flights">
+<div class="content-section-a" ng-show="getEnabledFeatures().flights">
 
     <div class="container">
 
@@ -89,7 +89,7 @@
 </div>
     <!-- /.content-section-a -->
 
-<div class="content-section-b" ng-show="features.locations">
+<div class="content-section-b" ng-show="getEnabledFeatures().locations">
 
     <div class="container">
 
@@ -112,7 +112,7 @@
 </div>
     <!-- /.content-section-b -->
 
-<div class="content-section-a" ng-show="features.planning">
+<div class="content-section-a" ng-show="getEnabledFeatures().planning">
 
     <div class="container">
 

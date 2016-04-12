@@ -14,19 +14,19 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li ng-show="features.reservations && isLoggedin()">
+                <li ng-show="getEnabledFeatures().reservations && isLoggedin()">
                     <a href="#/reservations" ng-class="{'active':isPath('/reservations')}" translate="RESERVATIONS"></a>
                 </li>
-                <li ng-show="features.planning && isLoggedin()">
+                <li ng-show="getEnabledFeatures().planning && isLoggedin()">
                     <a href="#/planning" ng-class="{'active':isPath('/planning')}" translate="PLANNING"></a>
                 </li>
-                <li ng-show="features.flights && isLoggedin()">
+                <li ng-show="getEnabledFeatures().flights && isLoggedin()">
                     <a href="#/airmovements" ng-class="{'active':isPath('/flights')}" translate="MOTOR_MOVEMENTS"></a>
                 </li>
-                <li ng-show="features.flights && isLoggedin()">
+                <li ng-show="getEnabledFeatures().flights && isLoggedin()">
                     <a href="#/flights" ng-class="{'active':isPath('/flights')}" translate="GLIDER_STARTLIST"></a>
                 </li>
-                <li ng-show="features.system && isLoggedin()">
+                <li ng-show="getEnabledFeatures().system && isLoggedin()">
                     <a ng-click="" class="dropdown-toggle clickable" data-toggle="dropdown" role="button"
                        ng-class="{'active':isPath('/system')}"><span translate="SYSTEM"></span>
                         <span class="fa fa-caret-down"></span></a>
@@ -34,7 +34,7 @@
                         <li><a href="#/system/logs" translate="LOGS" class="clickable"></a></li>
                     </ul>
                 </li>
-                <li ng-show="features.masterdata && isLoggedin()">
+                <li ng-show="getEnabledFeatures().masterdata && isLoggedin()">
                     <a ng-click="" class="dropdown-toggle clickable" data-toggle="dropdown" role="button"
                        ng-class="{'active':isPath('/masterdata')}"><span translate="MASTERDATA"></span>
                         <span class="fa fa-caret-down"></span></a>

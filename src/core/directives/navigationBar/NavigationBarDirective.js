@@ -16,18 +16,20 @@ class NavigationBarController {
                 $location.path('/main');
             });
 
-        $scope.features = GLOBALS.FEATURES;
+        $scope.getEnabledFeatures = AuthService.getEnabledFeatures;
         $scope.baseurl = GLOBALS.BASE_URL;
         $scope.user = {};
 
-        $scope.$watch(AuthService.getUser(), () => {
+        function extractUsername() {
             var user = AuthService.getUser();
             $scope.user = {
                 username: user && user.UserName
             };
-            $scope.features.masterdata = isClubAdmin();
-            $scope.features.system = isSystemAdmin();
-        });
+        }
+
+        $scope.$watch(AuthService.getUser(), () => {
+            extractUsername();
+        }, true);
 
         $scope.isPath = function (path) {
             return $location.path().indexOf(path) !== -1;
@@ -52,7 +54,6 @@ class NavigationBarController {
 
         $scope.logout = function () {
             $scope.loginBusy = false;
-            $scope.features.masterdata = false;
             AuthService.logout();
             $location.path('/');
         };
@@ -76,12 +77,5 @@ class NavigationBarController {
             $location.path('/lostpassword');
         };
 
-        function isClubAdmin() {
-            return AuthService.hasRole("ClubAdministrator");
-        }
-
-        function isSystemAdmin() {
-            return AuthService.hasRole("SystemAdministrator");
-        }
     }
 }

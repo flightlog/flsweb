@@ -9,6 +9,21 @@ export default class AuthService {
         }
 
         var srv = {
+            isClubAdmin: function () {
+                return srv.hasRole("ClubAdministrator");
+            },
+            isSystemAdmin: function () {
+                return srv.hasRole("SystemAdministrator");
+            },
+            getEnabledFeatures: function () {
+                return {
+                    planning: true,
+                    reservations: true,
+                    flights: true,
+                    masterdata: srv.isClubAdmin(),
+                    system: srv.isSystemAdmin()
+                }
+            },
             promptLogin: function (requestedRoute) {
                 srv.loginformvisible = true;
                 srv.requestedRoute = requestedRoute;
