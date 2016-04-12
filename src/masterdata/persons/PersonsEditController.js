@@ -48,6 +48,7 @@ export default class PersonsEditController {
             person.MedicalClass1ExpireDate = TimeService.removeTimeOffset(person.MedicalClass1ExpireDate);
             person.MedicalClass2ExpireDate = TimeService.removeTimeOffset(person.MedicalClass2ExpireDate);
             person.MedicalLaplExpireDate = TimeService.removeTimeOffset(person.MedicalLaplExpireDate);
+            person.GliderInstructorLicenceExpireDate = TimeService.removeTimeOffset(person.GliderInstructorLicenceExpireDate);
 
             var p = new PersonPersister(person);
             if (person.PersonId) {

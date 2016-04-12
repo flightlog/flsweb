@@ -68,9 +68,7 @@ export default class TimeService {
     }
 
     removeTimeOffset(d) {
-        var dt = new Date(d);
-        dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
-        return dt;
+        return moment(d).utc().hours(0).minutes(0).seconds(0).local().toDate();
     }
 
 }
