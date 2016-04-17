@@ -74,9 +74,9 @@ export default class PlanningDayEditController {
 
         $q.all(promises)
             .then(() => {
-                $scope.busy = false;
-            })
-            .then(() => {
+                if($routeParams.id === 'new') {
+                    return [];
+                }
                 return ReservationsByPlanningDay.query({id: $routeParams.id}).$promise;
             })
             .then((result) => {
