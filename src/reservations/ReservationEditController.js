@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export default class ReservationEditController {
-    constructor($scope, GLOBALS, $q, $filter, $routeParams, $location,
+    constructor($scope, GLOBALS, $q, $filter, $timeout, $routeParams, $location,
                 AuthService, Reservations, ReservationTypes,
                 ReservationUpdater, ReservationInserter, Locations, Persons,
                 AircraftsOverviews, ReservationValidator, NavigationCache, MessageManager) {
@@ -9,6 +9,26 @@ export default class ReservationEditController {
         $scope.debug = GLOBALS.DEBUG;
         var prefillMoment = moment($routeParams['date']) || moment();
         var prefillLocationId = $routeParams['locationId'];
+
+        function renderPerson(person, escape) {
+            return '<div class="option">' + escape(person.Firstname) + ' ' + escape(person.Lastname) + (person.City ? ' (' + escape(person.City) + ')' : '') + '</div>';
+        }
+
+        $scope.renderPerson = {
+            option: renderPerson,
+            item: renderPerson
+        };
+
+        function renderAircraft(aircraft, escape) {
+            return '<div class="option">' + escape(aircraft.Immatriculation) +
+                (aircraft.CompetitionSign ? ' [' + escape(aircraft.CompetitionSign) + ']' : '') +
+                (aircraft.AircraftModel ? ' (' + escape(aircraft.AircraftModel) + ')' : '') + ' </div>';
+        }
+
+        $scope.renderAircraft = {
+            option: renderAircraft,
+            item: renderAircraft
+        };
 
         $scope.busy = true;
         function loadReservation(user) {
@@ -107,8 +127,10 @@ export default class ReservationEditController {
                 $scope.busy = false;
             });
 
-        $scope.calculateInstructorRequired = function () {
-            $scope.instructorRequired = ReservationValidator.calculateInstructorRequired($scope.reservationTypes, $scope.reservation);
+        $scope.calculateInstructorRequired = () => {
+            $timeout(() => {
+                $scope.instructorRequired = ReservationValidator.calculateInstructorRequired($scope.reservationTypes, $scope.reservation);
+            }, 0);
         };
         $scope.edit = function (reservation) {
             $location.path('/reservations/' + reservation.AircraftReservationId + '/edit');

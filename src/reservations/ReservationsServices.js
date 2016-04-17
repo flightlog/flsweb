@@ -87,7 +87,7 @@ app.factory('ReservationValidator', function () {
         calculateInstructorRequired: function (reservationTypes, reservation) {
             var selectedReservationType;
             for (var i = 0; i < reservationTypes.length; i++) {
-                if (reservationTypes[i].AircraftReservationTypeId === reservation.ReservationTypeId) {
+                if (reservationTypes[i].AircraftReservationTypeId === parseInt(reservation.ReservationTypeId)) {
                     selectedReservationType = reservationTypes[i];
                 }
             }

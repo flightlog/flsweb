@@ -30,49 +30,64 @@
                 </div>
                 <div class="form-group col-md-12">
                     <label for="resType"><span translate="RESERVATION_TYPE">Reservation Type</span>:*</label>
-                    <select id="resType" class="form-control" ng-model="reservation.ReservationTypeId"
-                            ng-options="reservationType.AircraftReservationTypeId as reservationType.AircraftReservationTypeName for reservationType in reservationTypes"
-                            ng-disabled="!reservation.CanUpdateRecord" ng-change="calculateInstructorRequired()"
-                            required="required">
-                        <option value="">--</option>
-                    </select>
+
+                    <selectize id="resType" name="ReservationTypeId" options="reservationTypes" ng-disabled="!reservation.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'AircraftReservationTypeId',
+                                labelField: 'AircraftReservationTypeName',
+                                searchField: ['AircraftReservationTypeName'],
+                                onChange: calculateInstructorRequired
+                            }" ng-model="reservation.ReservationTypeId" required></selectize>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="Pilot"><span translate="PILOT">Pilot</span>:*</label>
-                    <select id="Pilot" class="form-control" ng-model="reservation.PilotPersonId"
-                            ng-options="person.PersonId as person.Firstname + ' ' + person.Lastname + ' (' + person.City + ')' for person in gliderPilots"
-                            ng-disabled="!reservation.CanUpdateRecord" required="required">
-                        <option value="">--</option>
-                    </select>
+
+                    <selectize id="Pilot" name="Pilot" options="gliderPilots" ng-disabled="!reservation.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'PersonId',
+                                searchField: ['Firstname', 'Lastname', 'City'],
+                                render: renderPerson
+                            }" ng-model="reservation.PilotPersonId"></selectize>
                 </div>
                 <div class="form-group col-md-12"
                      ng-if="instructorRequired">
                     <label for="Instructor"><span translate="INSTRUCTOR">Instructor</span>:*</label>
-                    <select id="Instructor" class="form-control" ng-model="reservation.InstructorPersonId"
-                            ng-options="person.PersonId as person.Firstname + ' ' + person.Lastname + ' (' + person.City + ')' for person in instructors"
-                            ng-disabled="!reservation.CanUpdateRecord"
-                            required>
-                        <option value="">--</option>
-                    </select>
+
+                    <selectize id="Instructor" name="Instructor" options="instructors" ng-disabled="!reservation.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'PersonId',
+                                searchField: ['Firstname', 'Lastname', 'City'],
+                                render: renderPerson
+                            }" ng-model="reservation.InstructorPersonId"
+                               required></selectize>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="Aircraft"><span translate="AIRCRAFT">Aircraft</span>:*</label>
-                    <select id="Aircraft" class="form-control" ng-model="reservation.AircraftId"
-                            ng-options="aircraft.AircraftId as aircraft.Immatriculation +
-                        (aircraft.CompetitionSign ? ' [' + aircraft.CompetitionSign + ']' : '') +
-                        (aircraft.AircraftModel ? ' (' +aircraft.AircraftModel+')' : '')
-                        for aircraft in aircrafts"
-                            ng-disabled="!reservation.CanUpdateRecord" required="required">
-                        <option value="">--</option>
-                    </select>
+
+                    <selectize id="Aircraft" name="Aircraft" options="aircrafts" ng-disabled="!reservation.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'AircraftId',
+                                labelField: 'Immatriculation',
+                                searchField: ['Immatriculation', 'CompetitionSign', 'AircraftModel'],
+                                render: renderAircraft
+                            }" ng-model="reservation.AircraftId"
+                               required></selectize>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="Location"><span translate="LOCATION"></span>:*</label>
-                    <select id="Location" class="form-control" ng-model="reservation.LocationId"
-                            ng-options="location.LocationId as location.LocationName for location in locations"
-                            ng-disabled="!reservation.CanUpdateRecord" required="required">
-                        <option value="">--</option>
-                    </select>
+
+                    <selectize id="Location" name="Location" options="locations" ng-disabled="!reservation.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'LocationId',
+                                labelField: 'LocationName',
+                                searchField: ['LocationName']
+                            }" ng-model="reservation.LocationId"
+                               required></selectize>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="remarks" translate="REMARKS">Remarks:</label>
