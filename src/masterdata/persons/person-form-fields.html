@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-8">
                     <label for="Country"><span translate="COUNTRY"></span></label>
                     <select id="Country" class="form-control"
                             ng-model="person.CountryId"
@@ -53,6 +53,12 @@
                             required>
                         <option value="">--</option>
                     </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="Birthday"><span translate="BIRTHDAY"></span></label>
+
+                    <input type="text" date-time class="form-control" id="Birthday" view="date" format="dd.MM.yyyy"
+                           ng-model="person.Birthday" min-view="date" />
                 </div>
             </div>
         </accordion-group>
