@@ -23,4 +23,15 @@ describe('TimeService', () => {
         expect(JSON.stringify(result)).toEqual('"1970-01-12T00:00:00.000Z"');
     });
 
+    it('should stay undefined', () => {
+        // arrange
+        let dt = undefined;
+
+        // act
+        let result = TimeService.removeTimeOffset(dt);
+
+        // assert
+        expect(result).toBeUndefined();
+    });
+
 });

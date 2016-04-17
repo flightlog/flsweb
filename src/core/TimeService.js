@@ -68,6 +68,9 @@ export default class TimeService {
     }
 
     removeTimeOffset(d) {
+        if(!d) {
+            return;
+        }
         return moment(d).utc().hours(0).minutes(0).seconds(0).local().toDate();
     }
 
