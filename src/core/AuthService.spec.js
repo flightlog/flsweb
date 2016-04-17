@@ -33,7 +33,7 @@ describe('AuthService', () => {
         let enabledFeatures = AuthService.getEnabledFeatures();
 
         // assert
-        expect(enabledFeatures.masterdata).toEqual(true);
+        expect(enabledFeatures.masterdata).toEqual({ persons: true, clubs: true, aircrafts: true, locations: true, users: true, flightTypes: true });
         expect(enabledFeatures.system).toEqual(false);
     });
 
@@ -47,7 +47,7 @@ describe('AuthService', () => {
         let enabledFeatures = AuthService.getEnabledFeatures();
 
         // assert
-        expect(enabledFeatures.masterdata).toEqual(false);
+        expect(enabledFeatures.masterdata).toEqual({ persons: true, clubs: true, aircrafts: true, locations: true, users: false, flightTypes: false });
         expect(enabledFeatures.system).toEqual(true);
     });
 
