@@ -20,7 +20,14 @@ export default class AuthService {
                     planning: true,
                     reservations: true,
                     flights: true,
-                    masterdata: srv.isClubAdmin(),
+                    masterdata: {
+                        persons: true,
+                        clubs: true,
+                        aircrafts: true,
+                        locations: true,
+                        users: srv.isClubAdmin(),
+                        flightTypes: srv.isClubAdmin()
+                    },
                     system: srv.isSystemAdmin()
                 }
             },
@@ -101,8 +108,17 @@ export default class AuthService {
                 }
                 return false;
             },
+            requiresClubAdmin: function(path) {
+                return path.indexOf("users") > 0
+                    || path.indexOf("flightTypes") > 0;
+            },
+            requiresSystemAdmin: function(path) {
+                return path.indexOf("system/") > 0;
+            },
             userAuth: function ($location) {
-                if (!srv.getToken()) {
+                if (!srv.getToken()
+                    || (srv.requiresClubAdmin($location.path()) && !srv.isClubAdmin())
+                    || (srv.requiresSystemAdmin($location.path()) && !srv.isSystemAdmin())) {
                     srv.promptLogin($location.path());
                     $location.path('/main');
                 } else {

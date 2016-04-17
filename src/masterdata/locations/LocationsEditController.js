@@ -1,8 +1,9 @@
 export default class LocationsEditController {
-    constructor($scope, $q, $sce, $routeParams, $location, GLOBALS, MessageManager, Locations, LocationService, LocationPersister, Countries) {
+    constructor($scope, $q, $sce, $routeParams, $location, GLOBALS, AuthService, MessageManager, Locations, LocationService, LocationPersister, Countries) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
+        $scope.isClubAdmin = AuthService.isClubAdmin();
 
         $scope.positionChanged = function () {
             $scope.openAipUrl = $sce.trustAsResourceUrl('http://maps.openaip.net/?lat=' + $scope.location.Latitude + '&lon=' + $scope.location.Longitude);

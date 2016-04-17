@@ -1,8 +1,9 @@
 export default class PersonsEditController {
-    constructor($scope, GLOBALS, $q, $location, $routeParams, $window, Persons, PersonService, PersonPersister, MessageManager, Countries, TimeService) {
+    constructor($scope, GLOBALS, $q, $location, $routeParams, $window, AuthService, Persons, PersonService, PersonPersister, MessageManager, Countries, TimeService) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
+        $scope.isClubAdmin = AuthService.isClubAdmin();
 
         Countries.query().$promise.then(function (result) {
             $scope.countries = result;

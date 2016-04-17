@@ -1,9 +1,10 @@
 export default class ClubEditController {
-    constructor($scope, $q, $routeParams, $location, GLOBALS, MessageManager, Clubs, ClubService, ClubPersister,
+    constructor($scope, $q, $routeParams, $location, GLOBALS, AuthService, MessageManager, Clubs, ClubService, ClubPersister,
                 Countries, Locations, FlightTypes, StartTypes) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
+        $scope.isClubAdmin = AuthService.isClubAdmin();
 
         function loadClub() {
             var deferred = $q.defer();

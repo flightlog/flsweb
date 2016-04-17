@@ -1,8 +1,9 @@
 export default class AircraftsEditController {
-    constructor($scope, $q, $location, $routeParams, $window, GLOBALS, AircraftsOverviews, AircraftService, Aircraft, AircraftTypes, Clubs, Persons, MessageManager, StringUtils) {
+    constructor($scope, $q, $location, $routeParams, $window, GLOBALS, AuthService, AircraftsOverviews, AircraftService, Aircraft, AircraftTypes, Clubs, Persons, MessageManager, StringUtils) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
+        $scope.isClubAdmin = AuthService.isClubAdmin();
 
         function loadAircraft() {
             var deferred = $q.defer();

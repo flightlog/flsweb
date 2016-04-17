@@ -14,9 +14,9 @@
             <td ng-bind="location.IcaoCode"></td>
             <td ng-bind="location.CountryName"></td>
             <td class="hidden-print controls-column">
-                <a ng-click="editLocation(location)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-pencil"
+                <a ng-show="isClubAdmin" ng-click="editLocation(location)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-pencil"
                                                                                    style="color:#111123;font-weight: 800;"></span></a>
-                <a ng-click="deleteLocation(location)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-trash-o"
+                <a ng-show="isClubAdmin" ng-click="deleteLocation(location)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-trash-o"
                                                                                      style="color:#a70000;font-weight: 800;"></span></a>
                 <fls-history entity-name="Location" entity-id="location.LocationId" class="col-xs-4"></fls-history>
             </td>
