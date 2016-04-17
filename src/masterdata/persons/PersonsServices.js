@@ -6,8 +6,8 @@ export class Persons {
                 isArray: true,
                 cache: false,
                 params: {
-                    dest: 'true',
-                    clubonly: undefined
+                    dest: 'overview',
+                    clubonly: true
                 }
             },
             getMotorPilots: {
