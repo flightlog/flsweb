@@ -165,9 +165,9 @@ export default class AirMovementsController {
         function initForNewFlight(flightDetails) {
             Clubs.getMyClub().$promise.then((result) => {
                 $scope.myClub = result;
-                flightDetails.MotorFlightDetailsData.StartLocationId = $scope.myClub.HomebaseId || flightDetails.MotorFlightDetailsData.StartLocationId;
-                flightDetails.MotorFlightDetailsData.LdgLocationId = $scope.myClub.HomebaseId || flightDetails.MotorFlightDetailsData.LdgLocationId;
-                flightDetails.MotorFlightDetailsData.FlightTypeId = $scope.myClub.DefaultMotorFlightTypeId || flightDetails.MotorFlightDetailsData.FlightTypeId;
+                flightDetails.MotorFlightDetailsData.StartLocationId = flightDetails.MotorFlightDetailsData.StartLocationId || $scope.myClub.HomebaseId;
+                flightDetails.MotorFlightDetailsData.LdgLocationId = flightDetails.MotorFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
+                flightDetails.MotorFlightDetailsData.FlightTypeId = flightDetails.MotorFlightDetailsData.FlightTypeId || $scope.myClub.DefaultMotorFlightTypeId;
                 flightDetails.StartType = flightDetails.StartType || $scope.myClub.DefaultStartType || 5;
             });
             flightDetails.CanUpdateRecord = true;
