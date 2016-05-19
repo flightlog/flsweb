@@ -40,7 +40,8 @@ export default class ReservationEditController {
                     Start: prefillMoment.clone().hour(10).minute(0).second(0).toDate(),
                     End: prefillMoment.clone().hour(18).minute(0).second(0).toDate(),
                     IsAllDayReservation: true,
-                    LocationId: prefillLocationId || user && user.LocationId
+                    LocationId: prefillLocationId || user && user.LocationId,
+                    PilotPersonId: user.PersonId
                 };
                 deferred.resolve(res);
                 return deferred.promise;
