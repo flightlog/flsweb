@@ -197,13 +197,13 @@ export default class FlightsController {
             flightDetails.CanUpdateRecord = true;
             Clubs.getMyClub().$promise.then((result) => {
                 $scope.myClub = result;
-                flightDetails.GliderFlightDetailsData.StartLocationId = $scope.myClub.HomebaseId || flightDetails.GliderFlightDetailsData.StartLocationId;
-                flightDetails.GliderFlightDetailsData.LdgLocationId = $scope.myClub.HomebaseId || flightDetails.GliderFlightDetailsData.LdgLocationId;
-                flightDetails.GliderFlightDetailsData.FlightTypeId = $scope.myClub.DefaultGliderFlightTypeId || flightDetails.GliderFlightDetailsData.FlightTypeId;
+                flightDetails.GliderFlightDetailsData.StartLocationId = flightDetails.GliderFlightDetailsData.StartLocationId || $scope.myClub.HomebaseId;
+                flightDetails.GliderFlightDetailsData.LdgLocationId = flightDetails.GliderFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
+                flightDetails.GliderFlightDetailsData.FlightTypeId = flightDetails.GliderFlightDetailsData.FlightTypeId || $scope.myClub.DefaultGliderFlightTypeId;
                 flightDetails.GliderFlightDetailsData.NrOfLdgs = 1;
-                flightDetails.TowFlightDetailsData.StartLocationId = $scope.myClub.HomebaseId || flightDetails.TowFlightDetailsData.StartLocationId;
-                flightDetails.TowFlightDetailsData.LdgLocationId = $scope.myClub.HomebaseId || flightDetails.TowFlightDetailsData.LdgLocationId;
-                flightDetails.TowFlightDetailsData.FlightTypeId = $scope.myClub.DefaultTowFlightTypeId || flightDetails.TowFlightDetailsData.FlightTypeId;
+                flightDetails.TowFlightDetailsData.StartLocationId = flightDetails.TowFlightDetailsData.StartLocationId || $scope.myClub.HomebaseId;
+                flightDetails.TowFlightDetailsData.LdgLocationId = flightDetails.TowFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
+                flightDetails.TowFlightDetailsData.FlightTypeId = flightDetails.TowFlightDetailsData.FlightTypeId || $scope.myClub.DefaultTowFlightTypeId;
                 flightDetails.TowFlightDetailsData.NrOfLdgs = 1;
                 flightDetails.StartType = flightDetails.StartType || $scope.myClub.DefaultStartType || "1";
                 deferred.resolve(flightDetails);
