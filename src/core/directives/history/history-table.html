@@ -37,8 +37,8 @@
                 <th translate="MODIFICATION"></th>
             </tr>
             <tr ng-repeat="historyEntry in historyEntries">
-                <td ng-bind="historyEntry.EventDateTime | date:'dd.MM.yyyy'"></td>
-                <td ng-bind="historyEntry.EventDateTime | date:'HH:mm:ss'"></td>
+                <td ng-bind="historyEntry.EventDateTime + '+0000' | date:'dd.MM.yyyy'"></td>
+                <td ng-bind="historyEntry.EventDateTime + '+0000' | date:'HH:mm:ss'"></td>
                 <td ng-bind="historyEntry.UserName"></td>
                 <td ng-bind="historyEntry.EventTypeName"></td>
             </tr>
