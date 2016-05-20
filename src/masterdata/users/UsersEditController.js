@@ -35,12 +35,14 @@ export default class UsersEditController {
             item: renderClub
         };
 
+        const DEFAULT_USER_STATE_ID = '1';
         function loadUser() {
-            var deferred = $q.defer();
+            let deferred = $q.defer();
             if ($routeParams.id === 'new') {
-                var user = AuthService.getUser();
+                let user = AuthService.getUser();
                 deferred.resolve({
                     ClubId: user.ClubId,
+                    AccountState: DEFAULT_USER_STATE_ID,
                     CanUpdateRecord: true
                 });
                 return deferred.promise;
