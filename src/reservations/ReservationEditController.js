@@ -7,6 +7,7 @@ export default class ReservationEditController {
                 AircraftsOverviews, ReservationValidator, NavigationCache, MessageManager) {
 
         $scope.debug = GLOBALS.DEBUG;
+        $scope.time = {};
         var prefillMoment = moment($routeParams['date']) || moment();
         var prefillLocationId = $routeParams['locationId'];
 
@@ -58,8 +59,8 @@ export default class ReservationEditController {
                     $scope.reservation.CanUpdateRecord = $scope.reservation.CanUpdateRecord && $routeParams.mode === 'edit';
                     $scope.reservation.IsAllDayReservation = $scope.reservation.IsAllDayReservation || false;
                 }
-                $scope.starttime = $filter('date')(result.Start, 'HH:mm');
-                $scope.endtime = $filter('date')(result.End, 'HH:mm');
+                $scope.time.start = $filter('date')(result.Start, 'HH:mm');
+                $scope.time.end = $filter('date')(result.End, 'HH:mm');
             })
             .then(function () {
                 return Locations.getLocations();
@@ -82,8 +83,8 @@ export default class ReservationEditController {
                 reservation.Start = filteredDate;
                 reservation.End = filteredDate;
             } else {
-                reservation.Start = new Date(filteredDate + 'T' + $scope.starttime + ':00');
-                reservation.End = new Date(filteredDate + 'T' + $scope.endtime + ':00');
+                reservation.Start = new Date(filteredDate + 'T' + $scope.time.start + ':00');
+                reservation.End = new Date(filteredDate + 'T' + $scope.time.end + ':00');
             }
             if (reservation.AircraftReservationId) {
                 var r = new ReservationUpdater(reservation);
