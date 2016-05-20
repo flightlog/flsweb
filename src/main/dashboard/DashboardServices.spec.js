@@ -34,7 +34,7 @@ describe('DashboardDataModelAdapter Directive', () => {
         let result = dashboardDataModelAdapter.convertToMonthsArray(dashboardConfig.GliderPilotFlightStatisticDashboardDetails.MonthlyLandings);
 
         // assert
-        expect(result).toEqual([0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 3]);
+        expect(result).toEqual([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 3]);
     });
 
     it('last index should convert current month label', () => {
