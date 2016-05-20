@@ -6,6 +6,7 @@ export default class UsersEditController {
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
         $scope.isSystemAdmin = AuthService.hasRole('SystemAdministrator');
+        $scope.isClubAdmin = AuthService.hasRole('ClubAdministrator');
 
         function renderPerson(person, escape) {
             return '<div class="option">' + escape(person.Firstname) + ' ' + escape(person.Lastname) + (person.City ? ' (' + escape(person.City) + ')' : '') + '</div>';
@@ -14,6 +15,24 @@ export default class UsersEditController {
         $scope.renderPerson = {
             option: renderPerson,
             item: renderPerson
+        };
+
+        function renderUserAccountState(accountState, escape) {
+            return '<div class="option">' + escape(accountState.AccountStateName)+  '</div>';
+        }
+
+        $scope.renderUserAccountState = {
+            option: renderUserAccountState,
+            item: renderUserAccountState
+        };
+
+        function renderClub(club, escape) {
+            return '<div class="option">' + escape(club.ClubName)+  '</div>';
+        }
+
+        $scope.renderClub = {
+            option: renderClub,
+            item: renderClub
         };
 
         function loadUser() {

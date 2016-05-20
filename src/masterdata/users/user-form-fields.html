@@ -43,21 +43,33 @@
         </div>
         <div class="form-group col-md-4">
             <label for="UserAccountState"><span translate="USER_ACCOUNT_STATE"></span></label>
-            <select id="UserAccountState" class="form-control"
-                    ng-bind="user.AccountState"
-                    ng-options="userAccountState.UserAccountStateId as userAccountState.AccountStateName for userAccountState in userAccountStates" disabled>
-                <option value="">--</option>
-            </select>
+            <selectize name="UserAccountState" id="UserAccountState" style="height:30px;"
+                       options="userAccountStates"
+                       config="{
+                                    maxItems: 1,
+                                    valueField: 'UserAccountStateId',
+                                    searchField: ['AccountStateName'],
+                                    render: renderUserAccountState
+                                }"
+                       ng-model="user.AccountState"
+                       ng-disabled="!isClubAdmin"
+                       required></selectize>
         </div>
     </div>
-    <div class="col-md-12" ng-show="isSystemAdmin">
+    <div class="col-md-12">
         <div class="form-group col-md-12">
             <label for="ClubId"><span translate="CLUB"></span></label>
-            <select id="ClubId" class="form-control"
-                    ng-model="user.ClubId"
-                    ng-options="club.ClubId as club.ClubName for club in clubs">
-                <option value="">--</option>
-            </select>
+            <selectize name="ClubId" id="ClubId" style="height:30px;"
+                       options="clubs"
+                       config="{
+                                    maxItems: 1,
+                                    valueField: 'ClubId',
+                                    searchField: ['ClubName'],
+                                    render: renderClub
+                                }"
+                       ng-model="user.ClubId"
+                       ng-disabled="!isSystemAdmin"
+                       required></selectize>
         </div>
     </div>
 </div>

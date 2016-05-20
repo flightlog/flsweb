@@ -7,6 +7,7 @@
             <th translate="PERSON_NAME"></th>
             <th translate="CLUB_NAME"></th>
             <th translate="ROLES"></th>
+            <th translate="USER_ACCOUNT_STATE"></th>
             <th class="hidden-print">&nbsp;</th>
         </tr>
         <tr ng-repeat-start="user in users | filter:searchString">
@@ -15,6 +16,7 @@
             <td ng-bind="user.PersonName"></td>
             <td ng-bind="user.ClubName"></td>
             <td ng-bind="user.UserRoles"></td>
+            <td ng-bind="user.AccountState"></td>
             <td class="hidden-print controls-column">
                 <a ng-click="editUser(user)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-pencil"
                                                                            style="color:#111123;font-weight: 800;"></span></a>
