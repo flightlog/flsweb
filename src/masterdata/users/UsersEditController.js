@@ -18,7 +18,7 @@ export default class UsersEditController {
         };
 
         function renderUserAccountState(accountState, escape) {
-            return '<div class="option">' + escape(accountState.AccountStateName)+  '</div>';
+            return '<div class="option">' + escape(accountState.AccountStateName) + '</div>';
         }
 
         $scope.renderUserAccountState = {
@@ -27,7 +27,7 @@ export default class UsersEditController {
         };
 
         function renderClub(club, escape) {
-            return '<div class="option">' + escape(club.ClubName)+  '</div>';
+            return '<div class="option">' + escape(club.ClubName) + '</div>';
         }
 
         $scope.renderClub = {
@@ -36,6 +36,7 @@ export default class UsersEditController {
         };
 
         const DEFAULT_USER_STATE_ID = '1';
+
         function loadUser() {
             let deferred = $q.defer();
             if ($routeParams.id === 'new') {
@@ -56,6 +57,16 @@ export default class UsersEditController {
         $scope.editUser = function (user) {
             $location.path('/masterdata/users/' + user.UserId);
         };
+        UserAccountStates.query().$promise
+            .then((userAccountStates) => {
+                $scope.userAccountStates = userAccountStates;
+                $scope.filters = {};
+                for (let accountState in userAccountStates) {
+                    let userAccountState = userAccountStates[accountState];
+                    console.log(userAccountState);
+                    $scope.filters[userAccountState.UserAccountStateId] = true;
+                }
+            });
 
         if ($routeParams.id !== undefined) {
             $q.all([
@@ -74,10 +85,6 @@ export default class UsersEditController {
                     Clubs.query().$promise
                         .then((clubs) => {
                             $scope.clubs = clubs;
-                        }),
-                    UserAccountStates.query().$promise
-                        .then((userAccountStates) => {
-                            $scope.userAccountStates = userAccountStates;
                         })
                 ])
                 .finally(function () {
@@ -92,7 +99,7 @@ export default class UsersEditController {
         }
 
         $scope.toggleRoleSelection = (user, RoleId) => {
-            if(!user.UserRoleIds) {
+            if (!user.UserRoleIds) {
                 user.UserRoleIds = [];
             }
             var idx = user.UserRoleIds.indexOf(RoleId);
@@ -160,6 +167,11 @@ export default class UsersEditController {
             });
         };
 
+        $scope.toggleAccountStateFilter = (id) => {
+            $scope.filters[id] = !$scope.filters[id];
+        };
+
     }
+
 }
 

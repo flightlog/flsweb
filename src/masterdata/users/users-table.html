@@ -1,5 +1,13 @@
 <div>
     <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
+    <section class="row col-xs-12" style="margin-bottom: 10px;">
+        <div class="btn-group">
+            <button class="btn btn-default" ng-class="{'active': filters[accountState.UserAccountStateId]}"
+                    translate="{{accountState.AccountStateName}}"
+                    ng-click="toggleAccountStateFilter(accountState.UserAccountStateId)"
+                    ng-repeat="accountState in userAccountStates"></button>
+        </div>
+    </section>
     <table class="fls">
         <tr>
             <th translate="USER_NAME"></th>
@@ -10,7 +18,7 @@
             <th translate="USER_ACCOUNT_STATE"></th>
             <th class="hidden-print">&nbsp;</th>
         </tr>
-        <tr ng-repeat-start="user in users | filter:searchString">
+        <tr ng-repeat-start="user in users | filter:searchString | filterByUserState:filters">
             <td ng-bind="user.UserName"></td>
             <td ng-bind="user.FriendlyName"></td>
             <td ng-bind="user.PersonName"></td>
@@ -18,10 +26,8 @@
             <td ng-bind="user.UserRoles"></td>
             <td ng-bind="user.AccountState"></td>
             <td class="hidden-print controls-column">
-                <a ng-click="editUser(user)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-pencil"
-                                                                           style="color:#111123;font-weight: 800;"></span></a>
-                <a ng-click="deleteUser(user)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-trash-o"
-                                                                             style="color:#a70000;font-weight: 800;"></span></a>
+                <a ng-click="editUser(user)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-pencil" style="color:#111123;font-weight: 800;"></span></a>
+                <a ng-click="deleteUser(user)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-trash-o" style="color:#a70000;font-weight: 800;"></span></a>
                 <fls-history entity-name="User" entity-id="user.UserId" class="col-xs-4"></fls-history>
             </td>
         </tr>

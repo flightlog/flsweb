@@ -1,4 +1,5 @@
 import angular from 'angular';
+import * as _ from 'lodash';
 import UsersEditController from './UsersEditController';
 import UsersEditDirective from './UsersEditDirective';
 import UserFormDirective from './UserFormDirective';
@@ -21,6 +22,13 @@ export default angular.module('fls.masterdata.users', [
     .service('UserAccountStates', UsersServices.UserAccountStates)
     .directive('flsUsers', UsersEditDirective.factory)
     .directive('flsUserForm', UserFormDirective.factory)
+    .filter('filterByUserState', function() {
+        return function(users, filters) {
+            return _.filter(users, (user) => {
+                return filters[user.AccountState];
+            });
+        };
+    })
     .config(function ($routeProvider) {
         $routeProvider
             .when('/masterdata/users',
