@@ -26,7 +26,7 @@ export class DashboardDataModelAdapter {
         let series = [];
 
         let monthIndexes = [];
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 24; i++) {
             monthIndexes[i] = i + 1;
         }
 
@@ -124,7 +124,7 @@ export class DashboardDataModelAdapter {
     convertToMonthsArray(landingsByDate) {
         let oneYearAgo = moment().subtract(1, 'year');
         let landingsByMonth = [];
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 24; i++) {
             landingsByMonth[moment().month(parseInt(moment().format("M")) - i - 1).format("YYYYMM")] = 0;
         }
         for (let date in landingsByDate) {
