@@ -4,6 +4,27 @@ export default class PersonsEditController {
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
         $scope.isClubAdmin = AuthService.isClubAdmin();
+        $scope.requiredFlagsFilterList = [
+            'HasGliderInstructorLicence',
+            'HasGliderPilotLicence',
+            'HasGliderTraineeLicence',
+            'HasMotorPilotLicence',
+            'HasTowPilotLicence'
+        ];
+        $scope.translationKeys = {
+            'HasGliderInstructorLicence': 'HAS_GLIDER_INSTRUCTOR_LICENCE',
+            'HasGliderPilotLicence': 'HAS_GLIDER_PILOT_LICENCE',
+            'HasGliderTraineeLicence': 'HAS_GLIDER_TRAINEE_LICENCE',
+            'HasMotorPilotLicence': 'HAS_MOTOR_PILOT_LICENCE',
+            'HasTowPilotLicence': 'HAS_TOW_PILOT_LICENCE'
+        };
+        $scope.requiredFlagsFilter = {};
+        $scope.toggleRequiredFlagFilter = (flag) => {
+            $scope.requiredFlagsFilter[flag] = !$scope.requiredFlagsFilter[flag];
+        };
+        $scope.resetRequiredFlagsFilters = () => {
+            $scope.requiredFlagsFilter = {};
+        };
 
         Countries.query().$promise.then(function (result) {
             $scope.countries = result;

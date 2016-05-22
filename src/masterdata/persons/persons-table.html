@@ -1,4 +1,15 @@
 <div>
+    <section class="row col-xs-12" style="margin-bottom: 10px;">
+        <div class="btn-group">
+            <button class="btn btn-default" ng-class="{'active': requiredFlagsFilter[requiredFlag]}"
+                    translate="{{translationKeys[requiredFlag]}}"
+                    ng-click="toggleRequiredFlagFilter(requiredFlag)"
+                    ng-repeat="requiredFlag in requiredFlagsFilterList"></button>
+            <button class="btn btn-default"
+                    translate="RESET"
+                    ng-click="resetRequiredFlagsFilters()"></button>
+        </div>
+    </section>
     <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
     <table class="fls">
         <tr>
@@ -14,7 +25,7 @@
             <th translate="MOBILE_NUMBER"></th>
             <th class="hidden-print">&nbsp;</th>
         </tr>
-        <tr ng-repeat-start="person in persons | filter:searchString">
+        <tr ng-repeat-start="person in persons | filter:searchString | filterByRequiredFlags:requiredFlagsFilter">
             <td ng-bind="person.Firstname"></td>
             <td ng-bind="person.Lastname"></td>
             <td ng-bind="person.AddressLine"></td>

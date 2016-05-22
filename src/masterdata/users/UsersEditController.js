@@ -61,10 +61,6 @@ export default class UsersEditController {
             .then((userAccountStates) => {
                 $scope.userAccountStates = userAccountStates;
                 $scope.filters = {};
-                for (let accountState in userAccountStates) {
-                    let userAccountState = userAccountStates[accountState];
-                    $scope.filters[userAccountState.AccountStateName] = true;
-                }
             });
 
         if ($routeParams.id !== undefined) {
@@ -166,8 +162,14 @@ export default class UsersEditController {
             });
         };
 
-        $scope.toggleAccountStateFilter = (stateName) => {
-            $scope.filters[stateName] = !$scope.filters[stateName];
+        $scope.toggleRequiredAccountStateFilter = (stateName) => {
+            let previousState = $scope.filters[stateName];
+            $scope.filters = {};
+            $scope.filters[stateName] = !previousState;
+        };
+
+        $scope.resetRequiredAccountStateFilter = () => {
+            $scope.filters = {};
         };
 
     }

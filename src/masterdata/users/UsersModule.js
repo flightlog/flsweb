@@ -23,9 +23,13 @@ export default angular.module('fls.masterdata.users', [
     .directive('flsUsers', UsersEditDirective.factory)
     .directive('flsUserForm', UserFormDirective.factory)
     .filter('filterByUserState', function() {
-        return function(users, filters) {
+        return function(users, requiredState) {
             return _.filter(users, (user) => {
-                return filters[user.AccountState];
+                let matches = true;
+                for (let state in requiredState) {
+                    matches &= (user.AccountState == state) || !requiredState[state];
+                }
+                return matches;
             });
         };
     })
