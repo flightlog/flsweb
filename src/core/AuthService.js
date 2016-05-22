@@ -5,7 +5,7 @@ export default class AuthService {
         var storage = $sessionStorage.$default({loginResult: {}});
 
         function confirmationLink() {
-            return $window.location.origin + $window.location.pathname + "/#/confirm?userid={userid}&code={code}";
+            return $window.location.origin + $window.location.pathname + "#/confirm?userid={userid}&code={code}";
         }
 
         var srv = {
