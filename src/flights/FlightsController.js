@@ -179,7 +179,7 @@ export default class FlightsController {
             }
             $timeout(() => {
                 if (hasDetails()) {
-                    $scope.towplaneRegistration = '?';
+                    $scope.towplaneRegistration = '';
                     if ($scope.flightDetails && $scope.towerAircrafts) {
                         for (var i = 0; i < $scope.towerAircrafts.length; i++) {
                             var tow = $scope.towerAircrafts[i];
@@ -383,8 +383,8 @@ export default class FlightsController {
         }
 
         $scope.select = function (flight, toBeCopied) {
-            $scope.gliderCompetitionSign = '?';
-            $scope.towplaneRegistration = '?';
+            $scope.gliderCompetitionSign = '';
+            $scope.towplaneRegistration = '';
             $scope.busyLoadingFlight = true;
             $scope.selectedFlight = flight;
 

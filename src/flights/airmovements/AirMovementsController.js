@@ -143,7 +143,7 @@ export default class AirMovementsController {
             $timeout(() => {
                 if (hasDetails()) {
 
-                    $scope.motorRegistration = '?';
+                    $scope.motorRegistration = '';
                     if ($scope.flightDetails && $scope.motorAircrafts) {
                         for (let i = 0; i < $scope.motorAircrafts.length; i++) {
                             let motorAircraft = $scope.motorAircrafts[i];
@@ -301,7 +301,7 @@ export default class AirMovementsController {
         }
 
         $scope.select = (flight, toBeCopied) => {
-            $scope.motorAircraftRegistration = '?';
+            $scope.motorAircraftRegistration = '';
             $scope.busyLoadingFlight = true;
             $scope.selectedFlight = flight;
 
