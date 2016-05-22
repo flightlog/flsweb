@@ -2,9 +2,9 @@
     <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
     <section class="row col-xs-12" style="margin-bottom: 10px;">
         <div class="btn-group">
-            <button class="btn btn-default" ng-class="{'active': filters[accountState.UserAccountStateId]}"
+            <button class="btn btn-default" ng-class="{'active': filters[accountState.AccountStateName]}"
                     translate="{{accountState.AccountStateName}}"
-                    ng-click="toggleAccountStateFilter(accountState.UserAccountStateId)"
+                    ng-click="toggleAccountStateFilter(accountState.AccountStateName)"
                     ng-repeat="accountState in userAccountStates"></button>
         </div>
     </section>

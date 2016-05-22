@@ -63,8 +63,7 @@ export default class UsersEditController {
                 $scope.filters = {};
                 for (let accountState in userAccountStates) {
                     let userAccountState = userAccountStates[accountState];
-                    console.log(userAccountState);
-                    $scope.filters[userAccountState.UserAccountStateId] = true;
+                    $scope.filters[userAccountState.AccountStateName] = true;
                 }
             });
 
@@ -167,8 +166,8 @@ export default class UsersEditController {
             });
         };
 
-        $scope.toggleAccountStateFilter = (id) => {
-            $scope.filters[id] = !$scope.filters[id];
+        $scope.toggleAccountStateFilter = (stateName) => {
+            $scope.filters[stateName] = !$scope.filters[stateName];
         };
 
     }
