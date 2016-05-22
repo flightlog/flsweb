@@ -41,14 +41,14 @@ export class DashboardDataModelAdapter {
                 data: this.convertToMonthsArray(dashboardData.GliderPilotFlightStatisticDashboardDetails.MonthlyLandings),
                 color: 'rgba(165,170,217,1)',
                 pointPadding: 0.38,
-                pointPlacement: -0.4
+                pointPlacement: -0.3
             };
             series[idx++] = {
                 name: "Glider (h)",
                 data: this.convertToMonthsArray(dashboardData.GliderPilotFlightStatisticDashboardDetails.MonthlyFlightHours),
                 color: 'rgba(126,86,134,.9)',
                 pointPadding: 0.45,
-                pointPlacement: -0.4,
+                pointPlacement: -0.3,
                 yAxis: 1
             };
 
@@ -57,14 +57,14 @@ export class DashboardDataModelAdapter {
                 data: this.convertToMonthsArray(dashboardData.GliderPilotFlightStatisticDashboardDetails.MonthlyLandings, true),
                 color: 'rgba(165,170,217,.5)',
                 pointPadding: 0.38,
-                pointPlacement: -0.2
+                pointPlacement: -0.1
             };
             series[idx++] = {
                 name: "Glider (h, Vorjahr)",
                 data: this.convertToMonthsArray(dashboardData.GliderPilotFlightStatisticDashboardDetails.MonthlyFlightHours, true),
                 color: 'rgba(126,86,134,.5)',
                 pointPadding: 0.45,
-                pointPlacement: -0.2,
+                pointPlacement: -0.1,
                 yAxis: 1
             };
         }
@@ -76,14 +76,14 @@ export class DashboardDataModelAdapter {
                 data: this.convertToMonthsArray(dashboardData.MotorPilotFlightStatisticDashboardDetails.MonthlyLandings),
                 color: 'rgba(100,100,100,.8)',
                 pointPadding: 0.38,
-                pointPlacement: 0.2
+                pointPlacement: 0.1
             };
             series[idx++] = {
                 name: "Motor (h)",
                 data: this.convertToMonthsArray(dashboardData.MotorPilotFlightStatisticDashboardDetails.MonthlyFlightHours),
                 color: 'rgba(70,70,70,1)',
                 pointPadding: 0.45,
-                pointPlacement: 0.2,
+                pointPlacement: 0.1,
                 yAxis: 1
             };
 
@@ -92,14 +92,14 @@ export class DashboardDataModelAdapter {
                 data: this.convertToMonthsArray(dashboardData.MotorPilotFlightStatisticDashboardDetails.MonthlyLandings, true),
                 color: 'rgba(100,100,100,.5)',
                 pointPadding: 0.38,
-                pointPlacement: 0.4
+                pointPlacement: 0.3
             };
             series[idx++] = {
                 name: "Motor (h, Vorjahr)",
                 data: this.convertToMonthsArray(dashboardData.MotorPilotFlightStatisticDashboardDetails.MonthlyFlightHours, true),
                 color: 'rgba(70,70,70,.5)',
                 pointPadding: 0.45,
-                pointPlacement: 0.4,
+                pointPlacement: 0.3,
                 yAxis: 1
             };
         }
