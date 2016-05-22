@@ -18,7 +18,8 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="HomebaseId"><span translate="CLUB_HOME_BASE"></span></label>
-                        <select id="HomebaseId" class="form-control" ng-model="club.HomebaseId" ng-options="location.LocationId as location.LocationName for location in locations">
+                        <select id="HomebaseId" class="form-control" ng-model="club.HomebaseId" ng-options="location.LocationId as location.LocationName for location in locations"
+                                required>
                             <option value="">--</option>
                         </select>
                     </div>
@@ -48,7 +49,8 @@
                 <div class="col-md-12">
                     <div class="form-group col-md-12">
                         <label for="Country"><span translate="COUNTRY"></span></label>
-                        <select id="Country" class="form-control" ng-model="club.CountryId" ng-options="country.CountryId as country.CountryName for country in countries">
+                        <select id="Country" class="form-control" ng-model="club.CountryId" ng-options="country.CountryId as country.CountryName for country in countries"
+                                required>
                             <option value="">--</option>
                         </select>
                     </div>
@@ -56,7 +58,7 @@
                 <div class="col-md-12">
                     <div class="form-group col-md-4">
                         <label for="EmailAddress"><span translate="EMAIL"></span></label>
-                        <input class="form-control" id="EmailAddress" ng-model="club.EmailAddress">
+                        <input class="form-control" id="EmailAddress" ng-model="club.EmailAddress" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="PhoneNumber"><span translate="PHONE_NUMBER"></span></label>
