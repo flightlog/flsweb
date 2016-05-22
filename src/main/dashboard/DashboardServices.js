@@ -227,10 +227,10 @@ export class DashboardDataModelAdapter {
                         }
                     },
                     tooltip: {
-                        formatter: function() {
+                        formatter: function () {
                             let required = this.points[0];
                             let done = this.points[1];
-                            return `${this.x}:<br><span style="font-weight:500;">${required.series.name}: ${required.y}<span><br><span style="font-weight:500;">${done.series.name}: ${Math.round(done.y*10)/10}<span>`;
+                            return `${this.x}:<br><span style="font-weight:500;">${required.series.name}: ${required.y}<span><br><span style="font-weight:500;">${done.series.name}: ${Math.round(done.y * 10) / 10}<span>`;
                         },
                         shared: true
                     }
@@ -260,33 +260,50 @@ export class DashboardDataModelAdapter {
     }
 
     convertToMonthsArray(landingsByDate, previousYear) {
-        let oneYearAgo = moment().subtract(2, 'year');
-        let landingsByMonth = [];
+        let landingsByMonthCurrentYear = [];
+        let landingsByMonthPreviousYear = [];
+
+        let twoYearsAgo = moment().subtract(2, 'year');
 
         for (let i = 0; i < 12; i++) {
-            let monthIndex = moment().month(parseInt(moment().format("M")) - i - 1).format("YYYYMM");
+            let monthIndex = 0;
             if (previousYear) {
-                monthIndex = moment().subtract(1, "year").month(parseInt(moment().format("M")) - i - 1).format("YYYYMM");
+                monthIndex = moment().subtract(1, 'year').month(parseInt(moment().format("M")) - i - 1).format("YYYYMM");
+            } else {
+                monthIndex = moment().month(parseInt(moment().format("M")) - i - 1).format("YYYYMM");
             }
-            landingsByMonth[monthIndex] = 0;
+            landingsByMonthCurrentYear[monthIndex] = 0;
+            landingsByMonthPreviousYear[monthIndex] = 0;
         }
+
+        const oneYearAgo = moment().subtract(1, 'year');
         for (let date in landingsByDate) {
             if (landingsByDate.hasOwnProperty(date)) {
-                var flightMoment = moment(date);
-                if (flightMoment.isAfter(oneYearAgo)) {
-                    let month = flightMoment.format('YYYYMM');
-                    landingsByMonth[month] = (landingsByMonth[month] || 0) + landingsByDate[date];
+                let flightMoment = moment(date);
+                let month = flightMoment.format('YYYYMM');
+                if (flightMoment.isAfter(twoYearsAgo) && flightMoment.isBefore(oneYearAgo)) {
+                    landingsByMonthPreviousYear[month] = (landingsByMonthCurrentYear[month] || 0) + landingsByDate[date];
+                } else if (flightMoment.isAfter(oneYearAgo)) {
+                    landingsByMonthCurrentYear[month] = (landingsByMonthCurrentYear[month] || 0) + landingsByDate[date];
                 }
             }
         }
 
+        if (previousYear) {
+            return this.convertMonthsMapToArray(landingsByMonthPreviousYear);
+        } else {
+            return this.convertMonthsMapToArray(landingsByMonthCurrentYear);
+        }
+    }
+
+    convertMonthsMapToArray(landingsByMonth) {
         let months = [];
         for (let month in landingsByMonth) {
             if (landingsByMonth.hasOwnProperty(month)) {
                 months.push(month);
             }
         }
-        months.sort();
+        months = months.sort();
         let monthlyLandingsArray = [];
         for (let i = 0; i < months.length; i++) {
             let month = months[i];
