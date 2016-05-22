@@ -25,9 +25,9 @@ export class DashboardDataModelAdapter {
 
         let series = [];
 
-        let monthIndexes = [];
+        let monthCategories = [];
         for (let i = 0; i < 12; i++) {
-            monthIndexes[i] = i + 1;
+            monthCategories[i] = this.convertToMonthLabel(i + 1);
         }
 
         let licenseStateSeries = [];
@@ -186,6 +186,15 @@ export class DashboardDataModelAdapter {
                             shadow: false,
                             borderWidth: 0
                         }
+                    },
+
+                    tooltip: {
+                        shared: true,
+                        useHTML: true,
+                        headerFormat: '{point.key}<small><table>',
+                        pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td><td style="text-align: right"><b>{point.y}</b></td></tr>',
+                        footerFormat: '</table></small>',
+                        valueDecimals: 2
                     }
                 },
                 series: series,
@@ -194,12 +203,7 @@ export class DashboardDataModelAdapter {
                 },
                 loading: false,
                 xAxis: {
-                    categories: monthIndexes,
-                    labels: {
-                        formatter: function () {
-                            return convertToMonthLabel(this.value);
-                        }
-                    }
+                    categories: monthCategories
                 },
                 yAxis: [{
                     min: 0,
@@ -259,9 +263,9 @@ export class DashboardDataModelAdapter {
         return moment().subtract(1, 'year').add(monthIndex, 'month').format("MMM YY");
     }
 
-    convertToMonthsArray(landingsByDate, previousYear) {
-        let landingsByMonthCurrentYear = [];
-        let landingsByMonthPreviousYear = [];
+    convertToMonthsArray(flightsByDate, previousYear) {
+        let flightsByMonthCurrentYear = [];
+        let flightsByMonthPreviousYear = [];
 
         let twoYearsAgo = moment().subtract(2, 'year');
 
@@ -272,44 +276,44 @@ export class DashboardDataModelAdapter {
             } else {
                 monthIndex = moment().month(parseInt(moment().format("M")) - i - 1).format("YYYYMM");
             }
-            landingsByMonthCurrentYear[monthIndex] = 0;
-            landingsByMonthPreviousYear[monthIndex] = 0;
+            flightsByMonthCurrentYear[monthIndex] = 0;
+            flightsByMonthPreviousYear[monthIndex] = 0;
         }
 
         const oneYearAgo = moment().subtract(1, 'year');
-        for (let date in landingsByDate) {
-            if (landingsByDate.hasOwnProperty(date)) {
+        for (let date in flightsByDate) {
+            if (flightsByDate.hasOwnProperty(date)) {
                 let flightMoment = moment(date);
                 let month = flightMoment.format('YYYYMM');
                 if (flightMoment.isAfter(twoYearsAgo) && flightMoment.isBefore(oneYearAgo)) {
-                    landingsByMonthPreviousYear[month] = (landingsByMonthCurrentYear[month] || 0) + landingsByDate[date];
+                    flightsByMonthPreviousYear[month] = (flightsByMonthCurrentYear[month] || 0) + flightsByDate[date];
                 } else if (flightMoment.isAfter(oneYearAgo)) {
-                    landingsByMonthCurrentYear[month] = (landingsByMonthCurrentYear[month] || 0) + landingsByDate[date];
+                    flightsByMonthCurrentYear[month] = (flightsByMonthCurrentYear[month] || 0) + flightsByDate[date];
                 }
             }
         }
 
         if (previousYear) {
-            return this.convertMonthsMapToArray(landingsByMonthPreviousYear);
+            return this.convertMonthsMapToArray(flightsByMonthPreviousYear);
         } else {
-            return this.convertMonthsMapToArray(landingsByMonthCurrentYear);
+            return this.convertMonthsMapToArray(flightsByMonthCurrentYear);
         }
     }
 
-    convertMonthsMapToArray(landingsByMonth) {
+    convertMonthsMapToArray(flightsByMonth) {
         let months = [];
-        for (let month in landingsByMonth) {
-            if (landingsByMonth.hasOwnProperty(month)) {
+        for (let month in flightsByMonth) {
+            if (flightsByMonth.hasOwnProperty(month)) {
                 months.push(month);
             }
         }
         months = months.sort();
-        let monthlyLandingsArray = [];
+        let monthlyFlightsArray = [];
         for (let i = 0; i < months.length; i++) {
             let month = months[i];
-            monthlyLandingsArray[i] = landingsByMonth[month];
+            monthlyFlightsArray[i] = flightsByMonth[month];
         }
-        return monthlyLandingsArray;
+        return monthlyFlightsArray;
     }
 
     calculateSafetyValues(SafetyDashboardDetails) {
