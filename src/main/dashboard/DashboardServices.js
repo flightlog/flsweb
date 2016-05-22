@@ -30,6 +30,8 @@ export class DashboardDataModelAdapter {
             monthIndexes[i] = i + 1;
         }
 
+        let licenseStateSeries = [];
+
         let idx = 0;
         if (dashboardData.GliderPilotFlightStatisticDashboardDetails
             && !_.isEmpty(dashboardData.GliderPilotFlightStatisticDashboardDetails.MonthlyLandings)
@@ -102,11 +104,35 @@ export class DashboardDataModelAdapter {
             };
         }
 
+        if (dashboardData.GliderLicenceStateDetails) {
+            licenseStateSeries[0] = {
+                name: 'Benötigt',
+                color: 'rgba(70,70,70,.5)',
+                data: [
+                    dashboardData.GliderLicenceStateDetails.FlightTimeInHoursRequired,
+                    dashboardData.GliderLicenceStateDetails.LandingsRequired,
+                    dashboardData.GliderLicenceStateDetails.NumberOfCheckFlightsRequired
+                ],
+                pointPadding: 0.1
+            };
+            licenseStateSeries[1] = {
+                name: 'Erreicht',
+                color: 'rgba(126,86,134,.9)',
+                data: [
+                    dashboardData.GliderLicenceStateDetails.FlightTimeInHours,
+                    dashboardData.GliderLicenceStateDetails.Landings,
+                    dashboardData.GliderLicenceStateDetails.NumberOfCheckFlights
+                ],
+                pointPadding: 0.3
+            };
+        }
+
         let safety = this.calculateSafetyValues(dashboardData.SafetyDashboardDetails);
         let convertToMonthLabel = this.convertToMonthLabel;
 
         return {
             person: dashboardData.PersonDashboardDetails || {},
+            license: dashboardData.GliderLicenceStateDetails || {},
             safety: safety,
             safetyGauge: {
                 options: {
@@ -185,6 +211,46 @@ export class DashboardDataModelAdapter {
                     opposite: true,
                     allowDecimals: false
                 }]
+            },
+
+            licenseStateConfig: {
+                options: {
+                    chart: {
+                        type: 'column'
+                    },
+
+                    plotOptions: {
+                        column: {
+                            grouping: false,
+                            shadow: false,
+                            borderWidth: 0
+                        }
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            let required = this.points[0];
+                            let done = this.points[1];
+                            return `${this.x}:<br><span style="font-weight:500;">${required.series.name}: ${required.y}<span><br><span style="font-weight:500;">${done.series.name}: ${Math.round(done.y*10)/10}<span>`;
+                        },
+                        shared: true
+                    }
+                },
+                series: licenseStateSeries,
+                title: {
+                    text: ''
+                },
+                loading: false,
+                xAxis: {
+                    categories: ['Flugstunden', 'Landungen', 'Checkflüge']
+                },
+                yAxis: [
+                    {
+                        min: 0,
+                        title: {text: 'Anzahl'},
+                        allowDecimals: false,
+                        opposite: true
+                    }
+                ]
             }
         };
     }
