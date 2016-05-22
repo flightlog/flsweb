@@ -12,31 +12,31 @@
         </div>
         <div class="row" style="margin-top: 50px;">
             <div class="col-md-4 col-xs-12" style="text-align:center;">
-                <h4 translate="MY_SAFETY_STATUS" style="margin-bottom: 40px;"></h4>
+                <h4 translate="MY_SAFETY_STATUS"></h4>
                 <div>
-                    <highchart config="ctrl.myDashboardConfig.safetyGauge" style="height:250px;"></highchart>
+                    <highchart config="ctrl.myDashboardConfig.safetyGauge" style="height:180px;"></highchart>
                 </div>
-                <div style="font-size: 0.8em;padding-left:10px;">
+                <div style="font-size: 0.8em;padding-left:40px;">
                     <section style="text-align: left;">
                         <div style="color:gray;text-align:right;" class="pull-right">
                             Starts: <span ng-bind="ctrl.myDashboardConfig.safety.starts"></span><br>
                             Flugstunden: <span ng-bind="ctrl.myDashboardConfig.safety.hours"></span>h
                         </div>
-                        <h3 translate="SAFETY_{{ctrl.myDashboardConfig.safety.labelKey}}_TITLE"></h3>
-                        <h4 translate="SAFETY_{{ctrl.myDashboardConfig.safety.labelKey}}_SUBTITLE"></h4>
+                        <h4 translate="SAFETY_{{ctrl.myDashboardConfig.safety.labelKey}}_TITLE"></h4>
+                        <h5 translate="SAFETY_{{ctrl.myDashboardConfig.safety.labelKey}}_SUBTITLE"></h5>
                         <p translate="SAFETY_{{ctrl.myDashboardConfig.safety.labelKey}}_DESCRIPTION"></p>
                     </section>
                 </div>
             </div>
 
             <div class="col-md-4 col-xs-12" style="text-align:center;">
-                <h4 translate="MY_LICENSE_STATE" style="margin-bottom: 40px;"></h4>
+                <h4 translate="MY_LICENSE_STATE" style="margin-bottom: 30px;"></h4>
                 <div class="alert"
                      ng-class="{'alert-success': ctrl.myDashboardConfig.license.LicenceStateKey === 'OK',
                                 'alert-warning': ctrl.myDashboardConfig.license.LicenceStateKey === 'Warning',
                                 'alert-danger': ctrl.myDashboardConfig.license.LicenceStateKey === 'NotOK'}"
                      ng-bind="ctrl.myDashboardConfig.license.LicenceStateInformation"></div>
-                <highchart config="ctrl.myDashboardConfig.licenseStateConfig" style="margin-top:10px;height: 300px;"></highchart>
+                <highchart config="ctrl.myDashboardConfig.licenseStateConfig" style="margin-top:10px;height: 250px;"></highchart>
             </div>
 
             <div class="col-md-4 col-xs-12" style="text-align:center;">
@@ -67,7 +67,7 @@
                     <a href="#/profile" translate="MY_PROFILE" class="clickable"></a>
                 </section>
                 <section>
-                    <h4 translate="MY_START_PERMISSIONS" style="margin-top: 40px;"></h4>
+                    <h4 translate="MY_START_PERMISSIONS" style="margin-top: 30px;"></h4>
                     <div ng-if="ctrl.myDashboardConfig.person.HasGliderInstructorLicence
                      || ctrl.myDashboardConfig.person.HasGliderPilotLicence
                      || ctrl.myDashboardConfig.person.HasGliderTraineeLicence

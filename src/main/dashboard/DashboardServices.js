@@ -137,7 +137,11 @@ export class DashboardDataModelAdapter {
             safetyGauge: {
                 options: {
                     chart: {
-                        type: 'solidgauge'
+                        type: 'solidgauge',
+                        animation: false
+                    },
+                    tooltip: {
+                        enabled: false
                     },
 
                     pane: {
@@ -156,7 +160,7 @@ export class DashboardDataModelAdapter {
                 series: [{
                     data: [safety.safetyPercentage],
                     dataLabels: {
-                        format: '<div></div>'
+                        enabled: false
                     }
                 }],
                 title: {
@@ -164,13 +168,20 @@ export class DashboardDataModelAdapter {
                 },
                 loading: false,
                 yAxis: {
+                    lineWidth: 0,
+                    minorTickInterval: null,
+                    tickPixelInterval: 400,
+                    tickWidth: 0,
                     min: 0,
                     max: 100,
                     stops: [
                         [0.3, '#DF5353'], // red
                         [0.5, '#DDDF0D'], // yellow
                         [0.8, '#55BF3B'] // green
-                    ]
+                    ],
+                    labels: {
+                        enabled: false
+                    }
                 }
             },
 
