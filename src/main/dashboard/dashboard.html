@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="row" style="margin-top: 50px;">
-            <div class="col-md-4 col-sm-4 col-xs-4" style="text-align:center;">
+            <div class="col-md-4 col-xs-12" style="text-align:center;">
                 <h4 translate="MY_SAFETY_STATUS" style="margin-bottom: 40px;"></h4>
                 <div>
                     <highchart config="ctrl.myDashboardConfig.safetyGauge" style="height:250px;"></highchart>
@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4 col-sm-4 col-xs-4" style="text-align:center;">
+            <div class="col-md-4 col-xs-12" style="text-align:center;">
                 <h4 translate="MY_MEDICAL" style="margin-bottom: 40px;"></h4>
                 <div style="margin: 0.8em;" ng-show="ctrl.myDashboardConfig.person.MedicalClass1ExpireDate">
                     Class 1 <span translate="EXPIRES_AT" style="color:gray;"></span>
@@ -46,7 +46,7 @@
                     <div style="font-size: 1.5em;"><span ng-bind="ctrl.myDashboardConfig.person.MedicalLaplExpireDate | date: 'dd.MM.yyyy'"></span></div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-4" style="text-align:center;">
+            <div class="col-md-4 col-xs-12" style="text-align:center;">
                 <h4 translate="MY_START_PERMISSIONS" style="margin-bottom: 40px;"></h4>
                 <div ng-if="ctrl.myDashboardConfig.person.HasGliderInstructorLicence
                      || ctrl.myDashboardConfig.person.HasGliderPilotLicence
