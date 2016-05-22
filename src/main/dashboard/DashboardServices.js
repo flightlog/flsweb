@@ -256,7 +256,7 @@ export class DashboardDataModelAdapter {
     }
 
     convertToMonthLabel(monthIndex) {
-        return moment().subtract(2, 'year').add(monthIndex, 'month').format("MMM YY");
+        return moment().subtract(1, 'year').add(monthIndex, 'month').format("MMM YY");
     }
 
     convertToMonthsArray(landingsByDate, previousYear) {
