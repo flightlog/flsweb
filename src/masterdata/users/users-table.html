@@ -2,11 +2,11 @@
     <section class="row col-xs-12" style="margin-bottom: 10px;">
         <div class="btn-group">
             <button class="btn btn-default" ng-class="{'active': filters[accountState.AccountStateName]}"
-                    translate="{{accountState.AccountStateName}}"
+                    translate="FILTER_USER_STATE_{{accountState.AccountStateName}}"
                     ng-click="toggleRequiredAccountStateFilter(accountState.AccountStateName)"
                     ng-repeat="accountState in userAccountStates"></button>
             <button class="btn btn-default"
-                    translate="RESET"
+                    translate="ALL"
                     ng-click="resetRequiredAccountStateFilter()"></button>
         </div>
     </section>

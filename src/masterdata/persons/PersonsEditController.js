@@ -11,16 +11,11 @@ export default class PersonsEditController {
             'HasMotorPilotLicence',
             'HasTowPilotLicence'
         ];
-        $scope.translationKeys = {
-            'HasGliderInstructorLicence': 'HAS_GLIDER_INSTRUCTOR_LICENCE',
-            'HasGliderPilotLicence': 'HAS_GLIDER_PILOT_LICENCE',
-            'HasGliderTraineeLicence': 'HAS_GLIDER_TRAINEE_LICENCE',
-            'HasMotorPilotLicence': 'HAS_MOTOR_PILOT_LICENCE',
-            'HasTowPilotLicence': 'HAS_TOW_PILOT_LICENCE'
-        };
         $scope.requiredFlagsFilter = {};
         $scope.toggleRequiredFlagFilter = (flag) => {
-            $scope.requiredFlagsFilter[flag] = !$scope.requiredFlagsFilter[flag];
+            var previousValue = $scope.requiredFlagsFilter[flag];
+            $scope.requiredFlagsFilter = {};
+            $scope.requiredFlagsFilter[flag] = !previousValue;
         };
         $scope.resetRequiredFlagsFilters = () => {
             $scope.requiredFlagsFilter = {};
