@@ -177,7 +177,8 @@ export class DashboardDataModelAdapter {
             flightsChartConfig: {
                 options: {
                     chart: {
-                        type: 'column'
+                        type: 'column',
+                        zoomType: 'x'
                     },
 
                     plotOptions: {
