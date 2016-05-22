@@ -34,7 +34,27 @@ describe('DashboardDataModelAdapter Directive', () => {
         let result = dashboardDataModelAdapter.convertToMonthsArray(dashboardConfig.GliderPilotFlightStatisticDashboardDetails.MonthlyLandings);
 
         // assert
-        expect(result).toEqual([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 3]);
+        expect(result).toEqual([0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 3]);
+    });
+
+    it('should convert to index based months array for previous year and skip flights which are newer than a year and older than 2 years', () => {
+        // arrange
+        let flightsArray = [];
+        flightsArray["2000-02-01T00:00:00"] = 11;
+        flightsArray["2000-03-01T00:00:00"] = 11;
+        flightsArray[moment().add(-1, "year").format("YYYY-MM-DD")] = 3;
+        flightsArray[moment().add(-1, "year").subtract(4, "month").format("YYYY-MM-DD")] = 2;
+        let dashboardConfig = {
+            "GliderPilotFlightStatisticDashboardDetails": {
+                "MonthlyLandings": flightsArray
+            }
+        };
+
+        // act
+        let result = dashboardDataModelAdapter.convertToMonthsArray(dashboardConfig.GliderPilotFlightStatisticDashboardDetails.MonthlyLandings, true);
+
+        // assert
+        expect(result).toEqual([0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 3]);
     });
 
     it('last index should convert current month label', () => {
