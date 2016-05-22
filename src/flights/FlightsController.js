@@ -152,7 +152,9 @@ export default class FlightsController {
                         for (var i = 0; i < $scope.gliderAircrafts.length; i++) {
                             var glider = $scope.gliderAircrafts[i];
                             if (glider.AircraftId === $scope.flightDetails.GliderFlightDetailsData.AircraftId) {
-                                $scope.flightDetails.GliderFlightDetailsData.IsSoloFlight = glider.NrOfSeats === 1;
+                                if(!$scope.flightDetails.GliderFlightDetailsData.IsSoloFlight && glider.NrOfSeats === 1) {
+                                    $scope.flightDetails.GliderFlightDetailsData.IsSoloFlight = true;
+                                }
                                 $scope.selectedGliderAircraft = glider;
                                 $scope.gliderCompetitionSign = glider.CompetitionSign;
 
@@ -572,7 +574,7 @@ export default class FlightsController {
 
         function calcNumberOfSeatWarning() {
             $scope.warnNumberOfSeatsInsufficientForFlightType = false;
-            if($scope.selectedFlightType && $scope.selectedGliderAircraft) {
+            if ($scope.selectedFlightType && $scope.selectedGliderAircraft) {
                 $scope.warnNumberOfSeatsInsufficientForFlightType = $scope.selectedGliderAircraft.NrOfSeats < $scope.selectedFlightType.MinNrOfAircraftSeatsRequired;
             }
         }
