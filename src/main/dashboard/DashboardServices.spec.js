@@ -39,7 +39,7 @@ describe('DashboardDataModelAdapter Directive', () => {
 
     it('last index should convert current month label', () => {
         // arrange
-        var monthIndex = 12;
+        var monthIndex = 24;
 
         // act
         let result = dashboardDataModelAdapter.convertToMonthLabel(monthIndex);

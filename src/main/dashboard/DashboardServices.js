@@ -118,11 +118,11 @@ export class DashboardDataModelAdapter {
     }
 
     convertToMonthLabel(monthIndex) {
-        return moment().subtract(1, 'year').add(monthIndex, 'month').format("MMM YY");
+        return moment().subtract(2, 'year').add(monthIndex, 'month').format("MMM YY");
     }
 
     convertToMonthsArray(landingsByDate) {
-        let oneYearAgo = moment().subtract(1, 'year');
+        let oneYearAgo = moment().subtract(2, 'year');
         let landingsByMonth = [];
         for (let i = 0; i < 24; i++) {
             landingsByMonth[moment().month(parseInt(moment().format("M")) - i - 1).format("YYYYMM")] = 0;
