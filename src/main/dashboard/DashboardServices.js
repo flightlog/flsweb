@@ -272,7 +272,11 @@ export class DashboardDataModelAdapter {
     }
 
     convertToMonthLabel(monthIndex) {
-        return moment().subtract(1, 'year').add(monthIndex, 'month').format("MMM YY");
+        let month = moment().subtract(1, 'year').add(monthIndex, 'month').format("MMM");
+        let prevYear = moment().subtract(2, 'year').add(monthIndex, 'month').format("YY");
+        let currentYear = moment().subtract(1, 'year').add(monthIndex, 'month').format("YY");
+
+        return `${month} ${prevYear}/${currentYear}`;
     }
 
     convertToMonthsArray(flightsByDate, previousYear) {
