@@ -87,7 +87,9 @@ describe('DashboardDataModelAdapter Directive', () => {
         let result = dashboardDataModelAdapter.convertToMonthLabel(monthIndex);
 
         // assert
-        expect(result).toEqual(moment().format("MMM YY"));
+        expect(result).toContain(moment().format("MMM "));
+        expect(result).toContain(moment().format("YY"));
+        expect(result).toContain(moment().subtract(1, "year").format("YY"));
     });
 
     it('should calculate the safety values for unsafe pilots', () => {
