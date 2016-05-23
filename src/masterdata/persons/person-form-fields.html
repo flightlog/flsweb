@@ -56,8 +56,15 @@
                 <div class="form-group col-md-4">
                     <label for="Birthday"><span translate="BIRTHDAY"></span></label>
 
-                    <input type="text" date-time class="form-control" id="Birthday" view="date" format="dd.MM.yyyy"
-                           ng-model="person.Birthday" min-view="date" />
+                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
+                        <input class="form-control" id="Birthday" ng-model="person.Birthday"
+                               type="text" date-time view="date" format="dd.MM.yyyy" min-view="date">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"
+                                    ng-click="person.Birthday = undefined;"><span
+                                    class="fa fa-times"></span></button>
+                          </span>
+                    </div>
                 </div>
             </div>
         </accordion-group>
