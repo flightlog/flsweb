@@ -1,6 +1,7 @@
 import Pikaday from "pikaday";
 import moment from "moment";
 import * as angular from "angular";
+import * as _ from "lodash";
 
 export default class DatePickerInputDirective {
     static factory($timeout) {
@@ -14,6 +15,7 @@ export default class DatePickerInputDirective {
                                  pikaday="myPicker"
                                  ng-model="stringDateValue"
                                  ng-required="isRequired"
+                                 ng-change="checkIfEmpty()"
                                  on-select="onPikadaySelect(pikaday)"
                                  pattern="([0-9]{2}\\.){2}[0-9]{4}">
                           <span class="input-group-btn">
@@ -38,7 +40,13 @@ export default class DatePickerInputDirective {
                     let filteredDate = pikaday.getMoment().format('YYYY-MM-DD');
                     modelCtrl.$setViewValue(new Date(filteredDate + 'T00:00:00+0000'));
                 };
+                scope.checkIfEmpty = () => {
+                    if(_.isEmpty(scope.stringDateValue)) {
+                        modelCtrl.$setViewValue(undefined);
+                    }
+                };
                 scope.clear = () => {
+                    scope.myPicker.setDate(undefined);
                     modelCtrl.$setViewValue(undefined);
                 };
 
@@ -76,7 +84,9 @@ class DataPickerInputController {
         });
 
         $timeout(() => {
-            $scope.myPicker.setDate(moment($scope.ngModel).toDate());
+            if(!_.isEmpty($scope.ngModel)) {
+                $scope.myPicker.setDate(moment($scope.ngModel).toDate());
+            }
         }, 0);
     }
 
