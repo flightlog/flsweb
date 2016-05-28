@@ -60,6 +60,8 @@ export default angular.module("fls.core", [
         pikadayConfigProvider.setConfig({
             firstDay: 1,
             format: "DD.MM.YYYY",
+            setDefaultDate: true,
+            yearRange: [1900,2050],
             theme: "fls-theme"
         });
     });

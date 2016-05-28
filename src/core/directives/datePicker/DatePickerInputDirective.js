@@ -3,7 +3,7 @@ import moment from "moment";
 import * as angular from "angular";
 
 export default class DatePickerInputDirective {
-    static factory() {
+    static factory($timeout) {
         return {
             restrict: 'E',
             require: '^ngModel',
@@ -14,8 +14,6 @@ export default class DatePickerInputDirective {
                                  pikaday="myPicker"
                                  ng-model="stringDateValue"
                                  ng-required="isRequired"
-                                 default-date="stringDateValue"
-                                 set-default-date="true"
                                  on-select="onPikadaySelect(pikaday)"
                                  pattern="([0-9]{2}\\.){2}[0-9]{4}">
                           <span class="input-group-btn">
@@ -28,6 +26,7 @@ export default class DatePickerInputDirective {
                           </span>
                     </div>
             `,
+            controller: DataPickerInputController,
             scope: {
                 ngModel: '='
             },
@@ -55,7 +54,6 @@ export default class DatePickerInputDirective {
                     }
                 }
 
-                setPikadayValue(scope.ngModel);
                 scope.$watch('ngModel', setPikadayValue);
 
                 scope.$watch('ngDisabled', () => {
@@ -65,13 +63,21 @@ export default class DatePickerInputDirective {
                 scope.$watch('ngRequired', () => {
                     scope.isRequired = !!attrs.required;
                 });
-
-                scope.myPicker = new Pikaday({
-                    field: scope.el,
-                    format: format,
-                    defaultDate: scope.ngModel
-                });
             }
         };
     };
+}
+
+class DataPickerInputController {
+
+    constructor($scope, $timeout) {
+        $scope.myPicker = new Pikaday({
+            field: $scope.el
+        });
+
+        $timeout(() => {
+            $scope.myPicker.setDate(moment($scope.ngModel).toDate());
+        }, 0);
+    }
+
 }
