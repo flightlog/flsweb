@@ -31,9 +31,9 @@
 
 .fls-theme .pika-button {
     color: #333;
-    border: 2px solid rgba(255, 255, 255, 0);
+    border: 1px solid rgba(255, 255, 255, 0);
     background: #fff;
-    border-radius: 0;
+    border-radius: 1px;
     font-weight: 500;
 }
 
@@ -43,6 +43,7 @@
 
 .fls-theme .is-today .pika-button {
     color: #2722a0;
+    border-color: #8781cc;
     font-weight: 700;
 }
 
@@ -51,7 +52,7 @@
     background: #e6deff;
     box-shadow: none;
     font-weight: 700;
-    border: 2px solid #2a2d79;
+    border-color: #2a2d79;
 }
 
 .fls-theme .is-disabled .pika-button {

@@ -21,12 +21,14 @@
                    ng-click="loadToday()" style="margin-right:30px;"></a>
             </div>
             <div class="col-md-3 col-sm-12 col-xs-12">
-                <input id="fromDate" class="form-control" type="text" ng-model="fromDate"
-                       placeholder="{{'FROM_DATE' | translate}}">
+                <fls-date-picker id="fromDate"
+                                 placeholder="{{'FROM_DATE' | translate}}"
+                                 ng-model="filterDates.fromDate"></fls-date-picker>
             </div>
             <div class="col-md-3 col-sm-12 col-xs-12">
-                <input id="toDate" class="form-control" type="text" ng-model="toDate"
-                       placeholder="{{'TO_DATE' | translate}}">
+                <fls-date-picker id="toDate"
+                                 placeholder="{{'TO_DATE' | translate}}"
+                                 ng-model="filterDates.toDate"></fls-date-picker>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <button id="button" class="form-control col-md-4 col-sm-4 col-sm-12" type="button"

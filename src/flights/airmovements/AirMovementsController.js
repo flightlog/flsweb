@@ -23,6 +23,7 @@ export default class AirMovementsController {
         $scope.motorPilots = [];
         $scope.observers = [];
         $scope.instructors = [];
+        $scope.filterDates = {};
 
         function renderWithId(idName, labelName) {
             return (data, escape) => {
@@ -68,37 +69,32 @@ export default class AirMovementsController {
         let today = moment();
         let dateStringFormat = 'DD.MM.YYYY';
 
-        function formatDate(d) {
-            return d.format(dateStringFormat);
-        }
-
-        let todayFormatted = formatDate(today);
-        $scope.fromDate = todayFormatted;
-        $scope.toDate = todayFormatted;
+        $scope.filterDates.fromDate = today;
+        $scope.filterDates.toDate = today;
 
         $scope.loadAllTime = () => {
-            $scope.fromDate = '';
-            $scope.toDate = todayFormatted;
+            $scope.filterDates.fromDate = '';
+            $scope.filterDates.toDate = today;
             reloadFlights();
         };
         $scope.loadMonths = function (num) {
-            $scope.fromDate = formatDate(moment().subtract(num, 'months'));
-            $scope.toDate = todayFormatted;
+            $scope.filterDates.fromDate = moment().subtract(num, 'months');
+            $scope.filterDates.toDate = today;
             reloadFlights();
         };
         $scope.loadMonth = function (num) {
-            $scope.fromDate = formatDate(moment().startOf('month').subtract(num, 'months'));
-            $scope.toDate = formatDate(moment().startOf('month').subtract(num - 1, 'months'));
+            $scope.filterDates.fromDate = moment().startOf('month').subtract(num, 'months');
+            $scope.filterDates.toDate = moment().startOf('month').subtract(num - 1, 'months');
             reloadFlights();
         };
         $scope.loadToday = () => {
-            $scope.fromDate = todayFormatted;
-            $scope.toDate = todayFormatted;
+            $scope.filterDates.fromDate = today;
+            $scope.filterDates.toDate = today;
             reloadFlights();
         };
         $scope.loadYesterday = () => {
-            $scope.fromDate = formatDate(moment().subtract(1, 'days'));
-            $scope.toDate = $scope.fromDate;
+            $scope.filterDates.fromDate = moment().subtract(1, 'days');
+            $scope.filterDates.toDate = $scope.filterDates.fromDate;
             reloadFlights();
         };
 
@@ -108,8 +104,8 @@ export default class AirMovementsController {
 
         function toQueryDate(d) {
             let queryDateFormat = 'YYYY-MM-DD';
-            let m = moment(d, dateStringFormat);
-            if (m.isValid()) {
+            let m = moment(d);
+            if (d && m.isValid()) {
                 return m.format(queryDateFormat);
             } else {
                 return '0001-01-01';
@@ -118,8 +114,8 @@ export default class AirMovementsController {
 
         function reloadFlights() {
             $scope.busy = true;
-            let fromDate = toQueryDate($scope.fromDate);
-            let toDate = toQueryDate($scope.toDate);
+            let fromDate = toQueryDate($scope.filterDates.fromDate);
+            let toDate = toQueryDate($scope.filterDates.toDate);
             AirMovementsDateRange.getFlights({from: fromDate, to: toDate}).$promise
                 .then((result) => {
                     $scope.flights = result;
