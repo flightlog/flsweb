@@ -1,0 +1,65 @@
+.pika-single.fls-theme {
+    color: #333;
+    background: #fff;
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+}
+
+.fls-theme .pika-label {
+    background-color: #fff;
+}
+
+.fls-theme .pika-prev,
+.fls-theme .is-rtl .pika-next {
+}
+
+.fls-theme .pika-next,
+.fls-theme .is-rtl .pika-prev {
+}
+
+.fls-theme .pika-table th {
+    color: #999;
+    background: #fff;
+}
+
+.fls-theme .pika-table td {
+    border: 0;
+}
+
+.fls-theme .pika-button {
+    color: #333;
+    border: 2px solid rgba(255, 255, 255, 0);
+    background: #fff;
+    border-radius: 0;
+    font-weight: 500;
+}
+
+.fls-theme .pika-week {
+    color: #777;
+}
+
+.fls-theme .is-today .pika-button {
+    color: #2722a0;
+    font-weight: 700;
+}
+
+.fls-theme .is-selected .pika-button {
+    color: #333;
+    background: #e6deff;
+    box-shadow: none;
+    font-weight: 700;
+    border: 2px solid #2a2d79;
+}
+
+.fls-theme .is-disabled .pika-button {
+    color: #777;
+    opacity: .3;
+}
+
+.fls-theme .pika-button:hover {
+    color: #333 !important;
+    background: #e6deff !important;
+}

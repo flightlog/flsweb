@@ -1,53 +1,75 @@
 <div class="row">
 
     <accordion close-others="false">
-        <accordion-group is-open="status1" ng-init="status1 = true">
+        <accordion-group is-open="status1"
+                         ng-init="status1 = true">
             <accordion-heading>
-                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status1, 'glyphicon-chevron-right': !status1}" style="margin-right: 0.8em;"></i> <span translate="MASTERDATA"></span>
+                <i class="pull-left glyphicon"
+                   ng-class="{'glyphicon-chevron-down': status1, 'glyphicon-chevron-right': !status1}"
+                   style="margin-right: 0.8em;"></i> <span translate="MASTERDATA"></span>
             </accordion-heading>
 
             <div class="col-md-12">
                 <div class="form-group col-md-4">
                     <label for="Firstname"><span translate="FIRST_NAME"></span></label>
-                    <input class="form-control" id="Firstname" ng-model="person.Firstname" required>
+                    <input class="form-control"
+                           id="Firstname"
+                           ng-model="person.Firstname"
+                           required>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="Midname"><span translate="MID_NAME"></span></label>
-                    <input class="form-control" id="Midname" ng-model="person.Midname">
+                    <input class="form-control"
+                           id="Midname"
+                           ng-model="person.Midname">
                 </div>
                 <div class="form-group col-md-5">
                     <label for="Lastname"><span translate="LAST_NAME"></span></label>
-                    <input class="form-control" id="Lastname" ng-model="person.Lastname" required>
+                    <input class="form-control"
+                           id="Lastname"
+                           ng-model="person.Lastname"
+                           required>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group col-md-12">
                     <label for="AddressLine1"><span translate="ADDRESS_LINE1"></span></label>
-                    <input class="form-control" id="AddressLine1" ng-model="person.AddressLine1">
+                    <input class="form-control"
+                           id="AddressLine1"
+                           ng-model="person.AddressLine1">
                 </div>
                 <div class="form-group col-md-12">
                     <label for="AddressLine2"><span translate="ADDRESS_LINE2"></span></label>
-                    <input class="form-control" id="AddressLine2" ng-model="person.AddressLine2">
+                    <input class="form-control"
+                           id="AddressLine2"
+                           ng-model="person.AddressLine2">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group col-md-3">
                     <label for="ZipCode"><span translate="ZIP_CODE"></span></label>
-                    <input class="form-control" id="ZipCode" ng-model="person.ZipCode">
+                    <input class="form-control"
+                           id="ZipCode"
+                           ng-model="person.ZipCode">
                 </div>
                 <div class="form-group col-md-5">
                     <label for="City"><span translate="CITY"></span></label>
-                    <input class="form-control" id="City" ng-model="person.City">
+                    <input class="form-control"
+                           id="City"
+                           ng-model="person.City">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="Region"><span translate="REGION"></span></label>
-                    <input class="form-control" id="Region" ng-model="person.Region">
+                    <input class="form-control"
+                           id="Region"
+                           ng-model="person.Region">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group col-md-8">
                     <label for="Country"><span translate="COUNTRY"></span></label>
-                    <select id="Country" class="form-control"
+                    <select id="Country"
+                            class="form-control"
                             ng-model="person.CountryId"
                             ng-options="country.CountryId as country.CountryName for country in countries">
                         <option value="">--</option>
@@ -55,70 +77,87 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="Birthday"><span translate="BIRTHDAY"></span></label>
-
-                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                        <input class="form-control" id="Birthday" ng-model="person.Birthday"
-                               type="text" date-time view="date" format="dd.MM.yyyy" min-view="date">
-                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"
-                                    ng-click="person.Birthday = undefined;"><span
-                                    class="fa fa-times"></span></button>
-                          </span>
-                    </div>
+                    <fls-date-picker id="Birthday"
+                                     ng-model="person.Birthday"></fls-date-picker>
                 </div>
             </div>
         </accordion-group>
-        <accordion-group is-open="status2" ng-init="status2 = true">
+        <accordion-group is-open="status2"
+                         ng-init="status2 = true">
             <accordion-heading>
-                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status2, 'glyphicon-chevron-right': !status2}" style="margin-right: 0.8em;"></i> <span translate="COMMUNICATION"></span>
+                <i class="pull-left glyphicon"
+                   ng-class="{'glyphicon-chevron-down': status2, 'glyphicon-chevron-right': !status2}"
+                   style="margin-right: 0.8em;"></i> <span translate="COMMUNICATION"></span>
             </accordion-heading>
 
             <div class="col-md-12">
                 <div class="form-group col-md-4">
                     <label for="Email"><span translate="EMAIL_ADDRESS"></span></label>
-                    <input type="text" id="Email" class="form-control" ng-model="person.PrivateEmail">
+                    <input type="text"
+                           id="Email"
+                           class="form-control"
+                           ng-model="person.PrivateEmail">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="MobilePhoneNumber"><span translate="MOBILE_NUMBER"></span></label>
-                    <input type="text" id="MobilePhoneNumber" class="form-control" ng-model="person.MobilePhoneNumber">
+                    <input type="text"
+                           id="MobilePhoneNumber"
+                           class="form-control"
+                           ng-model="person.MobilePhoneNumber">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="PrivatePhoneNumber"><span translate="PHONE_NUMBER"></span></label>
-                    <input type="text" id="PrivatePhoneNumber" class="form-control"
+                    <input type="text"
+                           id="PrivatePhoneNumber"
+                           class="form-control"
                            ng-model="person.PrivatePhoneNumber">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group col-md-12">
                     <label for="CompanyName"><span translate="COMPANY"></span></label>
-                    <input class="form-control" id="CompanyName" ng-model="person.CompanyName">
+                    <input class="form-control"
+                           id="CompanyName"
+                           ng-model="person.CompanyName">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group col-md-4">
                     <label for="BusinessEmail"><span translate="BUSINESS_EMAIL_ADDRESS"></span></label>
-                    <input class="form-control" id="BusinessEmail" ng-model="person.BusinessEmail">
+                    <input class="form-control"
+                           id="BusinessEmail"
+                           ng-model="person.BusinessEmail">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="BusinessPhoneNumber"><span translate="BUSINESS_PHONE_NUMBER"></span></label>
-                    <input class="form-control" id="BusinessPhoneNumber" ng-model="person.BusinessPhoneNumber">
+                    <input class="form-control"
+                           id="BusinessPhoneNumber"
+                           ng-model="person.BusinessPhoneNumber">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="FaxNumber"><span translate="FAX_NUMBER"></span></label>
-                    <input class="form-control" id="FaxNumber" ng-model="person.FaxNumber">
+                    <input class="form-control"
+                           id="FaxNumber"
+                           ng-model="person.FaxNumber">
                 </div>
                 <div class="form-group col-md-12">
                     <label for="SpotLink"><span translate="SPOT_LINK"></span></label>
                     <div class="input-group">
-                        <input class="form-control" id="SpotLink" ng-model="person.SpotLink">
+                        <input class="form-control"
+                               id="SpotLink"
+                               ng-model="person.SpotLink">
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="testSpotLink(person.SpotLink)"
+                            <button type="button"
+                                    class="btn btn-default"
+                                    ng-click="testSpotLink(person.SpotLink)"
                                     translate="TEST_LINK"></button>
                         </span>
                     </div>
                 </div>
-                <label class="checkbox col-md-11 col-md-offset-1" for="ReceiveOwnedAircraftStatisticReports">
-                    <input type="checkbox" id="ReceiveOwnedAircraftStatisticReports"
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="ReceiveOwnedAircraftStatisticReports">
+                    <input type="checkbox"
+                           id="ReceiveOwnedAircraftStatisticReports"
                            ng-model="person.ReceiveOwnedAircraftStatisticReports">
                     <span translate="RECEIVE_OWNED_AIRCRAFT_STATISTIC_REPORT"></span>
                 </label>
@@ -126,175 +165,218 @@
         </accordion-group>
         <accordion-group is-open="status3">
             <accordion-heading>
-                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status3, 'glyphicon-chevron-right': !status3}" style="margin-right: 0.8em;"></i> <span translate="LICENSE"></span>
+                <i class="pull-left glyphicon"
+                   ng-class="{'glyphicon-chevron-down': status3, 'glyphicon-chevron-right': !status3}"
+                   style="margin-right: 0.8em;"></i> <span translate="LICENSE"></span>
             </accordion-heading>
 
-            <div class="col-md-3" ng-show="!flags.Passenger">
-                <label class="checkbox col-md-11 col-md-offset-1" for="HasGliderInstructorLicence">
-                    <input type="checkbox" id="HasGliderInstructorLicence" ng-model="person.HasGliderInstructorLicence">
+            <div class="col-md-3"
+                 ng-show="!flags.Passenger">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="HasGliderInstructorLicence">
+                    <input type="checkbox"
+                           id="HasGliderInstructorLicence"
+                           ng-model="person.HasGliderInstructorLicence">
                     <span translate="HAS_GLIDER_INSTRUCTOR_LICENCE"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="HasGliderPilotLicence">
-                    <input type="checkbox" id="HasGliderPilotLicence" ng-model="person.HasGliderPilotLicence">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="HasGliderPilotLicence">
+                    <input type="checkbox"
+                           id="HasGliderPilotLicence"
+                           ng-model="person.HasGliderPilotLicence">
                     <span translate="HAS_GLIDER_PILOT_LICENCE"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="HasGliderTraineeLicence">
-                    <input type="checkbox" id="HasGliderTraineeLicence" ng-model="person.HasGliderTraineeLicence">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="HasGliderTraineeLicence">
+                    <input type="checkbox"
+                           id="HasGliderTraineeLicence"
+                           ng-model="person.HasGliderTraineeLicence">
                     <span translate="HAS_GLIDER_TRAINEE_LICENCE"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="HasMotorPilotLicence">
-                    <input type="checkbox" id="HasMotorPilotLicence" ng-model="person.HasMotorPilotLicence">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="HasMotorPilotLicence">
+                    <input type="checkbox"
+                           id="HasMotorPilotLicence"
+                           ng-model="person.HasMotorPilotLicence">
                     <span translate="HAS_MOTOR_PILOT_LICENCE"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="HasTowPilotLicence">
-                    <input type="checkbox" id="HasTowPilotLicence" ng-model="person.HasTowPilotLicence">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="HasTowPilotLicence">
+                    <input type="checkbox"
+                           id="HasTowPilotLicence"
+                           ng-model="person.HasTowPilotLicence">
                     <span translate="HAS_TOW_PILOT_LICENCE"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="HasGliderPassengerLicence">
-                    <input type="checkbox" id="HasGliderPassengerLicence" ng-model="person.HasGliderPassengerLicence">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="HasGliderPassengerLicence">
+                    <input type="checkbox"
+                           id="HasGliderPassengerLicence"
+                           ng-model="person.HasGliderPassengerLicence">
                     <span translate="HAS_GLIDER_PASSENGER_LICENCE"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="HasTMGLicence">
-                    <input type="checkbox" id="HasTMGLicence" ng-model="person.HasTMGLicence">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="HasTMGLicence">
+                    <input type="checkbox"
+                           id="HasTMGLicence"
+                           ng-model="person.HasTMGLicence">
                     <span translate="HAS_TMG_LICENCE"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="HasWinchOperatorLicence">
-                    <input type="checkbox" id="HasWinchOperatorLicence" ng-model="person.HasWinchOperatorLicence">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="HasWinchOperatorLicence">
+                    <input type="checkbox"
+                           id="HasWinchOperatorLicence"
+                           ng-model="person.HasWinchOperatorLicence">
                     <span translate="HAS_WINCH_OPERATOR_LICENCE"></span>
                 </label>
             </div>
-            <div class="col-md-4" ng-show="!flags.Passenger">
-                <label class="checkbox col-md-11 col-md-offset-1" for="HasGliderTowingStartPermission">
-                    <input type="checkbox" id="HasGliderTowingStartPermission" ng-model="person.HasGliderTowingStartPermission">
+            <div class="col-md-4"
+                 ng-show="!flags.Passenger">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="HasGliderTowingStartPermission">
+                    <input type="checkbox"
+                           id="HasGliderTowingStartPermission"
+                           ng-model="person.HasGliderTowingStartPermission">
                     <span translate="HAS_GLIDER_TOWING_START_PERMISSION"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="HasGliderSelfStartPermission">
-                    <input type="checkbox" id="HasGliderSelfStartPermission" ng-model="person.HasGliderSelfStartPermission">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="HasGliderSelfStartPermission">
+                    <input type="checkbox"
+                           id="HasGliderSelfStartPermission"
+                           ng-model="person.HasGliderSelfStartPermission">
                     <span translate="HAS_GLIDER_SELF_START_PERMISSION"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="HasGliderWinchStartPermission">
-                    <input type="checkbox" id="HasGliderWinchStartPermission" ng-model="person.HasGliderWinchStartPermission">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="HasGliderWinchStartPermission">
+                    <input type="checkbox"
+                           id="HasGliderWinchStartPermission"
+                           ng-model="person.HasGliderWinchStartPermission">
                     <span translate="HAS_GLIDER_WINCH_START_PERMISSION"></span>
                 </label>
             </div>
             <div class="col-md-5">
                 <div class="form-group col-md-12">
                     <label for="LicenceNumber"><span translate="LICENSE_NUMBER"></span></label>
-                    <input class="form-control" id="LicenceNumber" ng-model="person.LicenceNumber">
+                    <input class="form-control"
+                           id="LicenceNumber"
+                           ng-model="person.LicenceNumber">
                 </div>
                 <div class="form-group col-md-12">
                     <label for="MedicalClass1ExpireDate"><span translate="MEDICAL_CLASS1_EXPIRE_DATE"></span></label>
-
-                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                        <input class="form-control" id="MedicalClass1ExpireDate" ng-model="person.MedicalClass1ExpireDate"
-                               type="text" date-time view="date" format="dd.MM.yyyy" min-view="date">
-                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"
-                                    ng-click="person.MedicalClass1ExpireDate = undefined;"><span
-                                    class="fa fa-times"></span></button>
-                          </span>
-                    </div>
+                    <fls-date-picker id="MedicalClass1ExpireDate"
+                                     ng-model="person.MedicalClass1ExpireDate"></fls-date-picker>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="MedicalClass2ExpireDate"><span translate="MEDICAL_CLASS2_EXPIRE_DATE"></span></label>
-
-                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                        <input class="form-control" id="MedicalClass2ExpireDate" ng-model="person.MedicalClass2ExpireDate"
-                               type="text" date-time view="date" format="dd.MM.yyyy" min-view="date">
-                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"
-                                    ng-click="person.MedicalClass2ExpireDate = undefined;"><span
-                                    class="fa fa-times"></span></button>
-                          </span>
-                    </div>
+                    <fls-date-picker id="MedicalClass2ExpireDate"
+                                     ng-model="person.MedicalClass2ExpireDate"></fls-date-picker>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="MedicalLaplExpireDate"><span translate="MEDICAL_LAPL_EXPIRE_DATE"></span></label>
-
-                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                        <input class="form-control" id="MedicalLaplExpireDate" ng-model="person.MedicalLaplExpireDate"
-                               type="text" date-time view="date" format="dd.MM.yyyy" min-view="date">
-                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"
-                                    ng-click="person.MedicalLaplExpireDate = undefined;"><span
-                                    class="fa fa-times"></span></button>
-                          </span>
-                    </div>
+                    <fls-date-picker id="MedicalLaplExpireDate"
+                                     ng-model="person.MedicalLaplExpireDate"></fls-date-picker>
                 </div>
-                <div class="form-group col-md-12" ng-show="person.HasGliderInstructorLicence">
+                <div class="form-group col-md-12"
+                     ng-show="person.HasGliderInstructorLicence">
                     <label for="GliderInstructorLicenceExpireDate"><span translate="GLIDER_INSTRUCTOR_LICENCE_EXPIRE_DATE"></span></label>
-
-                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                        <input class="form-control" id="GliderInstructorLicenceExpireDate" ng-model="person.GliderInstructorLicenceExpireDate"
-                               date-time view="date" format="dd.MM.yyyy" min-view="date">
-                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"
-                                    ng-click="person.GliderInstructorLicenceExpireDate = undefined;"><span
-                                    class="fa fa-times"></span></button>
-                          </span>
-                    </div>
+                    <fls-date-picker id="GliderInstructorLicenceExpireDate"
+                                     ng-model="person.GliderInstructorLicenceExpireDate"></fls-date-picker>
                 </div>
             </div>
         </accordion-group>
-        <accordion-group is-open="status4" ng-if="person.ClubRelatedPersonDetails">
+        <accordion-group is-open="status4"
+                         ng-if="person.ClubRelatedPersonDetails">
             <accordion-heading>
-                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status4, 'glyphicon-chevron-right': !status4}" style="margin-right: 0.8em;"></i> <span translate="CLUB_SETTINGS"></span>
+                <i class="pull-left glyphicon"
+                   ng-class="{'glyphicon-chevron-down': status4, 'glyphicon-chevron-right': !status4}"
+                   style="margin-right: 0.8em;"></i> <span translate="CLUB_SETTINGS"></span>
             </accordion-heading>
             <div class="col-md-6">
-                <label class="checkbox col-md-11 col-md-offset-1" for="IsGliderInstructor">
-                    <input type="checkbox" id="IsGliderInstructor"
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="IsGliderInstructor">
+                    <input type="checkbox"
+                           id="IsGliderInstructor"
                            ng-model="person.ClubRelatedPersonDetails.IsGliderInstructor">
                     <span translate="IS_GLIDER_INSTRUCTOR"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="IsGliderPilot">
-                    <input type="checkbox" id="IsGliderPilot" ng-model="person.ClubRelatedPersonDetails.IsGliderPilot">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="IsGliderPilot">
+                    <input type="checkbox"
+                           id="IsGliderPilot"
+                           ng-model="person.ClubRelatedPersonDetails.IsGliderPilot">
                     <span translate="IS_GLIDER_PILOT"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="IsGliderTrainee">
-                    <input type="checkbox" id="IsGliderTrainee" ng-model="person.ClubRelatedPersonDetails.IsGliderTrainee">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="IsGliderTrainee">
+                    <input type="checkbox"
+                           id="IsGliderTrainee"
+                           ng-model="person.ClubRelatedPersonDetails.IsGliderTrainee">
                     <span translate="IS_GLIDER_TRAINEE"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="IsMotorPilot">
-                    <input type="checkbox" id="IsMotorPilot" ng-model="person.ClubRelatedPersonDetails.IsMotorPilot">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="IsMotorPilot">
+                    <input type="checkbox"
+                           id="IsMotorPilot"
+                           ng-model="person.ClubRelatedPersonDetails.IsMotorPilot">
                     <span translate="IS_MOTOR_PILOT"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="IsPassenger">
-                    <input type="checkbox" id="IsPassenger" ng-model="person.ClubRelatedPersonDetails.IsPassenger">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="IsPassenger">
+                    <input type="checkbox"
+                           id="IsPassenger"
+                           ng-model="person.ClubRelatedPersonDetails.IsPassenger">
                     <span translate="IS_PASSENGER"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="IsTowPilot">
-                    <input type="checkbox" id="IsTowPilot" ng-model="person.ClubRelatedPersonDetails.IsTowPilot">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="IsTowPilot">
+                    <input type="checkbox"
+                           id="IsTowPilot"
+                           ng-model="person.ClubRelatedPersonDetails.IsTowPilot">
                     <span translate="IS_TOW_PILOT"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="IsWinchOperator">
-                    <input type="checkbox" id="IsWinchOperator" ng-model="person.ClubRelatedPersonDetails.IsWinchOperator">
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="IsWinchOperator">
+                    <input type="checkbox"
+                           id="IsWinchOperator"
+                           ng-model="person.ClubRelatedPersonDetails.IsWinchOperator">
                     <span translate="IS_WINCH_OPERATOR"></span>
                 </label>
             </div>
-            <div class="col-md-6" ng-if="person.ClubRelatedPersonDetails">
+            <div class="col-md-6"
+                 ng-if="person.ClubRelatedPersonDetails">
                 <div class="form-group col-md-12">
                     <label for="MemberNumber"><span translate="CLUB_MEMBER_NUMBER"></span></label>
-                    <input class="form-control" id="MemberNumber" ng-model="person.ClubRelatedPersonDetails.MemberNumber">
+                    <input class="form-control"
+                           id="MemberNumber"
+                           ng-model="person.ClubRelatedPersonDetails.MemberNumber">
                 </div>
             </div>
         </accordion-group>
-        <accordion-group is-open="status5" ng-if="person.ClubRelatedPersonDetails">
+        <accordion-group is-open="status5"
+                         ng-if="person.ClubRelatedPersonDetails">
             <accordion-heading>
-                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status5, 'glyphicon-chevron-right': !status5}" style="margin-right: 0.8em;"></i> <span translate="NOTIFICATION_SETTINGS"></span>
+                <i class="pull-left glyphicon"
+                   ng-class="{'glyphicon-chevron-down': status5, 'glyphicon-chevron-right': !status5}"
+                   style="margin-right: 0.8em;"></i> <span translate="NOTIFICATION_SETTINGS"></span>
             </accordion-heading>
             <div class="col-md-6">
-                <label class="checkbox col-md-11 col-md-offset-1" for="ReceiveFlightReports">
-                    <input type="checkbox" id="ReceiveFlightReports"
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="ReceiveFlightReports">
+                    <input type="checkbox"
+                           id="ReceiveFlightReports"
                            ng-model="person.ClubRelatedPersonDetails.ReceiveFlightReports">
                     <span translate="RECEIVE_FLIGHT_REPORTS"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="ReceiveAircraftReservationNotifications">
-                    <input type="checkbox" id="ReceiveAircraftReservationNotifications"
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="ReceiveAircraftReservationNotifications">
+                    <input type="checkbox"
+                           id="ReceiveAircraftReservationNotifications"
                            ng-model="person.ClubRelatedPersonDetails.ReceiveAircraftReservationNotifications">
                     <span translate="RECEIVE_AIRCRAFT_RESERVATION_NOTIFICATIONS"></span>
                 </label>
-                <label class="checkbox col-md-11 col-md-offset-1" for="ReceivePlanningDayRoleReminder">
-                    <input type="checkbox" id="ReceivePlanningDayRoleReminder"
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="ReceivePlanningDayRoleReminder">
+                    <input type="checkbox"
+                           id="ReceivePlanningDayRoleReminder"
                            ng-model="person.ClubRelatedPersonDetails.ReceivePlanningDayRoleReminder">
                     <span translate="RECEIVE_PLANNING_DAY_ROLE_REMINDER"></span>
                 </label>

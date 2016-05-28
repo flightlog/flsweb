@@ -75,9 +75,7 @@ export default class ReservationEditController {
         };
         $scope.save = function (reservation) {
             $scope.busy = true;
-            // 'undo' the timezone offset from ui-datepicker again (so we end up on the original date again)
             var dt = new Date(reservation.Start);
-            dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
             var filteredDate = $filter('date')(dt, 'yyyy-MM-dd');
             if (reservation.IsAllDayReservation) {
                 reservation.Start = filteredDate;

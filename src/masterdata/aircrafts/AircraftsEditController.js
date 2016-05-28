@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export default class AircraftsEditController {
     constructor($scope, $q, $location, $routeParams, $window, GLOBALS, AuthService, AircraftsOverviews, AircraftService, Aircraft, AircraftTypes, Clubs, Persons, MessageManager, StringUtils) {
 
@@ -31,6 +33,7 @@ export default class AircraftsEditController {
         };
         $scope.save = function (aircraft) {
             $scope.busy = true;
+            aircraft.YearOfManufacture = moment($scope.times.manufacturingYear + "-01-01T00:00:00+0000");
             var p = new Aircraft(aircraft);
             if (aircraft.AircraftId) {
                 p.$saveAircraft({id: aircraft.AircraftId})
@@ -55,6 +58,9 @@ export default class AircraftsEditController {
                 .then((result) => {
                     var aircraft = result[0];
                     $scope.aircraft = aircraft;
+                    $scope.times = {
+                        manufacturingYear: moment(aircraft.YearOfManufacture).format("YYYY")
+                    };
                     $scope.ownerType = aircraft.AircraftOwnerClubId ? 'club' : 'private';
                     $scope.clubs = result[1];
                     $scope.persons = result[2];

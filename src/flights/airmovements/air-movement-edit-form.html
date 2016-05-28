@@ -4,16 +4,10 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
                     <label for="StartDate"><span translate="DATE"></span>:</label>
-
-                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                        <input class="form-control" id="StartDate" name="StartDate" ng-disabled="!flightDetails.CanUpdateRecord"
-                               ng-model="times.flightDate"
-                               date-time view="date" format="dd.MM.yyyy" min-view="date">
-                      <span class="input-group-btn" ng-show="flightDetails.CanUpdateRecord">
-                        <button class="btn btn-default" type="button" ng-click="times.flightDate = getDateToday();"><span
-                                class="fa fa-calendar-times-o"></span></button>
-                      </span>
-                    </div>
+                    <fls-date-picker id="StartDate"
+                                     ng-model="times.flightDate"
+                                     ng-disabled="!flightDetails.CanUpdateRecord"
+                                     required></fls-date-picker>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label><span translate="MOTOR_PLANE"></span>:</label>

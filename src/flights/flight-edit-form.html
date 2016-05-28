@@ -1,19 +1,18 @@
-<fls-busy-indicator busy="busyLoadingFlight" error="error">
-    <form role="form" ng-submit="save(flightDetails)" name="flightDetailsForm"
-          class="css-form" ng-class="{'readonly-form':!flightDetails.CanUpdateRecord}">
+<fls-busy-indicator busy="busyLoadingFlight"
+                    error="error">
+    <form role="form"
+          ng-submit="save(flightDetails)"
+          name="flightDetailsForm"
+          class="css-form"
+          ng-class="{'readonly-form':!flightDetails.CanUpdateRecord}">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="form-group col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
+            <div class="form-group col-md-12 col-sm-12 col-xs-12"
+                 style="margin-top:20px;">
                 <label for="StartDate"><span translate="DATE"></span>:</label>
-
-                <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                    <input class="form-control" id="StartDate" name="StartDate" ng-disabled="!flightDetails.CanUpdateRecord"
-                           ng-model="times.flightDate"
-                           date-time view="date" format="dd.MM.yyyy" min-view="date">
-                      <span class="input-group-btn" ng-show="flightDetails.CanUpdateRecord">
-                        <button class="btn btn-default" type="button" ng-click="times.flightDate = getDateToday();"><span
-                                class="fa fa-calendar-times-o"></span></button>
-                      </span>
-                </div>
+                <fls-date-picker id="StartDate"
+                                 ng-model="times.flightDate"
+                                 ng-disabled="!flightDetails.CanUpdateRecord"
+                                 required></fls-date-picker>
             </div>
         </div>
 
@@ -28,29 +27,48 @@
 
 
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 30px;">
-                <button type="button" ng-click="cancel()" class="btn btn-default pull-right" translate="CANCEL">Cancel
+            <div class="col-md-12 col-sm-12 col-xs-12"
+                 style="margin-bottom: 30px;">
+                <button type="button"
+                        ng-click="cancel()"
+                        class="btn btn-default pull-right"
+                        translate="CANCEL">Cancel
                 </button>
-                <button type="submit" class="btn btn-default pull-right" style="margin-right:10px;" translate="SAVE"
+                <button type="submit"
+                        class="btn btn-default pull-right"
+                        style="margin-right:10px;"
+                        translate="SAVE"
                         ng-disabled="flightDetailsForm.$invalid || !flightDetails.CanUpdateRecord">
                     Save
                 </button>
-                <button type="button" ng-click="delete(selectedFlight)" ng-show="selectedFlight.FlightId"
-                        class="btn btn-danger pull-right" style="margin-right:10px;"
+                <button type="button"
+                        ng-click="delete(selectedFlight)"
+                        ng-show="selectedFlight.FlightId"
+                        class="btn btn-danger pull-right"
+                        style="margin-right:10px;"
                         ng-disabled="!flightDetails.CanDeleteRecord">
                     Delete
                 </button>
-                <button type="button" ng-click="reloadMasterdata()"
-                        class="btn btn-default pull-right" style="margin-right:10px;"
-                        ng-disabled="loadingMasterdata" translate="RELOAD_MASTERDATA">
+                <button type="button"
+                        ng-click="reloadMasterdata()"
+                        class="btn btn-default pull-right"
+                        style="margin-right:10px;"
+                        ng-disabled="loadingMasterdata"
+                        translate="RELOAD_MASTERDATA">
                 </button>
 
-                <div ng-show="loadingMasterdata" style="margin-right:10px;margin-top:0.5em;" class="pull-right">
+                <div ng-show="loadingMasterdata"
+                     style="margin-right:10px;margin-top:0.5em;"
+                     class="pull-right">
                     loading...
                 </div>
             </div>
         </div>
-        <pre class="col-md-12" ng-if="debug" ng-bind="selectedFlightType | json"></pre>
-        <pre class="col-md-12" ng-if="debug" ng-bind="flightDetailsForm | json"></pre>
+        <pre class="col-md-12"
+             ng-if="debug"
+             ng-bind="selectedFlightType | json"></pre>
+        <pre class="col-md-12"
+             ng-if="debug"
+             ng-bind="flightDetailsForm | json"></pre>
     </form>
 </fls-busy-indicator>

@@ -3,11 +3,11 @@
     <form role="form" ng-submit="generate(setup)" class="row">
         <div class="form-group col-md-6">
             <label for="startdate">Start Date:</label>
-            <input date-time view="date" format="dd.MM.yyyy" min-view="date" class="form-control" id="startdate" ng-model="setup.StartDate">
+            <fls-date-picker id="startdate" ng-model="reservation.StartDate" required></fls-date-picker>
         </div>
         <div class="form-group col-md-6">
             <label for="enddate">End Date:</label>
-            <input date-time view="date" format="dd.MM.yyyy" min-view="date" class="form-control" id="enddate" ng-model="setup.EndDate">
+            <fls-date-picker id="enddate" ng-model="reservation.EndDate" required></fls-date-picker>
         </div>
         <div class="form-group col-md-1">
             <label for="mo">Monday</label><br>

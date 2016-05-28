@@ -1,32 +1,25 @@
 <div class="container flscontainer">
     <div class="row col-md-12">
         <fls-busy-indicator busy="busy" error="error">
-            <div class="row col-md-12" ng-show="error"
-                 style="position:absolute;left:0;height:600px;z-index:9999;background-color: rgba(255,255,255,0.7);">
+            <div class="row col-md-12" ng-show="error" style="position:absolute;left:0;height:600px;z-index:9999;background-color: rgba(255,255,255,0.7);">
                 <pre class="col-md-12" ng-bind="error"></pre>
             </div>
-            <form role="form" ng-submit="save(reservation)" class="row css-form"
-                  ng-class="{'readonly-form':!reservation.CanUpdateRecord}" name="reservationForm">
+            <form role="form" ng-submit="save(reservation)" class="row css-form" ng-class="{'readonly-form':!reservation.CanUpdateRecord}" name="reservationForm">
                 <div class="form-group input-append col-md-3 flsdatepicker">
                     <label for="start" translate="DATE">Date:</label>
-                    <input type="text" date-time class="form-control" id="start" view="date" format="dd.MM.yyyy"
-                           ng-model="reservation.Start" min-view="date"
-                           ng-disabled="!reservation.CanUpdateRecord" />
+                    <fls-date-picker ng-model="reservation.Start" ng-disabled="!reservation.CanUpdateRecord" required></fls-date-picker>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="allday" translate="ALL_DAY">All Day Reservation</label><br>
-                    <input type="checkbox" id="allday" ng-model="reservation.IsAllDayReservation"
-                           ng-disabled="!reservation.CanUpdateRecord">
+                    <input type="checkbox" id="allday" ng-model="reservation.IsAllDayReservation" ng-disabled="!reservation.CanUpdateRecord">
                 </div>
                 <div class="control-group input-append col-md-3" ng-show="!reservation.IsAllDayReservation">
                     <label for="start" translate="START">Start Time:</label>
-                    <input type="text" class="form-control" id="start" ng-model="time.start"
-                           ng-disabled="!reservation.CanUpdateRecord">
+                    <input type="text" class="form-control" id="start" ng-model="time.start" ng-disabled="!reservation.CanUpdateRecord">
                 </div>
                 <div class="control-group input-append col-md-3" ng-show="!reservation.IsAllDayReservation">
                     <label for="End" translate="END">End time:</label>
-                    <input type="text" class="form-control" id="End" ng-model="time.end"
-                           ng-disabled="!reservation.CanUpdateRecord ">
+                    <input type="text" class="form-control" id="End" ng-model="time.end" ng-disabled="!reservation.CanUpdateRecord ">
                 </div>
                 <div class="form-group col-md-12">
                     <label for="resType"><span translate="RESERVATION_TYPE">Reservation Type</span>:*</label>
@@ -49,11 +42,9 @@
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
                                 render: renderPerson
-                            }" ng-model="reservation.PilotPersonId"
-                               required></selectize>
+                            }" ng-model="reservation.PilotPersonId" required></selectize>
                 </div>
-                <div class="form-group col-md-12"
-                     ng-if="instructorRequired">
+                <div class="form-group col-md-12" ng-if="instructorRequired">
                     <label for="Instructor"><span translate="INSTRUCTOR">Instructor</span>:*</label>
 
                     <selectize id="Instructor" name="Instructor" options="instructors" ng-disabled="!reservation.CanUpdateRecord" config="{
@@ -62,8 +53,7 @@
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
                                 render: renderPerson
-                            }" ng-model="reservation.InstructorPersonId"
-                               required></selectize>
+                            }" ng-model="reservation.InstructorPersonId" required></selectize>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="Aircraft"><span translate="AIRCRAFT">Aircraft</span>:*</label>
@@ -75,8 +65,7 @@
                                 labelField: 'Immatriculation',
                                 searchField: ['Immatriculation', 'CompetitionSign', 'AircraftModel'],
                                 render: renderAircraft
-                            }" ng-model="reservation.AircraftId"
-                               required></selectize>
+                            }" ng-model="reservation.AircraftId" required></selectize>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="Location"><span translate="LOCATION"></span>:*</label>
@@ -87,25 +76,21 @@
                                 valueField: 'LocationId',
                                 labelField: 'LocationName',
                                 searchField: ['LocationName']
-                            }" ng-model="reservation.LocationId"
-                               required></selectize>
+                            }" ng-model="reservation.LocationId" required></selectize>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="remarks" translate="REMARKS">Remarks:</label>
-                    <input type="text" class="form-control" id="remarks" ng-model="reservation.Remarks"
-                           ng-disabled="!reservation.CanUpdateRecord">
+                    <input type="text" class="form-control" id="remarks" ng-model="reservation.Remarks" ng-disabled="!reservation.CanUpdateRecord">
                 </div>
                 <div class="form-group col-md-12">
                     <button type="button" ng-click="cancel()" class="btn btn-default pull-right" translate="CANCEL">
                         Cancel
                     </button>
-                    <button type="submit" class="btn btn-default pull-right"
-                            ng-disabled="reservationForm.$invalid || !reservation.CanUpdateRecord" translate="SAVE"
+                    <button type="submit" class="btn btn-default pull-right" ng-disabled="reservationForm.$invalid || !reservation.CanUpdateRecord" translate="SAVE"
                             style="margin-right:10px;">Save
                     </button>
-                    <button type="button" ng-click="edit(reservation)" class="btn btn-default pull-right"
-                            ng-show="editAllowed && !reservation.CanUpdateRecord" style="margin-right:10px;"><span
-                            class="fa fa-pencil"></span> Edit
+                    <button type="button" ng-click="edit(reservation)" class="btn btn-default pull-right" ng-show="editAllowed && !reservation.CanUpdateRecord"
+                            style="margin-right:10px;"><span class="fa fa-pencil"></span> Edit
                     </button>
                 </div>
             </form>
