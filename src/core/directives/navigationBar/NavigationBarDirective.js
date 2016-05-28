@@ -11,6 +11,12 @@ export default class NavigationBarDirective {
 class NavigationBarController {
 
     constructor($rootScope, $scope, $location, AuthService, GLOBALS) {
+        $(document).on('click','.navbar-collapse.in',function(e) {
+            if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
+                $(this).collapse('hide');
+            }
+        });
+
         $rootScope.$on('$routeChangeError',
             function (/*event, current, previous, rejection*/) {
                 $location.path('/main');
