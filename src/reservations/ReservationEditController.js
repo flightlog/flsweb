@@ -58,9 +58,11 @@ export default class ReservationEditController {
                     $scope.reservation = result;
                     $scope.reservation.CanUpdateRecord = $scope.reservation.CanUpdateRecord && $routeParams.mode === 'edit';
                     $scope.reservation.IsAllDayReservation = $scope.reservation.IsAllDayReservation || false;
+                    $scope.reservation.Start = moment.utc(result.Start).toDate();
+                    $scope.reservation.End = moment.utc(result.End).toDate();
                 }
-                $scope.time.start = $filter('date')(result.Start, 'HH:mm');
-                $scope.time.end = $filter('date')(result.End, 'HH:mm');
+                $scope.time.start = moment.utc(result.Start).local().format('HH:mm');
+                $scope.time.end = moment.utc(result.End).local().format('HH:mm');
             })
             .then(function () {
                 return Locations.getLocations();
@@ -76,13 +78,16 @@ export default class ReservationEditController {
         $scope.save = function (reservation) {
             $scope.busy = true;
             var dt = new Date(reservation.Start);
-            var filteredDate = $filter('date')(dt, 'yyyy-MM-dd');
+            var filteredDate = moment(dt).format('YYYY-MM-DD');
             if (reservation.IsAllDayReservation) {
                 reservation.Start = filteredDate;
                 reservation.End = filteredDate;
             } else {
-                reservation.Start = new Date(filteredDate + 'T' + $scope.time.start + ':00');
-                reservation.End = new Date(filteredDate + 'T' + $scope.time.end + ':00');
+                var startMoment = moment(filteredDate + 'T' + $scope.time.start + ':00');
+                var endMoment = moment(filteredDate + 'T' + $scope.time.end + ':00');
+
+                reservation.Start = startMoment.utc().toDate();
+                reservation.End = endMoment.utc().toDate();
             }
             if (reservation.AircraftReservationId) {
                 var r = new ReservationUpdater(reservation);
