@@ -1,4 +1,5 @@
 <div>
+    <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
     <section class="row col-xs-12" style="margin-bottom: 10px;">
         <div class="btn-group">
             <button class="btn btn-default" ng-class="{'active': filters[accountState.AccountStateName]}"
@@ -10,7 +11,6 @@
                     ng-click="resetRequiredAccountStateFilter()"></button>
         </div>
     </section>
-    <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
     <table class="fls">
         <tr>
             <th translate="USER_NAME"></th>
