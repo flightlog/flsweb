@@ -24,6 +24,7 @@ export default class AirMovementsController {
         $scope.observers = [];
         $scope.instructors = [];
         $scope.filterDates = {};
+        $scope.routeRequirements = {};
 
         function renderWithId(idName, labelName) {
             return (data, escape) => {
@@ -445,8 +446,8 @@ export default class AirMovementsController {
 
         $scope.recalcRouteRequirements = () => {
             $timeout(() => {
-                $scope.isOutboundRouteRequired = findSelectedStartLocation().IsOutboundRouteRequired;
-                $scope.isInboundRouteRequired = findSelectedLandingLocation().IsInboundRouteRequired;
+                $scope.routeRequirements.isOutboundRouteRequired = findSelectedStartLocation().IsOutboundRouteRequired;
+                $scope.routeRequirements.isInboundRouteRequired = findSelectedLandingLocation().IsInboundRouteRequired;
             }, 0);
         };
 

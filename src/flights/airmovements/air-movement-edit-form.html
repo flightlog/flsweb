@@ -141,13 +141,13 @@
                             }" ng-model="flightDetails.MotorFlightDetailsData.LdgLocationId"></selectize>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12 col-xs-12" ng-show="isOutboundRouteRequired">
-                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group col-md-6 col-sm-6 col-xs-12" ng-show="routeRequirements.isOutboundRouteRequired">
                     <label for="MotorFlightDetailsData.OutboundRoute"><span translate="OUTBOUND_ROUTE"></span>:</label>
                     <input type="text" class="form-control" id="MotorFlightDetailsData.OutboundRoute" ng-disabled="!flightDetails.CanUpdateRecord"
                            ng-model="flightDetails.MotorFlightDetailsData.OutboundRoute">
                 </div>
-                <div class="form-group col-md-6 col-sm-6 col-xs-12" ng-show="isInboundRouteRequired">
+                <div class="form-group col-md-6 col-sm-6 col-xs-12" ng-show="routeRequirements.isInboundRouteRequired">
                     <label for="MotorFlightDetailsData.InboundRoute"><span translate="INBOUND_ROUTE"></span>:</label>
                     <input type="text" class="form-control" id="MotorFlightDetailsData.InboundRoute" ng-disabled="!flightDetails.CanUpdateRecord"
                            ng-model="flightDetails.MotorFlightDetailsData.InboundRoute">
