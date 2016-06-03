@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export default class PlanningDayEditController {
     constructor($scope, GLOBALS, $q, $routeParams, $location, PlanningDayReader,
                 PlanningDaysUpdater, Locations, Persons,
@@ -74,13 +76,18 @@ export default class PlanningDayEditController {
 
         $q.all(promises)
             .then(() => {
-                if($routeParams.id === 'new') {
+                if ($routeParams.id === 'new') {
                     return [];
                 }
                 return ReservationsByPlanningDay.query({id: $routeParams.id}).$promise;
             })
             .then((result) => {
                 $scope.reservations = result;
+                // TODO clarify if we can get the server to send the timezone so we dont have to hardcode this to UTC
+                for (var i = 0; i < result.length; i++) {
+                    $scope.reservations[i].Start = moment.utc(result[i].Start).toDate();
+                    $scope.reservations[i].End = moment.utc(result[i].End).toDate();
+                }
             })
             .catch(_.partial(MessageManager.raiseError, 'load', 'planned day data'))
             .finally(() => {
