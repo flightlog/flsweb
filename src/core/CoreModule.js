@@ -17,6 +17,7 @@ import LabelledCheckBoxDirective from './directives/checkBox/LabelledCheckBoxDir
 import BusyIndicatorDirective from './directives/busyIndicator/BusyIndicatorDirective';
 import HistoryDirective from './directives/history/HistoryDirective';
 import AuditLogService from './directives/history/AuditLogService';
+import DropdownItemsRenderService from './DropdownItemsRenderService';
 import SelectizeDirective from './directives/Selectize';
 import StringUtils from './StringUtils';
 import angularCookies from 'angular-cookies';
@@ -56,6 +57,7 @@ export default angular.module("fls.core", [
     .service('AuditLogService', AuditLogService)
     .service('SpecificStartTypes', SpecificStartTypes)
     .service('TimeService', TimeService)
+    .service('DropdownItemsRenderService', DropdownItemsRenderService)
     .config((pikadayConfigProvider) => {
         pikadayConfigProvider.setConfig({
             firstDay: 1,

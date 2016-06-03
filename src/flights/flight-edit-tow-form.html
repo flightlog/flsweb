@@ -98,8 +98,8 @@
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationId',
-                                labelField: 'LocationName',
-                                searchField: ['LocationName'],
+                                searchField: ['LocationName', 'IcaoCode'],
+                                render: renderLocation,
                                 onChange: startLocationChanged
                             }"
                    ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
@@ -114,8 +114,8 @@
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationId',
-                                labelField: 'LocationName',
-                                searchField: ['LocationName'],
+                                searchField: ['LocationName', 'IcaoCode'],
+                                render: renderLocation,
                                 onChange: towLandingLocationChanged
                             }"
                    ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"

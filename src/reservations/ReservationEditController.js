@@ -1,35 +1,19 @@
 import moment from 'moment';
 
 export default class ReservationEditController {
-    constructor($scope, GLOBALS, $q, $filter, $timeout, $routeParams, $location,
+    constructor($scope, GLOBALS, $q, $timeout, $routeParams, $location,
                 AuthService, Reservations, ReservationTypes,
                 ReservationUpdater, ReservationInserter, Locations, Persons,
-                AircraftsOverviews, ReservationValidator, NavigationCache, MessageManager) {
+                AircraftsOverviews, ReservationValidator, NavigationCache, MessageManager, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.time = {};
         var prefillMoment = moment($routeParams['date']) || moment();
         var prefillLocationId = $routeParams['locationId'];
 
-        function renderPerson(person, escape) {
-            return '<div class="option">' + escape(person.Firstname) + ' ' + escape(person.Lastname) + (person.City ? ' (' + escape(person.City) + ')' : '') + '</div>';
-        }
-
-        $scope.renderPerson = {
-            option: renderPerson,
-            item: renderPerson
-        };
-
-        function renderAircraft(aircraft, escape) {
-            return '<div class="option">' + escape(aircraft.Immatriculation) +
-                (aircraft.CompetitionSign ? ' [' + escape(aircraft.CompetitionSign) + ']' : '') +
-                (aircraft.AircraftModel ? ' (' + escape(aircraft.AircraftModel) + ')' : '') + ' </div>';
-        }
-
-        $scope.renderAircraft = {
-            option: renderAircraft,
-            item: renderAircraft
-        };
+        $scope.renderPerson = DropdownItemsRenderService.personRenderer();
+        $scope.renderAircraft = DropdownItemsRenderService.aircraftRenderer();
+        $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
 
         $scope.busy = true;
         function loadReservation(user) {

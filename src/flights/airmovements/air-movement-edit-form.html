@@ -123,8 +123,8 @@
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationId',
-                                labelField: 'LocationName',
-                                searchField: ['LocationName'],
+                                searchField: ['LocationName', 'IcaoCode'],
+                                render: renderLocation,
                                 onChange: recalcRouteRequirements
                             }" ng-model="flightDetails.MotorFlightDetailsData.StartLocationId"></selectize>
                 </div>
@@ -135,8 +135,8 @@
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationId',
-                                labelField: 'LocationName',
-                                searchField: ['LocationName'],
+                                searchField: ['LocationName', 'IcaoCode'],
+                                render: renderLocation,
                                 onChange: recalcRouteRequirements
                             }" ng-model="flightDetails.MotorFlightDetailsData.LdgLocationId"></selectize>
                 </div>

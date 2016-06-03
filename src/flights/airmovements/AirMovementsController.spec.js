@@ -1,6 +1,7 @@
 import AirMovementsController from "./AirMovementsController";
 import airMovementsModule from "./AirMovementsModule";
 import TimeService from "../../core/TimeService";
+import DropdownItemsRenderService from "../../core/DropdownItemsRenderService";
 import moment from "moment";
 
 describe('AirMovementsController', () => {
@@ -27,7 +28,7 @@ describe('AirMovementsController', () => {
     it('should reset block end time if negative', () => {
         // arrange
         $scope = scope();
-        new AirMovementsController($scope, q(), timeout(), timeService());
+        new AirMovementsController($scope, q(), timeout(), timeService(), renderer());
         $scope.times.engineMinutesCounterBegin = '100:00';
         $scope.times.engineMinutesCounterEnd = '50:00';
 
@@ -41,7 +42,7 @@ describe('AirMovementsController', () => {
     it('should calculate block duration for high counter states', () => {
         // arrange
         $scope = scope();
-        new AirMovementsController($scope, q(), timeout(), timeService());
+        new AirMovementsController($scope, q(), timeout(), timeService(), renderer());
         $scope.times.engineMinutesCounterBegin = '1200:00';
         $scope.times.engineMinutesCounterEnd = '1203:50';
 
@@ -76,6 +77,10 @@ describe('AirMovementsController', () => {
 
     function timeService() {
         return new TimeService();
+    }
+
+    function renderer() {
+        return new DropdownItemsRenderService();
     }
 
 });

@@ -32,8 +32,8 @@
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationId',
-                                labelField: 'LocationName',
-                                searchField: ['LocationName']
+                                searchField: ['LocationName', 'IcaoCode'],
+                                render: renderLocation
                             }"
                                ng-model="planningDay.LocationId"
                                required></selectize>

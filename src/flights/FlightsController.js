@@ -7,7 +7,7 @@ export default class FlightsController {
                 TimeService, Flights, FlightsDateRange,
                 FlightTypes, Locations, Persons, PersonPersister, PassengerPersister,
                 Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes,
-                SoloFlightCheckboxEnablementCalculator, Clubs, AircraftOperatingCounters) {
+                SoloFlightCheckboxEnablementCalculator, Clubs, AircraftOperatingCounters, DropdownItemsRenderService) {
         $scope.busy = true;
         this.TimeService = TimeService;
         $scope.debug = GLOBALS.DEBUG;
@@ -30,49 +30,13 @@ export default class FlightsController {
         $scope.flightCostBalanceTypes = [];
         $scope.filterDates = {};
 
-        function renderWithId(idName, labelName) {
-            return (data, escape) => {
-                return '<div class="option">' + escape(data[idName]) + ' - ' + escape(data[labelName]) + '</div>';
-            }
-        }
-
-        function renderPerson(person, escape) {
-            return '<div class="option">' + escape(person.Firstname) + ' ' + escape(person.Lastname) + (person.City ? ' (' + escape(person.City) + ')' : '') + '</div>';
-        }
-
-        function seatLabel(NrOfSeats) {
-            return ' Seat' + ((NrOfSeats > 1) ? 's' : '');
-        }
-
-        function renderAircraft(aircraft, escape) {
-            return '<div class="option">' + escape(aircraft.Immatriculation) +
-                (aircraft.CompetitionSign ? ' [' + escape(aircraft.CompetitionSign) + ']' : '') +
-                (aircraft.AircraftModel ? ' (' + escape(aircraft.AircraftModel) + ')' : '') +
-                (aircraft.NrOfSeats ? ' - ' + escape(aircraft.NrOfSeats) + seatLabel(aircraft.NrOfSeats) : '') + ' </div>';
-        }
-
-        $scope.renderStarttype = {
-            option: renderWithId('StartTypeId', 'StartTypeName'),
-            item: renderWithId('StartTypeId', 'StartTypeName')
-        };
-
-        $scope.renderFlighttype = {
-            option: renderWithId('FlightCode', 'FlightTypeName'),
-            item: renderWithId('FlightCode', 'FlightTypeName')
-        };
-
-        $scope.renderPerson = {
-            option: renderPerson,
-            item: renderPerson
-        };
-
-        $scope.renderAircraft = {
-            option: renderAircraft,
-            item: renderAircraft
-        };
+        $scope.renderStarttype = DropdownItemsRenderService.starttypeRenderer();
+        $scope.renderFlighttype = DropdownItemsRenderService.flighttypeRenderer();
+        $scope.renderPerson = DropdownItemsRenderService.personRenderer();
+        $scope.renderAircraft = DropdownItemsRenderService.aircraftRenderer();
+        $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
 
         var today = moment();
-        var dateStringFormat = 'DD.MM.YYYY';
 
         $scope.filterDates.fromDate = today;
         $scope.filterDates.toDate = today;

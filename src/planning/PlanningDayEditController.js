@@ -4,10 +4,13 @@ export default class PlanningDayEditController {
     constructor($scope, GLOBALS, $q, $routeParams, $location, PlanningDayReader,
                 PlanningDaysUpdater, Locations, Persons,
                 ReservationsByPlanningDay, ReservationService, NavigationCache,
-                MessageManager) {
+                MessageManager, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
         NavigationCache.setCancellingLocationHere();
+
+        $scope.renderPerson = DropdownItemsRenderService.personRenderer();
+        $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
 
         $scope.busy = true;
         function loadPlanningDay() {
@@ -97,15 +100,6 @@ export default class PlanningDayEditController {
         function openReservationEditor(reservation, mode) {
             $location.path('/reservations/' + reservation.AircraftReservationId + '/' + mode);
         }
-
-        function renderPerson(person, escape) {
-            return '<div class="option">' + escape(person.Firstname) + ' ' + escape(person.Lastname) + (person.City ? ' (' + escape(person.City) + ')' : '') + '</div>';
-        }
-
-        $scope.renderPerson = {
-            option: renderPerson,
-            item: renderPerson
-        };
 
         $scope.showReservationDetails = function (reservation) {
             openReservationEditor(reservation, 'view');
