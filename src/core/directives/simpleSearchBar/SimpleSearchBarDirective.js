@@ -5,7 +5,12 @@ export default class SimpleSearchBarDirective {
             scope: {
                 searchString: '='
             },
-            template: require('./simple-search-bar-directive.html')
+            template: require('./simple-search-bar-directive.html'),
+            link: (scope) => {
+                scope.resetSearch = (newSearchString) => {
+                    scope.searchString = newSearchString;
+                }
+            }
         };
     }
 }
