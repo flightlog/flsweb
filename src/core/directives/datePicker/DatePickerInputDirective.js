@@ -41,7 +41,7 @@ export default class DatePickerInputDirective {
                     modelCtrl.$setViewValue(new Date(filteredDate + 'T00:00:00+0000'));
                 };
                 scope.checkIfEmpty = () => {
-                    if(_.isEmpty(scope.stringDateValue)) {
+                    if (_.isEmpty(scope.stringDateValue)) {
                         modelCtrl.$setViewValue(undefined);
                     }
                 };
@@ -82,12 +82,16 @@ class DataPickerInputController {
         $scope.myPicker = new Pikaday({
             field: $scope.el
         });
+        let maxNumUpdates = 100;
+        let i = 0;
 
-        $timeout(() => {
-            if(!_.isEmpty($scope.ngModel)) {
-                $scope.myPicker.setDate(moment($scope.ngModel).toDate());
-            }
-        }, 0);
+        $scope.$watch('ngModel', () => {
+            $timeout(() => {
+                if (moment($scope.ngModel).format("YYYY-MM-DD") !== $scope.myPicker.getMoment().format("YYYY-MM-DD") && i++ < maxNumUpdates) {
+                    $scope.myPicker.setDate(moment($scope.ngModel).toDate());
+                }
+            }, 0);
+        });
     }
 
 }
