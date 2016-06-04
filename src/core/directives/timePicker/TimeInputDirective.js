@@ -20,6 +20,7 @@ export default class TimeInputDirective {
                 let pattern = /^[0-9]{2}:[0-9]{2}$/;
                 scope.el = element;
                 scope.val = {};
+                element.attr("placeholder", "__:__");
 
                 function isValid(timeValue) {
                     return !!timeValue && timeValue.match(pattern) !== null && moment(timeValue, format).isValid();

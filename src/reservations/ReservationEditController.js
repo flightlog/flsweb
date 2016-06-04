@@ -13,16 +13,18 @@ export default class ReservationEditController {
         $scope.renderPerson = DropdownItemsRenderService.personRenderer();
         $scope.renderAircraft = DropdownItemsRenderService.aircraftRenderer();
         $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
+        let suggestedStart = prefillMoment.clone().hour(10).minute(0).second(0).toDate();
+        let suggestedStop = prefillMoment.clone().hour(18).minute(0).second(0).toDate();
 
         $scope.busy = true;
         function loadReservation(user) {
             var deferred = $q.defer();
             if ($routeParams.id === 'new') {
-                var res = {
+                let res = {
                     CanUpdateRecord: true,
                     Day: prefillMoment.clone().hour(0).minute(0).second(0).toDate(),
-                    Start: prefillMoment.clone().hour(10).minute(0).second(0).toDate(),
-                    End: prefillMoment.clone().hour(18).minute(0).second(0).toDate(),
+                    Start: suggestedStart,
+                    End: suggestedStop,
                     IsAllDayReservation: true,
                     LocationId: prefillLocationId || user && user.LocationId,
                     PilotPersonId: user.PersonId
@@ -35,6 +37,9 @@ export default class ReservationEditController {
 
 
         function appendZuluIfMissing(date) {
+            if (!date) {
+                return;
+            }
             // TODO clarify if we can get the server to send the timezone so we dont have to hardcode this to UTC
             let serialized = moment(date).format("YYYY-MM-DD HH:mm:ss");
             return moment(serialized + "Z").toDate();
@@ -47,9 +52,8 @@ export default class ReservationEditController {
                     $scope.reservation = result;
                     $scope.reservation.CanUpdateRecord = $scope.reservation.CanUpdateRecord && $routeParams.mode === 'edit';
                     $scope.reservation.IsAllDayReservation = $scope.reservation.IsAllDayReservation || false;
-                    $scope.reservation.Start = appendZuluIfMissing(result.Start);
-                    $scope.reservation.End = appendZuluIfMissing(result.End);
-                    $scope.reservation._start = moment(result.Start);
+                    $scope.reservation._start = !$scope.reservation.IsAllDayReservation && appendZuluIfMissing(moment(result.Start).clone()) || suggestedStart;
+                    $scope.reservation.End = !$scope.reservation.IsAllDayReservation && appendZuluIfMissing(result.End) || suggestedStop;
                 }
             })
             .then(function () {
@@ -71,9 +75,10 @@ export default class ReservationEditController {
                 reservation.Start = filteredDate;
                 reservation.End = filteredDate;
             } else {
-                reservation.Start = moment(reservation.Start).hours(reservation._start.hours()).minutes(reservation._start.minutes());
-                reservation._start = undefined;
+                var startMoment = moment(reservation._start);
+                reservation.Start = moment(reservation.Start).hours(startMoment.hours()).minutes(startMoment.minutes());
             }
+            reservation._start = undefined;
             if (reservation.AircraftReservationId) {
                 var r = new ReservationUpdater(reservation);
                 r.$saveReservation({id: reservation.AircraftReservationId})
