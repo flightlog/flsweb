@@ -71,7 +71,7 @@ export default class ReservationEditController {
                 reservation.Start = filteredDate;
                 reservation.End = filteredDate;
             } else {
-                reservation.Start = reservation._start;
+                reservation.Start = moment(reservation.Start).hours(reservation._start.hours()).minutes(reservation._start.minutes());
                 reservation._start = undefined;
             }
             if (reservation.AircraftReservationId) {
