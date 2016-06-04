@@ -7,7 +7,6 @@ export default class ReservationEditController {
                 AircraftsOverviews, ReservationValidator, NavigationCache, MessageManager, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
-        $scope.time = {};
         var prefillMoment = moment($routeParams['date']) || moment();
         var prefillLocationId = $routeParams['locationId'];
 
@@ -35,6 +34,12 @@ export default class ReservationEditController {
         }
 
 
+        function appendZuluIfMissing(date) {
+            // TODO clarify if we can get the server to send the timezone so we dont have to hardcode this to UTC
+            let serialized = moment(date).format("YYYY-MM-DD HH:mm:ss");
+            return moment(serialized + "Z").toDate();
+        }
+
         var loadingReservationPromise = loadReservation(AuthService.getUser())
             .then(function (result) {
                 if (result) {
@@ -42,11 +47,10 @@ export default class ReservationEditController {
                     $scope.reservation = result;
                     $scope.reservation.CanUpdateRecord = $scope.reservation.CanUpdateRecord && $routeParams.mode === 'edit';
                     $scope.reservation.IsAllDayReservation = $scope.reservation.IsAllDayReservation || false;
-                    $scope.reservation.Start = moment.utc(result.Start).toDate();
-                    $scope.reservation.End = moment.utc(result.End).toDate();
+                    $scope.reservation.Start = appendZuluIfMissing(result.Start);
+                    $scope.reservation.End = appendZuluIfMissing(result.End);
+                    $scope.reservation._start = moment(result.Start);
                 }
-                $scope.time.start = moment.utc(result.Start).local().format('HH:mm');
-                $scope.time.end = moment.utc(result.End).local().format('HH:mm');
             })
             .then(function () {
                 return Locations.getLocations();
@@ -67,11 +71,8 @@ export default class ReservationEditController {
                 reservation.Start = filteredDate;
                 reservation.End = filteredDate;
             } else {
-                var startMoment = moment(filteredDate + 'T' + $scope.time.start + ':00');
-                var endMoment = moment(filteredDate + 'T' + $scope.time.end + ':00');
-
-                reservation.Start = startMoment.utc().toDate();
-                reservation.End = endMoment.utc().toDate();
+                reservation.Start = reservation._start;
+                reservation._start = undefined;
             }
             if (reservation.AircraftReservationId) {
                 var r = new ReservationUpdater(reservation);

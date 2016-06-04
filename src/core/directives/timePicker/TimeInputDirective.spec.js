@@ -1,7 +1,7 @@
 import coreModule from "../../CoreModule";
 import moment from "moment";
 
-describe('Date Picker Input Directive', () => {
+describe('Time Input Directive', () => {
     let $compile;
     let $rootScope;
 
@@ -17,14 +17,14 @@ describe('Date Picker Input Directive', () => {
     it('shows the input field with the model value', () => {
         // arrange
         let scope = $rootScope.$new();
-        scope.testDate = new Date(855214100000);
-        let element = $compile("<fls-date-picker ng-model='testDate'></fls-busy-indicator>")(scope);
+        scope.testDate = new Date(5200000);
+        let element = $compile("<input fls-time-input type='text' ng-model='testDate'></fls-busy-indicator>")(scope);
 
         // act
         scope.$digest();
 
         // assert
-        expect(element.find("input").val()).toBe("06.02.1997");
+        expect(element.val()).toBe("02:26");
     });
 
 });

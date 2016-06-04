@@ -7,6 +7,7 @@ import NavigationCache from './NavigationCache';
 import Countries from './Countries';
 import {StartTypes, SpecificStartTypes} from './StartTypes';
 import DatePickerInputDirective from './directives/datePicker/DatePickerInputDirective';
+import TimeInputDirective from './directives/timePicker/TimeInputDirective';
 import MessageBarDirective from './directives/messageBar/MessageBarDirective';
 import SearchBarDirective from './directives/searchBar/SearchBarDirective';
 import SimpleSearchBarDirective from './directives/simpleSearchBar/SimpleSearchBarDirective';
@@ -39,6 +40,7 @@ export default angular.module("fls.core", [
     .value('selectizeConfig', {})
     .directive('searchBar', SearchBarDirective.factory)
     .directive('flsDatePicker', DatePickerInputDirective.factory)
+    .directive('flsTimeInput', TimeInputDirective.factory)
     .directive('flsSimpleSearchBar', SimpleSearchBarDirective.factory)
     .directive('flsMessageBar', MessageBarDirective.factory)
     .directive('flsNavigationBar', NavigationBarDirective.factory)
