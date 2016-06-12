@@ -87,7 +87,7 @@ class DataPickerInputController {
 
         $scope.$watch('ngModel', () => {
             $timeout(() => {
-                if (moment($scope.ngModel).format("YYYY-MM-DD") !== $scope.myPicker.getMoment().format("YYYY-MM-DD") && i++ < maxNumUpdates) {
+                if ($scope.ngModel && moment($scope.ngModel).format("YYYY-MM-DD") !== $scope.myPicker.getMoment().format("YYYY-MM-DD") && i++ < maxNumUpdates) {
                     $scope.myPicker.setDate(moment($scope.ngModel).toDate());
                 }
             }, 0);
