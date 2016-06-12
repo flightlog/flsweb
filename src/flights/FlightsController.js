@@ -191,6 +191,7 @@ export default class FlightsController {
                         flightDetails.GliderFlightDetailsData.StartDateTime = undefined;
                         flightDetails.GliderFlightDetailsData.LdgDateTime = undefined;
                         flightDetails.GliderFlightDetailsData.FlightComment = undefined;
+                        flightDetails.GliderFlightDetailsData.CouponNumber = undefined;
                         flightDetails.TowFlightDetailsData.FlightId = undefined;
                         flightDetails.TowFlightDetailsData.StartDateTime = undefined;
                         flightDetails.TowFlightDetailsData.LdgDateTime = undefined;
