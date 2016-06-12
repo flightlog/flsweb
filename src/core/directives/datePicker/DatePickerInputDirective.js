@@ -38,7 +38,7 @@ export default class DatePickerInputDirective {
 
                 scope.onPikadaySelect = (pikaday) => {
                     let filteredDate = pikaday.getMoment().format('YYYY-MM-DD');
-                    modelCtrl.$setViewValue(new Date(filteredDate + 'T00:00:00+0000'));
+                    modelCtrl.$setViewValue(new Date(filteredDate + 'T00:00:00+00:00'));
                 };
                 scope.checkIfEmpty = () => {
                     if (_.isEmpty(scope.stringDateValue)) {
