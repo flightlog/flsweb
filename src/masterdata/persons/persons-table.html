@@ -32,7 +32,8 @@
             <td>
                 <span ng-bind="person.ZipCode"></span>
                 <span ng-bind="person.City"></span>
-                (<span ng-bind="person.CountryName"></span>)
+                <span ng-show="person.CountryName && (person.ZipCode || person.City)">(<span ng-bind="person.CountryName"></span>)</span>
+                <span ng-show="person.CountryName && !(person.ZipCode || person.City)" ng-bind="person.CountryName"></span>
             </td>
             <td ng-bind="person.PrivateEmail"></td>
             <td ng-bind="person.MobilePhoneNumber"></td>
