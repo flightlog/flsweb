@@ -79,7 +79,7 @@
                     <label for="Birthday"><span translate="BIRTHDAY"></span></label>
                     <fls-date-picker id="Birthday"
                                      ng-model="person.Birthday"
-                                     time-offset="12:00"></fls-date-picker>
+                                     hour-of-day="12"></fls-date-picker>
                 </div>
             </div>
         </accordion-group>
@@ -264,23 +264,27 @@
                 <div class="form-group col-md-12">
                     <label for="MedicalClass1ExpireDate"><span translate="MEDICAL_CLASS1_EXPIRE_DATE"></span></label>
                     <fls-date-picker id="MedicalClass1ExpireDate"
-                                     ng-model="person.MedicalClass1ExpireDate"></fls-date-picker>
+                                     ng-model="person.MedicalClass1ExpireDate"
+                                     hour-of-day="12"></fls-date-picker>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="MedicalClass2ExpireDate"><span translate="MEDICAL_CLASS2_EXPIRE_DATE"></span></label>
                     <fls-date-picker id="MedicalClass2ExpireDate"
-                                     ng-model="person.MedicalClass2ExpireDate"></fls-date-picker>
+                                     ng-model="person.MedicalClass2ExpireDate"
+                                     hour-of-day="12"></fls-date-picker>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="MedicalLaplExpireDate"><span translate="MEDICAL_LAPL_EXPIRE_DATE"></span></label>
                     <fls-date-picker id="MedicalLaplExpireDate"
-                                     ng-model="person.MedicalLaplExpireDate"></fls-date-picker>
+                                     ng-model="person.MedicalLaplExpireDate"
+                                     hour-of-day="12"></fls-date-picker>
                 </div>
                 <div class="form-group col-md-12"
                      ng-show="person.HasGliderInstructorLicence">
                     <label for="GliderInstructorLicenceExpireDate"><span translate="GLIDER_INSTRUCTOR_LICENCE_EXPIRE_DATE"></span></label>
                     <fls-date-picker id="GliderInstructorLicenceExpireDate"
-                                     ng-model="person.GliderInstructorLicenceExpireDate"></fls-date-picker>
+                                     ng-model="person.GliderInstructorLicenceExpireDate"
+                                     hour-of-day="12"></fls-date-picker>
                 </div>
             </div>
         </accordion-group>
