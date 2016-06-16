@@ -76,6 +76,15 @@ td.formbg {
     border-bottom: 2px solid gray;
 }
 
+.readonly-form input,
+.readonly-form .selectize-dropdown,
+.readonly-form .selectize-input input,
+.readonly-form .selectize-input .option,
+.readonly-form .selectize-input.disabled {
+    background-color: rgba(255, 255, 255, 0);
+    color: black;
+}
+
 .readonly-form .form-control,
 .readonly-form label {
     background-color: rgba(255, 255, 255, 0);
@@ -86,6 +95,7 @@ td.formbg {
     padding: 0;
     box-shadow: none;
     color: black;
+    font-weight: 700;
 }
 
 .readonly-form .selectize-control.single .selectize-input::after {

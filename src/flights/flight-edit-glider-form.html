@@ -6,7 +6,7 @@
     </div>
     <div class="form-group col-xs-6">
         <label><span translate="GLIDER_PLANE"></span>: </label>
-        <selectize name="gliderAircraft" options="gliderAircrafts" config="{
+        <selectize name="gliderAircraft" options="gliderAircrafts" ng-disabled="!flightDetails.CanUpdateRecord" config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'AircraftId',
@@ -17,8 +17,9 @@
                             }" ng-model="flightDetails.GliderFlightDetailsData.AircraftId" required></selectize>
     </div>
     <div class="form-group col-xs-6">
-        <label for="Starttype"><span translate="START_TYPE">Starttype</span>:</label>
-        <selectize name="Starttype" id="Starttype" style="height:30px;" placeholder='Start Typ' options="starttypes" config="{
+        <label><span translate="START_TYPE">Starttype</span>:</label>
+        <selectize name="Starttype" options="starttypes" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+                                        inputClass: 'form-control selectize-input',
                                         maxItems: 1,
                                         valueField: 'StartTypeId',
                                         searchField: ['StartTypeId', 'StartTypeName'],
@@ -46,7 +47,7 @@
     <div class="row col-xs-12">
         <div class="form-group col-xs-8">
             <label><span translate="FLIGHT_TYPE"></span>:</label>
-            <selectize name="gliderFlightType" options="gliderFlightTypes" config="{
+            <selectize name="gliderFlightType" options="gliderFlightTypes" ng-disabled="!flightDetails.CanUpdateRecord" config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'FlightTypeId',
