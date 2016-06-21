@@ -373,6 +373,18 @@
                            id="MemberNumber"
                            ng-model="person.ClubRelatedPersonDetails.MemberNumber">
                 </div>
+
+                <div class="form-group col-md-12">
+                    <label for="MemberState"><span translate="MEMBER_STATE"></span></label>
+
+                    <selectize id="MemberState" name="MemberState" options="masterdata.memberStates" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'MemberStateId',
+                                searchField: ['MemberStateName'],
+                                labelField: 'MemberStateName'
+                            }" ng-model="person.ClubRelatedPersonDetails.MemberStateId"></selectize>
+                </div>
             </div>
         </accordion-group>
     </accordion>

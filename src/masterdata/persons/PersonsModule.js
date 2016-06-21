@@ -5,10 +5,12 @@ import PersonsEditDirective from './PersonsEditDirective';
 import PersonFormDirective from './PersonFormDirective';
 import * as PersonsServices from './PersonsServices';
 import coreModule from '../../core/CoreModule';
+import memberStatesModule from '../memberStates/MemberStatesModule';
 import {userAuth} from '../../core/AuthService';
 
 export default angular.module('fls.masterdata.persons', [
-        coreModule.name
+        coreModule.name,
+        memberStatesModule.name
     ])
     .controller('PersonsEditController', PersonsEditController)
     .controller('AddPersonController', AddPersonController)

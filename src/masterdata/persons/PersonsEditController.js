@@ -1,8 +1,10 @@
 export default class PersonsEditController {
-    constructor($scope, GLOBALS, $q, $location, $routeParams, $window, AuthService, Persons, PersonService, PersonPersister, MessageManager, Countries, TimeService) {
+    constructor($scope, GLOBALS, $q, $location, $routeParams, $window, AuthService, Persons, PersonService,
+                PersonPersister, MessageManager, Countries, MemberStates) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
+        $scope.masterdata = {};
         $scope.isClubAdmin = AuthService.isClubAdmin();
         $scope.requiredFlagsFilterList = [
             'HasGliderInstructorLicence',
@@ -21,9 +23,14 @@ export default class PersonsEditController {
             $scope.requiredFlagsFilter = {};
         };
 
-        let masterdataPromise = Countries.query().$promise.then(function (result) {
-            $scope.countries = result;
-        });
+        let masterdataPromise = $q.all([
+            Countries.query().$promise.then(function (result) {
+                $scope.masterdata.countries = result;
+            }),
+            MemberStates.query().$promise.then(function (result) {
+                $scope.masterdata.memberStates = result;
+            })
+        ]);
 
         function loadPerson() {
             var deferred = $q.defer();
