@@ -291,6 +291,7 @@
                    style="margin-right: 0.8em;"></i> <span translate="CLUB_SETTINGS"></span>
             </accordion-heading>
             <div class="col-md-6">
+                <label class="form-group col-md-12"><span translate="FLIGHT_PERMISSION"></span></label>
                 <label class="checkbox col-md-11 col-md-offset-1"
                        for="IsGliderInstructor">
                     <input type="checkbox"
@@ -343,22 +344,7 @@
             </div>
             <div class="col-md-6"
                  ng-if="person.ClubRelatedPersonDetails">
-                <div class="form-group col-md-12">
-                    <label for="MemberNumber"><span translate="CLUB_MEMBER_NUMBER"></span></label>
-                    <input class="form-control"
-                           id="MemberNumber"
-                           ng-model="person.ClubRelatedPersonDetails.MemberNumber">
-                </div>
-            </div>
-        </accordion-group>
-        <accordion-group is-open="status5"
-                         ng-if="person.ClubRelatedPersonDetails">
-            <accordion-heading>
-                <i class="pull-left glyphicon"
-                   ng-class="{'glyphicon-chevron-down': status5, 'glyphicon-chevron-right': !status5}"
-                   style="margin-right: 0.8em;"></i> <span translate="NOTIFICATION_SETTINGS"></span>
-            </accordion-heading>
-            <div class="col-md-6">
+                <label class="form-group col-md-12"><span translate="NOTIFICATION_SETTINGS"></span></label>
                 <label class="checkbox col-md-11 col-md-offset-1"
                        for="ReceiveFlightReports">
                     <input type="checkbox"
@@ -380,6 +366,13 @@
                            ng-model="person.ClubRelatedPersonDetails.ReceivePlanningDayRoleReminder">
                     <span translate="RECEIVE_PLANNING_DAY_ROLE_REMINDER"></span>
                 </label>
+
+                <div class="form-group col-md-12">
+                    <label for="MemberNumber"><span translate="CLUB_MEMBER_NUMBER"></span></label>
+                    <input class="form-control"
+                           id="MemberNumber"
+                           ng-model="person.ClubRelatedPersonDetails.MemberNumber">
+                </div>
             </div>
         </accordion-group>
     </accordion>
