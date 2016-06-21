@@ -283,8 +283,7 @@
                 </div>
             </div>
         </accordion-group>
-        <accordion-group is-open="status4"
-                         ng-if="person.ClubRelatedPersonDetails">
+        <accordion-group is-open="status4">
             <accordion-heading>
                 <i class="pull-left glyphicon"
                    ng-class="{'glyphicon-chevron-down': status4, 'glyphicon-chevron-right': !status4}"
@@ -342,8 +341,7 @@
                     <span translate="IS_WINCH_OPERATOR"></span>
                 </label>
             </div>
-            <div class="col-md-6"
-                 ng-if="person.ClubRelatedPersonDetails">
+            <div class="col-md-6">
                 <label class="form-group col-md-12"><span translate="NOTIFICATION_SETTINGS"></span></label>
                 <label class="checkbox col-md-11 col-md-offset-1"
                        for="ReceiveFlightReports">
