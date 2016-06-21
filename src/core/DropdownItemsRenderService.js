@@ -105,7 +105,7 @@ export default class DropdownItemsRenderService {
     }
 
     renderElevetionUnit() {
-        function renderElevetionUnit(lengthUnitType, escape) {
+        function render(lengthUnitType, escape) {
             return '<div class="option">' +
                     escape(lengthUnitType.ElevationUnitTypeName) + ' (' +
                     escape(lengthUnitType.ElevationUnitTypeShortName) + ')' +
@@ -113,8 +113,22 @@ export default class DropdownItemsRenderService {
         }
 
         return {
-            option: renderElevetionUnit,
-            item: renderElevetionUnit
+            option: render,
+            item: render
+        };
+    }
+
+    aircrafttypeRenderer() {
+        function render(aircraftType, escape) {
+            return '<div class="option">' +
+                    escape(aircraftType.AircraftTypeId) + ' - ' +
+                    escape(aircraftType.AircraftTypeName) +
+                    '</div>';
+        }
+
+        return {
+            option: render,
+            item: render
         };
     }
 

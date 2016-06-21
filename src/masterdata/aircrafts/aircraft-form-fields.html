@@ -16,10 +16,14 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="AircraftType"><span translate="AIRCRAFT_TYPE"></span></label>
-                <select id="AircraftType" class="form-control" ng-model="aircraft.AircraftType"
-                        ng-options="aircraftType.AircraftTypeId as aircraftType.AircraftTypeId + ' - ' + aircraftType.AircraftTypeName for aircraftType in aircraftTypes">
-                    <option value="">--</option>
-                </select>
+
+                <selectize id="AircraftType" name="AircraftType" options="aircraftTypes" ng-disabled="!aircraft.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'AircraftTypeId',
+                                searchField: ['AircraftTypeId', 'AircraftTypeName'],
+                                render: renderAircraftType
+                            }" ng-model="aircraft.AircraftType"></selectize>
             </div>
             <div class="form-group col-md-6">
                 <label for="ManufacturerName"><span translate="MANUFACTURER_NAME"></span></label>
@@ -47,16 +51,25 @@
             </div>
             <div class="form-group col-md-6" ng-show="ownerType === 'club'">
                 <label for="AircraftOwnerClubId"><span translate="AIRCRAFT_OWNER_CLUB"></span></label>
-                <select id="AircraftOwnerClubId" class="form-control" ng-model="aircraft.AircraftOwnerClubId" ng-options="club.ClubId as club.ClubName for club in clubs">
-                    <option value="">--</option>
-                </select>
+
+                <selectize id="AircraftOwnerClubId" name="AircraftOwnerClubId" options="clubs" ng-disabled="!aircraft.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'ClubId',
+                                searchField: ['ClubName'],
+                                labelField: 'ClubName'
+                            }" ng-model="aircraft.AircraftOwnerClubId"></selectize>
             </div>
             <div class="form-group col-md-6" ng-show="ownerType === 'private'">
                 <label for="AircraftOwnerPersonId"><span translate="AIRCRAFT_OWNER_PERSON"></span></label>
-                <select id="AircraftOwnerPersonId" class="form-control" ng-model="aircraft.AircraftOwnerPersonId"
-                        ng-options="person.PersonId as person.Firstname + ' ' + person.Lastname for person in persons">
-                    <option value="">--</option>
-                </select>
+
+                <selectize id="AircraftOwnerPersonId" name="AircraftOwnerPersonId" options="persons" ng-disabled="!aircraft.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'PersonId',
+                                searchField: ['Firstname', 'Lastname'],
+                                render: renderPerson
+                            }" ng-model="aircraft.AircraftOwnerPersonId"></selectize>
             </div>
             <div class="form-group col-md-2">
                 <label for="NrOfSeats"><span translate="NUMBER_OF_SEATS"></span></label>
