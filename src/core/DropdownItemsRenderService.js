@@ -90,4 +90,32 @@ export default class DropdownItemsRenderService {
         };
     }
 
+    lengthUnitRenderer() {
+        function renderLengthUnit(lengthUnitType, escape) {
+            return '<div class="option">' +
+                    escape(lengthUnitType.LengthUnitTypeName) + ' (' +
+                    escape(lengthUnitType.LengthUnitTypeShortName) + ')' +
+                    '</div>';
+        }
+
+        return {
+            option: renderLengthUnit,
+            item: renderLengthUnit
+        };
+    }
+
+    renderElevetionUnit() {
+        function renderElevetionUnit(lengthUnitType, escape) {
+            return '<div class="option">' +
+                    escape(lengthUnitType.ElevationUnitTypeName) + ' (' +
+                    escape(lengthUnitType.ElevationUnitTypeShortName) + ')' +
+                    '</div>';
+        }
+
+        return {
+            option: renderElevetionUnit,
+            item: renderElevetionUnit
+        };
+    }
+
 }

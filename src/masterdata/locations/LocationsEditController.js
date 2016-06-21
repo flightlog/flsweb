@@ -1,5 +1,6 @@
 export default class LocationsEditController {
-    constructor($scope, $q, $sce, $routeParams, $location, GLOBALS, AuthService, MessageManager, Locations, LocationService, LocationPersister, Countries) {
+    constructor($scope, $q, $sce, $routeParams, $location, GLOBALS, AuthService, MessageManager, Locations,
+                LocationService, LocationPersister, Countries, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
@@ -8,6 +9,9 @@ export default class LocationsEditController {
         $scope.positionChanged = function () {
             $scope.openAipUrl = $sce.trustAsResourceUrl('http://maps.openaip.net/?lat=' + $scope.location.Latitude + '&lon=' + $scope.location.Longitude);
         };
+
+        $scope.renderLengthUnit = DropdownItemsRenderService.lengthUnitRenderer();
+        $scope.renderElevetionUnit = DropdownItemsRenderService.renderElevetionUnit();
 
         function loadLocation() {
             var deferred = $q.defer();
