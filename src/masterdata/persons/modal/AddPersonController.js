@@ -4,6 +4,9 @@ export default class AddPersonController {
 
         Countries.query().$promise.then(function (result) {
             $scope.countries = result;
+            $scope.masterdata = {
+                countries: result
+            };
         });
 
         $scope.person = {

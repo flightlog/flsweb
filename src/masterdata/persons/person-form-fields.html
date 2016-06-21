@@ -68,12 +68,14 @@
             <div class="col-md-12">
                 <div class="form-group col-md-8">
                     <label for="Country"><span translate="COUNTRY"></span></label>
-                    <select id="Country"
-                            class="form-control"
-                            ng-model="person.CountryId"
-                            ng-options="country.CountryId as country.CountryName for country in countries">
-                        <option value="">--</option>
-                    </select>
+
+                    <selectize id="Country" name="Country" options="countries || masterdata.countries" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'CountryId',
+                                searchField: ['CountryName'],
+                                labelField: 'CountryName'
+                            }" ng-model="person.CountryId"></selectize>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="Birthday"><span translate="BIRTHDAY"></span></label>
