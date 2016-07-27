@@ -90,4 +90,46 @@ export default class DropdownItemsRenderService {
         };
     }
 
+    lengthUnitRenderer() {
+        function renderLengthUnit(lengthUnitType, escape) {
+            return '<div class="option">' +
+                    escape(lengthUnitType.LengthUnitTypeName) + ' (' +
+                    escape(lengthUnitType.LengthUnitTypeShortName) + ')' +
+                    '</div>';
+        }
+
+        return {
+            option: renderLengthUnit,
+            item: renderLengthUnit
+        };
+    }
+
+    renderElevetionUnit() {
+        function render(lengthUnitType, escape) {
+            return '<div class="option">' +
+                    escape(lengthUnitType.ElevationUnitTypeName) + ' (' +
+                    escape(lengthUnitType.ElevationUnitTypeShortName) + ')' +
+                    '</div>';
+        }
+
+        return {
+            option: render,
+            item: render
+        };
+    }
+
+    aircrafttypeRenderer() {
+        function render(aircraftType, escape) {
+            return '<div class="option">' +
+                    escape(aircraftType.AircraftTypeId) + ' - ' +
+                    escape(aircraftType.AircraftTypeName) +
+                    '</div>';
+        }
+
+        return {
+            option: render,
+            item: render
+        };
+    }
+
 }

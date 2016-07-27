@@ -5,6 +5,7 @@ import locationsModule from './locations/LocationsModule';
 import aircraftsModule from './aircrafts/AircraftsModule';
 import flightTypesModule from './flightTypes/FlightTypesModule';
 import usersModule from './users/UsersModule';
+import memberStatesModule from './memberStates/MemberStatesModule';
 
 export default angular.module('fls.masterdata', [
     personsModule.name,
@@ -12,5 +13,6 @@ export default angular.module('fls.masterdata', [
     locationsModule.name,
     usersModule.name,
     aircraftsModule.name,
-    flightTypesModule.name
+    flightTypesModule.name,
+    memberStatesModule.name
 ]);

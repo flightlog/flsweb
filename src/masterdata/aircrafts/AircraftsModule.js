@@ -1,5 +1,6 @@
 import angular from 'angular';
 import clubsModule from '../clubs/ClubsModule';
+import coreModule from '../../core/CoreModule';
 import personsModule from '../persons/PersonsModule';
 import AircraftsEditController from './AircraftsEditController';
 import AircraftsEditDirective from './AircraftsEditDirective';
@@ -9,6 +10,7 @@ import * as AircraftsServices from './AircraftsServices';
 import {userAuth} from '../../core/AuthService';
 
 export default angular.module('fls.masterdata.aircrafts', [
+        coreModule.name,
         clubsModule.name,
         personsModule.name
     ])

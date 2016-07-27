@@ -18,10 +18,15 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="HomebaseId"><span translate="CLUB_HOME_BASE"></span></label>
-                        <select id="HomebaseId" class="form-control" ng-model="club.HomebaseId" ng-options="location.LocationId as location.LocationName for location in locations"
-                                required>
-                            <option value="">--</option>
-                        </select>
+
+                        <selectize id="HomebaseId" name="HomebaseId" options="locations" ng-disabled="!club.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'LocationId',
+                                searchField: ['LocationName'],
+                                labelField: 'LocationName'
+                            }" required
+                               ng-model="club.HomebaseId"></selectize>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -49,10 +54,14 @@
                 <div class="col-md-12">
                     <div class="form-group col-md-12">
                         <label for="Country"><span translate="COUNTRY"></span></label>
-                        <select id="Country" class="form-control" ng-model="club.CountryId" ng-options="country.CountryId as country.CountryName for country in countries"
-                                required>
-                            <option value="">--</option>
-                        </select>
+
+                        <selectize id="Country" name="Country" options="countries" ng-disabled="!club.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'CountryId',
+                                searchField: ['CountryName'],
+                                labelField: 'CountryName'
+                            }" ng-model="club.CountryId"></selectize>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -106,37 +115,53 @@
                 <div class="col-md-12">
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label for="Starttype"><span translate="START_TYPE"></span>:</label>
-                        <select id="Starttype" class="form-control" ng-model="club.DefaultStartType"
-                                ng-options="starttype.StartTypeId as starttype.StartTypeId + ' - ' + starttype.StartTypeName for starttype in starttypes">
-                            <option value="">--</option>
-                        </select>
+
+                        <selectize id="Starttype" name="Starttype" options="starttypes" ng-disabled="!club.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'StartTypeId',
+                                searchField: ['StartTypeId', 'StartTypeName'],
+                                render: renderStarttype
+                            }" ng-model="club.DefaultStartType"></selectize>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label for="gliderFlightType"><span translate="DEFAULT_GLIDER_FLIGHT_TYPE"></span>:</label>
-                        <select id="gliderFlightType" class="form-control" ng-model="club.DefaultGliderFlightTypeId"
-                                ng-options="flightType.FlightTypeId as flightType.FlightCode + ' - ' + flightType.FlightTypeName for flightType in gliderFlightTypes">
-                            <option value="">--</option>
-                        </select>
+
+                        <selectize id="gliderFlightType" name="gliderFlightType" options="gliderFlightTypes" ng-disabled="!club.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'FlightTypeId',
+                                searchField: ['FlightTypeId', 'FlightCode', 'FlightTypeName'],
+                                render: renderFlightType
+                            }" ng-model="club.DefaultGliderFlightTypeId"></selectize>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label for="towingFlightType"><span translate="DEFAULT_TOWING_FLIGHT_TYPE"></span>:</label>
-                        <select id="towingFlightType" class="form-control" ng-model="club.DefaultTowFlightTypeId"
-                                ng-options="flightType.FlightTypeId as flightType.FlightTypeName for flightType in towingFlightTypes">
-                            <option value="">--</option>
-                        </select>
+
+                        <selectize id="towingFlightType" name="towingFlightType" options="towingFlightTypes" ng-disabled="!club.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'FlightTypeId',
+                                searchField: ['FlightTypeId', 'FlightCode', 'FlightTypeName'],
+                                render: renderFlightType
+                            }" ng-model="club.DefaultTowFlightTypeId"></selectize>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label for="motorFlightType"><span translate="DEFAULT_MOTOR_FLIGHT_TYPE"></span>:</label>
-                        <select id="motorFlightType" class="form-control" ng-model="club.DefaultMotorFlightTypeId"
-                                ng-options="flightType.FlightTypeId as flightType.FlightTypeName for flightType in motorFlightTypes">
-                            <option value="">--</option>
-                        </select>
+
+                        <selectize id="motorFlightType" name="motorFlightType" options="motorFlightTypes" ng-disabled="!club.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'FlightTypeId',
+                                searchField: ['FlightTypeId', 'FlightCode', 'FlightTypeName'],
+                                render: renderFlightType
+                            }" ng-model="club.DefaultMotorFlightTypeId"></selectize>
                     </div>
                 </div>
             </div>

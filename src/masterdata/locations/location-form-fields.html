@@ -10,21 +10,27 @@
         </div>
         <div class="form-group col-md-4">
             <label for="locationType"><span translate="LOCATION_TYPE"></span></label>
-            <select id="locationType" class="form-control"
-                    ng-model="location.LocationTypeId"
-                    ng-options="locationType.LocationTypeId as locationType.LocationTypeName for locationType in locationTypes">
-                <option value="">--</option>
-            </select>
+
+            <selectize id="locationType" name="locationType" options="locationTypes" ng-disabled="!location.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'LocationTypeId',
+                                labelField: 'LocationTypeName',
+                                searchField: ['LocationTypeName']
+                            }" ng-model="location.LocationTypeId"></selectize>
         </div>
     </div>
     <div class="col-md-12">
         <div class="form-group col-md-12">
             <label for="Country"><span translate="COUNTRY"></span></label>
-            <select id="Country" class="form-control"
-                    ng-model="location.CountryId"
-                    ng-options="country.CountryId as country.CountryName for country in countries">
-                <option value="">--</option>
-            </select>
+
+            <selectize id="Country" name="Country" options="countries" ng-disabled="!location.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'CountryId',
+                                searchField: ['CountryName'],
+                                labelField: 'CountryName'
+                            }" ng-model="location.CountryId"></selectize>
         </div>
     </div>
     <div class="col-md-12">
@@ -34,11 +40,14 @@
         </div>
         <div class="form-group col-md-4">
             <label for="lengthUnitType"><span translate="LENGTH_UNIT"></span></label>
-            <select id="lengthUnitType" class="form-control"
-                    ng-model="location.RunwayLengthUnitType"
-                    ng-options="lengthUnitType.LengthUnitTypeId as (lengthUnitType.LengthUnitTypeName + ' (' + lengthUnitType.LengthUnitTypeShortName + ')') for lengthUnitType in lengthUnitTypes">
-                <option value="">--</option>
-            </select>
+
+            <selectize id="lengthUnitType" name="lengthUnitType" options="lengthUnitTypes" ng-disabled="!location.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'LengthUnitTypeId',
+                                searchField: ['LengthUnitTypeName', 'LengthUnitTypeShortName'],
+                                render: renderLengthUnit
+                            }" ng-model="location.RunwayLengthUnitType"></selectize>
         </div>
         <div class="form-group col-md-4">
             <label for="RunwayDirection"><span translate="RUNWAY_DIRECTION"></span></label>
@@ -52,11 +61,14 @@
         </div>
         <div class="form-group col-md-4">
             <label for="ElevationUnitType"><span translate="ELEVATION_UNIT"></span></label>
-            <select id="ElevationUnitType" class="form-control"
-                    ng-model="location.ElevationUnitType"
-                    ng-options="elevationUnitType.ElevationUnitTypeId as (elevationUnitType.ElevationUnitTypeName + ' (' + elevationUnitType.ElevationUnitTypeShortName + ')') for elevationUnitType in elevationUnitTypes">
-                <option value="">--</option>
-            </select>
+
+            <selectize id="ElevationUnitType" name="ElevationUnitType" options="elevationUnitTypes" ng-disabled="!location.CanUpdateRecord" config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'ElevationUnitTypeId',
+                                searchField: ['ElevationUnitTypeName', 'ElevationUnitTypeShortName'],
+                                render: renderElevetionUnit
+                            }" ng-model="location.ElevationUnitType"></selectize>
         </div>
         <label class="checkbox col-md-11 col-md-offset-1" for="IsInboundRouteRequired">
             <input type="checkbox" id="IsInboundRouteRequired" ng-model="location.IsInboundRouteRequired">

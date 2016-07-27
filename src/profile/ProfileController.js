@@ -1,6 +1,8 @@
 export default class ProfileController {
-    constructor($scope, $window, Persons, Countries, AuthService, MessageManager, $http, PersonPersister, TimeService, GLOBALS) {
+    constructor($scope, $window, Persons, Countries, AuthService, MessageManager, $http, PersonPersister,
+                MemberStates, TimeService, GLOBALS) {
         $scope.busy = true;
+        $scope.masterdata = {};
 
         $scope.updatePassword = function (user, OldPassword, NewPassword) {
             MessageManager.reset();
@@ -38,15 +40,19 @@ export default class ProfileController {
 
         $scope.myUser = AuthService.getUser();
         Persons.getMyPerson().$promise
-            .then(function (person) {
+            .then((person) => {
                 $scope.person = person;
             })
             .then(Countries.query)
-            .then(function (result) {
-                $scope.countries = result;
+            .then((result) => {
+                $scope.masterdata.countries = result;
+            })
+            .then(MemberStates.query)
+            .then((result) => {
+                $scope.masterdata.memberStates = result;
             })
             .catch(_.partial(MessageManager.raiseError, 'load', 'own user details'))
-            .finally(function () {
+            .finally(() => {
                 $scope.busy = false;
             });
 

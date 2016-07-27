@@ -1,8 +1,10 @@
 export default class PersonsEditController {
-    constructor($scope, GLOBALS, $q, $location, $routeParams, $window, AuthService, Persons, PersonService, PersonPersister, MessageManager, Countries, TimeService) {
+    constructor($scope, GLOBALS, $q, $location, $routeParams, $window, AuthService, Persons, PersonService,
+                PersonPersister, MessageManager, Countries, MemberStates) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
+        $scope.masterdata = {};
         $scope.isClubAdmin = AuthService.isClubAdmin();
         $scope.requiredFlagsFilterList = [
             'HasGliderInstructorLicence',
@@ -21,9 +23,14 @@ export default class PersonsEditController {
             $scope.requiredFlagsFilter = {};
         };
 
-        Countries.query().$promise.then(function (result) {
-            $scope.countries = result;
-        });
+        let masterdataPromise = $q.all([
+            Countries.query().$promise.then(function (result) {
+                $scope.masterdata.countries = result;
+            }),
+            MemberStates.query().$promise.then(function (result) {
+                $scope.masterdata.memberStates = result;
+            })
+        ]);
 
         function loadPerson() {
             var deferred = $q.defer();
@@ -43,12 +50,15 @@ export default class PersonsEditController {
             $location.path('/masterdata/persons/' + person.PersonId);
         };
 
-        if($routeParams.id !== undefined) {
-            loadPerson().then(function (person) {
-                $scope.person = person;
-            }).finally(function () {
-                $scope.busy = false;
-            });
+        if ($routeParams.id !== undefined) {
+            masterdataPromise
+                .then(loadPerson)
+                .then(function (person) {
+                    $scope.person = person;
+                })
+                .finally(function () {
+                    $scope.busy = false;
+                });
         } else {
             Persons.getAllPersons().$promise.then(function (result) {
                 $scope.persons = result;

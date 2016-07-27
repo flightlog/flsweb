@@ -1,11 +1,16 @@
 import moment from "moment";
+import * as _ from "lodash";
 
 export default class AircraftsEditController {
-    constructor($scope, $q, $location, $routeParams, $window, GLOBALS, AuthService, AircraftsOverviews, AircraftService, Aircraft, AircraftTypes, Clubs, Persons, MessageManager, StringUtils) {
+    constructor($scope, $q, $location, $routeParams, $window, GLOBALS, AuthService, AircraftsOverviews, AircraftService,
+                Aircraft, AircraftTypes, Clubs, Persons, MessageManager, StringUtils, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
         $scope.isClubAdmin = AuthService.isClubAdmin();
+
+        $scope.renderAircraftType = DropdownItemsRenderService.aircrafttypeRenderer();
+        $scope.renderPerson = DropdownItemsRenderService.personRenderer();
 
         function loadAircraft() {
             var deferred = $q.defer();

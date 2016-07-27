@@ -1,9 +1,13 @@
 export default class AddPersonController {
-    constructor(GLOBALS, $scope, $modalInstance, flags, Countries) {
+    constructor(GLOBALS, $scope, $modalInstance, flags, Countries, MemberStates) {
         $scope.debug = GLOBALS.DEBUG;
+        $scope.masterdata = {};
 
         Countries.query().$promise.then(function (result) {
-            $scope.countries = result;
+            $scope.masterdata.countries = result;
+        });
+        MemberStates.query().$promise.then(function (result) {
+            $scope.masterdata.memberStates = result;
         });
 
         $scope.person = {

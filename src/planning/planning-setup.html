@@ -39,10 +39,14 @@
         </div>
         <div class="form-group col-md-12">
             <label for="location">Location:</label>
-            <select id="location" class="form-control" ng-model="setup.LocationId"
-                    ng-options="location.LocationId as location.LocationName for location in locations">
-                <option value="">-- choose location --</option>
-            </select>
+
+            <selectize id="location" name="location" options="locations" required config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'LocationId',
+                                searchField: ['LocationName'],
+                                labelField: 'LocationName'
+                            }" ng-model="setup.LocationId"></selectize>
         </div>
         <div class="col-md-12">
             <button type="submit" class="btn btn-default" style="margin-right:10px;">Generate Planning Days</button>
