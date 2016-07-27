@@ -9,9 +9,8 @@ export default class ReservationsController {
                 $scope.reservations = result;
                 for (var i = 0; i < result.length; i++) {
                     $scope.reservations[i]._formattedDate = result[i].Start && moment(result[i].Start).format('DD.MM.YYYY dddd');
-                    // TODO clarify if we can get the server to send the timezone so we dont have to hardcode this to UTC
-                    $scope.reservations[i].Start = moment.utc(result[i].Start).toDate();
-                    $scope.reservations[i].End = moment.utc(result[i].End).toDate();
+                    $scope.reservations[i].Start = moment(result[i].Start).toDate();
+                    $scope.reservations[i].End = moment(result[i].End).toDate();
                 }
             })
             .catch(_.partial(MessageManager.raiseError, 'load', 'reservations'))
