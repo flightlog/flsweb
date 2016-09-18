@@ -6,6 +6,7 @@ import TimeService from './TimeService';
 import NavigationCache from './NavigationCache';
 import Countries from './Countries';
 import {StartTypes, SpecificStartTypes} from './StartTypes';
+import {CounterUnitTypes} from './CounterUnitTypes';
 import DatePickerInputDirective from './directives/datePicker/DatePickerInputDirective';
 import TimeInputDirective from './directives/timePicker/TimeInputDirective';
 import MessageBarDirective from './directives/messageBar/MessageBarDirective';
@@ -56,6 +57,7 @@ export default angular.module("fls.core", [
     .service('NavigationCache', NavigationCache)
     .service('Countries', Countries)
     .service('StartTypes', StartTypes)
+    .service('CounterUnitTypes', CounterUnitTypes)
     .service('AuditLogService', AuditLogService)
     .service('SpecificStartTypes', SpecificStartTypes)
     .service('TimeService', TimeService)

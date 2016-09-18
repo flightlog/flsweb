@@ -1,6 +1,6 @@
 <fls-busy-indicator busy="busyLoadingFlight" error="error">
-    <form role="form" ng-submit="save(flightDetails)" name="flightDetailsForm" class="css-form" ng-class="{'readonly-form':!flightDetails.CanUpdateRecord}">
-        <div class="row col-md-12 col-sm-12 col-xs-12">
+    <form role="form" ng-submit="save(flightDetails)" name="flightDetailsForm" class="row css-form" ng-class="{'readonly-form':!flightDetails.CanUpdateRecord}">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
                     <label for="StartDate"><span translate="DATE"></span>:</label>
@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                     <label for="MotorFlightDetailsData.StartDateTime"><span translate="TAKEOFF"></span>:</label>
@@ -154,7 +154,7 @@
                 </div>
             </div>
         </div>
-        <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                     <label for="flightDetails.MotorFlightDetailsData.BlockStartDateTime"><span translate="BLOCK_TIME_BEGIN"></span>:</label>
@@ -189,8 +189,8 @@
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                    <label for="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInMinutes"><span translate="ENGINE_MINUTES_BEGIN"></span>:</label>
-                    <input type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInMinutes"
+                    <label for="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounter"><span translate="ENGINE_BEGIN"></span> (<span ng-bind="times.engineCounterFormat"></span>):</label>
+                    <input type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounter"
                            ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.engineMinutesCounterBegin"
                            ng-blur="engineMinutesCountersChanged();">
                         <span ng-show="operatingCounters.EngineOperatingCounterInMinutes" style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
@@ -198,8 +198,8 @@
                             <span ng-bind="times.lastOperatingCounterFormatted"></span>)</span>
                 </div>
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                    <label for="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInMinutes"><span translate="ENGINE_MINUTES_END"></span>:</label>
-                    <input type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInMinutes"
+                    <label for="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounter"><span translate="ENGINE_END"></span> (<span ng-bind="times.engineCounterFormat"></span>):</label>
+                    <input type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounter"
                            ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.engineMinutesCounterEnd"
                            ng-blur="engineMinutesCountersChanged();">
                 </div>
@@ -219,7 +219,8 @@
             </div>
         </div>
 
-        <div class="row col-xs-12">
+        <div class="col-xs-12">
+        <div class="col-xs-12">
             <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 30px;">
                 <button type="button" ng-click="cancel()" class="btn btn-default pull-right" translate="CANCEL">Cancel
                 </button>
@@ -238,6 +239,7 @@
                     loading...
                 </div>
             </div>
+        </div>
         </div>
         <pre class="col-md-12" ng-show="debug" ng-bind="selectedFlightType | json"></pre>
     </form>

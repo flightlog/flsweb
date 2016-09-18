@@ -24,12 +24,38 @@ export default class TimeService {
         return this.formatMinutesToLongHoursFormat(minutes);
     }
 
-    formatMinutesToLongHoursFormat(resultMinutes) {
-        if (resultMinutes) {
-            let resultHours = Math.floor(resultMinutes / 60);
-            resultMinutes = resultMinutes - (resultHours * 60);
+    formatMinutesToLongHoursFormat(minutes, format1) {
+        let format = format1 || "min";
+        if (minutes) {
+            if (format === "min") {
+                let resultHours = Math.floor(minutes / 60);
+                minutes = minutes - (resultHours * 60);
 
-            return resultHours + ":" + String("0" + resultMinutes).slice(-2);
+                return resultHours + ":" + String("0" + minutes).slice(-2);
+            } else if (format === "100min") {
+                let resultHours = Math.floor(minutes / 100);
+                let centi = minutes - (resultHours * 60);
+
+                return resultHours + "." + String("0" + centi).slice(-2);
+            }
+        }
+    }
+
+    engineCounterFormatString(counterUnitTypeId, counterUnitTypes) {
+        console.log("counterUnitTypeId", counterUnitTypeId);
+        console.log(counterUnitTypes);
+        let matchedCounterUnitType = counterUnitTypes.find(counterUnitType => counterUnitType.CounterUnitTypeId === counterUnitTypeId);
+        console.log(matchedCounterUnitType);
+        let key = matchedCounterUnitType && matchedCounterUnitType.CounterUnitTypeKey;
+        switch(key) {
+            case "min":
+                return "hhhh:mm";
+                break;
+            case "100min":
+                return "hhhh.mm";
+                break;
+            default:
+                return "?";
         }
     }
 
@@ -68,7 +94,7 @@ export default class TimeService {
     }
 
     removeTimeOffset(d) {
-        if(!d) {
+        if (!d) {
             return;
         }
         return moment(d).utc().hours(0).minutes(0).seconds(0).local().toDate();

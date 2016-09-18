@@ -34,4 +34,26 @@ describe('TimeService', () => {
         expect(result).toBeUndefined();
     });
 
+    it('should format minutes format', () => {
+        // arrange
+        let minutes = 120;
+
+        // act
+        let result = TimeService.formatMinutesToLongHoursFormat(minutes);
+
+        // assert
+        expect(JSON.stringify(result)).toEqual('"2:00"');
+    });
+
+    it('should format centi format', () => {
+        // arrange
+        let centi = 120;
+
+        // act
+        let result = TimeService.formatMinutesToLongHoursFormat(centi, "100min");
+
+        // assert
+        expect(JSON.stringify(result)).toEqual('"1.60"');
+    });
+
 });

@@ -6,7 +6,7 @@ import TimeService from '../../core/TimeService';
 export default class AirMovementsController {
 
     constructor($scope, $q, $timeout, TimeService, DropdownItemsRenderService, $log, $modal, MessageManager,
-                AirMovements, AirMovementsDateRange,
+                AirMovements, AirMovementsDateRange, CounterUnitTypes,
                 Locations, Persons, PersonPersister, PassengerPersister, Aircrafts, FlightTypes,
                 SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters) {
         this.format = 'HH:mm';
@@ -17,6 +17,7 @@ export default class AirMovementsController {
         $scope.showChart = false;
 
         $scope.starttypes = [];
+        $scope.counterUnitTypes = [];
         $scope.locations = [];
         $scope.motorFlightTypes = [];
         $scope.motorAircrafts = [];
@@ -115,6 +116,7 @@ export default class AirMovementsController {
                                 AircraftOperatingCounters.query({AircraftId: motorAircraft.AircraftId}).$promise.then((result) => {
                                     $scope.operatingCounters = result;
                                     $scope.times.lastOperatingCounterFormatted = formatMinutesToLongHoursFormat(result.EngineOperatingCounterInMinutes);
+                                    $scope.times.engineCounterFormat = TimeService.engineCounterFormatString(motorAircraft.EngineOperatingCounterUnitTypeId, $scope.counterUnitTypes)
                                 }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
                             }
                         }
@@ -192,6 +194,9 @@ export default class AirMovementsController {
                 promises.push(SpecificStartTypes.queryStartTypesFor({kind: "motor"}).$promise.then((result) => {
                     angular.copy(result, $scope.starttypes);
                 }));
+                promises.push(CounterUnitTypes.query().$promise.then((result) => {
+                    angular.copy(result, $scope.counterUnitTypes);
+                }));
                 promises.push(FlightTypes.queryFlightTypesFor({dest: 'motor'}).$promise.then((result) => {
                     angular.copy(result, $scope.motorFlightTypes);
                 }));
@@ -237,8 +242,8 @@ export default class AirMovementsController {
                     motorLanding: TimeService.time(motorFlight.LdgDateTime),
                     blockTimeStart: TimeService.time(motorFlight.BlockStartDateTime),
                     blockTimeEnd: TimeService.time(motorFlight.BlockEndDateTime),
-                    engineMinutesCounterBegin: TimeService.formatMinutesToLongHoursFormat(motorFlight.EngineStartOperatingCounterInMinutes),
-                    engineMinutesCounterEnd: TimeService.formatMinutesToLongHoursFormat(motorFlight.EngineEndOperatingCounterInMinutes)
+                    engineCounterBegin: TimeService.formatMinutesToLongHoursFormat(motorFlight.EngineStartOperatingCounte),
+                    engineCounterEnd: TimeService.formatMinutesToLongHoursFormat(motorFlight.EngineEndOperatingCounter),
                 };
                 $scope.times.motorDuration = this.calcDuration($scope.times.motorStart, $scope.times.motorLanding);
                 $scope.times.blockDuration = this.calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd);
@@ -289,8 +294,8 @@ export default class AirMovementsController {
             flightDetails.MotorFlightDetailsData.LdgDateTime = TimeService.parseDateTime(flightDate, $scope.times.motorLanding);
             flightDetails.MotorFlightDetailsData.BlockStartDateTime = TimeService.parseDateTime(flightDate, $scope.times.blockTimeStart);
             flightDetails.MotorFlightDetailsData.BlockEndDateTime = TimeService.parseDateTime(flightDate, $scope.times.blockTimeEnd);
-            flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInMinutes = TimeService.longDurationFormatToMinutes($scope.times.engineMinutesCounterBegin);
-            flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInMinutes = TimeService.longDurationFormatToMinutes($scope.times.engineMinutesCounterEnd);
+            flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInMinutes = TimeService.longDurationFormatToMinutes($scope.times.engineCounterBegin);
+            flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInMinutes = TimeService.longDurationFormatToMinutes($scope.times.engineCounterEnd);
 
             if (flightDetails.FlightId) {
                 new AirMovements(flightDetails).$saveFlight({id: flightDetails.FlightId})
@@ -477,10 +482,10 @@ export default class AirMovementsController {
     }
 
     engineMinutesCountersChanged(times) {
-        times.engineMinutesCounterBegin = this.TimeService.formatTime(times.engineMinutesCounterBegin);
-        times.engineMinutesCounterEnd = this.TimeService.formatTime(times.engineMinutesCounterEnd);
-        if (times.engineMinutesCounterBegin && times.engineMinutesCounterEnd) {
-            times.engineDuration = this.TimeService.calcLongDuration(times.engineMinutesCounterBegin, times.engineMinutesCounterEnd);
+        times.engineCounterBegin = this.TimeService.formatTime(times.engineCounterBegin);
+        times.engineCounterEnd = this.TimeService.formatTime(times.engineCounterEnd);
+        if (times.engineCounterBegin && times.engineCounterEnd) {
+            times.engineDuration = this.TimeService.calcLongDuration(times.engineCounterBegin, times.engineCounterEnd);
         }
     }
 

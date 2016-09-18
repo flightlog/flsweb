@@ -36,6 +36,20 @@ export default class DropdownItemsRenderService {
         };
     }
 
+    counterUnitTypeRenderer() {
+        function render(item, escape) {
+            return '<div class="option">' +
+                escape(item.CounterUnitTypeName) + ' ["' +
+                escape(item.CounterUnitTypeKeyName) + '"]' +
+                '</div>';
+        }
+
+        return {
+            option: render,
+            item: render
+        };
+    }
+
     aircraftRenderer() {
         function seatLabel(NrOfSeats) {
             return ' Seat' + ((NrOfSeats > 1) ? 's' : '');

@@ -29,8 +29,8 @@ describe('AirMovementsController', () => {
         // arrange
         $scope = scope();
         new AirMovementsController($scope, q(), timeout(), timeService(), renderer());
-        $scope.times.engineMinutesCounterBegin = '100:00';
-        $scope.times.engineMinutesCounterEnd = '50:00';
+        $scope.times.engineCounterBegin = '100:00';
+        $scope.times.engineCounterEnd = '50:00';
 
         // act
         $scope.engineMinutesCountersChanged();
@@ -43,8 +43,8 @@ describe('AirMovementsController', () => {
         // arrange
         $scope = scope();
         new AirMovementsController($scope, q(), timeout(), timeService(), renderer());
-        $scope.times.engineMinutesCounterBegin = '1200:00';
-        $scope.times.engineMinutesCounterEnd = '1203:50';
+        $scope.times.engineCounterBegin = '1200:00';
+        $scope.times.engineCounterEnd = '1203:50';
 
         // act
         $scope.engineMinutesCountersChanged();

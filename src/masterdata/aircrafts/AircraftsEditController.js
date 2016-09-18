@@ -3,7 +3,7 @@ import * as _ from "lodash";
 
 export default class AircraftsEditController {
     constructor($scope, $q, $location, $routeParams, $window, GLOBALS, AuthService, AircraftsOverviews, AircraftService,
-                Aircraft, AircraftTypes, Clubs, Persons, MessageManager, StringUtils, DropdownItemsRenderService) {
+                Aircraft, AircraftTypes, CounterUnitTypes, Clubs, Persons, MessageManager, StringUtils, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
@@ -11,6 +11,7 @@ export default class AircraftsEditController {
 
         $scope.renderAircraftType = DropdownItemsRenderService.aircrafttypeRenderer();
         $scope.renderPerson = DropdownItemsRenderService.personRenderer();
+        $scope.renderCounterUnitType = DropdownItemsRenderService.counterUnitTypeRenderer();
 
         function loadAircraft() {
             var deferred = $q.defer();
@@ -59,7 +60,7 @@ export default class AircraftsEditController {
 
 
         if ($routeParams.id !== undefined) {
-            $q.all([loadAircraft(), Clubs.query(), Persons.query(), AircraftTypes.query()])
+            $q.all([loadAircraft(), Clubs.query(), Persons.query(), AircraftTypes.query(), CounterUnitTypes.query()])
                 .then((result) => {
                     var aircraft = result[0];
                     $scope.aircraft = aircraft;
@@ -70,6 +71,7 @@ export default class AircraftsEditController {
                     $scope.clubs = result[1];
                     $scope.persons = result[2];
                     $scope.aircraftTypes = result[3];
+                    $scope.counterUnitTypes = result[4];
                 })
                 .catch(_.partial(MessageManager.raiseError, 'load', 'aircraft'))
                 .finally(() => {
