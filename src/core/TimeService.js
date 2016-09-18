@@ -41,13 +41,9 @@ export default class TimeService {
         }
     }
 
-    engineCounterFormatString(counterUnitTypeId, counterUnitTypes) {
-        console.log("counterUnitTypeId", counterUnitTypeId);
-        console.log(counterUnitTypes);
-        let matchedCounterUnitType = counterUnitTypes.find(counterUnitType => counterUnitType.CounterUnitTypeId === counterUnitTypeId);
-        console.log(matchedCounterUnitType);
-        let key = matchedCounterUnitType && matchedCounterUnitType.CounterUnitTypeKey;
-        switch(key) {
+    engineCounterFormatString(counterUnitTypeKey) {
+        console.log("counterUnitTypeKey", counterUnitTypeKey);
+        switch(counterUnitTypeKey) {
             case "min":
                 return "hhhh:mm";
                 break;
