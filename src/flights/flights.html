@@ -47,11 +47,14 @@
                         <th translate="GLIDER_PLANE"></th>
                         <th translate="GLIDER_PILOT"></th>
                         <th translate="SECOND_CREW_MEMBER"></th>
+                        <th translate="START_LOCATION"></th>
                         <th translate="TAKEOFF"></th>
                         <th translate="LANDING"></th>
+                        <th translate="GLIDER_FLIGHT_DURATION"></th>
                         <th translate="TOWING_PLANE"></th>
                         <th translate="TOWING_PILOT"></th>
                         <th translate="TOW_LANDING"></th>
+                        <th translate="TOW_DURATION"></th>
                         <th translate="COMMENT"></th>
                         <th>&nbsp;</th>
                     </tr>
@@ -62,6 +65,7 @@
                             <span translate="SECOND_CREW_MEMBER"></span>
                         </th>
                         <th>
+                            <span translate="START_LOCATION"></span>&nbsp;<br>
                             <span translate="TAKEOFF"></span>&nbsp;<br>
                             <span translate="TOW_LANDING"
                                   style="font-style: italic;white-space: nowrap;"></span>&nbsp;<br>
@@ -88,10 +92,16 @@
                         <td ng-bind="flight.SecondCrewName" ng-show="selectedFlight !== flight"
                             ng-click="select(flight)"
                             style="cursor:pointer;"></td>
+                        <td ng-bind="flight.StartLocation"
+                            ng-show="selectedFlight !== flight"
+                            ng-click="select(flight)" style="cursor:pointer;"></td>
                         <td ng-bind="flight.StartDateTime | date:'HH:mm'"
                             ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
                         <td ng-bind="flight.LdgDateTime | date:'HH:mm'"
+                            ng-show="selectedFlight !== flight"
+                            ng-click="select(flight)" style="cursor:pointer;"></td>
+                        <td ng-bind="flight.GliderFlightDuration | date:'HH:mm'"
                             ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
                         <td ng-bind="flight.TowAircraftImmatriculation" ng-show="selectedFlight !== flight"
@@ -99,6 +109,8 @@
                         <td ng-bind="flight.TowPilotName" ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
                         <td ng-bind="flight.TowFlightLdgDateTime | date:'HH:mm'" ng-show="selectedFlight !== flight"
+                            ng-click="select(flight)" style="cursor:pointer;"></td>
+                        <td ng-bind="flight.TowFlightDuration | date:'HH:mm'" ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
                         <td ng-bind="flight.FlightComment" ng-show="selectedFlight !== flight" ng-click="select(flight)"
                             style="cursor:pointer;"></td>
@@ -120,6 +132,7 @@
                         </td>
                         <td ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;">
+                            <span ng-bind="flight.StartLocation"></span>&nbsp;<br>
                             <span ng-bind="flight.StartDateTime | date:'dd.MM.yyyy'"></span>&nbsp;<br>
                             <span ng-bind="flight.StartDateTime | date:'HH:mm'"></span>&nbsp;<br>
                     <span ng-bind="flight.TowFlightLdgDateTime | date:'HH:mm'"
@@ -134,7 +147,7 @@
                     </tr>
                     <tr ng-show="selectedFlight === flight"
                         ng-if="selectedFlight === flight">
-                        <td class="formbg" colspan="12">
+                        <td class="formbg" colspan="15">
                             <fls-flight-edit-form></fls-flight-edit-form>
                         </td>
                     </tr>
