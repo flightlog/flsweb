@@ -1,146 +1,229 @@
-<div class="row">
-
+<div>
     <accordion close-others="false">
-        <accordion-group is-open="status1" ng-init="status1 = true">
+        <accordion-group is-open="status1"
+                         ng-init="status1 = true">
             <accordion-heading>
-                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status1, 'glyphicon-chevron-right': !status1}" style="margin-right: 0.8em;"></i> <span
+                <i class="pull-left glyphicon"
+                   ng-class="{'glyphicon-chevron-down': status1, 'glyphicon-chevron-right': !status1}"
+                   style="margin-right: 0.8em;"></i> <span
                     translate="MASTERDATA"></span>
             </accordion-heading>
-            <div class="form-group col-md-4">
-                <label for="Immatriculation"><span translate="IMMATRICULATION"></span></label>
-                <input class="form-control" id="Immatriculation" ng-model="aircraft.Immatriculation">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="CompetitionSign"><span translate="COMPETITION_SIGN"></span></label>
-                <input class="form-control" id="CompetitionSign" ng-model="aircraft.CompetitionSign">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="AircraftType"><span translate="AIRCRAFT_TYPE"></span></label>
+            <div class="col-xs-12">
+                <div class="form-group col-md-4">
+                    <label for="Immatriculation"><span translate="IMMATRICULATION"></span></label>
+                    <input class="form-control"
+                           id="Immatriculation"
+                           ng-model="aircraft.Immatriculation">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="CompetitionSign"><span translate="COMPETITION_SIGN"></span></label>
+                    <input class="form-control"
+                           id="CompetitionSign"
+                           ng-model="aircraft.CompetitionSign">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="AircraftType"><span translate="AIRCRAFT_TYPE"></span></label>
 
-                <selectize id="AircraftType" name="AircraftType" options="aircraftTypes" ng-disabled="!aircraft.CanUpdateRecord" config="{
+                    <selectize id="AircraftType"
+                               name="AircraftType"
+                               options="aircraftTypes"
+                               ng-disabled="!aircraft.CanUpdateRecord"
+                               config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'AircraftTypeId',
                                 searchField: ['AircraftTypeId', 'AircraftTypeName'],
                                 render: renderAircraftType
-                            }" ng-model="aircraft.AircraftType"></selectize>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="ManufacturerName"><span translate="MANUFACTURER_NAME"></span></label>
-                <input class="form-control" id="ManufacturerName" ng-model="aircraft.ManufacturerName">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="AircraftModel"><span translate="AIRCRAFT_MODEL"></span></label>
-                <input class="form-control" id="AircraftModel" ng-model="aircraft.AircraftModel">
+                            }"
+                               ng-model="aircraft.AircraftType"></selectize>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="ManufacturerName"><span translate="MANUFACTURER_NAME"></span></label>
+                    <input class="form-control"
+                           id="ManufacturerName"
+                           ng-model="aircraft.ManufacturerName">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="AircraftModel"><span translate="AIRCRAFT_MODEL"></span></label>
+                    <input class="form-control"
+                           id="AircraftModel"
+                           ng-model="aircraft.AircraftModel">
+                </div>
             </div>
         </accordion-group>
-        <accordion-group is-open="status2" ng-init="status2 = true">
+        <accordion-group is-open="status2"
+                         ng-init="status2 = true">
             <accordion-heading>
-                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status2, 'glyphicon-chevron-right': !status2}" style="margin-right: 0.8em;"></i> <span
+                <i class="pull-left glyphicon"
+                   ng-class="{'glyphicon-chevron-down': status2, 'glyphicon-chevron-right': !status2}"
+                   style="margin-right: 0.8em;"></i> <span
                     translate="OPERATIONAL_DATA"></span>
             </accordion-heading>
-            <div class="col-md-4">
-                <label class="checkbox" for="clubOwned">
-                    <input type="radio" id="clubOwned" ng-model="ownerType" value="club" ng-change="ownerTypeChanged()">
-                    <span translate="IS_CLUB_OWNED"></span>
-                </label>
-                <label class="checkbox" for="privatelyOwned">
-                    <input type="radio" id="privatelyOwned" ng-model="ownerType" value="private" ng-change="ownerTypeChanged()">
-                    <span translate="IS_PRIVATELY_OWNED"></span>
-                </label>
-            </div>
-            <div class="form-group col-md-6" ng-show="ownerType === 'club'">
-                <label for="AircraftOwnerClubId"><span translate="AIRCRAFT_OWNER_CLUB"></span></label>
+            <div class="col-xs-12">
+                <div class="col-md-4">
+                    <label class="checkbox"
+                           for="clubOwned">
+                        <input type="radio"
+                               id="clubOwned"
+                               ng-model="ownerType"
+                               value="club"
+                               ng-change="ownerTypeChanged()">
+                        <span translate="IS_CLUB_OWNED"></span>
+                    </label>
+                    <label class="checkbox"
+                           for="privatelyOwned">
+                        <input type="radio"
+                               id="privatelyOwned"
+                               ng-model="ownerType"
+                               value="private"
+                               ng-change="ownerTypeChanged()">
+                        <span translate="IS_PRIVATELY_OWNED"></span>
+                    </label>
+                </div>
+                <div class="form-group col-md-6"
+                     ng-show="ownerType === 'club'">
+                    <label for="AircraftOwnerClubId"><span translate="AIRCRAFT_OWNER_CLUB"></span></label>
 
-                <selectize id="AircraftOwnerClubId" name="AircraftOwnerClubId" options="clubs" ng-disabled="!aircraft.CanUpdateRecord" config="{
+                    <selectize id="AircraftOwnerClubId"
+                               name="AircraftOwnerClubId"
+                               options="clubs"
+                               ng-disabled="!aircraft.CanUpdateRecord"
+                               config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'ClubId',
                                 searchField: ['ClubName'],
                                 labelField: 'ClubName'
-                            }" ng-model="aircraft.AircraftOwnerClubId"></selectize>
-            </div>
-            <div class="form-group col-md-6" ng-show="ownerType === 'private'">
-                <label for="AircraftOwnerPersonId"><span translate="AIRCRAFT_OWNER_PERSON"></span></label>
+                            }"
+                               ng-model="aircraft.AircraftOwnerClubId"></selectize>
+                </div>
+                <div class="form-group col-md-6"
+                     ng-show="ownerType === 'private'">
+                    <label for="AircraftOwnerPersonId"><span translate="AIRCRAFT_OWNER_PERSON"></span></label>
 
-                <selectize id="AircraftOwnerPersonId" name="AircraftOwnerPersonId" options="persons" ng-disabled="!aircraft.CanUpdateRecord" config="{
+                    <selectize id="AircraftOwnerPersonId"
+                               name="AircraftOwnerPersonId"
+                               options="persons"
+                               ng-disabled="!aircraft.CanUpdateRecord"
+                               config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname'],
                                 render: renderPerson
-                            }" ng-model="aircraft.AircraftOwnerPersonId"></selectize>
-            </div>
-            <div class="form-group col-md-2">
-                <label for="NrOfSeats"><span translate="NUMBER_OF_SEATS"></span></label>
-                <input class="form-control" id="NrOfSeats" ng-model="aircraft.NrOfSeats">
-            </div>
-            <div class="form-group col-md-12">
-                <label for="SpotLink"><span translate="SPOT_LINK"></span></label>
-                <div class="input-group">
-                    <input class="form-control" id="SpotLink" ng-model="aircraft.SpotLink">
+                            }"
+                               ng-model="aircraft.AircraftOwnerPersonId"></selectize>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="NrOfSeats"><span translate="NUMBER_OF_SEATS"></span></label>
+                    <input class="form-control"
+                           id="NrOfSeats"
+                           ng-model="aircraft.NrOfSeats">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="SpotLink"><span translate="SPOT_LINK"></span></label>
+                    <div class="input-group">
+                        <input class="form-control"
+                               id="SpotLink"
+                               ng-model="aircraft.SpotLink">
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="testLink(aircraft.SpotLink)"
+                            <button type="button"
+                                    class="btn btn-default"
+                                    ng-click="testLink(aircraft.SpotLink)"
                                     translate="TEST_LINK"></button>
                         </span>
+                    </div>
                 </div>
-            </div>
 
-            <label class="checkbox col-md-11 col-md-offset-1" for="IsTowingAircraft">
-                <input type="checkbox" id="IsTowingAircraft" ng-model="aircraft.IsTowingAircraft">
-                <span translate="IS_TOWING_AIRCRAFT"></span>
-            </label>
-            <label class="checkbox col-md-11 col-md-offset-1" for="IsTowingOrWinchRequired">
-                <input type="checkbox" id="IsTowingOrWinchRequired" ng-model="aircraft.IsTowingOrWinchRequired">
-                <span translate="IS_TOWING_OR_WINCH_REQUIRED"></span>
-            </label>
-            <label class="checkbox col-md-10 col-md-offset-2" for="IsTowingstartAllowed">
-                <input type="checkbox" id="IsTowingstartAllowed" ng-model="aircraft.IsTowingstartAllowed">
-                <span translate="IS_TOWING_START_ALLOWED"></span>
-            </label>
-            <label class="checkbox col-md-10 col-md-offset-2" for="IsWinchstartAllowed">
-                <input type="checkbox" id="IsWinchstartAllowed" ng-model="aircraft.IsWinchstartAllowed">
-                <span translate="IS_WINCH_START_ALLOWED"></span>
-            </label>
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="IsTowingAircraft">
+                    <input type="checkbox"
+                           id="IsTowingAircraft"
+                           ng-model="aircraft.IsTowingAircraft">
+                    <span translate="IS_TOWING_AIRCRAFT"></span>
+                </label>
+                <label class="checkbox col-md-11 col-md-offset-1"
+                       for="IsTowingOrWinchRequired">
+                    <input type="checkbox"
+                           id="IsTowingOrWinchRequired"
+                           ng-model="aircraft.IsTowingOrWinchRequired">
+                    <span translate="IS_TOWING_OR_WINCH_REQUIRED"></span>
+                </label>
+                <label class="checkbox col-md-10 col-md-offset-2"
+                       for="IsTowingstartAllowed">
+                    <input type="checkbox"
+                           id="IsTowingstartAllowed"
+                           ng-model="aircraft.IsTowingstartAllowed">
+                    <span translate="IS_TOWING_START_ALLOWED"></span>
+                </label>
+                <label class="checkbox col-md-10 col-md-offset-2"
+                       for="IsWinchstartAllowed">
+                    <input type="checkbox"
+                           id="IsWinchstartAllowed"
+                           ng-model="aircraft.IsWinchstartAllowed">
+                    <span translate="IS_WINCH_START_ALLOWED"></span>
+                </label>
+            </div>
         </accordion-group>
 
-        <accordion-group is-open="status3" ng-init="status3 = true">
+        <accordion-group is-open="status3"
+                         ng-init="status3 = true">
             <accordion-heading>
-                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status3, 'glyphicon-chevron-right': !status3}" style="margin-right: 0.8em;"></i> <span
+                <i class="pull-left glyphicon"
+                   ng-class="{'glyphicon-chevron-down': status3, 'glyphicon-chevron-right': !status3}"
+                   style="margin-right: 0.8em;"></i> <span
                     translate="TECHNICAL_DATA"></span>
             </accordion-heading>
-            <div class="form-group col-md-3">
-                <label for="MTOM"><span translate="MAXIMUM_TAKEOFF_MASS"></span></label>
-                <input class="form-control" id="MTOM" ng-model="aircraft.MTOM">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="AircraftSerialNumber"><span translate="AIRCRAFT_SERIAL_NUMBER"></span></label>
-                <input class="form-control" id="AircraftSerialNumber" ng-model="aircraft.AircraftSerialNumber">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="YearOfManufacture"><span translate="AIRCRAFT_YEAR_OF_MANUFACTURE"></span></label>
-                <input class="form-control" id="YearOfManufacture" ng-model="times.manufacturingYear">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="FLARMId"><span translate="FLARM_ID"></span></label>
-                <input class="form-control" id="FLARMId" ng-model="aircraft.FLARMId">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="DeacIndex"><span translate="DEAC_INDEX"></span></label>
-                <input class="form-control" id="DeacIndex" ng-model="aircraft.DeacIndex">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="NoiseClass"><span translate="NOISE_CLASS"></span></label>
-                <input class="form-control" id="NoiseClass" ng-model="aircraft.NoiseClass">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="NoiseLevel"><span translate="NOISE_LEVEL"></span></label>
-                <input class="form-control" id="NoiseLevel" ng-model="aircraft.NoiseLevel">
-            </div>
+            <div class="col-xs-12">
+                <div class="form-group col-md-3">
+                    <label for="MTOM"><span translate="MAXIMUM_TAKEOFF_MASS"></span></label>
+                    <input class="form-control"
+                           id="MTOM"
+                           ng-model="aircraft.MTOM">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="AircraftSerialNumber"><span translate="AIRCRAFT_SERIAL_NUMBER"></span></label>
+                    <input class="form-control"
+                           id="AircraftSerialNumber"
+                           ng-model="aircraft.AircraftSerialNumber">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="YearOfManufacture"><span translate="AIRCRAFT_YEAR_OF_MANUFACTURE"></span></label>
+                    <input class="form-control"
+                           id="YearOfManufacture"
+                           ng-model="times.manufacturingYear">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="FLARMId"><span translate="FLARM_ID"></span></label>
+                    <input class="form-control"
+                           id="FLARMId"
+                           ng-model="aircraft.FLARMId">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="DeacIndex"><span translate="DEAC_INDEX"></span></label>
+                    <input class="form-control"
+                           id="DeacIndex"
+                           ng-model="aircraft.DeacIndex">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="NoiseClass"><span translate="NOISE_CLASS"></span></label>
+                    <input class="form-control"
+                           id="NoiseClass"
+                           ng-model="aircraft.NoiseClass">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="NoiseLevel"><span translate="NOISE_LEVEL"></span></label>
+                    <input class="form-control"
+                           id="NoiseLevel"
+                           ng-model="aircraft.NoiseLevel">
+                </div>
 
-            <div class="form-group col-md-12">
-                <label for="Comment"><span translate="COMMENT"></span></label>
-                <input class="form-control" id="Comment" ng-model="aircraft.Comment">
+                <div class="form-group col-md-12">
+                    <label for="Comment"><span translate="COMMENT"></span></label>
+                    <input class="form-control"
+                           id="Comment"
+                           ng-model="aircraft.Comment">
+                </div>
             </div>
         </accordion-group>
     </accordion>

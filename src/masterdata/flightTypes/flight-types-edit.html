@@ -1,8 +1,8 @@
 <div class="container flscontainer">
-    <div class="row col-md-12">
+    <div>
         <fls-busy-indicator busy="busy" error="error">
             <fls-message-bar></fls-message-bar>
-            <form role="form" ng-submit="save(flightType)" class="row css-form"
+            <form role="form" ng-submit="save(flightType)" class="css-form"
                   ng-class="{'readonly-form':!flightType.CanUpdateRecord}" name="flightTypeForm">
                 <div class="modal-body">
                     <fls-flight-type-form></fls-flight-type-form>

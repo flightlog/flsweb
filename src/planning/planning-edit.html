@@ -1,9 +1,9 @@
 <div class="container flscontainer">
     <fls-message-bar></fls-message-bar>
-    <div class="col-md-12">
+
         <fls-busy-indicator busy="busy"
                             error="error">
-            <div class="row col-md-12"
+            <div class="col-md-12"
                  ng-show="error"
                  style="position:absolute;left:0;height:600px;z-index:9999;background-color: rgba(255,255,255,0.7);">
                 <pre class="col-md-12"
@@ -12,7 +12,7 @@
             <form role="form"
                   name="planningForm"
                   ng-submit="save(planningDay)"
-                  class="row col-md-12 css-form"
+                  class="col-xs-12 css-form"
                   ng-class="{'readonly-form':!planningDay.CanUpdateRecord}">
                 <div class="form-group">
                     <label for="date"><span translate="DATE">Date</span>:</label>
@@ -118,7 +118,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="row">
+                <div class="flscontainer">
                     <button type="button"
                             ng-click="cancel()"
                             class="btn btn-default pull-right"
@@ -141,21 +141,21 @@
                     </button>
                 </div>
             </form>
-            <div class="row">
+            <div class="col-xs-12">
                 <h3><span translate="RESERVATIONS"></span>:</h3>
 
                 <div>
                     <fls-reservations-table></fls-reservations-table>
                 </div>
             </div>
-            <div class="row hidden-print">
+            <div class="col-xs-12 hidden-print">
                 <button type="button"
                         class="btn btn-default pull-right"
                         style="margin:10px;margin-right:0;"
                         ng-click="newReservation()"
                         translate="NEW"></button>
             </div>
-            <div class="col-md-12"
+            <div class="col-xs-12"
                  ng-show="debug">
                 <pre ng-bind="planningDay | json"
                      style="margin-top:20px;"></pre>
@@ -173,5 +173,5 @@
                      style="margin-top:20px;"></pre>
             </div>
         </fls-busy-indicator>
-    </div>
+
 </div>

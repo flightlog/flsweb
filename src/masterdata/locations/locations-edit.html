@@ -1,23 +1,29 @@
 <div class="container flscontainer">
-    <div class="row col-md-12">
-        <fls-busy-indicator busy="busy" error="error">
-            <fls-message-bar></fls-message-bar>
-            <form role="form" ng-submit="save(location)" class="row css-form"
-                  ng-class="{'readonly-form':!location.CanUpdateRecord}" name="locationForm">
-                <div class="modal-body">
-                    <fls-location-form></fls-location-form>
-                </div>
-                <div class="form-group col-md-12">
-                    <button type="button" ng-click="cancel()" class="btn btn-default pull-right" translate="CANCEL">
-                        Cancel
-                    </button>
-                    <button type="submit" class="btn btn-default pull-right"
-                            ng-disabled="locationForm.$invalid || !location.CanUpdateRecord" translate="SAVE"
-                            style="margin-right:10px;">Save
-                    </button>
-                </div>
-            </form>
-        </fls-busy-indicator>
-        <pre ng-show="debug" ng-bind="person | json" style="margin-top:20px;"></pre>
-    </div>
+    <fls-busy-indicator busy="busy"
+                        error="error">
+        <fls-message-bar></fls-message-bar>
+        <form role="form"
+              ng-submit="save(location)"
+              class="css-form"
+              ng-class="{'readonly-form':!location.CanUpdateRecord}"
+              name="locationForm">
+            <fls-location-form></fls-location-form>
+            <div class="col-xs-12">
+                <button type="button"
+                        ng-click="cancel()"
+                        class="btn btn-default pull-right"
+                        translate="CANCEL">
+                    Cancel
+                </button>
+                <button type="submit"
+                        class="btn btn-default pull-right"
+                        ng-disabled="locationForm.$invalid || !location.CanUpdateRecord"
+                        translate="SAVE">Save
+                </button>
+            </div>
+        </form>
+    </fls-busy-indicator>
+    <pre ng-show="debug"
+         ng-bind="person | json"
+         style="margin-top:20px;"></pre>
 </div>

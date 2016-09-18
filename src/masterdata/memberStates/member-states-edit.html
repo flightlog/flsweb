@@ -1,13 +1,13 @@
 <div class="container flscontainer">
-    <div class="row col-md-12">
+    <div class="col-md-12">
         <fls-busy-indicator busy="busy" error="error">
             <fls-message-bar></fls-message-bar>
-            <form role="form" ng-submit="save(memberState)" class="row css-form"
+            <form role="form" ng-submit="save(memberState)" class="css-form"
                   ng-class="{'readonly-form':!memberState.CanUpdateRecord}" name="memberStateForm">
-                <div class="modal-body">
+                <div class="modal-body row">
                     <fls-member-state-form></fls-member-state-form>
                 </div>
-                <div class="form-group col-md-12">
+                <div class="form-group">
                     <button type="button" ng-click="cancel()" class="btn btn-default pull-right" translate="CANCEL">
                         Cancel
                     </button>
