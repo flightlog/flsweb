@@ -35,16 +35,6 @@ export default class ReservationEditController {
             return Reservations.get({subpath: $routeParams.id}).$promise;
         }
 
-
-        function appendZuluIfMissing(date) {
-            if (!date) {
-                return;
-            }
-            // TODO clarify if we can get the server to send the timezone so we dont have to hardcode this to UTC
-            let serialized = moment(date).format("YYYY-MM-DD HH:mm:ss");
-            return moment(serialized + "Z").toDate();
-        }
-
         var loadingReservationPromise = loadReservation(AuthService.getUser())
             .then(function (result) {
                 if (result) {
@@ -52,8 +42,8 @@ export default class ReservationEditController {
                     $scope.reservation = result;
                     $scope.reservation.CanUpdateRecord = $scope.reservation.CanUpdateRecord && $routeParams.mode === 'edit';
                     $scope.reservation.IsAllDayReservation = $scope.reservation.IsAllDayReservation || false;
-                    $scope.reservation._start = !$scope.reservation.IsAllDayReservation && appendZuluIfMissing(moment(result.Start).clone()) || suggestedStart;
-                    $scope.reservation.End = !$scope.reservation.IsAllDayReservation && appendZuluIfMissing(result.End) || suggestedStop;
+                    $scope.reservation._start = !$scope.reservation.IsAllDayReservation && moment(result.Start).clone() || suggestedStart;
+                    $scope.reservation.End = !$scope.reservation.IsAllDayReservation && result.End || suggestedStop;
                 }
             })
             .then(function () {

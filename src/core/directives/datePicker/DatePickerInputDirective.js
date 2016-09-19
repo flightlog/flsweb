@@ -30,7 +30,8 @@ export default class DatePickerInputDirective {
             `,
             controller: DataPickerInputController,
             scope: {
-                ngModel: '='
+                ngModel: '=',
+                hourOfDay: '@'
             },
             link: function (scope, element, attrs, modelCtrl) {
                 let format = "DD.MM.YYYY";
@@ -38,7 +39,9 @@ export default class DatePickerInputDirective {
 
                 scope.onPikadaySelect = (pikaday) => {
                     let filteredDate = pikaday.getMoment().format('YYYY-MM-DD');
-                    modelCtrl.$setViewValue(new Date(filteredDate + 'T00:00:00+00:00'));
+                    let formattedTime = scope.hourOfDay ? 'T' + scope.hourOfDay + ':00:00Z' : 'T00:00:00Z';
+
+                    modelCtrl.$setViewValue(new Date(filteredDate + formattedTime));
                 };
                 scope.checkIfEmpty = () => {
                     if (_.isEmpty(scope.stringDateValue)) {
