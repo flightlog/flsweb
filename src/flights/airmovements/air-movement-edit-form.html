@@ -189,19 +189,19 @@
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                    <label for="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounter"><span translate="ENGINE_BEGIN"></span> (<span ng-bind="times.engineCounterFormat"></span>):</label>
-                    <input type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounter"
-                           ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.engineMinutesCounterBegin"
-                           ng-blur="engineMinutesCountersChanged();">
-                        <span ng-show="operatingCounters.EngineOperatingCounterInMinutes" style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
+                    <label for="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds"><span translate="ENGINE_BEGIN"></span> (<span ng-bind="times.engineCounterFormat"></span>):</label>
+                    <input type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds"
+                           ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.engineSecondsCounterBegin"
+                           ng-blur="engineSecondsCountersChanged();">
+                        <span ng-show="operatingCounters.EngineOperatingCounterInSeconds" style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
                                 translate="LAST_ENGINE_TIME"></span>:
                             <span ng-bind="times.lastOperatingCounterFormatted"></span>)</span>
                 </div>
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                    <label for="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounter"><span translate="ENGINE_END"></span> (<span ng-bind="times.engineCounterFormat"></span>):</label>
-                    <input type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounter"
-                           ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.engineMinutesCounterEnd"
-                           ng-blur="engineMinutesCountersChanged();">
+                    <label for="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds"><span translate="ENGINE_END"></span> (<span ng-bind="times.engineCounterFormat"></span>):</label>
+                    <input type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds"
+                           ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.engineSecondsCounterEnd"
+                           ng-blur="engineSecondsCountersChanged();">
                 </div>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">

@@ -13,30 +13,30 @@ export default class TimeService {
     }
 
     calcLongDuration(begin, end) {
-        var endMinutes = this.longDurationFormatToMinutes(end);
-        var beginMinutes = this.longDurationFormatToMinutes(begin);
+        var endSeconds = this.longDurationFormatToSeconds(end);
+        var beginSeconds = this.longDurationFormatToSeconds(begin);
 
-        let minutes = endMinutes - beginMinutes;
-        if (minutes < 0) {
+        let seconds = endSeconds - beginSeconds;
+        if (seconds < 0) {
             return '';
         }
 
-        return this.formatMinutesToLongHoursFormat(minutes);
+        return this.formatSecondsToLongHoursFormat(seconds);
     }
 
-    formatMinutesToLongHoursFormat(minutes, format1) {
+    formatSecondsToLongHoursFormat(totalSeconds, format1) {
         let format = format1 || "min";
-        if (minutes) {
+        if (totalSeconds) {
             if (format === "min") {
-                let resultHours = Math.floor(minutes / 60);
-                minutes = minutes - (resultHours * 60);
+                let hours = Math.floor(totalSeconds / 3600);
+				let minutes = Math.floor((totalSeconds - (resultHours * 3600)) / 60);
+				
+                return hours + ":" + String("0" + minutes).slice(-2);
+            } else if (format === "2decimalsperhour") {
+				let hours = Math.floor(totalSeconds / 3600);
+				let decimals = Math.floor((totalSeconds - (resultHours * 3600)) / 3600 * 100);
 
-                return resultHours + ":" + String("0" + minutes).slice(-2);
-            } else if (format === "100min") {
-                let resultHours = Math.floor(minutes / 100);
-                let centi = minutes - (resultHours * 60);
-
-                return resultHours + "." + String("0" + centi).slice(-2);
+                return resultHours + "." + String("0" + decimals).slice(-2);
             }
         }
     }
@@ -47,7 +47,7 @@ export default class TimeService {
             case "min":
                 return "hhhh:mm";
                 break;
-            case "100min":
+            case "2decimalsperhour":
                 return "hhhh.mm";
                 break;
             default:
@@ -55,9 +55,9 @@ export default class TimeService {
         }
     }
 
-    longDurationFormatToMinutes(longMoment) {
+    longDurationFormatToSeconds(longMoment) {
         let parsed = this.parseLongHoursString(longMoment);
-        return (parsed.hours * 60) + parsed.minutes;
+        return (parsed.hours * 3600) + parsed.minutes * 60 + parsed.seconds;
     }
 
     time(dateObject) {

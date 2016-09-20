@@ -33,7 +33,7 @@ describe('AirMovementsController', () => {
         $scope.times.engineCounterEnd = '50:00';
 
         // act
-        $scope.engineMinutesCountersChanged();
+        $scope.engineSecondsCountersChanged();
 
         // assert
         expect($scope.times.engineDuration).toBe('');
@@ -47,7 +47,7 @@ describe('AirMovementsController', () => {
         $scope.times.engineCounterEnd = '1203:50';
 
         // act
-        $scope.engineMinutesCountersChanged();
+        $scope.engineSecondsCountersChanged();
 
         // assert
         expect($scope.times.engineDuration).toBe('3:50');

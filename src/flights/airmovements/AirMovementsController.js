@@ -99,7 +99,7 @@ export default class AirMovementsController {
             return $scope.flightDetails && $scope.flightDetails.MotorFlightDetailsData !== undefined;
         }
 
-        let formatMinutesToLongHoursFormat = TimeService.formatMinutesToLongHoursFormat.bind(this);
+        let formatSecondsToLongHoursFormat = TimeService.formatSecondsToLongHoursFormat.bind(this);
 
         $scope.motorAircraftSelectionChanged = () => {
             $timeout(() => {
@@ -115,8 +115,8 @@ export default class AirMovementsController {
 
                                 AircraftOperatingCounters.query({AircraftId: motorAircraft.AircraftId}).$promise.then((result) => {
                                     $scope.operatingCounters = result;
-                                    $scope.times.lastOperatingCounterFormatted = formatMinutesToLongHoursFormat(result.EngineOperatingCounterInMinutes);
-                                    $scope.times.engineCounterFormat = TimeService.engineCounterFormatString(motorAircraft.EngineOperatingCounterUnitTypeKey)
+                                    $scope.times.lastOperatingCounterFormatted = formatSecondsToLongHoursFormat(result.EngineOperatingCounterInSeconds, result.EngineOperatingCounterUnitTypeKeyName);
+                                    $scope.times.engineCounterFormat = TimeService.engineCounterFormatString(result.EngineOperatingCounterUnitTypeKeyName)
                                 }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
                             }
                         }
@@ -242,12 +242,12 @@ export default class AirMovementsController {
                     motorLanding: TimeService.time(motorFlight.LdgDateTime),
                     blockTimeStart: TimeService.time(motorFlight.BlockStartDateTime),
                     blockTimeEnd: TimeService.time(motorFlight.BlockEndDateTime),
-                    engineCounterBegin: TimeService.formatMinutesToLongHoursFormat(motorFlight.EngineStartOperatingCounte),
-                    engineCounterEnd: TimeService.formatMinutesToLongHoursFormat(motorFlight.EngineEndOperatingCounter),
+                    engineCounterBegin: TimeService.formatSecondsToLongHoursFormat(motorFlight.EngineStartOperatingCounterInSeconds),
+                    engineCounterEnd: TimeService.formatSecondsToLongHoursFormat(motorFlight.EngineEndOperatingCounterInSeconds),
                 };
                 $scope.times.motorDuration = this.calcDuration($scope.times.motorStart, $scope.times.motorLanding);
                 $scope.times.blockDuration = this.calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd);
-                $scope.engineMinutesCountersChanged();
+                $scope.engineSecondsCountersChanged();
 
                 Aircrafts.getTowingPlanes().$promise.then((result) => {
                     $scope.motorAircrafts = result;
@@ -294,8 +294,8 @@ export default class AirMovementsController {
             flightDetails.MotorFlightDetailsData.LdgDateTime = TimeService.parseDateTime(flightDate, $scope.times.motorLanding);
             flightDetails.MotorFlightDetailsData.BlockStartDateTime = TimeService.parseDateTime(flightDate, $scope.times.blockTimeStart);
             flightDetails.MotorFlightDetailsData.BlockEndDateTime = TimeService.parseDateTime(flightDate, $scope.times.blockTimeEnd);
-            flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInMinutes = TimeService.longDurationFormatToMinutes($scope.times.engineCounterBegin);
-            flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInMinutes = TimeService.longDurationFormatToMinutes($scope.times.engineCounterEnd);
+            flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds = TimeService.longDurationFormatToSeconds($scope.times.engineCounterBegin);
+            flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds = TimeService.longDurationFormatToSeconds($scope.times.engineCounterEnd);
 
             if (flightDetails.FlightId) {
                 new AirMovements(flightDetails).$saveFlight({id: flightDetails.FlightId})
@@ -468,8 +468,8 @@ export default class AirMovementsController {
             times.blockDuration = this.calcDuration(times.blockTimeStart, times.blockTimeEnd);
         };
 
-        $scope.engineMinutesCountersChanged = () => {
-            this.engineMinutesCountersChanged($scope.times);
+        $scope.engineSecondsCountersChanged = () => {
+            this.engineSecondsCountersChanged($scope.times);
         };
     }
 
@@ -481,7 +481,7 @@ export default class AirMovementsController {
         }
     }
 
-    engineMinutesCountersChanged(times) {
+    engineSecondsCountersChanged(times) {
         times.engineCounterBegin = this.TimeService.formatTime(times.engineCounterBegin);
         times.engineCounterEnd = this.TimeService.formatTime(times.engineCounterEnd);
         if (times.engineCounterBegin && times.engineCounterEnd) {
