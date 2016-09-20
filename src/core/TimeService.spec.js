@@ -36,24 +36,24 @@ describe('TimeService', () => {
 
     it('should format minutes format', () => {
         // arrange
-        let minutes = 120;
+        let seconds = 120 * 60;
 
         // act
-        let result = TimeService.formatMinutesToLongHoursFormat(minutes);
+        let result = TimeService.formatSecondsToLongHoursFormat(seconds);
 
         // assert
         expect(JSON.stringify(result)).toEqual('"2:00"');
     });
 
-    it('should format centi format', () => {
+    it('should format decimal format', () => {
         // arrange
-        let centi = 120;
+        let seconds = 120 * 60 + 40;
 
         // act
-        let result = TimeService.formatMinutesToLongHoursFormat(centi, "100min");
+        let result = TimeService.formatSecondsToLongHoursFormat(seconds, "2decimalsperhour");
 
         // assert
-        expect(JSON.stringify(result)).toEqual('"1.60"');
+        expect(JSON.stringify(result)).toEqual('"2.01"');
     });
 
 });

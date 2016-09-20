@@ -27,23 +27,21 @@ export default class TimeService {
     formatSecondsToLongHoursFormat(totalSeconds, format1) {
         let format = format1 || "min";
         if (totalSeconds) {
+            let hours = Math.floor(totalSeconds / 3600);
             if (format === "min") {
-                let hours = Math.floor(totalSeconds / 3600);
-				let minutes = Math.floor((totalSeconds - (resultHours * 3600)) / 60);
-				
+                let minutes = Math.floor((totalSeconds - (hours * 3600)) / 60);
+
                 return hours + ":" + String("0" + minutes).slice(-2);
             } else if (format === "2decimalsperhour") {
-				let hours = Math.floor(totalSeconds / 3600);
-				let decimals = Math.floor((totalSeconds - (resultHours * 3600)) / 3600 * 100);
-
-                return resultHours + "." + String("0" + decimals).slice(-2);
+                return "" + (Math.floor(totalSeconds / 36) / 100).toFixed(2);
+            } else {
+                return totalSeconds;
             }
         }
     }
 
     engineCounterFormatString(counterUnitTypeKey) {
-        console.log("counterUnitTypeKey", counterUnitTypeKey);
-        switch(counterUnitTypeKey) {
+        switch (counterUnitTypeKey) {
             case "min":
                 return "hhhh:mm";
                 break;
@@ -51,6 +49,7 @@ export default class TimeService {
                 return "hhhh.mm";
                 break;
             default:
+                console.log("unknown format: '" + counterUnitTypeKey + "' - expected 'min' or '2decimalsperhour'");
                 return "?";
         }
     }

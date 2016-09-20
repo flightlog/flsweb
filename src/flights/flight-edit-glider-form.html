@@ -194,21 +194,21 @@
                ng-model="flightDetails.GliderFlightDetailsData.NrOfLdgs">
     </div>
     <div class="form-group col-md-6 col-sm-6 col-xs-12" ng-if="selectedGliderAircraft.HasEngine">
-        <label for="flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInMinutes"><span translate="ENGINE_MINUTES_BEGIN"></span>:</label>
-        <input type="text" class="form-control" id="flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInMinutes" ng-disabled="!flightDetails.CanUpdateRecord"
-               ng-model="times.engineMinutesCounterBegin" ng-blur="engineMinutesCountersChanged();">
-                        <span ng-show="operatingCounters.EngineOperatingCounterInMinutes" style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
+        <label for="flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds"><span translate="ENGINE_BEGIN"></span> (<span ng-bind="times.engineCounterFormat"></span>):</label>
+        <input type="text" class="form-control" id="flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds" ng-disabled="!flightDetails.CanUpdateRecord"
+               ng-model="flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds" ng-blur="engineSecondsCountersChanged();">
+                        <span ng-show="operatingCounters.EngineOperatingCounterInSeconds" style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
                                 translate="LAST_ENGINE_TIME"></span>:
                             <span ng-bind="times.lastOperatingCounterFormatted"></span>)</span>
     </div>
     <div class="form-group col-md-6 col-sm-6 col-xs-12" ng-if="selectedGliderAircraft.HasEngine">
-        <label for="flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInMinutes"><span translate="ENGINE_MINUTES_END"></span>:</label>
-        <input type="text" class="form-control" id="flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInMinutes" ng-disabled="!flightDetails.CanUpdateRecord"
-               ng-model="times.engineMinutesCounterEnd" ng-blur="engineMinutesCountersChanged();">
+        <label for="flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds"><span translate="ENGINE_END"></span> (<span ng-bind="times.engineCounterFormat"></span>):</label>
+        <input type="text" class="form-control" id="flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds" ng-disabled="!flightDetails.CanUpdateRecord"
+               ng-model="flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds" ng-blur="engineSecondsCountersChanged();">
     </div>
     <div class="form-group col-xs-12" ng-if="selectedGliderAircraft.HasEngine">
-        <label for="times.engineDuration"><span translate="ENGINE_MINUTES_DURATION"></span>:</label>
-        <input type="text" class="form-control" id="times.engineDuration" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.engineDuration" readonly>
+        <label for="times.engineSecondsCounterDuration"><span translate="ENGINE_DURATION"></span>:</label>
+        <input type="text" class="form-control" id="times.engineSecondsCounterDuration" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.engineSecondsCounterDuration" readonly>
     </div>
     <div class="form-group col-md-8 col-sm-12 col-xs-12">
         <label for="Comment"><span translate="COMMENT">Comment</span>:</label>

@@ -121,7 +121,6 @@ export default class FlightsController {
                                 if (glider.HasEngine) {
                                     AircraftOperatingCounters.query({AircraftId: glider.AircraftId}).$promise.then((result) => {
                                         $scope.operatingCounters = result;
-                                        $scope.times.lastOperatingCounterFormatted = TimeService.formatMinutesToLongHoursFormat(result.EngineOperatingCounterInMinutes);
                                     }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
                                 }
                             }
@@ -313,8 +312,7 @@ export default class FlightsController {
                     gliderLanding: TimeService.time(gld && gld.LdgDateTime),
                     towingStart: TimeService.time(gld && gld.StartDateTime),
                     towingLanding: TimeService.time(tow && tow.LdgDateTime),
-                    engineMinutesCounterBegin: TimeService.formatMinutesToLongHoursFormat(gld.EngineStartOperatingCounterInMinutes),
-                    engineMinutesCounterEnd: TimeService.formatMinutesToLongHoursFormat(gld.EngineEndOperatingCounterInMinutes)
+                    engineCounterFormat: 'seconds'
                 };
                 $scope.times.gliderDuration = calcDuration($scope.times.gliderStart, $scope.times.gliderLanding);
                 $scope.times.towingDuration = calcDuration($scope.times.gliderStart, $scope.times.towingLanding);
@@ -372,8 +370,6 @@ export default class FlightsController {
             flightDetails.GliderFlightDetailsData.StartDateTime = TimeService.parseDateTime(flightDate, $scope.times.gliderStart);
             flightDetails.GliderFlightDetailsData.FlightDate = flightDetails.GliderFlightDetailsData.StartDateTime;
             flightDetails.GliderFlightDetailsData.LdgDateTime = TimeService.parseDateTime(flightDate, $scope.times.gliderLanding);
-            flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInMinutes = TimeService.longDurationFormatToMinutes($scope.times.engineMinutesCounterBegin);
-            flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInMinutes = TimeService.longDurationFormatToMinutes($scope.times.engineMinutesCounterEnd);
             if (!flightDetails.TowFlightDetailsData) {
                 flightDetails.TowFlightDetailsData = {};
             }
@@ -695,16 +691,9 @@ export default class FlightsController {
             calcDurationWarning();
         };
 
-        $scope.engineMinutesCountersChanged = () => {
-            this.engineMinutesCountersChanged($scope.times);
-        };
-    }
-
-    engineMinutesCountersChanged(times) {
-        times.engineMinutesCounterBegin = this.TimeService.formatTime(times.engineMinutesCounterBegin);
-        times.engineMinutesCounterEnd = this.TimeService.formatTime(times.engineMinutesCounterEnd);
-        if (times.engineMinutesCounterBegin && times.engineMinutesCounterEnd) {
-            times.engineDuration = this.TimeService.calcLongDuration(times.engineMinutesCounterBegin, times.engineMinutesCounterEnd);
+        $scope.engineSecondsCountersChanged = () => {
+            $scope.times.engineSecondsCounterDuration = $scope.flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds - $scope.flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds;
+            console.log($scope.times);
         }
     }
 }

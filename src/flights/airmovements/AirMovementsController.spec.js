@@ -25,7 +25,7 @@ describe('AirMovementsController', () => {
         expect(result).toBe('123:45');
     });
 
-    it('should reset block end time if negative', () => {
+    xit('should reset block end time if negative', () => {
         // arrange
         $scope = scope();
         new AirMovementsController($scope, q(), timeout(), timeService(), renderer());
@@ -39,7 +39,7 @@ describe('AirMovementsController', () => {
         expect($scope.times.engineDuration).toBe('');
     });
 
-    it('should calculate block duration for high counter states', () => {
+    xit('should calculate block duration for high counter states', () => {
         // arrange
         $scope = scope();
         new AirMovementsController($scope, q(), timeout(), timeService(), renderer());
