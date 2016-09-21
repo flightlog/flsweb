@@ -339,7 +339,7 @@ export default class FlightsController {
                     $scope.flightTypeChanged();
                     $scope.flightCostBalanceTypeChanged();
                     $scope.startTypeChanged();
-                    $scope.calcDurationWarning();
+                    calcDurationWarning();
                     recalcRouteRequirements();
                 })
                 .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'))
