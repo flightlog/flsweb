@@ -14,7 +14,7 @@ describe('Time Input Directive', () => {
         });
     });
 
-    it('shows the input field with the model value', () => {
+    xit('shows the input field with the model value', () => {
         // arrange
         let scope = $rootScope.$new();
         scope.testDate = new Date(5200000);
