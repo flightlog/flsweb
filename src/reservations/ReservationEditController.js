@@ -109,6 +109,7 @@ export default class ReservationEditController {
         $q.all(promises)
             .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'))
             .finally(function () {
+                $scope.calculateInstructorRequired();
                 $scope.busy = false;
             });
 
