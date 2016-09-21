@@ -300,6 +300,7 @@ export default class FlightsController {
 
         function selectFlight(flight, toBeCopied) {
             $scope.PersonForInvoiceRequired = false;
+            $scope.warnTowFlightLongerThanGliderFlight = false;
             var loadFlightPromise = loadFlight(flight, toBeCopied).then((result) => {
                 $scope.flightDetails = result;
                 if (result.TowFlightDetailsData && result.TowFlightDetailsData.AircraftId === '00000000-0000-0000-0000-000000000000') {
@@ -338,6 +339,7 @@ export default class FlightsController {
                     $scope.flightTypeChanged();
                     $scope.flightCostBalanceTypeChanged();
                     $scope.startTypeChanged();
+                    $scope.calcDurationWarning();
                     recalcRouteRequirements();
                 })
                 .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'))
