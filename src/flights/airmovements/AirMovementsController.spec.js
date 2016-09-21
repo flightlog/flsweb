@@ -25,32 +25,48 @@ describe('AirMovementsController', () => {
         expect(result).toBe('123:45');
     });
 
-    xit('should reset block end time if negative', () => {
+    it('should reset block end time if negative', () => {
         // arrange
         $scope = scope();
         new AirMovementsController($scope, q(), timeout(), timeService(), renderer());
-        $scope.times.engineCounterBegin = '100:00';
-        $scope.times.engineCounterEnd = '50:00';
+        $scope.operatingCounters = {
+            EngineOperatingCounterUnitTypeKeyName: "Min"
+        };
+        $scope.times = {};
+        $scope.flightDetails = {
+            MotorFlightDetailsData: {
+                EngineStartOperatingCounterInSeconds: 300,
+                EngineEndOperatingCounterInSeconds: 200
+            }
+        };
 
         // act
         $scope.engineSecondsCountersChanged();
 
         // assert
-        expect($scope.times.engineDuration).toBe('');
+        expect($scope.times.engineSecondsCounterDuration).toBe(0);
     });
 
-    xit('should calculate block duration for high counter states', () => {
+    it('should calculate block duration for high counter states', () => {
         // arrange
         $scope = scope();
         new AirMovementsController($scope, q(), timeout(), timeService(), renderer());
-        $scope.times.engineCounterBegin = '1200:00';
-        $scope.times.engineCounterEnd = '1203:50';
+        $scope.operatingCounters = {
+            EngineOperatingCounterUnitTypeKeyName: "Min"
+        };
+        $scope.times = {};
+        $scope.flightDetails = {
+            MotorFlightDetailsData: {
+                EngineStartOperatingCounterInSeconds: 300,
+                EngineEndOperatingCounterInSeconds: 1800
+            }
+        };
 
         // act
         $scope.engineSecondsCountersChanged();
 
         // assert
-        expect($scope.times.engineDuration).toBe('3:50');
+        expect($scope.times.engineSecondsCounterDuration).toBe(1500);
     });
 
     function q() {

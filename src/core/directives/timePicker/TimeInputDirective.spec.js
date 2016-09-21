@@ -14,11 +14,11 @@ describe('Time Input Directive', () => {
         });
     });
 
-    xit('shows the input field with the model value', () => {
+    it('shows the input field with the model value', () => {
         // arrange
         let scope = $rootScope.$new();
         scope.testDate = new Date(5200000);
-        let element = $compile("<input fls-time-input type='text' ng-model='testDate'></fls-busy-indicator>")(scope);
+        let element = $compile("<input fls-time-input type='text' ng-model='testDate'>")(scope);
 
         // act
         scope.$digest();

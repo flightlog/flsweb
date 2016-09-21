@@ -99,8 +99,6 @@ export default class AirMovementsController {
             return $scope.flightDetails && $scope.flightDetails.MotorFlightDetailsData !== undefined;
         }
 
-        let formatSecondsToLongHoursFormat = TimeService.formatSecondsToLongHoursFormat.bind(this);
-
         $scope.motorAircraftSelectionChanged = () => {
             $timeout(() => {
                 if (hasDetails()) {
@@ -115,6 +113,7 @@ export default class AirMovementsController {
 
                                 AircraftOperatingCounters.query({AircraftId: motorAircraft.AircraftId}).$promise.then((result) => {
                                     $scope.operatingCounters = result;
+                                    $scope.engineSecondsCountersChanged();
                                 }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
                             }
                         }
@@ -464,7 +463,11 @@ export default class AirMovementsController {
         };
 
         $scope.engineSecondsCountersChanged = () => {
-            $scope.times.engineSecondsCounterDuration = $scope.flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds - $scope.flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds;
+            $scope.times.engineSecondsCounterDuration = Math.max(
+                0,
+                $scope.flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds
+                - $scope.flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds
+            );
         }
     }
 

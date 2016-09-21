@@ -121,6 +121,11 @@ export default class FlightsController {
                                 if (glider.HasEngine) {
                                     AircraftOperatingCounters.query({AircraftId: glider.AircraftId}).$promise.then((result) => {
                                         $scope.operatingCounters = result;
+                                        $scope.times.lastOperatingCounterFormatted = TimeService.formatSecondsToLongHoursFormat(
+                                            $scope.operatingCounters.EngineOperatingCounterInSeconds,
+                                            $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName
+                                        );
+                                        $scope.engineSecondsCountersChanged();
                                     }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
                                 }
                             }
@@ -692,8 +697,10 @@ export default class FlightsController {
         };
 
         $scope.engineSecondsCountersChanged = () => {
-            $scope.times.engineSecondsCounterDuration = $scope.flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds - $scope.flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds;
-            console.log($scope.times);
-        }
+            $scope.times.engineSecondsCounterDuration = Math.max(
+                0,
+                $scope.flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds
+                - $scope.flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds
+            );        }
     }
 }

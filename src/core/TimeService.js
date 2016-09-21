@@ -2,61 +2,60 @@ import moment from 'moment';
 
 export default class TimeService {
 
-    parseLongHoursString(formatted) {
-        if (!formatted) {
-            return {hours: 0, minutes: 0};
+    delimiterFor(format) {
+        let delimiter = ":";
+        if (format === "2decimalsperhour") {
+            delimiter = ".";
         }
-        var colonPosition = formatted.indexOf(":");
-        let hours = parseInt(formatted.substring(0, colonPosition));
-        let minutes = parseInt(formatted.substring(colonPosition + 1, formatted.length));
-        return {hours: hours, minutes: minutes};
+
+        return delimiter;
     }
 
-    calcLongDuration(begin, end) {
-        var endSeconds = this.longDurationFormatToSeconds(end);
-        var beginSeconds = this.longDurationFormatToSeconds(begin);
-
-        let seconds = endSeconds - beginSeconds;
-        if (seconds < 0) {
-            return '';
+    longDurationFormatToSeconds(formatted, format1) {
+        let format = format1 || "Min";
+        if (!formatted || formatted.trim() === "") {
+            return 0;
         }
 
-        return this.formatSecondsToLongHoursFormat(seconds);
+        if (format === "2decimalsperhour") {
+            return parseFloat(formatted) * 3600;
+        } else if (format === "Min") {
+            var colonPosition = formatted.indexOf(":");
+            let hours = parseInt(formatted.substring(0, colonPosition));
+            let minutes = parseInt(formatted.substring(colonPosition + 1, formatted.length));
+
+            return (hours * 3600) + (minutes * 60);
+        }
+
     }
 
     formatSecondsToLongHoursFormat(totalSeconds, format1) {
-        let format = format1 || "min";
+        let format = format1 || "Min";
         if (totalSeconds) {
             let hours = Math.floor(totalSeconds / 3600);
-            if (format === "min") {
+            if (format === "Min") {
                 let minutes = Math.floor((totalSeconds - (hours * 3600)) / 60);
 
                 return hours + ":" + String("0" + minutes).slice(-2);
             } else if (format === "2decimalsperhour") {
                 return "" + (Math.floor(totalSeconds / 36) / 100).toFixed(2);
             } else {
-                return totalSeconds;
+                throw new Error("unsupported format: '" + format1 + "'");
             }
         }
     }
 
     engineCounterFormatString(counterUnitTypeKey) {
         switch (counterUnitTypeKey) {
-            case "min":
+            case "Min":
                 return "hhhh:mm";
                 break;
             case "2decimalsperhour":
                 return "hhhh.mm";
                 break;
             default:
-                console.log("unknown format: '" + counterUnitTypeKey + "' - expected 'min' or '2decimalsperhour'");
-                return "?";
+                throw new Error("unknown format: '" + counterUnitTypeKey + "' - expected 'Min' or '2decimalsperhour'");
         }
-    }
-
-    longDurationFormatToSeconds(longMoment) {
-        let parsed = this.parseLongHoursString(longMoment);
-        return (parsed.hours * 3600) + parsed.minutes * 60 + parsed.seconds;
     }
 
     time(dateObject) {
