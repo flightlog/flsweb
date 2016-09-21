@@ -84,8 +84,7 @@
                         <input class="form-control" id="MotorFlightDetailsData.StartDateTime" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.motorStart"
                                ng-blur="formatMotorStart()">
                       <span class="input-group-btn">
-                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="setMotorStart()"
-                                ng-blur="flightDetails.MotorFlightDetailsData.NrOfLdgs = flightDetails.MotorFlightDetailsData.NrOfLdgs || 1;"><span class="fa fa-clock-o"></span>
+                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="setMotorStart()"><span class="fa fa-clock-o"></span>
                         </button>
                       </span>
                     </div>
