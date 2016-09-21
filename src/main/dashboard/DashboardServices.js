@@ -175,9 +175,9 @@ export class DashboardDataModelAdapter {
                     min: 0,
                     max: 100,
                     stops: [
-                        [0.3, '#DF5353'], // red
-                        [0.5, '#DDDF0D'], // yellow
-                        [0.8, '#55BF3B'] // green
+                        [0.4, '#DF5353'], // red
+                        [0.7, '#DDDF0D'], // yellow
+                        [0.9, '#55BF3B'] // green
                     ],
                     labels: {
                         enabled: false
