@@ -39,8 +39,7 @@ export default class DropdownItemsRenderService {
     counterUnitTypeRenderer() {
         function render(item, escape) {
             return '<div class="option">' +
-                escape(item.CounterUnitTypeName) + ' ["' +
-                escape(item.CounterUnitTypeKeyName) + '"]' +
+                escape(item.CounterUnitTypeName) +
                 '</div>';
         }
 
