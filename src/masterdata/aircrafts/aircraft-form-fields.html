@@ -217,23 +217,6 @@
                            id="NoiseLevel"
                            ng-model="aircraft.NoiseLevel">
                 </div>
-
-                <div class="form-group col-md-3">
-                    <label for="FlightOperatingCounterUnitTypeId"><span translate="FLIGHT_COUNTER_UNIT_TYPE"></span></label>
-
-                    <selectize id="FlightOperatingCounterUnitTypeId"
-                               name="FlightOperatingCounterUnitTypeId"
-                               options="counterUnitTypes"
-                               ng-disabled="!aircraft.CanUpdateRecord"
-                               config="{
-                                inputClass: 'form-control selectize-input',
-                                maxItems: 1,
-                                valueField: 'CounterUnitTypeId',
-                                searchField: ['CounterUnitTypeId', 'CounterUnitTypeName'],
-                                render: renderCounterUnitType
-                            }"
-                               ng-model="aircraft.FlightOperatingCounterUnitTypeId"></selectize>
-                </div>
                 <div class="form-group col-md-3">
                     <label for="EngineOperatingCounterUnitTypeId"><span translate="ENGINE_COUNTER_UNIT_TYPE"></span></label>
 
@@ -250,7 +233,7 @@
                             }"
                                ng-model="aircraft.EngineOperatingCounterUnitTypeId"></selectize>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-9">
                     <label for="Comment"><span translate="COMMENT"></span></label>
                     <input class="form-control"
                            id="Comment"

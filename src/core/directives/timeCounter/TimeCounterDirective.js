@@ -17,19 +17,23 @@ export default class TimeCounterDirective {
             link: function (scope, element, attrs, modelCtrl) {
                 scope.el = element;
                 function updateTimeFormat() {
+                    let previousFormat = scope._format || "Min";
                     scope._format = scope.timeFormat || "Min";
                     let origDelimiter = scope.delimiter;
                     scope.delimiter = ".";
                     if (scope._format === "Min") {
                         scope.delimiter = ":";
                     }
-                    if(modelCtrl.$viewValue && modelCtrl.$viewValue.indexOf(origDelimiter) > -1
+                    if (modelCtrl.$viewValue && modelCtrl.$viewValue.indexOf(origDelimiter) > -1
                         && origDelimiter !== scope.delimiter) {
-                        modelCtrl.$setViewValue(modelCtrl.$viewValue.replace(origDelimiter, scope.delimiter));
+                        let seconds = TimeService.longDurationFormatToSeconds(modelCtrl.$viewValue, previousFormat);
+                        var formatted = TimeService.formatSecondsToLongHoursFormat(seconds, scope._format);
+                        modelCtrl.$setViewValue(formatted);
                         modelCtrl.$render();
                     }
                     element.attr("placeholder", TimeService.engineCounterFormatString(scope._format));
                 }
+
                 updateTimeFormat();
                 scope.$watch("timeFormat", updateTimeFormat);
 

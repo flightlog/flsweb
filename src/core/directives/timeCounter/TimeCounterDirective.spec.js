@@ -54,11 +54,13 @@ describe('Time Counter Directive', () => {
         // act
         scope.$digest();
         expect(element.attr("placeholder")).toBe("hhhh:mm");
+        expect(element.val()).toBe("2:30");
         scope.format = '2decimalsperhour';
         scope.$digest();
 
         // assert
         expect(element.attr("placeholder")).toBe("hhhh.mm");
+        expect(element.val()).toBe("2.50");
     });
 
 });
