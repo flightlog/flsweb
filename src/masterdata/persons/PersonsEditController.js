@@ -11,6 +11,7 @@ export default class PersonsEditController {
             'HasGliderPilotLicence',
             'HasGliderTraineeLicence',
             'HasMotorPilotLicence',
+            'HasMotorInstructorLicence',
             'HasTowPilotLicence'
         ];
         $scope.requiredFlagsFilter = {};

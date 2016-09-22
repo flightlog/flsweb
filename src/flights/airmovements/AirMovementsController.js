@@ -180,6 +180,8 @@ export default class AirMovementsController {
                 }));
                 promises.push(Persons.getMotorPilots().$promise.then((result) => {
                     angular.copy(result, $scope.motorPilots);
+                }));
+                promises.push(Persons.getMotorInstructors().$promise.then((result) => {
                     angular.copy(result, $scope.instructors);
                 }));
                 promises.push(Locations.getLocations().$promise.then((result) => {

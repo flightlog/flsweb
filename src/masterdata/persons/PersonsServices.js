@@ -19,6 +19,15 @@ export class Persons {
                     clubonly: true
                 }
             },
+            getMotorInstructors: {
+                method: 'GET',
+                isArray: true,
+                cache: false,
+                params: {
+                    dest: 'motorinstructors',
+                    clubonly: true
+                }
+            },
             getTowingPilots: {
                 method: 'GET',
                 isArray: true,
