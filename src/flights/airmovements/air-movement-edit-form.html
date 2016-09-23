@@ -194,9 +194,9 @@
                            type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds"
                            ng-disabled="!flightDetails.CanUpdateRecord" ng-model="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds"
                            ng-blur="engineSecondsCountersChanged();">
-                        <span ng-show="operatingCounters.EngineOperatingCounterInSeconds" style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
+                        <span ng-show="times.LastEngineOperatingCounterFormatted" style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
                                 translate="LAST_ENGINE_TIME"></span>:
-                            <span ng-bind="times.lastOperatingCounterFormatted"></span>)</span>
+                            <span ng-bind="times.LastEngineOperatingCounterFormatted"></span>)</span>
                 </div>
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                     <label for="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds"><span translate="ENGINE_END"></span></label>

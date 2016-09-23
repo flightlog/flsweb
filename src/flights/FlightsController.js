@@ -104,10 +104,14 @@ export default class FlightsController {
             return $scope.flightDetails && $scope.flightDetails.GliderFlightDetailsData !== undefined;
         }
 
-        $scope.gliderAircraftSelectionChanged = () => {
+        $scope.gliderAircraftSelectionChanged = (resetEngineOperatingCounters) => {
             $timeout(() => {
                 if (hasDetails()) {
                     $scope.gliderCompetitionSign = '?';
+                    if (resetEngineOperatingCounters) {
+                        $scope.flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds = undefined;
+                        $scope.flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds = undefined;
+                    }
                     if ($scope.flightDetails && $scope.gliderAircrafts) {
                         for (var i = 0; i < $scope.gliderAircrafts.length; i++) {
                             var glider = $scope.gliderAircrafts[i];
@@ -325,7 +329,7 @@ export default class FlightsController {
 
                 Aircrafts.getGliders().$promise.then((result) => {
                     $scope.gliderAircrafts = result;
-                    $scope.gliderAircraftSelectionChanged();
+                    $scope.gliderAircraftSelectionChanged(false);
                 });
 
                 Aircrafts.getTowingPlanes().$promise.then((result) => {

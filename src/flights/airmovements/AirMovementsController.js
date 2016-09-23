@@ -99,11 +99,14 @@ export default class AirMovementsController {
             return $scope.flightDetails && $scope.flightDetails.MotorFlightDetailsData !== undefined;
         }
 
-        $scope.motorAircraftSelectionChanged = () => {
+        $scope.motorAircraftSelectionChanged = (resetEngineOperatingCounters) => {
             $timeout(() => {
                 if (hasDetails()) {
-
                     $scope.motorRegistration = '';
+                    if (resetEngineOperatingCounters) {
+                        $scope.flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds = undefined;
+                        $scope.flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds = undefined;
+                    }
                     if ($scope.flightDetails && $scope.motorAircrafts) {
                         for (let i = 0; i < $scope.motorAircrafts.length; i++) {
                             let motorAircraft = $scope.motorAircrafts[i];
@@ -113,6 +116,11 @@ export default class AirMovementsController {
 
                                 AircraftOperatingCounters.query({AircraftId: motorAircraft.AircraftId}).$promise.then((result) => {
                                     $scope.operatingCounters = result;
+                                    $scope.times.LastEngineOperatingCounterFormatted = TimeService.formatSecondsToLongHoursFormat(
+                                        $scope.operatingCounters.EngineOperatingCounterInSeconds,
+                                        $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName
+                                    );
+
                                     $scope.engineSecondsCountersChanged();
                                 }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
                             }
@@ -249,7 +257,7 @@ export default class AirMovementsController {
 
                 Aircrafts.getTowingPlanes().$promise.then((result) => {
                     $scope.motorAircrafts = result;
-                    $scope.motorAircraftSelectionChanged();
+                    $scope.motorAircraftSelectionChanged(false);
                 });
             });
 
