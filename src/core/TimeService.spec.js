@@ -56,4 +56,15 @@ describe('TimeService', () => {
         expect(JSON.stringify(result)).toEqual('"2.01"');
     });
 
+    it('should format decimal format and round correctly', () => {
+        // arrange
+        let seconds = TimeService.longDurationFormatToSeconds("100.92", "2decimalsperhour");
+
+        // act
+        let result = TimeService.formatSecondsToLongHoursFormat(seconds, "2decimalsperhour");
+
+        // assert
+        expect(JSON.stringify(result)).toEqual('"100.92"');
+    });
+
 });
