@@ -115,7 +115,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group col-md-6 col-sm-6 col-xs-12 fls-secondary-field">
                     <label><span translate="START_LOCATION"></span>:</label>
 
                     <selectize options="locations" ng-disabled="!flightDetails.CanUpdateRecord" config="{
@@ -127,7 +127,7 @@
                                 onChange: recalcRouteRequirements
                             }" ng-model="flightDetails.MotorFlightDetailsData.StartLocationId"></selectize>
                 </div>
-                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group col-md-6 col-sm-6 col-xs-12 fls-secondary-field">
                     <label><span translate="LANDING_LOCATION"></span>:</label>
 
                     <selectize options="locations" ng-disabled="!flightDetails.CanUpdateRecord" config="{
@@ -187,7 +187,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group col-md-6 col-sm-6 col-xs-12 fls-secondary-field">
                     <label for="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds"><span translate="ENGINE_BEGIN"></span></label>
                     <input fls-time-counter
                            time-format='operatingCounters.EngineOperatingCounterUnitTypeKeyName'
@@ -198,7 +198,7 @@
                                 translate="LAST_ENGINE_TIME"></span>:
                             <span ng-bind="times.LastEngineOperatingCounterFormatted"></span>)</span>
                 </div>
-                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group col-md-6 col-sm-6 col-xs-12 fls-secondary-field">
                     <label for="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds"><span translate="ENGINE_END"></span></label>
                     <input fls-time-counter
                            time-format='operatingCounters.EngineOperatingCounterUnitTypeKeyName'

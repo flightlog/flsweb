@@ -21,9 +21,10 @@ table.fls {
     max-width: 100%;
 }
 
-tr th{
+tr th {
     padding: 5px 10px;
 }
+
 tr td {
     padding: 5px 10px;
     border-top: 1px solid #d3d3d3;
@@ -227,4 +228,10 @@ table.logstable tr td {
 form .ng-invalid,
 input.ng-invalid {
     background-color: #FA787E;
+}
+
+@media (min-width: 992px) {
+    .fls-secondary-field {
+        padding-left: 30px;
+    }
 }
