@@ -60,18 +60,19 @@ export default class AircraftsEditController {
 
 
         if ($routeParams.id !== undefined) {
-            $q.all([loadAircraft(), Clubs.query(), Persons.query(), AircraftTypes.query(), CounterUnitTypes.query()])
-                .then((result) => {
-                    var aircraft = result[0];
-                    $scope.aircraft = aircraft;
+            let aircraftPromise = loadAircraft().then(aircraft => $scope.aircraft = aircraft);
+            let clubsPromise = Clubs.query().$promise.then(clubs => $scope.clubs = clubs);
+            let personsPromise = Persons.query().$promise.then(persons => $scope.persons = persons);
+            let aircraftTypesPromise = AircraftTypes.query().$promise.then(aircraftTypes => $scope.aircraftTypes = aircraftTypes);
+            let counterUnitTypesPromise = CounterUnitTypes.query().$promise.then(counterUnitTypes => $scope.counterUnitTypes = counterUnitTypes);
+
+            $q.all([aircraftPromise, clubsPromise, personsPromise, aircraftTypesPromise, counterUnitTypesPromise])
+                .then(() => {
                     $scope.times = {
-                        manufacturingYear: moment(aircraft.YearOfManufacture).format("YYYY")
+                        manufacturingYear: moment($scope.aircraft.YearOfManufacture).format("YYYY")
                     };
-                    $scope.ownerType = aircraft.AircraftOwnerClubId ? 'club' : 'private';
-                    $scope.clubs = result[1];
-                    $scope.persons = result[2];
-                    $scope.aircraftTypes = result[3];
-                    $scope.counterUnitTypes = result[4];
+                    $scope.ownerType = $scope.aircraft.AircraftOwnerClubId ? 'club' : 'private';
+                    $scope.aircraftTypeChanged();
                 })
                 .catch(_.partial(MessageManager.raiseError, 'load', 'aircraft'))
                 .finally(() => {
@@ -111,6 +112,13 @@ export default class AircraftsEditController {
         $scope.testLink = (link) => {
             $window.open(link);
         };
+
+        $scope.aircraftTypeChanged = () => {
+            $scope.selectedAircraftType = $scope.aircraftTypes
+                .find(aircraftType => {
+                    return ("" + aircraftType.AircraftTypeId) === ("" + $scope.aircraft.AircraftType);
+                });
+        }
 
     }
 }
