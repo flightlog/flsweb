@@ -78,7 +78,8 @@ export default class TimeService {
             time = '0' + time;
         }
         if (time.length > 2 && time.indexOf(':') === -1) {
-            return time.substring(0, time.length - 2) + ':' + time.substring(time.length - 2);
+            let stringStrippedDecimal = time.replace(".", "");
+            return stringStrippedDecimal.substring(0, stringStrippedDecimal.length - 2) + ':' + stringStrippedDecimal.substring(stringStrippedDecimal.length - 2);
         } else if (time.length <= 1) {
             return '00:0' + time
         } else if (time.length <= 2) {

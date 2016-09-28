@@ -75,4 +75,12 @@ describe('TimeService', () => {
         expect(res).toBeUndefined();
     });
 
+    it('should format time with point to correct time', () => {
+        // arrange + act
+        let res = TimeService.formatTime("2.54");
+
+        // assert
+        expect(res).toBe("2:54");
+    });
+
 });
