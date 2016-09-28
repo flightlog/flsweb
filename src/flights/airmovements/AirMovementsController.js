@@ -157,6 +157,10 @@ export default class AirMovementsController {
                         flightDetails.MotorFlightDetailsData.StartDateTime = undefined;
                         flightDetails.MotorFlightDetailsData.LdgDateTime = undefined;
                         flightDetails.MotorFlightDetailsData.FlightComment = undefined;
+                        flightDetails.MotorFlightDetailsData.BlockStartDateTime = undefined;
+                        flightDetails.MotorFlightDetailsData.BlockEndDateTime = undefined;
+                        flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds = undefined;
+                        flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds = undefined;
                         return initForNewFlight(flightDetails);
                     });
             } else {
