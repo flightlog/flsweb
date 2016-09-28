@@ -47,6 +47,7 @@
                         <th translate="SECOND_CREW_MEMBER"></th>
                         <th translate="TAKEOFF"></th>
                         <th translate="LANDING"></th>
+                        <th translate="FLIGHT_DURATION"></th>
                         <th translate="COMMENT"></th>
                         <th>&nbsp;</th>
                     </tr>
@@ -81,6 +82,9 @@
                             ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
                         <td ng-bind="flight.LdgDateTime | date:'HH:mm'"
+                            ng-show="selectedFlight !== flight"
+                            ng-click="select(flight)" style="cursor:pointer;"></td>
+                        <td ng-bind="flight.FlightDuration | date:'HH:mm'"
                             ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
                         <td ng-bind="flight.FlightComment" ng-show="selectedFlight !== flight" ng-click="select(flight)"
