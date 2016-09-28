@@ -1,8 +1,14 @@
-<fls-busy-indicator busy="busyLoadingFlight" error="error">
-    <form role="form" ng-submit="save(flightDetails)" name="flightDetailsForm" class="row css-form" ng-class="{'readonly-form':!flightDetails.CanUpdateRecord}">
+<fls-busy-indicator busy="busyLoadingFlight"
+                    error="error">
+    <form role="form"
+          ng-submit="save(flightDetails)"
+          name="flightDetailsForm"
+          class="row css-form"
+          ng-class="{'readonly-form':!flightDetails.CanUpdateRecord}">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="form-group col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
+                <div class="form-group col-md-12 col-sm-12 col-xs-12"
+                     style="margin-top:20px;">
                     <label for="StartDate"><span translate="DATE"></span>:</label>
                     <fls-date-picker id="StartDate"
                                      ng-model="times.flightDate"
@@ -12,7 +18,8 @@
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label><span translate="MOTOR_PLANE"></span>:</label>
 
-                    <selectize options="motorAircrafts" config="{
+                    <selectize options="motorAircrafts"
+                               config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'AircraftId',
@@ -20,58 +27,79 @@
                                 searchField: ['Immatriculation'],
                                 render: renderAircraft,
                                 onChange: motorAircraftSelectionChanged
-                            }" ng-model="flightDetails.MotorFlightDetailsData.AircraftId" required></selectize>
+                            }"
+                               ng-model="flightDetails.MotorFlightDetailsData.AircraftId"
+                               required></selectize>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label><span translate="PILOT"></span>:</label>
 
                     <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                        <selectize options="motorPilots" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+                        <selectize options="motorPilots"
+                                   ng-disabled="!flightDetails.CanUpdateRecord"
+                                   config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
                                 render: renderPerson
-                            }" ng-model="flightDetails.MotorFlightDetailsData.PilotPersonId"></selectize>
+                            }"
+                                   ng-model="flightDetails.MotorFlightDetailsData.PilotPersonId"></selectize>
 
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="newMotorPilot()" translate="NEW" ng-show="flightDetails.CanUpdateRecord"></button>
+                        <span class="input-group-btn">
+                        <button type="button"
+                                class="btn btn-default"
+                                ng-click="newMotorPilot()"
+                                translate="NEW"
+                                ng-show="flightDetails.CanUpdateRecord"></button>
                     </span>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label><span translate="FLIGHT_TYPE"></span>:</label>
 
-                    <selectize options="motorFlightTypes" config="{
+                    <selectize options="motorFlightTypes"
+                               config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'FlightTypeId',
                                 searchField: ['FlightCode', 'FlightTypeName'],
                                 render: renderFlighttype,
                                 onChange: flightTypeChanged
-                            }" ng-model="flightDetails.MotorFlightDetailsData.FlightTypeId"></selectize>
+                            }"
+                               ng-model="flightDetails.MotorFlightDetailsData.FlightTypeId"></selectize>
                 </div>
-                <div class="form-group col-md-12 col-sm-12 col-xs-12" ng-show="selectedFlightType.InstructorRequired">
+                <div class="form-group col-md-12 col-sm-12 col-xs-12"
+                     ng-show="selectedFlightType.InstructorRequired">
                     <label><span translate="INSTRUCTOR"></span>:</label>
 
-                    <selectize name="InstructorPersonId" options="instructors" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+                    <selectize name="InstructorPersonId"
+                               options="instructors"
+                               ng-disabled="!flightDetails.CanUpdateRecord"
+                               config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
                                 render: renderPerson
-                            }" ng-model="flightDetails.MotorFlightDetailsData.InstructorPersonId"></selectize>
+                            }"
+                               ng-model="flightDetails.MotorFlightDetailsData.InstructorPersonId"></selectize>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label for="MotorFlightDetailsData.NrOfPassengers"><span translate="NR_OF_PASSENGERS"></span>:</label>
-                    <input type="number" class="form-control" id="MotorFlightDetailsData.NrOfPassengers" ng-disabled="!flightDetails.CanUpdateRecord"
+                    <input type="number"
+                           class="form-control"
+                           id="MotorFlightDetailsData.NrOfPassengers"
+                           ng-disabled="!flightDetails.CanUpdateRecord"
                            ng-model="flightDetails.MotorFlightDetailsData.NrOfPassengers">
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-12 col-xs-12" style="text-align:center;margin-top: 50px;">
+            <div class="col-md-6 col-sm-12 col-xs-12"
+                 style="text-align:center;margin-top: 50px;">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <img ng-src="{{towPlaneImg}}" style="max-width:100%;height:100px;margin-top:20px;margin-bottom:20px;">
+                    <img ng-src="{{towPlaneImg}}"
+                         style="max-width:100%;height:100px;margin-top:20px;margin-bottom:20px;">
                 </div>
             </div>
         </div>
@@ -81,10 +109,16 @@
                     <label for="MotorFlightDetailsData.StartDateTime"><span translate="TAKEOFF"></span>:</label>
 
                     <div class="input-group">
-                        <input class="form-control" id="MotorFlightDetailsData.StartDateTime" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.motorStart"
+                        <input class="form-control"
+                               id="MotorFlightDetailsData.StartDateTime"
+                               ng-disabled="!flightDetails.CanUpdateRecord"
+                               ng-model="times.motorStart"
                                ng-blur="formatMotorStart()">
-                      <span class="input-group-btn">
-                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="setMotorStart()"><span class="fa fa-clock-o"></span>
+                        <span class="input-group-btn">
+                        <button ng-show="flightDetails.CanUpdateRecord"
+                                class="btn btn-default"
+                                type="button"
+                                ng-click="setMotorStart()"><span class="fa fa-clock-o"></span>
                         </button>
                       </span>
                     </div>
@@ -93,10 +127,16 @@
                     <label for="MotorFlightDetailsData.LdgDateTime"><span translate="LANDING"></span>:</label>
 
                     <div class="input-group">
-                        <input class="form-control" id="MotorFlightDetailsData.LdgDateTime" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.motorLanding"
+                        <input class="form-control"
+                               id="MotorFlightDetailsData.LdgDateTime"
+                               ng-disabled="!flightDetails.CanUpdateRecord"
+                               ng-model="times.motorLanding"
                                ng-blur="formatMotorLanding()">
-                  <span class="input-group-btn">
-                    <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="setMotorLanding()"
+                        <span class="input-group-btn">
+                    <button ng-show="flightDetails.CanUpdateRecord"
+                            class="btn btn-default"
+                            type="button"
+                            ng-click="setMotorLanding()"
                             ng-blur="flightDetails.MotorFlightDetailsData.NrOfLdgs = flightDetails.MotorFlightDetailsData.NrOfLdgs || 1;"><span class="fa fa-clock-o"></span>
                     </button>
                   </span>
@@ -106,11 +146,18 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group col-md-6 col-sm-12 col-xs-12">
                     <label for="motorDuration"><span translate="DURATION"></span>:</label>
-                    <input class="form-control" id="motorDuration" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.motorDuration" readonly>
+                    <input class="form-control"
+                           id="motorDuration"
+                           ng-disabled="!flightDetails.CanUpdateRecord"
+                           ng-model="times.motorDuration"
+                           readonly>
                 </div>
                 <div class="form-group col-md-6 col-sm-12 col-xs-12">
                     <label for="MotorFlightDetailsData.NrOfLdgs"><span translate="NR_LANDINGS"></span>:</label>
-                    <input type="number" class="form-control" id="MotorFlightDetailsData.NrOfLdgs" ng-disabled="!flightDetails.CanUpdateRecord"
+                    <input type="number"
+                           class="form-control"
+                           id="MotorFlightDetailsData.NrOfLdgs"
+                           ng-disabled="!flightDetails.CanUpdateRecord"
                            ng-model="flightDetails.MotorFlightDetailsData.NrOfLdgs">
                 </div>
             </div>
@@ -118,37 +165,51 @@
                 <div class="form-group col-md-6 col-sm-6 col-xs-12 fls-secondary-field">
                     <label><span translate="START_LOCATION"></span>:</label>
 
-                    <selectize options="locations" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+                    <selectize options="locations"
+                               ng-disabled="!flightDetails.CanUpdateRecord"
+                               config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationId',
                                 searchField: ['LocationName', 'IcaoCode'],
                                 render: renderLocation,
                                 onChange: recalcRouteRequirements
-                            }" ng-model="flightDetails.MotorFlightDetailsData.StartLocationId"></selectize>
+                            }"
+                               ng-model="flightDetails.MotorFlightDetailsData.StartLocationId"></selectize>
                 </div>
                 <div class="form-group col-md-6 col-sm-6 col-xs-12 fls-secondary-field">
                     <label><span translate="LANDING_LOCATION"></span>:</label>
 
-                    <selectize options="locations" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+                    <selectize options="locations"
+                               ng-disabled="!flightDetails.CanUpdateRecord"
+                               config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationId',
                                 searchField: ['LocationName', 'IcaoCode'],
                                 render: renderLocation,
                                 onChange: recalcRouteRequirements
-                            }" ng-model="flightDetails.MotorFlightDetailsData.LdgLocationId"></selectize>
+                            }"
+                               ng-model="flightDetails.MotorFlightDetailsData.LdgLocationId"></selectize>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="form-group col-md-6 col-sm-6 col-xs-12" ng-show="routeRequirements.isOutboundRouteRequired">
+                <div class="form-group col-md-6 col-sm-6 col-xs-12"
+                     ng-show="routeRequirements.isOutboundRouteRequired">
                     <label for="MotorFlightDetailsData.OutboundRoute"><span translate="OUTBOUND_ROUTE"></span>:</label>
-                    <input type="text" class="form-control" id="MotorFlightDetailsData.OutboundRoute" ng-disabled="!flightDetails.CanUpdateRecord"
+                    <input type="text"
+                           class="form-control"
+                           id="MotorFlightDetailsData.OutboundRoute"
+                           ng-disabled="!flightDetails.CanUpdateRecord"
                            ng-model="flightDetails.MotorFlightDetailsData.OutboundRoute">
                 </div>
-                <div class="form-group col-md-6 col-sm-6 col-xs-12" ng-show="routeRequirements.isInboundRouteRequired">
+                <div class="form-group col-md-6 col-sm-6 col-xs-12"
+                     ng-show="routeRequirements.isInboundRouteRequired">
                     <label for="MotorFlightDetailsData.InboundRoute"><span translate="INBOUND_ROUTE"></span>:</label>
-                    <input type="text" class="form-control" id="MotorFlightDetailsData.InboundRoute" ng-disabled="!flightDetails.CanUpdateRecord"
+                    <input type="text"
+                           class="form-control"
+                           id="MotorFlightDetailsData.InboundRoute"
+                           ng-disabled="!flightDetails.CanUpdateRecord"
                            ng-model="flightDetails.MotorFlightDetailsData.InboundRoute">
                 </div>
             </div>
@@ -159,11 +220,21 @@
                     <label for="flightDetails.MotorFlightDetailsData.BlockStartDateTime"><span translate="BLOCK_TIME_BEGIN"></span>:</label>
 
                     <div class="input-group">
-                        <input type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.BlockStartDateTime" ng-disabled="!flightDetails.CanUpdateRecord"
-                               ng-model="times.blockTimeStart" ng-blur="formatBlockTimeStart();">
-                      <span class="input-group-btn">
-                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="suggestBlockTimeStart()">-5</button>
-                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="setBlockTimeStart()">0</button>
+                        <input type="text"
+                               class="form-control"
+                               id="flightDetails.MotorFlightDetailsData.BlockStartDateTime"
+                               ng-disabled="!flightDetails.CanUpdateRecord"
+                               ng-model="times.blockTimeStart"
+                               ng-blur="formatBlockTimeStart();">
+                        <span class="input-group-btn">
+                        <button ng-show="flightDetails.CanUpdateRecord"
+                                class="btn btn-default"
+                                type="button"
+                                ng-click="suggestBlockTimeStart()">-5</button>
+                        <button ng-show="flightDetails.CanUpdateRecord"
+                                class="btn btn-default"
+                                type="button"
+                                ng-click="setBlockTimeStart()">0</button>
                       </span>
                     </div>
                 </div>
@@ -171,11 +242,21 @@
                     <label for="flightDetails.MotorFlightDetailsData.BlockEndDateTime"><span translate="BLOCK_TIME_END"></span>:</label>
 
                     <div class="input-group">
-                        <input type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.BlockEndDateTime" ng-disabled="!flightDetails.CanUpdateRecord"
-                               ng-model="times.blockTimeEnd" ng-blur="formatBlockTimeEnd();">
-                      <span class="input-group-btn">
-                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="suggestBlockTimeEnd()">+5</button>
-                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="setBlockTimeEnd()">0</button>
+                        <input type="text"
+                               class="form-control"
+                               id="flightDetails.MotorFlightDetailsData.BlockEndDateTime"
+                               ng-disabled="!flightDetails.CanUpdateRecord"
+                               ng-model="times.blockTimeEnd"
+                               ng-blur="formatBlockTimeEnd();">
+                        <span class="input-group-btn">
+                        <button ng-show="flightDetails.CanUpdateRecord"
+                                class="btn btn-default"
+                                type="button"
+                                ng-click="suggestBlockTimeEnd()">+5</button>
+                        <button ng-show="flightDetails.CanUpdateRecord"
+                                class="btn btn-default"
+                                type="button"
+                                ng-click="setBlockTimeEnd()">0</button>
                       </span>
                     </div>
                 </div>
@@ -183,27 +264,49 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group col-md-6 col-sm-12 col-xs-12">
                     <label for="times.blockDuration"><span translate="BLOCK_TIME_DURATION"></span>:</label>
-                    <input type="text" class="form-control" id="times.blockDuration" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.blockDuration" readonly>
+                    <input type="text"
+                           class="form-control"
+                           id="times.blockDuration"
+                           ng-disabled="!flightDetails.CanUpdateRecord"
+                           ng-model="times.blockDuration"
+                           readonly>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group col-md-6 col-sm-6 col-xs-12 fls-secondary-field">
                     <label for="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds"><span translate="ENGINE_BEGIN"></span></label>
-                    <input fls-time-counter
-                           time-format='operatingCounters.EngineOperatingCounterUnitTypeKeyName'
-                           type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds"
-                           ng-disabled="!flightDetails.CanUpdateRecord" ng-model="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds"
-                           ng-blur="engineSecondsCountersChanged();">
-                        <span ng-show="times.LastEngineOperatingCounterFormatted" style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
-                                translate="LAST_ENGINE_TIME"></span>:
+
+                    <div class="input-group">
+                        <input fls-time-counter
+                               time-format='operatingCounters.EngineOperatingCounterUnitTypeKeyName'
+                               type="text"
+                               class="form-control"
+                               id="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds"
+                               ng-disabled="!flightDetails.CanUpdateRecord"
+                               ng-model="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds"
+                               ng-blur="engineSecondsCountersChanged();">
+                        <span class="input-group-btn">
+                        <button ng-show="flightDetails.CanUpdateRecord"
+                                ng-disabled="!times.LastEngineOperatingCounterFormatted"
+                                class="btn btn-default"
+                                type="button"
+                                ng-click="copyLastCounterToStartOperatingCounter()"><span class="fa fa-history"></span></button>
+                      </span>
+                    </div>
+                    <span ng-show="times.LastEngineOperatingCounterFormatted"
+                          style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
+                            translate="LAST_ENGINE_TIME"></span>:
                             <span ng-bind="times.LastEngineOperatingCounterFormatted"></span>)</span>
                 </div>
                 <div class="form-group col-md-6 col-sm-6 col-xs-12 fls-secondary-field">
                     <label for="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds"><span translate="ENGINE_END"></span></label>
                     <input fls-time-counter
                            time-format='operatingCounters.EngineOperatingCounterUnitTypeKeyName'
-                           type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds"
-                           ng-disabled="!flightDetails.CanUpdateRecord" ng-model="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds"
+                           type="text"
+                           class="form-control"
+                           id="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds"
+                           ng-disabled="!flightDetails.CanUpdateRecord"
+                           ng-model="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds"
                            ng-blur="engineSecondsCountersChanged();">
                 </div>
             </div>
@@ -212,40 +315,67 @@
                     <label for="times.engineSecondsCounterDuration"><span translate="ENGINE_DURATION"></span>:</label>
                     <input fls-time-counter
                            time-format='operatingCounters.EngineOperatingCounterUnitTypeKeyName'
-                           type="text" class="form-control" id="times.engineSecondsCounterDuration" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.engineSecondsCounterDuration" readonly>
+                           type="text"
+                           class="form-control"
+                           id="times.engineSecondsCounterDuration"
+                           ng-disabled="!flightDetails.CanUpdateRecord"
+                           ng-model="times.engineSecondsCounterDuration"
+                           readonly>
                 </div>
             </div>
             <div class="col-xs-12">
                 <div class="form-group col-sm-12 col-xs-12">
                     <label for="MotorFlightDetailsData.FlightComment"><span translate="COMMENT"></span>:</label>
-                    <input type="text" class="form-control" id="MotorFlightDetailsData.FlightComment" ng-disabled="!flightDetails.CanUpdateRecord"
+                    <input type="text"
+                           class="form-control"
+                           id="MotorFlightDetailsData.FlightComment"
+                           ng-disabled="!flightDetails.CanUpdateRecord"
                            ng-model="flightDetails.MotorFlightDetailsData.FlightComment">
                 </div>
             </div>
         </div>
 
         <div class="col-xs-12">
-        <div class="col-xs-12">
-            <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 30px;">
-                <button type="button" ng-click="cancel()" class="btn btn-default pull-right" translate="CANCEL">Cancel
-                </button>
-                <button type="submit" class="btn btn-default pull-right" style="margin-right:10px;" translate="SAVE"
-                        ng-disabled="flightDetailsForm.$invalid || !flightDetails.CanUpdateRecord">
-                    Save
-                </button>
-                <button type="button" ng-click="delete(selectedFlight)" ng-show="selectedFlight.FlightId" class="btn btn-danger pull-right" style="margin-right:10px;"
-                        ng-disabled="!flightDetails.CanDeleteRecord">
-                    Delete
-                </button>
-                <button type="button" ng-click="reloadMasterdata()" class="btn btn-default pull-right" style="margin-right:10px;" ng-disabled="loadingMasterdata"
-                        translate="RELOAD_MASTERDATA"></button>
+            <div class="col-xs-12">
+                <div class="col-md-12 col-sm-12 col-xs-12"
+                     style="margin-bottom: 30px;">
+                    <button type="button"
+                            ng-click="cancel()"
+                            class="btn btn-default pull-right"
+                            translate="CANCEL">Cancel
+                    </button>
+                    <button type="submit"
+                            class="btn btn-default pull-right"
+                            style="margin-right:10px;"
+                            translate="SAVE"
+                            ng-disabled="flightDetailsForm.$invalid || !flightDetails.CanUpdateRecord">
+                        Save
+                    </button>
+                    <button type="button"
+                            ng-click="delete(selectedFlight)"
+                            ng-show="selectedFlight.FlightId"
+                            class="btn btn-danger pull-right"
+                            style="margin-right:10px;"
+                            ng-disabled="!flightDetails.CanDeleteRecord">
+                        Delete
+                    </button>
+                    <button type="button"
+                            ng-click="reloadMasterdata()"
+                            class="btn btn-default pull-right"
+                            style="margin-right:10px;"
+                            ng-disabled="loadingMasterdata"
+                            translate="RELOAD_MASTERDATA"></button>
 
-                <div ng-show="loadingMasterdata" style="margin-right:10px;margin-top:0.5em;" class="pull-right">
-                    loading...
+                    <div ng-show="loadingMasterdata"
+                         style="margin-right:10px;margin-top:0.5em;"
+                         class="pull-right">
+                        loading...
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
-        <pre class="col-md-12" ng-show="debug" ng-bind="selectedFlightType | json"></pre>
+        <pre class="col-md-12"
+             ng-show="debug"
+             ng-bind="selectedFlightType | json"></pre>
     </form>
 </fls-busy-indicator>

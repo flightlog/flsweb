@@ -494,7 +494,11 @@ export default class AirMovementsController {
                 $scope.flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds
                 - $scope.flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds
             );
-        }
+        };
+
+        $scope.copyLastCounterToStartOperatingCounter = () => {
+            $scope.flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds = $scope.operatingCounters.EngineOperatingCounterInSeconds;
+        };
     }
 
     calcDuration(from, to) {
