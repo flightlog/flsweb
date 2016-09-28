@@ -70,7 +70,8 @@
                         <td ng-bind="flight.StartDateTime | date:'dd.MM.yyyy'"
                             ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
-                        <td ng-bind="flight.Immatriculation" ng-show="selectedFlight !== flight"
+                        <td class="immatriculation"
+                            ng-bind="flight.Immatriculation" ng-show="selectedFlight !== flight"
                             ng-click="select(flight)"
                             style="cursor:pointer;"></td>
                         <td ng-bind="flight.PilotName" ng-show="selectedFlight !== flight" ng-click="select(flight)"
@@ -78,10 +79,12 @@
                         <td ng-bind="flight.SecondCrewName" ng-show="selectedFlight !== flight"
                             ng-click="select(flight)"
                             style="cursor:pointer;"></td>
-                        <td ng-bind="flight.StartDateTime | date:'HH:mm'"
+                        <td class="flight-start-time"
+                            ng-bind="flight.StartDateTime | date:'HH:mm'"
                             ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
-                        <td ng-bind="flight.LdgDateTime | date:'HH:mm'"
+                        <td class="flight-start-time"
+                            ng-bind="flight.LdgDateTime | date:'HH:mm'"
                             ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
                         <td ng-bind="flight.FlightDuration && ('0001-01-01T' + flight.FlightDuration) | date:'HH:mm'"
