@@ -101,7 +101,7 @@
                         <td ng-bind="flight.LdgDateTime | date:'HH:mm'"
                             ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
-                        <td ng-bind="flight.GliderFlightDuration | date:'HH:mm'"
+                        <td ng-bind="flight.GliderFlightDuration && ('0001-01-01T' + flight.GliderFlightDuration) | date:'HH:mm'"
                             ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
                         <td ng-bind="flight.TowAircraftImmatriculation" ng-show="selectedFlight !== flight"
@@ -110,7 +110,7 @@
                             ng-click="select(flight)" style="cursor:pointer;"></td>
                         <td ng-bind="flight.TowFlightLdgDateTime | date:'HH:mm'" ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
-                        <td ng-bind="flight.TowFlightDuration | date:'HH:mm'" ng-show="selectedFlight !== flight"
+                        <td ng-bind="flight.TowFlightDuration && ('0001-01-01T' + flight.TowFlightDuration) | date:'HH:mm'" ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
                         <td ng-bind="flight.FlightComment" ng-show="selectedFlight !== flight" ng-click="select(flight)"
                             style="cursor:pointer;"></td>

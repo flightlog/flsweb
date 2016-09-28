@@ -84,7 +84,7 @@
                         <td ng-bind="flight.LdgDateTime | date:'HH:mm'"
                             ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
-                        <td ng-bind="flight.FlightDuration | date:'HH:mm'"
+                        <td ng-bind="flight.FlightDuration && ('0001-01-01T' + flight.FlightDuration) | date:'HH:mm'"
                             ng-show="selectedFlight !== flight"
                             ng-click="select(flight)" style="cursor:pointer;"></td>
                         <td ng-bind="flight.FlightComment" ng-show="selectedFlight !== flight" ng-click="select(flight)"
