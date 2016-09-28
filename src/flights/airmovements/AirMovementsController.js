@@ -450,13 +450,25 @@ export default class AirMovementsController {
 
         $scope.setBlockTimeStart = () => {
             let times = $scope.times;
-            times.blockTimeStart = $scope.getTimeNow();
+            times.blockTimeStart = times.motorStart;
+            times.blockDuration = this.calcDuration(times.blockTimeStart, times.blockTimeEnd);
+        };
+
+        $scope.suggestBlockTimeStart = () => {
+            let times = $scope.times;
+            times.blockTimeStart = moment(times.motorStart, this.format).subtract(5, "minutes").format(this.format);
             times.blockDuration = this.calcDuration(times.blockTimeStart, times.blockTimeEnd);
         };
 
         $scope.setBlockTimeEnd = () => {
             let times = $scope.times;
-            times.blockTimeEnd = $scope.getTimeNow();
+            times.blockTimeEnd = times.motorLanding;
+            times.blockDuration = this.calcDuration(times.blockTimeStart, times.blockTimeEnd);
+        };
+
+        $scope.suggestBlockTimeEnd = () => {
+            let times = $scope.times;
+            times.blockTimeEnd = moment(times.motorLanding, this.format).add(5, "minutes").format(this.format);
             times.blockDuration = this.calcDuration(times.blockTimeStart, times.blockTimeEnd);
         };
 

@@ -162,8 +162,8 @@
                         <input type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.BlockStartDateTime" ng-disabled="!flightDetails.CanUpdateRecord"
                                ng-model="times.blockTimeStart" ng-blur="formatBlockTimeStart();">
                       <span class="input-group-btn">
-                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="setBlockTimeStart()"><span class="fa fa-clock-o"></span>
-                        </button>
+                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="suggestBlockTimeStart()">-5</button>
+                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="setBlockTimeStart()">0</button>
                       </span>
                     </div>
                 </div>
@@ -174,8 +174,8 @@
                         <input type="text" class="form-control" id="flightDetails.MotorFlightDetailsData.BlockEndDateTime" ng-disabled="!flightDetails.CanUpdateRecord"
                                ng-model="times.blockTimeEnd" ng-blur="formatBlockTimeEnd();">
                       <span class="input-group-btn">
-                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="setBlockTimeEnd()"><span class="fa fa-clock-o"></span>
-                        </button>
+                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="suggestBlockTimeEnd()">+5</button>
+                        <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="setBlockTimeEnd()">0</button>
                       </span>
                     </div>
                 </div>
