@@ -67,4 +67,12 @@ describe('TimeService', () => {
         expect(JSON.stringify(result)).toEqual('"100.92"');
     });
 
+    it('should format empty string to undefined', () => {
+        // arrange + act
+        let res = TimeService.formatTime("");
+
+        // assert
+        expect(res).toBeUndefined();
+    });
+
 });

@@ -71,7 +71,7 @@ export default class TimeService {
     }
 
     formatTime(time) {
-        if (time === undefined) {
+        if (!time) {
             return;
         }
         if (time.length === 3) {
