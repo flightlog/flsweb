@@ -116,7 +116,7 @@ export default class FlightsController {
                         for (var i = 0; i < $scope.gliderAircrafts.length; i++) {
                             var glider = $scope.gliderAircrafts[i];
                             if (glider.AircraftId === $scope.flightDetails.GliderFlightDetailsData.AircraftId) {
-                                if(!$scope.flightDetails.GliderFlightDetailsData.IsSoloFlight && glider.NrOfSeats === 1) {
+                                if (!$scope.flightDetails.GliderFlightDetailsData.IsSoloFlight && glider.NrOfSeats === 1) {
                                     $scope.flightDetails.GliderFlightDetailsData.IsSoloFlight = true;
                                 }
                                 $scope.selectedGliderAircraft = glider;
@@ -125,10 +125,12 @@ export default class FlightsController {
                                 if (glider.HasEngine) {
                                     AircraftOperatingCounters.query({AircraftId: glider.AircraftId}).$promise.then((result) => {
                                         $scope.operatingCounters = result;
+                                        console.log("$scope.operatingCounters", $scope.operatingCounters);
                                         $scope.times.lastOperatingCounterFormatted = TimeService.formatSecondsToLongHoursFormat(
                                             $scope.operatingCounters.EngineOperatingCounterInSeconds,
                                             $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName
                                         );
+                                        console.log("$scope.times", $scope.times);
                                         $scope.engineSecondsCountersChanged();
                                     }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
                                 }
@@ -709,6 +711,12 @@ export default class FlightsController {
                 0,
                 $scope.flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds
                 - $scope.flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds
-            );        }
+            );
+        };
+
+        $scope.copyLastCounterToStartOperatingCounter = () => {
+            $scope.flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds = $scope.operatingCounters.EngineOperatingCounterInSeconds;
+            $scope.engineSecondsCountersChanged();
+        };
     }
 }

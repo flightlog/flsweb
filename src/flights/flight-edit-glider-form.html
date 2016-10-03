@@ -1,12 +1,18 @@
 <div class="col-md-6 col-sm-12 col-xs-12">
-    <div class="form-group col-md-2 col-sm-2 col-xs-2" ng-bind="gliderCompetitionSign"
+    <div class="form-group col-md-2 col-sm-2 col-xs-2"
+         ng-bind="gliderCompetitionSign"
          style="text-align:center;font-size: 40px;font-weight: 800;padding-top:30px;color:#5d5d5d;"></div>
-    <div class="form-group col-md-8 col-sm-8 col-xs-8" style="text-align:center;">
-        <img ng-src="{{gliderImg}}" style="max-width:100%;height:80px;margin-top:20px;margin-bottom: 20px;">
+    <div class="form-group col-md-8 col-sm-8 col-xs-8"
+         style="text-align:center;">
+        <img ng-src="{{gliderImg}}"
+             style="max-width:100%;height:80px;margin-top:20px;margin-bottom: 20px;">
     </div>
     <div class="form-group col-xs-6">
         <label><span translate="GLIDER_PLANE"></span>: </label>
-        <selectize name="gliderAircraft" options="gliderAircrafts" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+        <selectize name="gliderAircraft"
+                   options="gliderAircrafts"
+                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'AircraftId',
@@ -14,92 +20,131 @@
                                 searchField: ['Immatriculation', 'CompetitionSign', 'AircraftModel'],
                                 render: renderAircraft,
                                 onChange: gliderAircraftSelectionChanged
-                            }" ng-model="flightDetails.GliderFlightDetailsData.AircraftId" required></selectize>
+                            }"
+                   ng-model="flightDetails.GliderFlightDetailsData.AircraftId"
+                   required></selectize>
     </div>
     <div class="form-group col-xs-6">
         <label><span translate="START_TYPE">Starttype</span>:</label>
-        <selectize name="Starttype" options="starttypes" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+        <selectize name="Starttype"
+                   options="starttypes"
+                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   config="{
                                         inputClass: 'form-control selectize-input',
                                         maxItems: 1,
                                         valueField: 'StartTypeId',
                                         searchField: ['StartTypeId', 'StartTypeName'],
                                         render: renderStarttype,
                                         onChange: startTypeChanged
-                                    }" ng-model="flightDetails.StartType" required></selectize>
+                                    }"
+                   ng-model="flightDetails.StartType"
+                   required></selectize>
     </div>
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <label><span translate="GLIDER_PILOT"></span>:</label>
 
         <div class="input-group col-md-12 col-sm-12 col-xs-12">
-            <selectize name="gliderPilot" options="gliderPilots" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+            <selectize name="gliderPilot"
+                       options="gliderPilots"
+                       ng-disabled="!flightDetails.CanUpdateRecord"
+                       config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
                                 render: renderPerson
-                            }" ng-model="flightDetails.GliderFlightDetailsData.PilotPersonId"></selectize>
+                            }"
+                       ng-model="flightDetails.GliderFlightDetailsData.PilotPersonId"></selectize>
 
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="newGliderPilot()" translate="NEW" ng-show="flightDetails.CanUpdateRecord"></button>
+            <span class="input-group-btn">
+                    <button type="button"
+                            class="btn btn-default"
+                            ng-click="newGliderPilot()"
+                            translate="NEW"
+                            ng-show="flightDetails.CanUpdateRecord"></button>
                 </span>
         </div>
     </div>
     <div class="row col-xs-12">
         <div class="form-group col-xs-8">
             <label><span translate="FLIGHT_TYPE"></span>:</label>
-            <selectize name="gliderFlightType" options="gliderFlightTypes" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+            <selectize name="gliderFlightType"
+                       options="gliderFlightTypes"
+                       ng-disabled="!flightDetails.CanUpdateRecord"
+                       config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'FlightTypeId',
                                 searchField: ['FlightCode', 'FlightTypeName'],
                                 render: renderFlighttype,
                                 onChange: flightTypeChanged
-                            }" ng-model="flightDetails.GliderFlightDetailsData.FlightTypeId"></selectize>
+                            }"
+                       ng-model="flightDetails.GliderFlightDetailsData.FlightTypeId"></selectize>
         </div>
         <div class="form-group col-xs-2">
             <label for="IsSoloFlight">
                 <span translate="IS_SOLO_FLIGHT"></span>
             </label> <br>
 
-            <div id="IsSoloFlight" class="fa fa-2x" ng-class="{'fa-question':flightTypeCheckbox.state === 'UNDEFINED',
+            <div id="IsSoloFlight"
+                 class="fa fa-2x"
+                 ng-class="{'fa-question':flightTypeCheckbox.state === 'UNDEFINED',
                 'fa-check-square-o':flightTypeCheckbox.state === 'CHECKED',
-                'fa-square-o':flightTypeCheckbox.state === 'UNCHECKED'}" ng-click="toggleSoloFlight()" style="color:gray;"
+                'fa-square-o':flightTypeCheckbox.state === 'UNCHECKED'}"
+                 ng-click="toggleSoloFlight()"
+                 style="color:gray;"
                  ng-style="{'cursor':!flightTypeCheckbox.isChangingAllowed?'not-allowed':'pointer'}"></div>
 
         </div>
-        <div class="form-group col-xs-2" style="color:#b80000;text-align:center;font-weight:700;">
+        <div class="form-group col-xs-2"
+             style="color:#b80000;text-align:center;font-weight:700;">
             <div ng-if="warnNumberOfSeatsInsufficientForFlightType">
                 <span class="lnr lnr-warning"></span><br/>
                 <span translate="SEATS_INSUFFICIENT"></span>
             </div>
         </div>
     </div>
-    <div class="form-group col-md-12 col-sm-12 col-xs-12" ng-show="selectedFlightType.ObserverPilotOrInstructorRequired">
+    <div class="form-group col-md-12 col-sm-12 col-xs-12"
+         ng-show="selectedFlightType.ObserverPilotOrInstructorRequired">
         <label><span translate="OBSERVER"></span>:</label>
 
         <div class="input-group col-md-12 col-sm-12 col-xs-12">
-            <selectize name="observer" options="observers" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+            <selectize name="observer"
+                       options="observers"
+                       ng-disabled="!flightDetails.CanUpdateRecord"
+                       config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
                                 render: renderPerson
-                            }" ng-model="flightDetails.GliderFlightDetailsData.ObserverPersonId" ng-required="selectedFlightType.ObserverPilotOrInstructorRequired"></selectize>
+                            }"
+                       ng-model="flightDetails.GliderFlightDetailsData.ObserverPersonId"
+                       ng-required="selectedFlightType.ObserverPilotOrInstructorRequired"></selectize>
         </div>
     </div>
-    <div class="form-group col-md-12 col-sm-12 col-xs-12" ng-show="selectedFlightType.IsPassengerFlight">
+    <div class="form-group col-md-12 col-sm-12 col-xs-12"
+         ng-show="selectedFlightType.IsPassengerFlight">
         <label><span translate="PASSENGER"></span>:</label>
 
         <div class="input-group col-md-12 col-sm-12 col-xs-12">
-            <selectize name="PassengerPersonId" options="allPersons" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+            <selectize name="PassengerPersonId"
+                       options="allPersons"
+                       ng-disabled="!flightDetails.CanUpdateRecord"
+                       config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
                                 render: renderPerson
-                            }" ng-model="flightDetails.GliderFlightDetailsData.PassengerPersonId"></selectize>
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="newPassenger()" translate="NEW" ng-show="flightDetails.CanUpdateRecord"></button>
+                            }"
+                       ng-model="flightDetails.GliderFlightDetailsData.PassengerPersonId"></selectize>
+            <span class="input-group-btn">
+                    <button type="button"
+                            class="btn btn-default"
+                            ng-click="newPassenger()"
+                            translate="NEW"
+                            ng-show="flightDetails.CanUpdateRecord"></button>
                 </span>
         </div>
     </div>
@@ -107,43 +152,65 @@
          ng-show="!flightDetails.GliderFlightDetailsData.IsSoloFlight && !selectedFlightType.IsPassengerFlight && !selectedFlightType.InstructorRequired">
         <label><span translate="CO_PILOT"></span>:</label>
 
-        <selectize name="CoPilotPersonId" options="gliderPilots" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+        <selectize name="CoPilotPersonId"
+                   options="gliderPilots"
+                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   config="{
                             inputClass: 'form-control selectize-input',
                             maxItems: 1,
                             valueField: 'PersonId',
                             searchField: ['Firstname', 'Lastname', 'City'],
                             render: renderPerson
-                        }" ng-model="flightDetails.GliderFlightDetailsData.CoPilotPersonId"></selectize>
+                        }"
+                   ng-model="flightDetails.GliderFlightDetailsData.CoPilotPersonId"></selectize>
     </div>
-    <div class="form-group col-md-12 col-sm-12 col-xs-12" ng-show="selectedFlightType.InstructorRequired">
+    <div class="form-group col-md-12 col-sm-12 col-xs-12"
+         ng-show="selectedFlightType.InstructorRequired">
         <label><span translate="INSTRUCTOR"></span>:</label>
 
-        <selectize name="InstructorPersonId" options="instructors" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+        <selectize name="InstructorPersonId"
+                   options="instructors"
+                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
                                 render: renderPerson
-                            }" ng-model="flightDetails.GliderFlightDetailsData.InstructorPersonId"></selectize>
+                            }"
+                   ng-model="flightDetails.GliderFlightDetailsData.InstructorPersonId"></selectize>
     </div>
-    <div class="form-group col-md-12 col-sm-12 col-xs-12" ng-show="selectedStartType.IsWinchStart">
+    <div class="form-group col-md-12 col-sm-12 col-xs-12"
+         ng-show="selectedStartType.IsWinchStart">
         <label><span translate="WINCH_OPERATOR"></span>:</label>
 
-        <selectize name="WinchOperatorPersonId" options="winchOperators" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+        <selectize name="WinchOperatorPersonId"
+                   options="winchOperators"
+                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
                                 render: renderPerson
-                            }" ng-model="flightDetails.GliderFlightDetailsData.WinchOperatorPersonId"></selectize>
+                            }"
+                   ng-model="flightDetails.GliderFlightDetailsData.WinchOperatorPersonId"></selectize>
     </div>
     <div class="form-group col-md-4 col-sm-6 col-xs-6">
         <label for="Start"><span translate="TAKEOFF"></span>:</label>
 
         <div class="input-group">
-            <input name="gliderStart" class="form-control" id="Start" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.gliderStart" ng-blur="formatGliderStart()">
-              <span class="input-group-btn">
-                <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="setGliderStart()"><span class="fa fa-clock-o"></span></button>
+            <input name="gliderStart"
+                   class="form-control"
+                   id="Start"
+                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   ng-model="times.gliderStart"
+                   ng-blur="formatGliderStart()">
+            <span class="input-group-btn">
+                <button ng-show="flightDetails.CanUpdateRecord"
+                        class="btn btn-default"
+                        type="button"
+                        ng-click="setGliderStart()"><span class="fa fa-clock-o"></span></button>
               </span>
         </div>
     </div>
@@ -151,116 +218,197 @@
         <label for="Landing"><span translate="LANDING"></span>:</label>
 
         <div class="input-group">
-            <input name="gliderLanding" class="form-control" id="Landing" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.gliderLanding"
+            <input name="gliderLanding"
+                   class="form-control"
+                   id="Landing"
+                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   ng-model="times.gliderLanding"
                    ng-blur="formatGliderLanding()">
-              <span class="input-group-btn">
-                <button ng-show="flightDetails.CanUpdateRecord" class="btn btn-default" type="button" ng-click="setGliderLanding()"
+            <span class="input-group-btn">
+                <button ng-show="flightDetails.CanUpdateRecord"
+                        class="btn btn-default"
+                        type="button"
+                        ng-click="setGliderLanding()"
                         ng-blur="flightDetails.GliderFlightDetailsData.NrOfLdgs = flightDetails.GliderFlightDetailsData.NrOfLdgs || 1;"><span class="fa fa-clock-o"></span></button>
               </span>
         </div>
     </div>
     <div class="form-group col-md-4 col-sm-12 col-xs-12">
         <label for="gliderDuration"><span translate="DURATION"></span>:</label>
-        <input name="gliderDuration" class="form-control" ng-class="{'highlight':warnTowFlightLongerThanGliderFlight}" id="gliderDuration"
-               ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.gliderDuration" ng-blur="formatGliderDuration()">
+        <input name="gliderDuration"
+               class="form-control"
+               ng-class="{'highlight':warnTowFlightLongerThanGliderFlight}"
+               id="gliderDuration"
+               ng-disabled="!flightDetails.CanUpdateRecord"
+               ng-model="times.gliderDuration"
+               ng-blur="formatGliderDuration()">
     </div>
     <div class="form-group col-md-5 col-sm-6 col-xs-6">
         <label><span translate="START_LOCATION"></span>:</label>
 
-        <selectize name="GliderStartLocationId" options="locations" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+        <selectize name="GliderStartLocationId"
+                   options="locations"
+                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationId',
                                 searchField: ['LocationName', 'IcaoCode'],
                                 render: renderLocation,
                                 onChange: startLocationChanged
-                            }" ng-model="flightDetails.GliderFlightDetailsData.StartLocationId"></selectize>
+                            }"
+                   ng-model="flightDetails.GliderFlightDetailsData.StartLocationId"></selectize>
     </div>
     <div class="form-group col-md-4 col-sm-6 col-xs-6">
         <label><span translate="LANDING_LOCATION"></span>:</label>
 
-        <selectize name="GliderLdgLocationId" options="locations" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+        <selectize name="GliderLdgLocationId"
+                   options="locations"
+                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationId',
                                 searchField: ['LocationName', 'IcaoCode'],
                                 render: renderLocation,
                                 onChange: gliderLandingLocationChanged
-                            }" ng-model="flightDetails.GliderFlightDetailsData.LdgLocationId"></selectize>
+                            }"
+                   ng-model="flightDetails.GliderFlightDetailsData.LdgLocationId"></selectize>
     </div>
     <div class="form-group col-md-3 col-sm-6 col-xs-6">
         <label for="GliderFlightDetailsData.NrOfLdgs"><span translate="NR_LANDINGS"></span>:</label>
-        <input type="number" class="form-control" id="GliderFlightDetailsData.NrOfLdgs" ng-disabled="!flightDetails.CanUpdateRecord"
+        <input type="number"
+               class="form-control"
+               id="GliderFlightDetailsData.NrOfLdgs"
+               ng-disabled="!flightDetails.CanUpdateRecord"
                ng-model="flightDetails.GliderFlightDetailsData.NrOfLdgs">
     </div>
-    <div class="form-group col-md-6 col-sm-6 col-xs-12" ng-if="selectedGliderAircraft.HasEngine">
+    <div class="form-group col-md-6 col-sm-6 col-xs-12"
+         ng-if="selectedGliderAircraft.HasEngine">
         <label for="flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds"><span translate="ENGINE_BEGIN"></span></label>
-        <input fls-time-counter
-               time-format='operatingCounters.EngineOperatingCounterUnitTypeKeyName'
-               type="text" class="form-control" id="flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds" ng-disabled="!flightDetails.CanUpdateRecord"
-               ng-model="flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds" ng-blur="engineSecondsCountersChanged();">
-                        <span ng-show="operatingCounters.EngineOperatingCounterInSeconds" style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
-                                translate="LAST_ENGINE_TIME"></span>:
+        <div class="input-group">
+            <input fls-time-counter
+                   time-format='operatingCounters.EngineOperatingCounterUnitTypeKeyName'
+                   type="text"
+                   class="form-control"
+                   id="flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds"
+                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   ng-model="flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds"
+                   ng-blur="engineSecondsCountersChanged();">
+            <span class="input-group-btn">
+                <button ng-show="flightDetails.CanUpdateRecord"
+                        ng-disabled="!times.lastOperatingCounterFormatted"
+                        class="btn btn-default"
+                        type="button"
+                        ng-click="copyLastCounterToStartOperatingCounter()"><span class="fa fa-history"></span></button>
+              </span>
+        </div>
+        <span ng-show="times.lastOperatingCounterFormatted"
+              style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
+                translate="LAST_ENGINE_TIME"></span>:
                             <span ng-bind="times.lastOperatingCounterFormatted"></span>)</span>
     </div>
-    <div class="form-group col-md-6 col-sm-6 col-xs-12" ng-if="selectedGliderAircraft.HasEngine">
+    <div class="form-group col-md-6 col-sm-6 col-xs-12"
+         ng-if="selectedGliderAircraft.HasEngine">
         <label for="flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds"><span translate="ENGINE_END"></span></label>
         <input fls-time-counter
                time-format='operatingCounters.EngineOperatingCounterUnitTypeKeyName'
-               type="text" class="form-control" id="flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds" ng-disabled="!flightDetails.CanUpdateRecord"
-               ng-model="flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds" ng-blur="engineSecondsCountersChanged();">
+               type="text"
+               class="form-control"
+               id="flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds"
+               ng-disabled="!flightDetails.CanUpdateRecord"
+               ng-model="flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds"
+               ng-blur="engineSecondsCountersChanged();">
     </div>
-    <div class="form-group col-xs-12" ng-if="selectedGliderAircraft.HasEngine">
+    <div class="form-group col-xs-12"
+         ng-if="selectedGliderAircraft.HasEngine">
         <label for="times.engineSecondsCounterDuration"><span translate="ENGINE_DURATION"></span>:</label>
         <input fls-time-counter
                time-format='operatingCounters.EngineOperatingCounterUnitTypeKeyName'
-               type="text" class="form-control" id="times.engineSecondsCounterDuration" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="times.engineSecondsCounterDuration" readonly>
+               type="text"
+               class="form-control"
+               id="times.engineSecondsCounterDuration"
+               ng-disabled="!flightDetails.CanUpdateRecord"
+               ng-model="times.engineSecondsCounterDuration"
+               readonly>
     </div>
     <div class="form-group col-md-8 col-sm-12 col-xs-12">
         <label for="Comment"><span translate="COMMENT">Comment</span>:</label>
-        <input type="text" class="form-control" id="Comment" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="flightDetails.GliderFlightDetailsData.FlightComment">
+        <input type="text"
+               class="form-control"
+               id="Comment"
+               ng-disabled="!flightDetails.CanUpdateRecord"
+               ng-model="flightDetails.GliderFlightDetailsData.FlightComment">
     </div>
-    <div class="form-group col-md-2 col-sm-6 col-xs-6" ng-show="isOutboundRouteRequired">
+    <div class="form-group col-md-2 col-sm-6 col-xs-6"
+         ng-show="isOutboundRouteRequired">
         <label for="GliderFlightDetailsData.OutboundRoute"><span translate="OUTBOUND_ROUTE"></span>:</label>
-        <input type="text" class="form-control" id="GliderFlightDetailsData.OutboundRoute" ng-disabled="!flightDetails.CanUpdateRecord"
+        <input type="text"
+               class="form-control"
+               id="GliderFlightDetailsData.OutboundRoute"
+               ng-disabled="!flightDetails.CanUpdateRecord"
                ng-model="flightDetails.GliderFlightDetailsData.OutboundRoute">
     </div>
-    <div class="form-group col-md-2 col-sm-6 col-xs-6" ng-show="isInboundRouteRequired">
+    <div class="form-group col-md-2 col-sm-6 col-xs-6"
+         ng-show="isInboundRouteRequired">
         <label for="GliderFlightDetailsData.InboundRoute"><span translate="INBOUND_ROUTE"></span>:</label>
-        <input type="text" class="form-control" id="GliderFlightDetailsData.InboundRoute" ng-disabled="!flightDetails.CanUpdateRecord"
+        <input type="text"
+               class="form-control"
+               id="GliderFlightDetailsData.InboundRoute"
+               ng-disabled="!flightDetails.CanUpdateRecord"
                ng-model="flightDetails.GliderFlightDetailsData.InboundRoute">
     </div>
-    <div class="form-group" ng-class="{'col-md-6 col-sm-6 col-xs-6':PersonForInvoiceRequired,'col-md-12 col-sm-12 col-xs-12':!PersonForInvoiceRequired}"
+    <div class="form-group"
+         ng-class="{'col-md-6 col-sm-6 col-xs-6':PersonForInvoiceRequired,'col-md-12 col-sm-12 col-xs-12':!PersonForInvoiceRequired}"
          ng-show="selectedFlightType.IsFlightCostBalanceSelectable">
         <label><span translate="COST_BALANCE_TYPE"></span>:</label>
 
-        <selectize name="FlightCostBalanceType" options="flightCostBalanceTypes" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+        <selectize name="FlightCostBalanceType"
+                   options="flightCostBalanceTypes"
+                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'FlightCostBalanceTypeId',
                                 labelField: 'FlightCostBalanceTypeName',
                                 searchField: ['FlightCostBalanceTypeName'],
                                 onChange: flightCostBalanceTypeChanged
-                            }" ng-model="flightDetails.GliderFlightDetailsData.FlightCostBalanceType" ng-required="selectedFlightType.IsFlightCostBalanceSelectable"></selectize>
+                            }"
+                   ng-model="flightDetails.GliderFlightDetailsData.FlightCostBalanceType"
+                   ng-required="selectedFlightType.IsFlightCostBalanceSelectable"></selectize>
     </div>
-    <div class="form-group col-md-6 col-sm-6 col-xs-6" ng-show="PersonForInvoiceRequired && selectedFlightType.IsFlightCostBalanceSelectable">
+    <div class="form-group col-md-6 col-sm-6 col-xs-6"
+         ng-show="PersonForInvoiceRequired && selectedFlightType.IsFlightCostBalanceSelectable">
         <label><span translate="INVOICE_RECEIPIENT"></span>:</label>
 
         <div class="input-group">
-            <selectize name="InvoiceRecipientPersonId" options="allPersons" ng-disabled="!flightDetails.CanUpdateRecord" config="{
+            <selectize name="InvoiceRecipientPersonId"
+                       options="allPersons"
+                       ng-disabled="!flightDetails.CanUpdateRecord"
+                       config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
                                 render: renderPerson
-                            }" ng-model="flightDetails.GliderFlightDetailsData.InvoiceRecipientPersonId" ng-required="PersonForInvoiceRequired"></selectize>
+                            }"
+                       ng-model="flightDetails.GliderFlightDetailsData.InvoiceRecipientPersonId"
+                       ng-required="PersonForInvoiceRequired"></selectize>
             <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="newPassenger()" translate="NEW"></button>
+                <button type="button"
+                        class="btn btn-default"
+                        ng-click="newPassenger()"
+                        translate="NEW"></button>
             </span>
         </div>
     </div>
-    <div class="form-group col-md-12 col-sm-12 col-xs-12" ng-show="selectedFlightType.IsCouponNumberRequired">
+    <div class="form-group col-md-12 col-sm-12 col-xs-12"
+         ng-show="selectedFlightType.IsCouponNumberRequired">
         <label for="CouponNumber"><span translate="COUPON_NUMBER"></span>:</label>
-        <input type="text" class="form-control" id="CouponNumber" ng-disabled="!flightDetails.CanUpdateRecord" ng-model="flightDetails.GliderFlightDetailsData.CouponNumber">
+        <input type="text"
+               class="form-control"
+               id="CouponNumber"
+               ng-disabled="!flightDetails.CanUpdateRecord"
+               ng-model="flightDetails.GliderFlightDetailsData.CouponNumber">
     </div>
 </div></div>

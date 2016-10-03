@@ -498,6 +498,7 @@ export default class AirMovementsController {
 
         $scope.copyLastCounterToStartOperatingCounter = () => {
             $scope.flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds = $scope.operatingCounters.EngineOperatingCounterInSeconds;
+            $scope.engineSecondsCountersChanged();
         };
     }
 
