@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - 5
 before_script:
-  - npm install
+  - yarn
 script:
-  - npm run test
-  - npm run bundle
+  - yarn run test
+  - yarn run bundle
