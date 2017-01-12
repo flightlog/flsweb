@@ -1,3 +1,26 @@
+export class PagedLocations {
+    constructor($http, GLOBALS, MessageManager) {
+        this.$http = $http;
+        this.GLOBALS = GLOBALS;
+        this.MessageManager = MessageManager;
+    }
+
+    getLocations(filter, sorting) {
+        return this.$http
+            .post(this.GLOBALS.BASE_URL + '/api/v1/locations', {
+                filter,
+                sorting
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .catch((reason) => {
+                this.MessageManager.raiseError('load', 'locations list', reason);
+                return Promise.reject(reason);
+            });
+    }
+}
+
 export class Locations {
     constructor($resource, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/:dest/:id', null, {

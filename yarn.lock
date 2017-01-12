@@ -2,6 +2,16 @@
 # yarn lockfile v1
 
 
+"@types/angular@^1.5.13":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@types/angular/-/angular-1.6.0.tgz#992513ec558e9f217d53502c7624f0b57dca7058"
+  dependencies:
+    "@types/jquery" "*"
+
+"@types/jquery@*":
+  version "2.0.39"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.39.tgz#917fe65300dbc6ccbdfa7e2ee51159fbd29d7689"
+
 Base64@~0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/Base64/-/Base64-0.2.1.tgz#ba3a4230708e186705065e66babdd4c35cf60028"
@@ -2224,11 +2234,7 @@ loose-envify@^1.0.0:
   dependencies:
     js-tokens "^2.0.0"
 
-lru-cache@2:
-  version "2.7.3"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-2.7.3.tgz#6d4524e8b955f95d4f5b58851ce21dd72fb4e952"
-
-lru-cache@2.2.x:
+lru-cache@2, lru-cache@2.2.x:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-2.2.4.tgz#6c658619becf14031d0d0b594b16042ce4dc063d"
 
@@ -2410,6 +2416,12 @@ ng-annotate@^0.9.7:
     stringmap "~0.2.2"
     stringset "~0.2.1"
     tryor "~0.1.2"
+
+ng-table@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/ng-table/-/ng-table-3.0.1.tgz#e0efa58887cf41805cb7973814da509dddb89368"
+  dependencies:
+    "@types/angular" "^1.5.13"
 
 ngstorage@0.3.9:
   version "0.3.9"

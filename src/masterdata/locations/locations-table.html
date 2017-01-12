@@ -1,18 +1,11 @@
 <div class="col-xs-12">
     <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
-    <table class="fls" ng-show="!busy && !error">
-        <tr>
-            <th translate="LOCATION_NAME"></th>
-            <th translate="LOCATION_TYPE"></th>
-            <th translate="ICAO_CODE"></th>
-            <th translate="COUNTRY"></th>
-            <th class="hidden-print">&nbsp;</th>
-        </tr>
-        <tr ng-repeat="location in locations | filter:searchString">
-            <td ng-bind="location.LocationName"></td>
-            <td ng-bind="location.LocationTypeName"></td>
-            <td ng-bind="location.IcaoCode"></td>
-            <td ng-bind="location.CountryName"></td>
+    <table ng-table="tableParams" class="fls" show-filter="true" ng-show="!busy && !error">
+        <tr ng-repeat="location in $data">
+            <td ng-bind="location.LocationName" data-title="'LOCATION_NAME' | translate" filter="{ LocationName: 'text'}" sortable="'LocationName'"></td>
+            <td ng-bind="location.LocationTypeName" data-title="'LOCATION_TYPE' | translate" filter="{ LocationTypeName: 'text'}" sortable="'LocationTypeName'"></td>
+            <td ng-bind="location.IcaoCode" data-title="'ICAO_CODE' | translate" filter="{ IcaoCode: 'text'}" sortable="'IcaoCode'"></td>
+            <td ng-bind="location.CountryName" data-title="'COUNTRY' | translate" filter="{ CountryName: 'text'}" sortable="'CountryName'"></td>
             <td class="hidden-print controls-column">
                 <a ng-show="isClubAdmin" ng-click="editLocation(location)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-pencil"
                                                                                    style="color:#111123;font-weight: 500;"></span></a>
