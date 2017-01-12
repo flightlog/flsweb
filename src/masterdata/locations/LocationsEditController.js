@@ -62,7 +62,11 @@ export default class LocationsEditController {
             }, {
                 counts:[],
                 getData: function(params) {
-                    return PagedLocations.getLocations($scope.tableParams.filter(), $scope.tableParams.sorting())
+                    let pageSize = params.count();
+                    let pageStart = (params.page() - 1) * pageSize;
+                    console.log("sorting", $scope.tableParams.sorting());
+
+                    return PagedLocations.getLocations($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
                             params.total(result.length);
 

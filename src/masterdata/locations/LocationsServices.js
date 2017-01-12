@@ -5,12 +5,12 @@ export class PagedLocations {
         this.MessageManager = MessageManager;
     }
 
-    getLocations(filter, sorting) {
+    getLocations(filter, sorting, pageStart, pageSize) {
+        let request = Object.assign({}, filter);
+        request.Sorting = sorting;
+
         return this.$http
-            .post(this.GLOBALS.BASE_URL + '/api/v1/locations', {
-                filter,
-                sorting
-            })
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/locations/page/${pageStart}/${pageSize}`, request)
             .then((response) => {
                 return response.data;
             })
