@@ -22,6 +22,7 @@ export default class MessageManager {
                 error.isError = true;
                 srv.messages.push(error);
                 srv.notifyObservers();
+                return Promise.reject(error);
             },
             showMessage: function (message) {
                 srv.displayError(message, false);

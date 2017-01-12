@@ -68,9 +68,9 @@ export default class LocationsEditController {
 
                     return PagedLocations.getLocations($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
-                            params.total(result.length);
+                            params.total(result.TotalRows);
 
-                            return result;
+                            return result.Items;
                         });
                 }
             });

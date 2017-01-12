@@ -6,18 +6,15 @@ export class PagedLocations {
     }
 
     getLocations(filter, sorting, pageStart, pageSize) {
-        let request = Object.assign({}, filter);
-        request.Sorting = sorting;
-
         return this.$http
-            .post(`${this.GLOBALS.BASE_URL}/api/v1/locations/page/${pageStart}/${pageSize}`, request)
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/locations/page/${pageStart + 1}/${pageSize}`, {
+                Sorting: sorting,
+                SearchFilter: filter
+            })
             .then((response) => {
                 return response.data;
             })
-            .catch((reason) => {
-                this.MessageManager.raiseError('load', 'locations list', reason);
-                return Promise.reject(reason);
-            });
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'locations list'));
     }
 }
 
