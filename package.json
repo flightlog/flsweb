@@ -4,11 +4,11 @@
   "description": "flight logging system - javascript client",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm install",
+    "prestart": "yarn install",
     "start": "webpack-dev-server --TARGET=DEV --SERVER_URL=http://localhost:25567/",
     "start-test": "webpack-dev-server --TARGET=DEV --SERVER_URL=https://testapi.glider-fls.ch/",
     "start-prod": "webpack-dev-server --TARGET=DEV --SERVER_URL=https://api.glider-fls.ch/",
-    "bundle": "npm install & node scripts/copy.js ./src/index.html ./dist/index.html & webpack ./dist/bundle.js",
+    "bundle": "yarn install & node scripts/copy.js ./src/index.html ./dist/index.html & webpack ./dist/bundle.js",
     "test": "node node_modules/karma/bin/karma start --single-run",
     "test-dev": "node node_modules/karma/bin/karma start --TARGET=DEV"
   },
