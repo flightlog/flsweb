@@ -255,3 +255,17 @@ td.immatriculation {
 .ng-table-counts {
     margin-top: 2px;
 }
+
+.sort-asc:before {
+    font-family: 'FontAwesome';
+    content: "\f0de";
+    float: right;
+}
+.sort-desc:before {
+    font-family: 'FontAwesome';
+    content: "\f0dd";
+    float: right;
+}
+.sortable {
+    cursor: pointer;
+}
