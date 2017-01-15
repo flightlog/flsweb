@@ -242,12 +242,15 @@ td.flight-ldg-time {
     font-weight: 500;
     font-size: 1.1em;
 }
+
 td.flight-start-time {
     color: #1f1078;
 }
+
 td.flight-ldg-time {
     color: #0b7065;
 }
+
 td.immatriculation {
     color: #719eb4;
 }
@@ -261,11 +264,39 @@ td.immatriculation {
     content: "\f0de";
     float: right;
 }
+
 .sort-desc:before {
     font-family: 'FontAwesome';
     content: "\f0dd";
     float: right;
 }
+
 .sortable {
     cursor: pointer;
+}
+
+.fls-table-with-details tr {
+    cursor: pointer;
+}
+
+.fls-table-with-details tr:hover,
+.fls-table-with-details tr:hover:nth-child(even) {
+    background-color: #dbe5ff;
+    border: 1px solid black;
+}
+
+.fls-table-with-details tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.fls-table-with-details tr:hover td:last-child:before {
+    font-family: 'FontAwesome';
+    content: "\f054";
+    float: right;
+    color: #595a6e;
+}
+
+.delete-link {
+    color: #a70000;
+    font-weight: 500;
 }

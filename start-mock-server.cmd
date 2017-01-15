@@ -1,0 +1,1 @@
+call cmd /k "cd server && yarn start"
