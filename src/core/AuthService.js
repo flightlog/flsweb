@@ -27,7 +27,8 @@ export default class AuthService {
                         locations: true,
                         users: srv.isClubAdmin(),
                         flightTypes: srv.isClubAdmin(),
-                        memberStates: srv.isClubAdmin()
+                        memberStates: srv.isClubAdmin(),
+                        accountingRuleFilters: srv.isClubAdmin()
                     },
                     system: srv.isSystemAdmin()
                 }

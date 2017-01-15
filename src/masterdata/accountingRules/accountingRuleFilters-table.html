@@ -1,0 +1,19 @@
+<div class="col-xs-12">
+    <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true" ng-show="!busy && !error">
+        <tr ng-repeat="accountingRuleFilter in $data" ng-click="editAccountingRuleFilter(accountingRuleFilter)" title="{{'EDIT' | translate}}">
+            <td ng-bind="accountingRuleFilter.RuleFilterName" data-title="'ACCOUNTINGRULEFILTER_NAME' | translate" filter="{ RuleFilterName: 'text'}" sortable="'RuleFilterName'"></td>
+            <td ng-bind="accountingRuleFilter.Target" data-title="'ACCOUNTINGRULEFILTER_TARGET' | translate" filter="{ Target: 'text'}" sortable="'Target'"></td>
+            <td ng-bind="accountingRuleFilter.Description" data-title="'DESCRIPTION' | translate" filter="{ Description: 'text'}" sortable="'Description'"></td>
+            <td ng-bind="accountingRuleFilter.AccountingRuleFilterTypeName" data-title="'ACCOUNTINGRULEFILTER_TYPE' | translate" filter="{ AccountingRuleFilterTypeName: 'text'}" sortable="'AccountingRuleFilterTypeName'"></td>
+            <td class="hidden-print controls-column">
+                <a ng-show="isClubAdmin"
+                   title="{{'DELETE' | translate}}"
+                   ng-click="deleteAccountingRuleFilter(accountingRuleFilter); $event.stopPropagation();"
+                   class="col-xs-4 delete-link">
+                    <span class="fa fa-trash-o"></span>
+                </a>
+                <fls-history entity-name="AccountingRuleFilter" entity-id="accountingRuleFilter.AccountingRuleFilterId" class="col-xs-4"></fls-history>
+            </td>
+        </tr>
+    </table>
+</div>
