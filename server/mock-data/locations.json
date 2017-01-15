@@ -1,0 +1,59 @@
+{
+  "Items": [{
+    "LocationId": "e9d52e02-944f-4f79-b1f9-56a413d3ef4b",
+    "CountryName": "Schweiz",
+    "Elevation": "614 m.ü.M.",
+    "IcaoCode": "LSTR",
+    "LocationName": "Montricher",
+    "LocationTypeName": "Flugplatz mit Graspiste",
+    "IsAirfield": false,
+    "RunwayLength": "1000 m",
+    "IsInboundRouteRequired": false,
+    "IsOutboundRouteRequired": false,
+    "Id": "e9d52e02-944f-4f79-b1f9-56a413d3ef4b",
+    "CanUpdateRecord": true,
+    "CanDeleteRecord": true
+  }, {
+    "LocationId": "90c33ddf-7398-447c-9c00-c3dba5bb3800",
+    "CountryName": "Schweiz",
+    "Elevation": "1008 m.ü.M.",
+    "IcaoCode": "LSGK",
+    "LocationName": "Saanen",
+    "LocationTypeName": "Flugplatz mit Hartbelagpiste",
+    "IsAirfield": false,
+    "RunwayLength": "1400 m",
+    "IsInboundRouteRequired": false,
+    "IsOutboundRouteRequired": false,
+    "Id": "90c33ddf-7398-447c-9c00-c3dba5bb3800",
+    "CanUpdateRecord": true,
+    "CanDeleteRecord": true
+  }, {
+    "LocationId": "180acf90-f717-4450-bd49-5fbdf791c7ba",
+    "CountryName": "Schweiz",
+    "Elevation": "416 m.ü.M.",
+    "IcaoCode": "LSZX",
+    "LocationName": "Schänis",
+    "LocationTypeName": "Flugplatz mit Hartbelagpiste",
+    "IsAirfield": false,
+    "RunwayLength": "500 m",
+    "IsInboundRouteRequired": false,
+    "IsOutboundRouteRequired": false,
+    "Id": "180acf90-f717-4450-bd49-5fbdf791c7ba",
+    "CanUpdateRecord": true,
+    "CanDeleteRecord": true
+  }, {
+    "LocationId": "84d9777d-3ccb-4115-8152-a06f1bcdba27",
+    "CountryName": "Schweiz",
+    "Elevation": "536 m.ü.M.",
+    "IcaoCode": "LSZK",
+    "LocationName": "Speck Fehraltorf",
+    "LocationTypeName": "Flugplatz mit Graspiste",
+    "IsAirfield": false,
+    "RunwayLength": "600 m",
+    "IsInboundRouteRequired": false,
+    "IsOutboundRouteRequired": false,
+    "Id": "84d9777d-3ccb-4115-8152-a06f1bcdba27",
+    "CanUpdateRecord": true,
+    "CanDeleteRecord": true
+  }], "PageStart": 1, "PageSize": 100, "TotalRows": 4
+}

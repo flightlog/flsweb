@@ -1,0 +1,29 @@
+[{
+  "RoleId": "92750a21-9bcd-ffff-2343-23b44724019b",
+  "RoleName": "Vereins-Administrator",
+  "RoleApplicationKeyString": "ClubAdministrator",
+  "Id": "92750a21-9bcd-ffff-2343-23b44724019b",
+  "CanUpdateRecord": false,
+  "CanDeleteRecord": false
+}, {
+  "RoleId": "187a8729-92bc-2932-ac83-15f14724019b",
+  "RoleName": "Segelflugleiter",
+  "RoleApplicationKeyString": "FlightOperator",
+  "Id": "187a8729-92bc-2932-ac83-15f14724019b",
+  "CanUpdateRecord": false,
+  "CanDeleteRecord": false
+}, {
+  "RoleId": "56352545-2454-3453-2343-c74244653451",
+  "RoleName": "System Administrator",
+  "RoleApplicationKeyString": "SystemAdministrator",
+  "Id": "56352545-2454-3453-2343-c74244653451",
+  "CanUpdateRecord": false,
+  "CanDeleteRecord": false
+}, {
+  "RoleId": "7b1ea495-c1c2-49ec-8859-93c5817704a8",
+  "RoleName": "Workflow Executor",
+  "RoleApplicationKeyString": "WorkflowExecutor",
+  "Id": "7b1ea495-c1c2-49ec-8859-93c5817704a8",
+  "CanUpdateRecord": false,
+  "CanDeleteRecord": false
+}]

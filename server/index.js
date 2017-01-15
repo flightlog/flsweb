@@ -3,32 +3,22 @@ var app = express();
 var api = "/api/v1";
 
 app.post(api + "/locations/page/:pageStart/:pageSize", function (req, res) {
-    res.send({
-        TotalRows: 500,
-        Items: [
-            {
-                LocationName: "Mock-Location"
-            }
-        ]
-    });
+    res.send(require("./mock-data/locations.json"));
 });
 app.get(api + "/translations", function (req, res) {
-    res.send({});
+    res.send(require("./mock-data/translations.json"));
 });
 app.get(api + "/users/my", function (req, res) {
-    res.send({
-        UserRoleIds: [1]
-    });
+    res.send(require("./mock-data/user-testclubadmin.json"));
 });
 app.get(api + "/userroles", function (req, res) {
-    res.send([{
-        RoleId: 1,
-        RoleApplicationKeyString: "ClubAdministrator"
-    }]);
+    res.send(require("./mock-data/userroles-testclubadmin.json"));
 });
 app.post('/Token', function (req, res) {
     res.send({
-        access_token: "mock-token"
+        "access_token": "test-token",
+        "token_type": "bearer",
+        "userName": "testclubadmin"
     });
 });
 

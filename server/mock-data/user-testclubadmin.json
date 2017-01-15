@@ -1,0 +1,14 @@
+{
+  "UserId": "53a3ae40-f23a-46e1-a42c-8354ff8b26ad",
+  "ClubId": "0fa7b76f-47ba-4138-8f96-671400fd7c83",
+  "FriendlyName": "Test Club Admin",
+  "NotificationEmail": "schuele@galaxy-net.ch",
+  "UserName": "testclubadmin",
+  "UserRoleIds": ["92750a21-9bcd-ffff-2343-23b44724019b"],
+  "AccountState": 1,
+  "LastPasswordChangeOn": "2017-01-15T11:20:05.0355449",
+  "ForcePasswordChangeNextLogon": false,
+  "Id": "53a3ae40-f23a-46e1-a42c-8354ff8b26ad",
+  "CanUpdateRecord": true,
+  "CanDeleteRecord": true
+}

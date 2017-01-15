@@ -1,1 +1,1 @@
-call cmd /k npm run start
+call cmd /k yarn start
