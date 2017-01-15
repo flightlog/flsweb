@@ -1,12 +1,17 @@
 <div class="col-xs-12">
     <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true" ng-show="!busy && !error">
-        <tr ng-repeat="location in $data" ng-click="editLocation(location)">
+        <tr ng-repeat="location in $data" ng-click="editLocation(location)" title="{{'EDIT' | translate}}">
             <td ng-bind="location.LocationName" data-title="'LOCATION_NAME' | translate" filter="{ LocationName: 'text'}" sortable="'LocationName'"></td>
             <td ng-bind="location.LocationTypeName" data-title="'LOCATION_TYPE' | translate" filter="{ LocationTypeName: 'text'}" sortable="'LocationTypeName'"></td>
             <td ng-bind="location.IcaoCode" data-title="'ICAO_CODE' | translate" filter="{ IcaoCode: 'text'}" sortable="'IcaoCode'"></td>
             <td ng-bind="location.CountryName" data-title="'COUNTRY' | translate" filter="{ CountryName: 'text'}" sortable="'CountryName'"></td>
             <td class="hidden-print controls-column">
-                <a ng-show="isClubAdmin" ng-click="deleteLocation(location); $event.stopPropagation();" class="col-xs-4"><span class="fa fa-trash-o delete-link"></span></a>
+                <a ng-show="isClubAdmin"
+                   title="{{'DELETE' | translate}}"
+                   ng-click="deleteLocation(location); $event.stopPropagation();"
+                   class="col-xs-4 delete-link">
+                    <span class="fa fa-trash-o"></span>
+                </a>
                 <fls-history entity-name="Location" entity-id="location.LocationId" class="col-xs-4"></fls-history>
             </td>
         </tr>

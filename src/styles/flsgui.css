@@ -281,8 +281,13 @@ td.immatriculation {
 
 .fls-table-with-details tr:hover,
 .fls-table-with-details tr:hover:nth-child(even) {
-    background-color: #dbe5ff;
-    border: 1px solid black;
+    background-color: #738fa8;
+}
+
+.fls-table-with-details tr:hover .delete-link,
+.fls-table-with-details tr:hover .history-link,
+.fls-table-with-details tr:hover td {
+    color: white;
 }
 
 .fls-table-with-details tr:nth-child(even) {
@@ -293,10 +298,22 @@ td.immatriculation {
     font-family: 'FontAwesome';
     content: "\f054";
     float: right;
-    color: #595a6e;
+}
+
+.fls-table-with-details tr:hover .delete-link:hover,
+.fls-table-with-details tr:hover .history-link:hover {
+    color: #00deff;
 }
 
 .delete-link {
+    margin: 0;
+    padding: 0 10px;
     color: #a70000;
     font-weight: 500;
+}
+
+.history-link {
+    margin: 0;
+    padding: 0 10px;
+    color: #767676;
 }
