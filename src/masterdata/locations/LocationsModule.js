@@ -14,7 +14,13 @@ export default angular.module('fls.masterdata.locations', ['ngTable'])
     .service('PagedLocations', LocationsServices.PagedLocations)
     .service('LocationService', LocationsServices.LocationService)
     .service('LocationPersister', LocationsServices.LocationPersister)
-    .config(function ($routeProvider) {
+    .config(($routeProvider, ngTableFilterConfigProvider) => {
+        ngTableFilterConfigProvider.setConfig({
+            aliasUrls: {
+                "countries": "./countries-dropdown-filter.html"
+            }
+        });
+
         $routeProvider
             .when('/masterdata/locations',
                 {
@@ -34,5 +40,8 @@ export default angular.module('fls.masterdata.locations', ['ngTable'])
                         user: userAuth
                     }
                 });
+    })
+    .run(($templateCache) => {
+        $templateCache.put("./countries-dropdown-filter.html", require("./countries-dropdown-filter.html"));
     });
 

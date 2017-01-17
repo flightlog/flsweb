@@ -65,6 +65,7 @@ export default class LocationsEditController {
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
                     console.log("sorting", $scope.tableParams.sorting());
+                    console.log("filter", $scope.tableParams.filter());
 
                     return PagedLocations.getLocations($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
@@ -73,6 +74,10 @@ export default class LocationsEditController {
                             return result.Items;
                         });
                 }
+            });
+            Countries.query().$promise.then(function (result) {
+                console.log("countries", result);
+                $scope.tableParams.countries = result;
             });
         }
 
@@ -115,9 +120,6 @@ export default class LocationsEditController {
                 .catch(_.partial(MessageManager.raiseError, 'remove', 'location'));
         };
 
-        $scope.resetFilter = () => {
-            $scope.filter = {};
-        };
         $scope.toggleSorting = (attribute) => {
             console.log($scope.sorting);
             console.log(attribute);

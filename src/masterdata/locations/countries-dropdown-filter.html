@@ -1,0 +1,10 @@
+<selectize name="{{name}}"
+           options="params.countries"
+           config="{
+                        inputClass: 'form-control selectize-input',
+                        maxItems: 1,
+                        valueField: 'CountryName',
+                        labelField: 'CountryName',
+                        searchField: ['CountryName']
+                    }"
+           ng-model="params.filter()[name]"></selectize>

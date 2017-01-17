@@ -4,7 +4,7 @@
             <td ng-bind="location.LocationName" data-title="'LOCATION_NAME' | translate" filter="{ LocationName: 'text'}" sortable="'LocationName'"></td>
             <td ng-bind="location.LocationTypeName" data-title="'LOCATION_TYPE' | translate" filter="{ LocationTypeName: 'text'}" sortable="'LocationTypeName'"></td>
             <td ng-bind="location.IcaoCode" data-title="'ICAO_CODE' | translate" filter="{ IcaoCode: 'text'}" sortable="'IcaoCode'"></td>
-            <td ng-bind="location.CountryName" data-title="'COUNTRY' | translate" filter="{ CountryName: 'text'}" sortable="'CountryName'"></td>
+            <td ng-bind="location.CountryName" data-title="'COUNTRY' | translate" filter="{ CountryName: 'countries'}" sortable="'CountryName'"></td>
             <td class="hidden-print controls-column">
                 <a ng-show="isClubAdmin"
                    title="{{'DELETE' | translate}}"
