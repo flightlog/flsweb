@@ -9,23 +9,23 @@
 
                 <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true" ng-show="!busy && !error">
                     <tr ng-repeat="flight in $data" ng-click="editFlight(flight)" title="{{'EDIT' | translate}}">
-                        <td ng-show="selectedFlight !== flight" data-title="'STATUS' | translate" filter="{ _combinedAirState: 'text'}" sortable="'_combinedAirState'">
+                        <td data-title="'STATUS' | translate" filter="{ _combinedAirState: 'text'}" sortable="'_combinedAirState'">
                             <fls-flight-status flight="flight"></fls-flight-status>
                         </td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.StartDateTime | date:'dd.MM.yyyy'" data-title="'DATE' | translate" filter="{ Target: 'text'}" sortable="'StartDateTime'"></td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.Immatriculation" data-title="'GLIDER_PLANE' | translate" filter="{ Immatriculation: 'text'}" sortable="'Immatriculation'"></td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.PilotName" data-title="'GLIDER_PILOT' | translate" filter="{ PilotName: 'text'}" sortable="'PilotName'"></td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.SecondCrewName" data-title="'SECOND_CREW_MEMBER' | translate" filter="{ SecondCrewName: 'text'}" sortable="'SecondCrewName'"></td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.StartLocation" data-title="'START_LOCATION' | translate" filter="{ StartLocation: 'text'}" sortable="'StartLocation'"></td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.StartDateTime | date:'HH:mm'" data-title="'TAKEOFF' | translate" filter="{ StartDateTime: 'text'}" sortable="'StartDateTime'"></td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.LdgDateTime | date:'HH:mm'" data-title="'LANDING' | translate" filter="{ LdgDateTime: 'text'}" sortable="'LdgDateTime'"></td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.GliderFlightDuration && ('0001-01-01T' + flight.GliderFlightDuration) | date:'HH:mm'" data-title="'GLIDER_FLIGHT_DURATION' | translate" filter="{ GliderFlightDuration: 'text'}" sortable="'GliderFlightDuration'"></td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.TowAircraftImmatriculation" data-title="'TOWING_PLANE' | translate" filter="{ TowAircraftImmatriculation: 'text'}" sortable="'TowAircraftImmatriculation'"></td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.TowPilotName" data-title="'TOWING_PILOT' | translate" filter="{ TowPilotName: 'text'}" sortable="'TowPilotName'"></td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.TowFlightLdgDateTime | date:'HH:mm'" data-title="'TOW_LANDING' | translate" filter="{ TowFlightLdgDateTime: 'text'}" sortable="'TowFlightLdgDateTime'"></td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.TowFlightDuration && ('0001-01-01T' + flight.TowFlightDuration) | date:'HH:mm'" data-title="'TOW_DURATION' | translate" filter="{ TowFlightDuration: 'text'}" sortable="'TowFlightDuration'"></td>
-                        <td ng-show="selectedFlight !== flight" ng-bind="flight.FlightComment" data-title="'COMMENT' | translate" filter="{ FlightComment: 'text'}" sortable="'FlightComment'"></td>
-                        <td ng-show="selectedFlight !== flight" class="hidden-print controls-column">
+                        <td ng-bind="flight.StartDateTime | date:'dd.MM.yyyy'" data-title="'DATE' | translate" filter="{ Target: 'text'}" sortable="'StartDateTime'"></td>
+                        <td ng-bind="flight.Immatriculation" data-title="'GLIDER_PLANE' | translate" filter="{ Immatriculation: 'text'}" sortable="'Immatriculation'"></td>
+                        <td ng-bind="flight.PilotName" data-title="'GLIDER_PILOT' | translate" filter="{ PilotName: 'text'}" sortable="'PilotName'"></td>
+                        <td ng-bind="flight.SecondCrewName" data-title="'SECOND_CREW_MEMBER' | translate" filter="{ SecondCrewName: 'text'}" sortable="'SecondCrewName'"></td>
+                        <td ng-bind="flight.StartLocation" data-title="'START_LOCATION' | translate" filter="{ StartLocation: 'text'}" sortable="'StartLocation'"></td>
+                        <td ng-bind="flight.StartDateTime | date:'HH:mm'" data-title="'TAKEOFF' | translate" filter="{ StartDateTime: 'text'}" sortable="'StartDateTime'"></td>
+                        <td ng-bind="flight.LdgDateTime | date:'HH:mm'" data-title="'LANDING' | translate" filter="{ LdgDateTime: 'text'}" sortable="'LdgDateTime'"></td>
+                        <td ng-bind="flight.GliderFlightDuration && ('0001-01-01T' + flight.GliderFlightDuration) | date:'HH:mm'" data-title="'GLIDER_FLIGHT_DURATION' | translate" filter="{ GliderFlightDuration: 'text'}" sortable="'GliderFlightDuration'"></td>
+                        <td ng-bind="flight.TowAircraftImmatriculation" data-title="'TOWING_PLANE' | translate" filter="{ TowAircraftImmatriculation: 'text'}" sortable="'TowAircraftImmatriculation'"></td>
+                        <td ng-bind="flight.TowPilotName" data-title="'TOWING_PILOT' | translate" filter="{ TowPilotName: 'text'}" sortable="'TowPilotName'"></td>
+                        <td ng-bind="flight.TowFlightLdgDateTime | date:'HH:mm'" data-title="'TOW_LANDING' | translate" filter="{ TowFlightLdgDateTime: 'text'}" sortable="'TowFlightLdgDateTime'"></td>
+                        <td ng-bind="flight.TowFlightDuration && ('0001-01-01T' + flight.TowFlightDuration) | date:'HH:mm'" data-title="'TOW_DURATION' | translate" filter="{ TowFlightDuration: 'text'}" sortable="'TowFlightDuration'"></td>
+                        <td ng-bind="flight.FlightComment" data-title="'COMMENT' | translate" filter="{ FlightComment: 'text'}" sortable="'FlightComment'"></td>
+                        <td class="hidden-print controls-column">
                             <a ng-show="isClubAdmin"
                                title="{{'DELETE' | translate}}"
                                ng-click="delete(flight); $event.stopPropagation();"
@@ -39,20 +39,9 @@
                             </a>
                             <fls-history class="col-md-4" entity-name="Flight" entity-id="flight.FlightId"></fls-history>
                         </td>
-                        <td ng-if="selectedFlight === flight" class="formbg" colspan="15">
-                            <fls-flight-edit-form></fls-flight-edit-form>
-                        </td>
                     </tr>
                 </table>
 
-                <table class="fls" ng-show="newFlight && selectedFlight === newFlight"
-                       ng-if="newFlight && selectedFlight === newFlight">
-                    <tr>
-                        <td class="row formbg">
-                            <fls-flight-edit-form></fls-flight-edit-form>
-                        </td>
-                    </tr>
-                </table>
                 <button type="button" ng-click="new(false)" class="btn btn-default pull-right hidden-print" translate="NEW"
                         style="margin-top:10px;">
                 </button>
