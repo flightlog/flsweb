@@ -34,7 +34,7 @@ export default class ErrorBarDirective {
                     MessageManager.messages = _.reject(scope.messages, function (el) {
                         return el === error;
                     });
-                    scope.errors = MessageManager.errors;
+                    scope.messages = MessageManager.messages;
                 };
             }
         };

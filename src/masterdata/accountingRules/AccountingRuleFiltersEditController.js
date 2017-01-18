@@ -25,7 +25,6 @@ export default class AccountingRuleFiltersEditController {
                 getData: function(params) {
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
-                    console.log("sorting", $scope.tableParams.sorting());
 
                     return PagedAccountingRuleFilters.getAccountingRuleFilters($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
@@ -47,14 +46,6 @@ export default class AccountingRuleFiltersEditController {
 
         $scope.editAccountingRuleFilter = function (accountingRuleFilter) {
             $location.path('/masterdata/accountingRuleFilters/' + accountingRuleFilter.AccountingRuleFilterId);
-        };
-        $scope.resetFilter = () => {
-            $scope.filter = {};
-        };
-        $scope.toggleSorting = (attribute) => {
-            console.log($scope.sorting);
-            console.log(attribute);
-            $scope.sorting[attribute] = $scope.sorting[attribute] === 'asc' ? 'desc' : 'asc';
         };
     }
 }

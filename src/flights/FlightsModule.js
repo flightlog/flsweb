@@ -12,8 +12,10 @@ import {userAuth} from '../core/AuthService';
 import uiBootstrap from 'angular-ui-bootstrap';
 import ngStorage from 'ngstorage';
 import highChartsNgModule from 'highcharts-ng/dist/highcharts-ng.min'
+import 'ng-table';
 
 export default angular.module('fls.flights', [
+        'ngTable',
         coreModule.name,
         personsModule.name,
         ngStorage.name,
@@ -29,6 +31,7 @@ export default angular.module('fls.flights', [
     .service('FlightCostBalanceTypes', FlightsServices.FlightCostBalanceTypes)
     .service('Flights', FlightsServices.Flights)
     .service('FlightsDateRange', FlightsServices.FlightsDateRange)
+    .service('PagedFlights', FlightsServices.PagedFlights)
     .service('SoloFlightCheckboxEnablementCalculator', FlightsServices.SoloFlightCheckboxEnablementCalculator)
     .config(function ($routeProvider) {
         $routeProvider

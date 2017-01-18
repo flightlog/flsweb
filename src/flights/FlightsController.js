@@ -4,7 +4,7 @@ import AddPersonController from '../masterdata/persons/modal/AddPersonController
 
 export default class FlightsController {
     constructor($scope, $q, $log, $modal, $timeout, MessageManager,
-                TimeService, Flights, FlightsDateRange,
+                TimeService, Flights, NgTableParams, PagedFlights,
                 FlightTypes, Locations, Persons, PersonPersister, PassengerPersister,
                 Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes,
                 SoloFlightCheckboxEnablementCalculator, Clubs, AircraftOperatingCounters, DropdownItemsRenderService) {
@@ -82,20 +82,31 @@ export default class FlightsController {
         }
 
         function reloadFlights() {
-            $scope.busy = true;
-            var fromDate = toQueryDate($scope.filterDates.fromDate);
-            var toDate = toQueryDate($scope.filterDates.toDate);
-            FlightsDateRange.getFlights({from: fromDate, to: toDate}).$promise
-                .then((result) => {
-                    $scope.flights = result;
-                    for (var i = 0; i < result.length; i++) {
-                        $scope.flights[i]._formattedDate = result[i].StartDateTime && moment(result[i].StartDateTime).format('DD.MM.YYYY HH:mm dddd');
-                    }
-                })
-                .catch(_.partial(MessageManager.raiseError, 'load', 'flights'))
-                .finally(function () {
-                    $scope.busy = false;
-                });
+            $scope.busy = false;
+            $scope.tableParams = new NgTableParams({
+                filter: {},
+                sorting: {
+                    StartDateTime: 'desc'
+                },
+                count: 100
+            }, {
+                counts:[],
+                getData: function(params) {
+                    let pageSize = params.count();
+                    let pageStart = (params.page() - 1) * pageSize;
+
+                    return PagedFlights.getGliderFlights($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
+                        .then((result) => {
+                            params.total(result.TotalRows);
+                            let flights = result.Items;
+                            for (var i = 0; i < result.length; i++) {
+                                flights[i]._formattedDate = result[i].StartDateTime && moment(result[i].StartDateTime).format('DD.MM.YYYY HH:mm dddd');
+                            }
+
+                            return result.Items;
+                        });
+                }
+            });
         }
 
         reloadFlights();
