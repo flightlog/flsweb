@@ -30,7 +30,6 @@ export default angular.module('fls.flights', [
     .directive('flsFlightStatus', FlightStatusDirective.factory)
     .service('FlightCostBalanceTypes', FlightsServices.FlightCostBalanceTypes)
     .service('Flights', FlightsServices.Flights)
-    .service('FlightsDateRange', FlightsServices.FlightsDateRange)
     .service('PagedFlights', FlightsServices.PagedFlights)
     .service('SoloFlightCheckboxEnablementCalculator', FlightsServices.SoloFlightCheckboxEnablementCalculator)
     .config(function ($routeProvider) {
@@ -39,6 +38,15 @@ export default angular.module('fls.flights', [
                 {
                     controller: FlightsController,
                     template: require('./flights.html'),
+                    publicAccess: true,
+                    resolve: {
+                        user: userAuth
+                    }
+                })
+            .when('/flights/:id',
+                {
+                    controller: FlightsController,
+                    template: require('./flight-edit.html'),
                     publicAccess: true,
                     resolve: {
                         user: userAuth

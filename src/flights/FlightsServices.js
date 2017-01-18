@@ -30,17 +30,6 @@ export class PagedFlights {
     }
 }
 
-export class FlightsDateRange {
-    constructor($resource, GLOBALS) {
-        return $resource(GLOBALS.BASE_URL + '/api/v1/flights/gliderflights/daterange/:from/:to', null, {
-            getFlights: {
-                method: 'GET',
-                isArray: true
-            }
-        });
-    }
-}
-
 export class Flights {
     constructor($resource, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/flights/:id', null, {

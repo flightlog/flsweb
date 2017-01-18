@@ -1,9 +1,9 @@
-import moment from 'moment';
-import * as _ from 'lodash';
-import AddPersonController from '../masterdata/persons/modal/AddPersonController';
+import moment from "moment";
+import * as _ from "lodash";
+import AddPersonController from "../masterdata/persons/modal/AddPersonController";
 
 export default class FlightsController {
-    constructor($scope, $q, $log, $modal, $timeout, MessageManager,
+    constructor($scope, $q, $log, $modal, $timeout, MessageManager, $location, $routeParams,
                 TimeService, Flights, NgTableParams, PagedFlights,
                 FlightTypes, Locations, Persons, PersonPersister, PassengerPersister,
                 Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes,
@@ -13,7 +13,6 @@ export default class FlightsController {
         $scope.debug = GLOBALS.DEBUG;
         $scope.showChart = false;
         var format = 'HH:mm';
-        var masterDataLoaded = false;
 
         $scope.starttypes = [];
         $scope.locations = [];
@@ -71,16 +70,6 @@ export default class FlightsController {
             reloadFlights();
         };
 
-        function toQueryDate(d) {
-            var queryDateFormat = 'YYYY-MM-DD';
-            var m = moment(d);
-            if (d && m.isValid()) {
-                return m.format(queryDateFormat);
-            } else {
-                return '0001-01-01';
-            }
-        }
-
         function reloadFlights() {
             $scope.busy = false;
             $scope.tableParams = new NgTableParams({
@@ -90,8 +79,8 @@ export default class FlightsController {
                 },
                 count: 100
             }, {
-                counts:[],
-                getData: function(params) {
+                counts: [],
+                getData: function (params) {
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
 
@@ -109,7 +98,22 @@ export default class FlightsController {
             });
         }
 
-        reloadFlights();
+
+        if ($routeParams.id !== undefined) {
+            loadMasterdata()
+                .then(() => {
+                    if ($routeParams.id === 'new') {
+                        $scope.newFlight = {};
+                        $scope.select($scope.newFlight);
+                    } else {
+                        selectFlight({FlightId: $routeParams.id});
+                    }
+                })
+                .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'));
+
+        } else {
+            reloadFlights();
+        }
 
         function hasDetails() {
             return $scope.flightDetails && $scope.flightDetails.GliderFlightDetailsData !== undefined;
@@ -240,152 +244,107 @@ export default class FlightsController {
             return new Date();
         };
 
-        var loadMasterdataDeferred = $q.defer();
-        var loadInitialMasterdataPromise = loadMasterdataDeferred.promise;
-
         function loadMasterdata() {
-            if (!masterDataLoaded) {
-                var promises = [];
-                promises.push(Persons.getAllPersons().$promise.then((result) => {
+            $scope.busy = true;
+            var promises = [
+                Persons.getAllPersons().$promise.then((result) => {
                     angular.copy(result, $scope.allPersons);
-                }));
-                promises.push(Persons.getGliderPilots().$promise.then((result) => {
+                }),
+                Persons.getGliderPilots().$promise.then((result) => {
                     angular.copy(result, $scope.gliderPilots);
-                }));
-                promises.push(Persons.getTowingPilots().$promise.then((result) => {
+                }),
+                Persons.getTowingPilots().$promise.then((result) => {
                     angular.copy(result, $scope.towingPilots);
-                }));
-                promises.push(Persons.getGliderInstructors().$promise.then((result) => {
+                }),
+                Persons.getGliderInstructors().$promise.then((result) => {
                     angular.copy(result, $scope.instructors);
-                }));
-                promises.push(Persons.getGliderObservers().$promise.then((result) => {
+                }),
+                Persons.getGliderObservers().$promise.then((result) => {
                     angular.copy(result, $scope.observers);
-                }));
-                promises.push(Persons.getWinchOperators().$promise.then((result) => {
+                }),
+                Persons.getWinchOperators().$promise.then((result) => {
                     angular.copy(result, $scope.winchOperators);
-                }));
-                promises.push(Locations.getLocations().$promise.then((result) => {
+                }),
+                Locations.getLocations().$promise.then((result) => {
                     angular.copy(result, $scope.locations);
-                }));
-                promises.push(Aircrafts.getGliders().$promise.then((result) => {
+                }),
+                Aircrafts.getGliders().$promise.then((result) => {
                     angular.copy(result, $scope.gliderAircrafts);
-                }));
-                promises.push(Aircrafts.getTowingPlanes().$promise.then((result) => {
+                }),
+                Aircrafts.getTowingPlanes().$promise.then((result) => {
                     angular.copy(result, $scope.towerAircrafts);
-                }));
-                promises.push(StartTypes.query().$promise.then((result) => {
+                }),
+                StartTypes.query().$promise.then((result) => {
                     angular.copy(result, $scope.starttypes);
-                }));
-                promises.push(FlightTypes.queryFlightTypesFor({dest: 'gliders'}).$promise.then((result) => {
+                }),
+                FlightTypes.queryFlightTypesFor({dest: 'gliders'}).$promise.then((result) => {
                     angular.copy(result, $scope.gliderFlightTypes);
-                }));
-                promises.push(FlightTypes.queryFlightTypesFor({dest: 'towing'}).$promise.then((result) => {
+                }),
+                FlightTypes.queryFlightTypesFor({dest: 'towing'}).$promise.then((result) => {
                     angular.copy(result, $scope.towingFlightTypes);
-                }));
-                promises.push(FlightCostBalanceTypes.query().$promise.then((result) => {
+                }),
+                FlightCostBalanceTypes.query().$promise.then((result) => {
                     angular.copy(result, $scope.flightCostBalanceTypes);
-                }));
-                promises.push(Clubs.getMyClub().$promise.then((result) => {
+                }),
+                Clubs.getMyClub().$promise.then((result) => {
                     angular.copy(result, $scope.myClub);
-                }));
-                return $q.all(promises)
-                    .then(() => {
-                        masterDataLoaded = true;
-                    });
-            } else {
-                return $q.when();
-            }
-        }
-
-        $timeout(() => {
-            loadMasterdata()
-                .then((result) => {
-                    loadMasterdataDeferred.resolve(result);
                 })
-                .catch((reason) => {
-                    loadMasterdataDeferred.reject(reason);
+            ];
+            return $q.all(promises)
+                .finally(() => {
+                    $scope.busy = $scope.busyLoadingFlight;
                 });
-        }, 2000);
-
-        $scope.reloadMasterdata = function () {
-            $scope.loadingMasterdata = true;
-            masterDataLoaded = false;
-            loadMasterdata()
-                .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'))
-                .finally(function () {
-                    $scope.loadingMasterdata = false;
-                });
-        };
+        }
 
         function selectFlight(flight, toBeCopied) {
             $scope.PersonForInvoiceRequired = false;
             $scope.warnTowFlightLongerThanGliderFlight = false;
-            var loadFlightPromise = loadFlight(flight, toBeCopied).then((result) => {
-                $scope.flightDetails = result;
-                if (result.TowFlightDetailsData && result.TowFlightDetailsData.AircraftId === '00000000-0000-0000-0000-000000000000') {
-                    result.TowFlightDetailsData.AircraftId = "";
-                }
-                if (result.TowFlightDetailsData && result.TowFlightDetailsData.PilotPersonId === '00000000-0000-0000-0000-000000000000') {
-                    result.TowFlightDetailsData.PilotPersonId = "";
-                }
 
-                var gld = $scope.flightDetails.GliderFlightDetailsData;
-                var tow = $scope.flightDetails.TowFlightDetailsData;
-                $scope.times = {
-                    flightDate: gld && gld.StartDateTime || gld.FlightDate || new Date(),
-                    gliderStart: TimeService.time(gld && gld.StartDateTime),
-                    gliderLanding: TimeService.time(gld && gld.LdgDateTime),
-                    towingStart: TimeService.time(gld && gld.StartDateTime),
-                    towingLanding: TimeService.time(tow && tow.LdgDateTime),
-                    engineCounterFormat: 'seconds'
-                };
-                $scope.times.gliderDuration = calcDuration($scope.times.gliderStart, $scope.times.gliderLanding);
-                $scope.times.towingDuration = calcDuration($scope.times.gliderStart, $scope.times.towingLanding);
+            loadFlight(flight, toBeCopied)
+                .then((result) => {
+                    $scope.flightDetails = result;
+                    if (result.TowFlightDetailsData && result.TowFlightDetailsData.AircraftId === '00000000-0000-0000-0000-000000000000') {
+                        result.TowFlightDetailsData.AircraftId = "";
+                    }
+                    if (result.TowFlightDetailsData && result.TowFlightDetailsData.PilotPersonId === '00000000-0000-0000-0000-000000000000') {
+                        result.TowFlightDetailsData.PilotPersonId = "";
+                    }
 
-                Aircrafts.getGliders().$promise.then((result) => {
-                    $scope.gliderAircrafts = result;
-                    $scope.gliderAircraftSelectionChanged(false);
-                });
-
-                Aircrafts.getTowingPlanes().$promise.then((result) => {
-                    $scope.towingAircrafts = result;
-                    $scope.towingAircraftSelectionChanged();
-                });
-            });
-
-            return $q.all([loadFlightPromise, loadInitialMasterdataPromise])
-                .then(function () {
+                    let gld = $scope.flightDetails.GliderFlightDetailsData;
+                    let tow = $scope.flightDetails.TowFlightDetailsData;
+                    $scope.times = {
+                        flightDate: gld && gld.StartDateTime || gld.FlightDate || new Date(),
+                        gliderStart: TimeService.time(gld && gld.StartDateTime),
+                        gliderLanding: TimeService.time(gld && gld.LdgDateTime),
+                        towingStart: TimeService.time(gld && gld.StartDateTime),
+                        towingLanding: TimeService.time(tow && tow.LdgDateTime),
+                        engineCounterFormat: 'seconds'
+                    };
+                    $scope.times.gliderDuration = calcDuration($scope.times.gliderStart, $scope.times.gliderLanding);
+                    $scope.times.towingDuration = calcDuration($scope.times.gliderStart, $scope.times.towingLanding);
+                })
+                .then(() => {
                     $scope.flightTypeChanged();
                     $scope.flightCostBalanceTypeChanged();
                     $scope.startTypeChanged();
                     calcDurationWarning();
                     recalcRouteRequirements();
                 })
-                .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'))
-                .finally(function () {
+                .catch(_.partial(MessageManager.raiseError, 'load', 'flight'))
+                .finally(() => {
                     $scope.busyLoadingFlight = false;
+                    $scope.busy = $scope.loadingMasterdata;
                 });
         }
 
-        $scope.select = function (flight, toBeCopied) {
-            $scope.gliderCompetitionSign = '';
-            $scope.towplaneRegistration = '';
-            $scope.busyLoadingFlight = true;
-            $scope.selectedFlight = flight;
-
-            // make sure the busy sign shows also on slow devices
-            $timeout(function () {
-                selectFlight(flight, toBeCopied);
-            }, 300);
-        };
-        $scope.cancel = function () {
+        $scope.cancel = () => {
             $scope.selectedFlight = undefined;
             $scope.flightDetails = undefined;
+            $location.path('/flights');
         };
 
-        $scope.new = function (toBeCopied) {
-            $scope.newFlight = {};
-            $scope.select($scope.newFlight, toBeCopied);
+        $scope.new = (toBeCopied) => {
+            $location.path('/flights/new');
         };
 
         $scope.save = function (flightDetails) {
@@ -410,20 +369,12 @@ export default class FlightsController {
 
             if (flightDetails.FlightId) {
                 new Flights(flightDetails).$saveFlight({id: flightDetails.FlightId})
-                    .then(reloadFlights)
                     .then($scope.cancel)
-                    .catch(_.partial(MessageManager.raiseError, 'save', 'flight'))
-                    .finally(function () {
-                        $scope.busyLoadingFlight = false;
-                    });
+                    .catch(_.partial(MessageManager.raiseError, 'save', 'flight'));
             } else {
                 new Flights(flightDetails).$save()
-                    .then(reloadFlights)
                     .then($scope.cancel)
-                    .catch(_.partial(MessageManager.raiseError, 'insert', 'flight'))
-                    .finally(function () {
-                        $scope.busyLoadingFlight = false;
-                    });
+                    .catch(_.partial(MessageManager.raiseError, 'insert', 'flight'));
             }
         };
 
@@ -728,6 +679,10 @@ export default class FlightsController {
         $scope.copyLastCounterToStartOperatingCounter = () => {
             $scope.flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds = $scope.operatingCounters.EngineOperatingCounterInSeconds;
             $scope.engineSecondsCountersChanged();
+        };
+
+        $scope.editFlight = function (flight) {
+            $location.path('/flights/' + flight.FlightId);
         };
     }
 }
