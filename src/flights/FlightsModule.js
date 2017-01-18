@@ -6,7 +6,6 @@ import personsModule from '../masterdata/persons/PersonsModule';
 import GliderFormDirective from './GliderFormDirective';
 import TowFormDirective from './TowFormDirective';
 import FlightStatusDirective from './FlightStatusDirective';
-import FlightEditFormDirective from './FlightEditFormDirective';
 import flightTypesModule from '../masterdata/flightTypes/FlightTypesModule';
 import {userAuth} from '../core/AuthService';
 import uiBootstrap from 'angular-ui-bootstrap';
@@ -26,7 +25,6 @@ export default angular.module('fls.flights', [
     .controller('FlightsController', FlightsController)
     .directive('flsFlightEditGliderForm', GliderFormDirective.factory)
     .directive('flsFlightEditTowForm', TowFormDirective.factory)
-    .directive('flsFlightEditForm', FlightEditFormDirective.factory)
     .directive('flsFlightStatus', FlightStatusDirective.factory)
     .service('FlightCostBalanceTypes', FlightsServices.FlightCostBalanceTypes)
     .service('Flights', FlightsServices.Flights)
@@ -46,7 +44,7 @@ export default angular.module('fls.flights', [
             .when('/flights/:id',
                 {
                     controller: FlightsController,
-                    template: require('./flight-edit.html'),
+                    template: require('./flight-edit-form.html'),
                     publicAccess: true,
                     resolve: {
                         user: userAuth

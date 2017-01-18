@@ -13,6 +13,8 @@ export default class FlightsController {
         $scope.debug = GLOBALS.DEBUG;
         $scope.showChart = false;
         var format = 'HH:mm';
+        $scope.gliderImg = require('../images/glider.png');
+        $scope.towPlaneImg = require('../images/towplane.png');
 
         $scope.starttypes = [];
         $scope.locations = [];
@@ -684,5 +686,6 @@ export default class FlightsController {
         $scope.editFlight = function (flight) {
             $location.path('/flights/' + flight.FlightId);
         };
+
     }
 }
