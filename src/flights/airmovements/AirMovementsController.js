@@ -7,7 +7,7 @@ export default class AirMovementsController {
 
     constructor($scope, $q, $timeout, TimeService, DropdownItemsRenderService, $log, $modal, MessageManager,
                 AirMovements, AirMovementsDateRange, CounterUnitTypes,
-                Locations, Persons, PersonPersister, PassengerPersister, Aircrafts, FlightTypes,
+                Locations, Persons, PersonsV2, PersonPersister, PassengerPersister, Aircrafts, FlightTypes,
                 SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters) {
         this.format = 'HH:mm';
         this.TimeService = TimeService;
@@ -187,7 +187,7 @@ export default class AirMovementsController {
         function loadMasterdata() {
             if (!masterDataLoaded) {
                 let promises = [];
-                promises.push(Persons.getAllPersons().$promise.then((result) => {
+                promises.push(PersonsV2.getAllPersons().$promise.then((result) => {
                     angular.copy(result, $scope.allPersons);
                 }));
                 promises.push(Persons.getMotorPilots().$promise.then((result) => {

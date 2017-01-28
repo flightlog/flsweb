@@ -1,5 +1,5 @@
 export default class PersonsEditController {
-    constructor($scope, GLOBALS, $q, $location, $routeParams, $window, AuthService, Persons, PersonService,
+    constructor($scope, GLOBALS, $q, $location, $routeParams, $window, AuthService, Persons, PersonsV2, PersonService,
                 PersonPersister, MessageManager, Countries, MemberStates) {
 
         $scope.debug = GLOBALS.DEBUG;
@@ -61,7 +61,7 @@ export default class PersonsEditController {
                     $scope.busy = false;
                 });
         } else {
-            Persons.getAllPersons().$promise.then(function (result) {
+            PersonsV2.getAllPersons().$promise.then(function (result) {
                 $scope.persons = result;
                 $scope.busy = false;
             });
