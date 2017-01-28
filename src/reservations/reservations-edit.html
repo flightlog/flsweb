@@ -1,63 +1,62 @@
 <div class="container flscontainer">
-    <div class="col-md-12">
-        <fls-busy-indicator busy="busy"
-                            error="error">
-            <div class="row col-md-12"
-                 ng-show="error"
-                 style="position:absolute;left:0;height:600px;z-index:9999;background-color: rgba(255,255,255,0.7);">
+    <fls-busy-indicator busy="busy"
+                        error="error">
+        <div class="col-md-12"
+             ng-show="error"
+             style="position:absolute;left:0;height:600px;z-index:9999;background-color: rgba(255,255,255,0.7);">
                 <pre class="col-md-12"
                      ng-bind="error"></pre>
+        </div>
+        <form role="form"
+              ng-submit="save(reservation)"
+              class="css-form"
+              ng-class="{'readonly-form':!reservation.CanUpdateRecord}"
+              name="reservationForm">
+            <div class="form-group input-append col-md-3 flsdatepicker">
+                <label for="start"
+                       translate="DATE">Date:</label>
+                <fls-date-picker ng-model="reservation.Start"
+                                 ng-disabled="!reservation.CanUpdateRecord"
+                                 required></fls-date-picker>
             </div>
-            <form role="form"
-                  ng-submit="save(reservation)"
-                  class="row css-form"
-                  ng-class="{'readonly-form':!reservation.CanUpdateRecord}"
-                  name="reservationForm">
-                <div class="form-group input-append col-md-3 flsdatepicker">
-                    <label for="start"
-                           translate="DATE">Date:</label>
-                    <fls-date-picker ng-model="reservation.Start"
-                                     ng-disabled="!reservation.CanUpdateRecord"
-                                     required></fls-date-picker>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="allday"
-                           translate="ALL_DAY">All Day Reservation</label><br>
-                    <input type="checkbox"
-                           id="allday"
-                           ng-model="reservation.IsAllDayReservation"
-                           ng-disabled="!reservation.CanUpdateRecord">
-                </div>
-                <div class="control-group input-append col-md-3"
-                     ng-show="!reservation.IsAllDayReservation">
-                    <label for="start"
-                           translate="START">Start Time:</label>
-                    <input fls-time-input
-                           type="text"
-                           class="form-control"
-                           id="start"
-                           ng-model="reservation._start"
-                           ng-disabled="!reservation.CanUpdateRecord">
-                </div>
-                <div class="control-group input-append col-md-3"
-                     ng-show="!reservation.IsAllDayReservation">
-                    <label for="End"
-                           translate="END">End time:</label>
-                    <input fls-time-input
-                           type="text"
-                           class="form-control"
-                           id="End"
-                           ng-model="reservation.End"
-                           ng-disabled="!reservation.CanUpdateRecord">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="resType"><span translate="RESERVATION_TYPE">Reservation Type</span>:*</label>
+            <div class="form-group col-md-3">
+                <label for="allday"
+                       translate="ALL_DAY">All Day Reservation</label><br>
+                <input type="checkbox"
+                       id="allday"
+                       ng-model="reservation.IsAllDayReservation"
+                       ng-disabled="!reservation.CanUpdateRecord">
+            </div>
+            <div class="control-group input-append col-md-3"
+                 ng-show="!reservation.IsAllDayReservation">
+                <label for="start"
+                       translate="START">Start Time:</label>
+                <input fls-time-input
+                       type="text"
+                       class="form-control"
+                       id="start"
+                       ng-model="reservation._start"
+                       ng-disabled="!reservation.CanUpdateRecord">
+            </div>
+            <div class="control-group input-append col-md-3"
+                 ng-show="!reservation.IsAllDayReservation">
+                <label for="End"
+                       translate="END">End time:</label>
+                <input fls-time-input
+                       type="text"
+                       class="form-control"
+                       id="End"
+                       ng-model="reservation.End"
+                       ng-disabled="!reservation.CanUpdateRecord">
+            </div>
+            <div class="form-group col-md-12">
+                <label for="resType"><span translate="RESERVATION_TYPE">Reservation Type</span>:*</label>
 
-                    <selectize id="resType"
-                               name="ReservationTypeId"
-                               options="reservationTypes"
-                               ng-disabled="!reservation.CanUpdateRecord"
-                               config="{
+                <selectize id="resType"
+                           name="ReservationTypeId"
+                           options="reservationTypes"
+                           ng-disabled="!reservation.CanUpdateRecord"
+                           config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'AircraftReservationTypeId',
@@ -65,52 +64,52 @@
                                 searchField: ['AircraftReservationTypeName'],
                                 onChange: calculateInstructorRequired
                             }"
-                               ng-model="reservation.ReservationTypeId"
-                               required></selectize>
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="Pilot"><span translate="PILOT">Pilot</span>:*</label>
+                           ng-model="reservation.ReservationTypeId"
+                           required></selectize>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="Pilot"><span translate="PILOT">Pilot</span>:*</label>
 
-                    <selectize id="Pilot"
-                               name="Pilot"
-                               options="gliderPilots"
-                               ng-disabled="!reservation.CanUpdateRecord"
-                               config="{
+                <selectize id="Pilot"
+                           name="Pilot"
+                           options="gliderPilots"
+                           ng-disabled="!reservation.CanUpdateRecord"
+                           config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
                                 render: renderPerson
                             }"
-                               ng-model="reservation.PilotPersonId"
-                               required></selectize>
-                </div>
-                <div class="form-group col-md-12"
-                     ng-if="instructorRequired">
-                    <label for="Instructor"><span translate="INSTRUCTOR">Instructor</span>:*</label>
+                           ng-model="reservation.PilotPersonId"
+                           required></selectize>
+            </div>
+            <div class="form-group col-md-12"
+                 ng-if="instructorRequired">
+                <label for="Instructor"><span translate="INSTRUCTOR">Instructor</span>:*</label>
 
-                    <selectize id="Instructor"
-                               name="Instructor"
-                               options="instructors"
-                               ng-disabled="!reservation.CanUpdateRecord"
-                               config="{
+                <selectize id="Instructor"
+                           name="Instructor"
+                           options="instructors"
+                           ng-disabled="!reservation.CanUpdateRecord"
+                           config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
                                 render: renderPerson
                             }"
-                               ng-model="reservation.InstructorPersonId"
-                               required></selectize>
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="Aircraft"><span translate="AIRCRAFT">Aircraft</span>:*</label>
+                           ng-model="reservation.InstructorPersonId"
+                           required></selectize>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="Aircraft"><span translate="AIRCRAFT">Aircraft</span>:*</label>
 
-                    <selectize id="Aircraft"
-                               name="Aircraft"
-                               options="aircrafts"
-                               ng-disabled="!reservation.CanUpdateRecord"
-                               config="{
+                <selectize id="Aircraft"
+                           name="Aircraft"
+                           options="aircrafts"
+                           ng-disabled="!reservation.CanUpdateRecord"
+                           config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'AircraftId',
@@ -118,67 +117,66 @@
                                 searchField: ['Immatriculation', 'CompetitionSign', 'AircraftModel'],
                                 render: renderAircraft
                             }"
-                               ng-model="reservation.AircraftId"
-                               required></selectize>
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="Location"><span translate="LOCATION"></span>:*</label>
+                           ng-model="reservation.AircraftId"
+                           required></selectize>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="Location"><span translate="LOCATION"></span>:*</label>
 
-                    <selectize id="Location"
-                               name="Location"
-                               options="locations"
-                               ng-disabled="!reservation.CanUpdateRecord"
-                               config="{
+                <selectize id="Location"
+                           name="Location"
+                           options="locations"
+                           ng-disabled="!reservation.CanUpdateRecord"
+                           config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationId',
                                 searchField: ['LocationName', 'IcaoCode'],
                                 render: renderLocation
                             }"
-                               ng-model="reservation.LocationId"
-                               required></selectize>
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="remarks"
-                           translate="REMARKS">Remarks:</label>
-                    <input type="text"
-                           class="form-control"
-                           id="remarks"
-                           ng-model="reservation.Remarks"
-                           ng-disabled="!reservation.CanUpdateRecord">
-                </div>
-                <div class="form-group col-md-12">
-                    <button type="button"
-                            ng-click="cancel()"
-                            class="btn btn-default pull-right"
-                            translate="CANCEL">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                            class="btn btn-default pull-right"
-                            ng-disabled="reservationForm.$invalid || !reservation.CanUpdateRecord"
-                            translate="SAVE"
-                            style="margin-right:10px;">Save
-                    </button>
-                    <button type="button"
-                            ng-click="edit(reservation)"
-                            class="btn btn-default pull-right"
-                            ng-show="editAllowed && !reservation.CanUpdateRecord"
-                            style="margin-right:10px;"><span class="fa fa-pencil"></span> Edit
-                    </button>
-                </div>
-            </form>
-        </fls-busy-indicator>
-        <pre ng-show="debug"
-             ng-bind="reservation | json"
-             style="margin-top:20px;"></pre>
-        <pre class="col-md-6"
-             ng-show="debug"
-             ng-bind="locations | json"
-             style="margin-top:20px;"></pre>
-        <pre class="col-md-6"
-             ng-show="debug"
-             ng-bind="gliderPilots | json"
-             style="margin-top:20px;"></pre>
-    </div>
+                           ng-model="reservation.LocationId"
+                           required></selectize>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="remarks"
+                       translate="REMARKS">Remarks:</label>
+                <input type="text"
+                       class="form-control"
+                       id="remarks"
+                       ng-model="reservation.Remarks"
+                       ng-disabled="!reservation.CanUpdateRecord">
+            </div>
+            <div class="form-group col-md-12">
+                <button type="button"
+                        ng-click="cancel()"
+                        class="btn btn-default pull-right"
+                        translate="CANCEL">
+                    Cancel
+                </button>
+                <button type="submit"
+                        class="btn btn-default pull-right"
+                        ng-disabled="reservationForm.$invalid || !reservation.CanUpdateRecord"
+                        translate="SAVE"
+                        style="margin-right:10px;">Save
+                </button>
+                <button type="button"
+                        ng-click="edit(reservation)"
+                        class="btn btn-default pull-right"
+                        ng-show="editAllowed && !reservation.CanUpdateRecord"
+                        style="margin-right:10px;"><span class="fa fa-pencil"></span> Edit
+                </button>
+            </div>
+        </form>
+    </fls-busy-indicator>
+    <pre ng-show="debug"
+         ng-bind="reservation | json"
+         style="margin-top:20px;"></pre>
+    <pre class="col-md-6"
+         ng-show="debug"
+         ng-bind="locations | json"
+         style="margin-top:20px;"></pre>
+    <pre class="col-md-6"
+         ng-show="debug"
+         ng-bind="gliderPilots | json"
+         style="margin-top:20px;"></pre>
 </div>

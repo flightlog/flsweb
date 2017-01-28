@@ -10,6 +10,7 @@ export default class AirMovementsController {
                 Locations, Persons, PersonsV2, PersonPersister, PassengerPersister, Aircrafts, FlightTypes,
                 SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters) {
         const format = 'HH:mm';
+        $scope.towPlaneImg = require('../../images/towplane.png');
         $scope.busy = true;
         $scope.debug = GLOBALS && GLOBALS.DEBUG;
         $scope.showChart = false;
