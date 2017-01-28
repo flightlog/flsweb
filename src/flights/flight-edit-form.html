@@ -8,7 +8,7 @@
               class="css-form"
               ng-class="{'readonly-form':!flightDetails.CanUpdateRecord}">
 
-            <pre ng-if="flightDetailsForm.$invalid" style="color:red;">Form Invalid! {{flightDetailsForm.$error | json}}</pre>
+            <pre ng-if="flightDetailsForm.$invalid && debug" style="color:red;">Form Invalid! {{flightDetailsForm.$error | json}}</pre>
 
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group col-md-12 col-sm-12 col-xs-12"

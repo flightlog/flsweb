@@ -1,6 +1,6 @@
 export default class ProfileController {
-    constructor($scope, $window, Persons, Countries, AuthService, MessageManager, $http, PersonPersister,
-                MemberStates, TimeService, GLOBALS) {
+    constructor($scope, $window, Countries, AuthService, MessageManager, $http, PersonPersister,
+                MemberStates, GLOBALS) {
         $scope.busy = true;
         $scope.masterdata = {};
 
@@ -38,10 +38,11 @@ export default class ProfileController {
             }
         };
 
+
         $scope.myUser = AuthService.getUser();
-        Persons.getMyPerson().$promise
+        $http.get(GLOBALS.BASE_URL + '/api/v1/persons/my')
             .then((person) => {
-                $scope.person = person;
+                $scope.person = person.data;
             })
             .then(Countries.query)
             .then((result) => {
