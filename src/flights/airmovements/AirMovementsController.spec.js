@@ -1,8 +1,8 @@
 import AirMovementsController from "./AirMovementsController";
 import airMovementsModule from "./AirMovementsModule";
 import TimeService from "../../core/TimeService";
+import AuthService from "../../core/AuthService";
 import DropdownItemsRenderService from "../../core/DropdownItemsRenderService";
-import moment from "moment";
 
 describe('AirMovementsController', () => {
     let $scope;
@@ -28,7 +28,7 @@ describe('AirMovementsController', () => {
     it('should reset block end time if negative', () => {
         // arrange
         $scope = scope();
-        new AirMovementsController($scope, q(), timeout(), timeService(), renderer());
+        new AirMovementsController($scope, q(), timeout(), timeService(), renderer(), authService());
         $scope.operatingCounters = {
             EngineOperatingCounterUnitTypeKeyName: "Min"
         };
@@ -50,7 +50,7 @@ describe('AirMovementsController', () => {
     it('should calculate block duration for high counter states', () => {
         // arrange
         $scope = scope();
-        new AirMovementsController($scope, q(), timeout(), timeService(), renderer());
+        new AirMovementsController($scope, q(), timeout(), timeService(), renderer(), authService());
         $scope.operatingCounters = {
             EngineOperatingCounterUnitTypeKeyName: "Min"
         };
@@ -97,6 +97,16 @@ describe('AirMovementsController', () => {
 
     function renderer() {
         return new DropdownItemsRenderService();
+    }
+
+    function authService() {
+        return new AuthService({
+            defaults: {headers: {common: {}}}
+        }, {}, {}, {}, {
+            $default: ()=> {
+                return {loginResult: {}};
+            }
+        }, {});
     }
 
 });

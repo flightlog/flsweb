@@ -31,15 +31,15 @@
                             <a ng-show="isClubAdmin"
                                title="{{'DELETE' | translate}}"
                                ng-click="delete(flight); $event.stopPropagation();"
-                               class="col-xs-4 delete-link">
+                               class="col-xs-4 control-icon delete-link">
                                 <span class="fa fa-trash-o"></span>
                             </a>
                             <a title="{{'COPY' | translate}}"
                                ng-click="new(flight)"
-                               class="col-md-4 delete-link">
+                               class="col-md-4 control-icon">
                                 <span class="fa fa-files-o"></span>
                             </a>
-                            <fls-history class="col-md-4" entity-name="Flight" entity-id="flight.FlightId"></fls-history>
+                            <fls-history entity-name="Flight" entity-id="flight.FlightId"></fls-history>
                         </td>
                     </tr>
                 </table>

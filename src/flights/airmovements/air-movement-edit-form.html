@@ -1,10 +1,15 @@
-<fls-busy-indicator busy="busyLoadingFlight"
-                    error="error">
+<div class="container flscontainer" style="background-color: #f1f1f1; border: 1px solid #e0e0e0">
+    <fls-message-bar></fls-message-bar>
+    <fls-busy-indicator busy="busy"
+                        error="error">
     <form role="form"
           ng-submit="save(flightDetails)"
           name="flightDetailsForm"
           class="row css-form"
           ng-class="{'readonly-form':!flightDetails.CanUpdateRecord}">
+
+        <pre ng-if="flightDetailsForm.$invalid" style="color:red;">Form Invalid! {{flightDetailsForm.$error | json}}</pre>
+
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="form-group col-md-12 col-sm-12 col-xs-12"
@@ -359,12 +364,6 @@
                             ng-disabled="!flightDetails.CanDeleteRecord">
                         Delete
                     </button>
-                    <button type="button"
-                            ng-click="reloadMasterdata()"
-                            class="btn btn-default pull-right"
-                            style="margin-right:10px;"
-                            ng-disabled="loadingMasterdata"
-                            translate="RELOAD_MASTERDATA"></button>
 
                     <div ng-show="loadingMasterdata"
                          style="margin-right:10px;margin-top:0.5em;"
@@ -379,3 +378,4 @@
              ng-bind="selectedFlightType | json"></pre>
     </form>
 </fls-busy-indicator>
+</div>

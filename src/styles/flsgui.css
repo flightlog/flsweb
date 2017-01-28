@@ -189,7 +189,7 @@ h3.masterdata-widget {
 }
 
 td.controls-column {
-    width: 130px;
+    width: 150px;
 }
 
 .form-group {
@@ -294,8 +294,7 @@ td.immatriculation {
     background-color: #738fa8;
 }
 
-.fls-table-with-details tr:hover .delete-link,
-.fls-table-with-details tr:hover .history-link,
+.fls-table-with-details tr:hover .control-icon,
 .fls-table-with-details tr:hover td {
     color: white;
 }
@@ -308,24 +307,25 @@ td.immatriculation {
     font-family: 'FontAwesome';
     content: "\f054";
     float: right;
+    font-size: 16px;
+    margin: 5px;
 }
 
-.fls-table-with-details tr:hover .delete-link:hover,
-.fls-table-with-details tr:hover .history-link:hover {
+.fls-table-with-details tr:hover .control-icon:hover {
     color: #00deff;
 }
 
-.delete-link {
-    margin: 0;
-    padding: 0 10px;
+.fls-table-with-details tr:hover .delete-link:hover {
     color: #a70000;
-    font-weight: 500;
 }
 
-.history-link {
-    margin: 0;
-    padding: 0 10px;
+.control-icon {
     color: #767676;
+    padding: 0;
+}
+.control-icon span {
+    margin: 5px;
+    font-size: 16px;
 }
 
 @media print {

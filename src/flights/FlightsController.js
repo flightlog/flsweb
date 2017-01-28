@@ -4,7 +4,7 @@ import AddPersonController from "../masterdata/persons/modal/AddPersonController
 
 export default class FlightsController {
     constructor($scope, $q, $log, $modal, $timeout, MessageManager, $location, $routeParams,
-                TimeService, Flights, NgTableParams, PagedFlights,
+                TimeService, Flights, NgTableParams, PagedFlights, AuthService,
                 FlightTypes, Locations, Persons, PersonsV2, PersonPersister, PassengerPersister,
                 Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes,
                 SoloFlightCheckboxEnablementCalculator, Clubs, AircraftOperatingCounters, DropdownItemsRenderService) {
@@ -15,6 +15,7 @@ export default class FlightsController {
         var format = 'HH:mm';
         $scope.gliderImg = require('../images/glider.png');
         $scope.towPlaneImg = require('../images/towplane.png');
+        $scope.isClubAdmin = AuthService.isClubAdmin();
 
         $scope.starttypes = [];
         $scope.locations = [];
@@ -37,12 +38,12 @@ export default class FlightsController {
         $scope.renderAircraft = DropdownItemsRenderService.aircraftRenderer();
         $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
 
-        var today = moment();
+        let today = moment();
 
         $scope.filterDates.fromDate = today;
         $scope.filterDates.toDate = today;
 
-        $scope.loadAllTime = function () {
+        $scope.loadAllTime = () => {
             $scope.filterDates.fromDate = '';
             $scope.filterDates.toDate = today;
             reloadFlights();
@@ -57,18 +58,18 @@ export default class FlightsController {
             $scope.filterDates.toDate = moment().startOf('month').subtract(num - 1, 'months');
             reloadFlights();
         };
-        $scope.loadToday = function () {
+        $scope.loadToday = () => {
             $scope.filterDates.fromDate = today;
             $scope.filterDates.toDate = today;
             reloadFlights();
         };
-        $scope.loadYesterday = function () {
+        $scope.loadYesterday = () => {
             $scope.filterDates.fromDate = moment().subtract(1, 'days');
             $scope.filterDates.toDate = $scope.filterDates.fromDate;
             reloadFlights();
         };
 
-        $scope.reloadList = function () {
+        $scope.reloadList = () => {
             reloadFlights();
         };
 

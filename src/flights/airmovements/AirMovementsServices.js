@@ -1,13 +1,3 @@
-export class AirMovementsDateRange {
-    constructor($resource, GLOBALS) {
-        return $resource(GLOBALS.BASE_URL + '/api/v1/flights/motorflights/daterange/:from/:to', null, {
-            getFlights: {
-                method: 'GET',
-                isArray: true
-            }
-        });
-    }
-}
 
 export class AirMovements {
     constructor($resource, GLOBALS) {
