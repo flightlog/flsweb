@@ -1,4 +1,6 @@
 <div class="container-fluid flscontainer">
+    <button type="button" ng-click="new(false)" class="btn btn-default pull-right hidden-print" translate="NEW" style="margin-top: -10px;">
+    </button>
     <div>
         <h1 translate="FLIGHTS"></h1>
     </div>
@@ -42,9 +44,6 @@
                     </tr>
                 </table>
 
-                <button type="button" ng-click="new(false)" class="btn btn-default pull-right hidden-print" translate="NEW"
-                        style="margin-top:10px;">
-                </button>
                 <div class="row col-md-12 col-sm-12 col-xs-12" ng-show="debug">
                     <div class="col-md-6">
                         <h2>gliderFlightTypes</h2>

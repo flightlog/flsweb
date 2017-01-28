@@ -106,7 +106,7 @@ export default class FlightsController {
                 .then(() => {
                     if ($routeParams.id === 'new') {
                         $scope.newFlight = {};
-                        $scope.select($scope.newFlight);
+                        selectFlight($scope.newFlight);
                     } else {
                         selectFlight({FlightId: $routeParams.id});
                     }
