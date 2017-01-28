@@ -1,12 +1,5 @@
-<div class="container-fluid flscontainer">
-        <h1 translate="RESERVATIONS"></h1>
-    <fls-message-bar ng-show="!busy"></fls-message-bar>
-    <fls-busy-indicator busy="busy" error="error">
-        <fls-reservations-table class="col-xs-12"></fls-reservations-table>
-    </fls-busy-indicator>
-    <div class="hidden-print">
-        <button type="button" class="btn btn-default pull-right" style="margin:10px;margin-right:0;" ng-click="new()"
-                translate="NEW">New
-        </button>
-    </div>
-</div>
+<fls-data-table busy="busy"
+                title="RESERVATIONS"
+                on-new-click="new">
+    <fls-reservations-table class="col-xs-12"></fls-reservations-table>
+</fls-data-table>

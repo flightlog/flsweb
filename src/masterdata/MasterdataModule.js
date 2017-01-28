@@ -7,8 +7,10 @@ import flightTypesModule from './flightTypes/FlightTypesModule';
 import usersModule from './users/UsersModule';
 import memberStatesModule from './memberStates/MemberStatesModule';
 import accountingRuleFiltersModule from './accountingRules/AccountingRuleFiltersModule';
+import 'ng-table';
 
 export default angular.module('fls.masterdata', [
+    'ngTable',
     personsModule.name,
     clubsModule.name,
     locationsModule.name,

@@ -1,80 +1,56 @@
-<search-bar search-string="searchString"></search-bar>
-<table class="fls" ng-show="!busy && !error">
-            <tr class="visible-md visible-lg">
-                <th translate="DATE" class="visible-md visible-lg">Date</th>
-                <th translate="START" class="visible-md visible-lg">Start</th>
-                <th translate="END" class="visible-md visible-lg">End</th>
-                <th translate="LOCATION">Location</th>
-                <th translate="IMMATRICULATION">Immatriculation</th>
-                <th translate="PILOT_NAME" class="visible-md visible-lg">Pilot Name</th>
-                <th translate="INSTRUCTOR_NAME" class="visible-md visible-lg">Instructor Name</th>
-                <th translate="RESERVATION_TYPE">Reservation Type</th>
-                <th translate="REMARKS">Remarks</th>
-                <th class="hidden-print">&nbsp;</th>
-            </tr>
-            <tr class="hidden-md hidden-lg">
-                <th class="hidden-md hidden-lg">
-                    <span translate="DATE">Date</span><br>
-                    <span translate="START">Start</span><br>
-                    <span translate="END">End</span>
-                    <span translate="LOCATION">Location</span>
-                </th>
-                <th>Immatr.</th>
-                <th class="hidden-md hidden-lg">
-                    <span translate="RESERVATION_TYPE">Reservation Type</span> <br>
-                    <span translate="PILOT_NAME">Pilot Name</span><br>
-                    <span translate="INSTRUCTOR_NAME">Instructor Name</span>
-                </th>
-            </tr>
-            <tr ng-repeat-start="reservation in reservations | filter:searchString" class="visible-md visible-lg">
-                <td ng-click="showReservationDetails(reservation)" style="cursor:pointer;" ng-bind="reservation.Start | date:'dd.MM.yyyy'"
-                   ></td>
-                <td ng-click="showReservationDetails(reservation)" style="cursor:pointer;" ng-show="!reservation.IsAllDayReservation"
-                    ng-bind="reservation.Start | date:'HH:mm'"
-                   ></td>
-                <td ng-click="showReservationDetails(reservation)" style="cursor:pointer;" ng-show="!reservation.IsAllDayReservation"
-                    ng-bind="reservation.End | date:'HH:mm'"
-                   ></td>
-                <td ng-click="showReservationDetails(reservation)" style="cursor:pointer;" ng-show="reservation.IsAllDayReservation"
-                    translate="ALL_DAY" colspan="2"></td>
-                <td ng-click="showReservationDetails(reservation)" style="cursor:pointer;" ng-bind="reservation.LocationName"></td>
-                <td ng-click="showReservationDetails(reservation)" style="cursor:pointer;" ng-bind="reservation.Immatriculation"></td>
-                <td ng-click="showReservationDetails(reservation)" style="cursor:pointer;" ng-bind="reservation.PilotName"
-                   ></td>
-                <td ng-click="showReservationDetails(reservation)" style="cursor:pointer;" ng-bind="reservation.InstructorName"
-                   ></td>
-                <td ng-click="showReservationDetails(reservation)" style="cursor:pointer;" ng-bind="reservation.ReservationTypeName"></td>
-                <td ng-click="showReservationDetails(reservation)" style="cursor:pointer;" ng-bind="reservation.Remarks"></td>
-                <td class="hidden-print controls-column">
-                    <a title="{{'EDIT' | translate}}" ng-click="editReservation(reservation)" style="cursor:pointer;" class="visible-md visible-lg col-md-4"><span class="fa fa-pencil"
-                                                                                                                         style="color:#111123;font-weight: 500;"></span></a>
-                    <a title="{{'DELETE' | translate}}" ng-click="deleteReservation(reservation)" style="cursor:pointer;" class="col-md-4"><span class="fa fa-trash-o"
-                                                                                                     style="color:#a70000;font-weight: 500;"></span></a>
-                    <fls-history entity-name="AircraftReservation" entity-id="reservation.AircraftReservationId" class="col-xs-4"></fls-history>
-                </td>
-            </tr>
-            <tr ng-click="showReservationDetails(reservation)"  style="cursor:pointer;" class="hidden-md hidden-lg">
-                <td>
-                    <span
-                          ng-bind="reservation.Start | date:'dd.MM.yyyy'"></span><br>
-                    <span
-                          ng-bind="reservation.Start | date:'HH:mm'"
-                          ng-show="!reservation.IsAllDayReservation"></span><br>
-                    <span
-                          ng-bind="reservation.End | date:'HH:mm'" ng-show="!reservation.IsAllDayReservation"></span>
-                    <span
-                          translate="ALL_DAY" ng-show="reservation.IsAllDayReservation"></span>
-                </td>
-                <td ng-bind="reservation.Immatriculation"></td>
-                <td>
-                    <span ng-bind="reservation.ReservationTypeName"></span><br>
-                    <span
-                          ng-bind="reservation.PilotName"></span><br>
-                    <span
-                          ng-bind="reservation.InstructorName"></span>
-                </td>
-            </tr>
-            <tr ng-repeat-end ng-click="edit(reservation)" style="cursor:pointer;" class="hidden-md hidden-lg last-line">
-                <td colspan="3"><span ng-bind="reservation.Remarks"></span>&nbsp;</td>
-            </tr>
-        </table>
+<table ng-table="tableParams"
+       class="fls fls-table-with-details"
+       show-filter="true"
+       ng-show="!busy && !error">
+    <tr ng-repeat="reservation in $data"
+        ng-click="showReservationDetails(reservation)"
+        title="{{'EDIT' | translate}}">
+        <td ng-bind="reservation.Start | date:'dd.MM.yyyy'"
+            data-title="'DATE' | translate"
+            filter="{ Start: 'text'}"
+            sortable="'Start'"></td>
+        <td ng-bind="reservation.Start | date:'HH:mm'"
+            data-title="'START' | translate"
+            filter="{ Start: 'text'}"
+            sortable="'Start'"></td>
+        <td ng-bind="reservation.End | date:'HH:mm'"
+            data-title="'END' | translate"
+            filter="{ End: 'text'}"
+            sortable="'End'"></td>
+        <td ng-bind="reservation.LocationName"
+            data-title="'LOCATION' | translate"
+            filter="{ LocationName: 'text'}"
+            sortable="'LocationName'"></td>
+        <td ng-bind="reservation.Immatriculation"
+            data-title="'IMMATRICULATION' | translate"
+            filter="{ Immatriculation: 'text'}"
+            sortable="'Immatriculation'"></td>
+        <td ng-bind="reservation.PilotName"
+            data-title="'PILOT_NAME' | translate"
+            filter="{ PilotName: 'text'}"
+            sortable="'PilotName'"></td>
+        <td ng-bind="reservation.InstructorName"
+            data-title="'INSTRUCTOR_NAME' | translate"
+            filter="{ InstructorName: 'text'}"
+            sortable="'InstructorName'"></td>
+        <td ng-bind="reservation.ReservationTypeName"
+            data-title="'RESERVATION_TYPE' | translate"
+            filter="{ ReservationTypeName: 'text'}"
+            sortable="'ReservationTypeName'"></td>
+        <td ng-bind="reservation.Remarks"
+            data-title="'REMARKS' | translate"
+            filter="{ Remarks: 'text'}"
+            sortable="'Remarks'"></td>
+        <td class="hidden-print controls-column">
+            <a ng-show="isReservationAdmin"
+               title="{{'DELETE' | translate}}"
+               ng-click="deleteReservation(reservation, $event); $event.stopPropagation();"
+               class="col-xs-4 delete-link">
+                <span class="fa fa-trash-o"></span>
+            </a>
+            <fls-history entity-name="AircraftReservation"
+                         entity-id="reservation.AircraftReservationId"
+                         class="col-xs-4"></fls-history>
+        </td>
+    </tr>
+</table>

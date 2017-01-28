@@ -18,6 +18,7 @@ export default angular.module('fls.masterdata.persons', [
     .service('PersonPersister', PersonsServices.PersonPersister)
     .service('Persons', PersonsServices.Persons)
     .service('PagedPersons', PersonsServices.PagedPersons)
+    .service('PersonsV2', PersonsServices.PersonsV2)
     .service('PersonService', PersonsServices.PersonService)
     .directive('flsPersons', PersonsEditDirective.factory)
     .directive('flsPersonForm', PersonFormDirective.factory)

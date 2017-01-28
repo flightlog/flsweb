@@ -18,6 +18,21 @@ export class PagedPersons {
     }
 }
 
+export class PersonsV2 {
+    constructor($resource, GLOBALS) {
+        return $resource(GLOBALS.BASE_URL + '/api/v1/persons/listitems/:clubonly', null, {
+            getAllPersons: {
+                method: 'GET',
+                isArray: true,
+                cache: false,
+                params: {
+                    clubonly: true
+                }
+            }
+        });
+    }
+}
+
 export class Persons {
     constructor($resource, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/persons/:dest/listitems/:clubonly', null, {
