@@ -16,13 +16,13 @@ export default class PlanningDaysController {
         }, {
             counts: [],
             getData: function (params) {
+                $scope.busy = true;
                 let pageSize = params.count();
                 let pageStart = (params.page() - 1) * pageSize;
-                $scope.loadingTable = true;
 
                 return PagedPlanningDays.getPlanningDays($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                     .then((res) => {
-                        $scope.loadingTable = false;
+                        $scope.busy = false;
                         params.total(res.TotalRows);
 
                         let result = res.Items;
@@ -35,6 +35,9 @@ export default class PlanningDaysController {
                         }
 
                         return result;
+                    })
+                    .finally(() => {
+                        $scope.busy = false;
                     });
             }
         });

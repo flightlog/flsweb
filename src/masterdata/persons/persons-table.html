@@ -10,7 +10,7 @@
                     ng-click="resetRequiredFlagsFilters()"></button>
         </div>
     </section>
-    <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true" ng-show="!busy && !error">
+    <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true">
         <tr ng-repeat="person in $data" ng-click="editPerson(person)" title="{{'EDIT' | translate}}">
             <td ng-bind="person.Firstname" data-title="'FIRST_NAME' | translate" filter="{ Firstname: 'text'}" sortable="'Firstname'"></td>
             <td ng-bind="person.Lastname" data-title="'LAST_NAME' | translate" filter="{ Lastname: 'text'}" sortable="'Lastname'"></td>

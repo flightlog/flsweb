@@ -9,7 +9,7 @@
             <fls-busy-indicator busy="busy" error="error">
                 <fls-message-bar></fls-message-bar>
 
-                <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true" ng-show="!busy && !error">
+                <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true">
                     <tr ng-repeat="flight in $data" ng-click="editFlight(flight)" title="{{'EDIT' | translate}}">
                         <td data-title="'STATUS' | translate" filter="{ _combinedAirState: 'text'}" sortable="'_combinedAirState'">
                             <fls-flight-status flight="flight"></fls-flight-status>

@@ -6,7 +6,7 @@ export default class AircraftsEditController {
                 Aircraft, AircraftTypes, CounterUnitTypes, Clubs, Persons, MessageManager, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
-        $scope.busy = true;
+        $scope.busy = false;
         $scope.isClubAdmin = AuthService.isClubAdmin();
 
         $scope.renderAircraftType = DropdownItemsRenderService.aircrafttypeRenderer();
@@ -69,7 +69,6 @@ export default class AircraftsEditController {
                     $scope.busy = false;
                 });
         } else {
-            $scope.busy = false;
             $scope.tableParams = new NgTableParams({
                 filter: {},
                 sorting: {
@@ -78,7 +77,8 @@ export default class AircraftsEditController {
                 count: 100
             }, {
                 counts:[],
-                getData: function(params) {
+                getData: (params) => {
+                    $scope.busy = true;
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
 
@@ -87,6 +87,9 @@ export default class AircraftsEditController {
                             params.total(result.TotalRows);
 
                             return result.Items;
+                        })
+                        .finally(() => {
+                            $scope.busy = false;
                         });
                 }
             });

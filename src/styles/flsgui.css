@@ -337,3 +337,29 @@ td.immatriculation {
         display: none;
     }
 }
+
+.busy-indicator-backdrop {
+    position: absolute;
+    margin-top: 105px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.cssload-loader {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+    background-color: #9d98b1;
+    border-color: #9d98b1;
+}

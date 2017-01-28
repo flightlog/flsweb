@@ -1,5 +1,5 @@
 <div class="col-xs-12">
-    <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true" ng-show="!busy && !error">
+    <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true">
         <tr ng-repeat="aircraft in $data" ng-click="editAircraft(aircraft)" title="{{'EDIT' | translate}}">
             <td ng-bind="aircraft.Immatriculation" data-title="'IMMATRICULATION' | translate" filter="{ Immatriculation: 'text'}" sortable="'Immatriculation'"></td>
             <td ng-bind="aircraft.AircraftModel" data-title="'AIRCRAFT_MODEL' | translate" filter="{ AircraftModel: 'text'}" sortable="'AircraftModel'"></td>

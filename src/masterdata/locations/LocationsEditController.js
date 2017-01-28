@@ -60,23 +60,25 @@ export default class LocationsEditController {
                 },
                 count: 100
             }, {
-                counts:[],
-                getData: function(params) {
+                counts: [],
+                getData: function (params) {
+                    $scope.busy = true;
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
-                    console.log("sorting", $scope.tableParams.sorting());
-                    console.log("filter", $scope.tableParams.filter());
 
                     return PagedLocations.getLocations($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
+                            $scope.busy = false;
                             params.total(result.TotalRows);
 
                             return result.Items;
+                        })
+                        .finally(() => {
+                            $scope.busy = false;
                         });
                 }
             });
             Countries.query().$promise.then(function (result) {
-                console.log("countries", result);
                 $scope.tableParams.countries = result;
             });
         }

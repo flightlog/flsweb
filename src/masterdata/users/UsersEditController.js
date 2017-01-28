@@ -74,6 +74,7 @@ export default class UsersEditController {
             }, {
                 counts: [],
                 getData: function (params) {
+                    $scope.busy = true;
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
 
@@ -81,9 +82,13 @@ export default class UsersEditController {
 
                     return PagedUsers.getUsers(filter, $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
+                            $scope.busy = false;
                             params.total(result.TotalRows);
 
                             return result.Items;
+                        })
+                        .finally(() => {
+                            $scope.busy = false;
                         });
                 }
             });

@@ -86,11 +86,13 @@ export default class AirMovementsController {
             }, {
                 counts: [],
                 getData: function (params) {
+                    $scope.busy = true;
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
 
                     return PagedFlights.getMotorFlights($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
+                            $scope.busy = false;
                             params.total(result.TotalRows);
                             let flights = result.Items;
                             for (var i = 0; i < result.length; i++) {
@@ -98,6 +100,9 @@ export default class AirMovementsController {
                             }
 
                             return result.Items;
+                        })
+                        .finally(() => {
+                            $scope.busy = false;
                         });
                 }
             });

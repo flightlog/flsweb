@@ -59,14 +59,19 @@ export default class ClubEditController {
             }, {
                 counts:[],
                 getData: function(params) {
+                    $scope.busy = true;
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
 
                     return PagedClubs.getClubs($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
+                            $scope.busy = false;
                             params.total(result.TotalRows);
 
                             return result.Items;
+                        })
+                        .finally(() => {
+                            $scope.busy = false;
                         });
                 }
             });

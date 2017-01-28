@@ -38,43 +38,11 @@ export default class FlightsController {
         $scope.renderAircraft = DropdownItemsRenderService.aircraftRenderer();
         $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
 
-        let today = moment();
-
-        $scope.filterDates.fromDate = today;
-        $scope.filterDates.toDate = today;
-
-        $scope.loadAllTime = () => {
-            $scope.filterDates.fromDate = '';
-            $scope.filterDates.toDate = today;
-            reloadFlights();
-        };
-        $scope.loadMonths = function (num) {
-            $scope.filterDates.fromDate = moment().subtract(num, 'months');
-            $scope.filterDates.toDate = today;
-            reloadFlights();
-        };
-        $scope.loadMonth = function (num) {
-            $scope.filterDates.fromDate = moment().startOf('month').subtract(num, 'months');
-            $scope.filterDates.toDate = moment().startOf('month').subtract(num - 1, 'months');
-            reloadFlights();
-        };
-        $scope.loadToday = () => {
-            $scope.filterDates.fromDate = today;
-            $scope.filterDates.toDate = today;
-            reloadFlights();
-        };
-        $scope.loadYesterday = () => {
-            $scope.filterDates.fromDate = moment().subtract(1, 'days');
-            $scope.filterDates.toDate = $scope.filterDates.fromDate;
-            reloadFlights();
-        };
-
         $scope.reloadList = () => {
             reloadFlights();
         };
 
         function reloadFlights() {
-            $scope.busy = false;
             $scope.tableParams = new NgTableParams({
                 filter: {},
                 sorting: {
@@ -84,11 +52,13 @@ export default class FlightsController {
             }, {
                 counts: [],
                 getData: function (params) {
+                    $scope.busy = true;
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
 
                     return PagedFlights.getGliderFlights($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
+                            $scope.busy = false;
                             params.total(result.TotalRows);
                             let flights = result.Items;
                             for (var i = 0; i < result.length; i++) {
@@ -96,6 +66,9 @@ export default class FlightsController {
                             }
 
                             return result.Items;
+                        })
+                        .finally(() => {
+                            $scope.busy = false;
                         });
                 }
             });

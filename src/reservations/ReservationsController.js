@@ -14,11 +14,13 @@ export default class ReservationsController {
         }, {
             counts: [],
             getData: function (params) {
+                $scope.busy = true;
                 let pageSize = params.count();
                 let pageStart = (params.page() - 1) * pageSize;
 
                 return PagedReservations.getReservations($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                     .then((res) => {
+                        $scope.busy = false;
                         params.total(res.TotalRows);
 
                         let result = res.Items;
@@ -32,6 +34,9 @@ export default class ReservationsController {
                         }
 
                         return formattedResult;
+                    })
+                    .finally(() => {
+                        $scope.busy = false;
                     });
             }
         });

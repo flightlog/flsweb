@@ -1,5 +1,5 @@
 <div>
-    <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true" ng-show="!busy && !error">
+    <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true">
         <tr ng-repeat="user in $data" ng-click="editUser(user)" title="{{'EDIT' | translate}}">
             <td ng-bind="user.UserName" data-title="'USER_NAME' | translate" filter="{ UserName: 'text'}" sortable="'UserName'"></td>
             <td ng-bind="user.FriendlyName" data-title="'FRIENDLY_USER_NAME' | translate" filter="{ FriendlyName: 'text'}" sortable="'FriendlyName'"></td>

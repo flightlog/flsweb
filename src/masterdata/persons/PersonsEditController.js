@@ -3,7 +3,7 @@ export default class PersonsEditController {
                 PersonPersister, MessageManager, Countries, MemberStates) {
 
         $scope.debug = GLOBALS.DEBUG;
-        $scope.busy = true;
+        $scope.busy = false;
         $scope.masterdata = {};
         $scope.isClubAdmin = AuthService.isClubAdmin();
         $scope.requiredFlagsFilterList = [
@@ -63,7 +63,6 @@ export default class PersonsEditController {
                     $scope.busy = false;
                 });
         } else {
-            $scope.busy = false;
             $scope.tableParams = new NgTableParams({
                 filter: {},
                 sorting: {
@@ -74,6 +73,7 @@ export default class PersonsEditController {
             }, {
                 counts: [],
                 getData: function (params) {
+                    $scope.busy = true;
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
 
@@ -81,9 +81,13 @@ export default class PersonsEditController {
 
                     return PagedPersons.getPersons(filter, $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
+                            $scope.busy = false;
                             params.total(result.TotalRows);
 
                             return result.Items;
+                        })
+                        .finally(() => {
+                            $scope.busy = false;
                         });
                 }
             });
