@@ -1,0 +1,10 @@
+<selectize name="{{name}}"
+           options="params.userAccountStates"
+           config="{
+                        inputClass: 'form-control selectize-input',
+                        maxItems: 1,
+                        valueField: 'AccountStateName',
+                        searchField: ['AccountStateName'],
+                        render: renderUserAccountState
+                    }"
+           ng-model="params.filter()[name]"></selectize>

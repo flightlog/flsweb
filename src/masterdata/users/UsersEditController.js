@@ -35,11 +35,6 @@ export default class UsersEditController {
         $scope.editUser = function (user) {
             $location.path('/masterdata/users/' + user.UserId);
         };
-        UserAccountStates.query().$promise
-            .then((userAccountStates) => {
-                $scope.userAccountStates = userAccountStates;
-                $scope.filters = {};
-            });
 
         if ($routeParams.id !== undefined) {
             $q.all([
@@ -92,6 +87,11 @@ export default class UsersEditController {
                         });
                 }
             });
+
+            UserAccountStates.query().$promise
+                .then((userAccountStates) => {
+                    $scope.tableParams.userAccountStates = userAccountStates;
+                });
         }
 
         $scope.toggleRoleSelection = (user, RoleId) => {
@@ -162,19 +162,6 @@ export default class UsersEditController {
                     .catch(_.partial(MessageManager.raiseError, 'save', 'person'));
             });
         };
-
-        $scope.toggleRequiredAccountStateFilter = (stateName) => {
-            let previousState = $scope.filters[stateName];
-            $scope.filters = {};
-            $scope.filters[stateName] = !previousState;
-            $scope.tableParams.reload();
-        };
-
-        $scope.resetRequiredAccountStateFilter = () => {
-            $scope.filters = {};
-            $scope.tableParams.reload();
-        };
-
     }
 
 }

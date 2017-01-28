@@ -7,13 +7,15 @@ import * as UsersServices from './UsersServices';
 import coreModule from '../../core/CoreModule';
 import clubsModule from '../clubs/ClubsModule';
 import {userAuth} from '../../core/AuthService';
+import 'ng-table';
 import personsModule from '../persons/PersonsModule';
 
 export default angular.module('fls.masterdata.users', [
-        coreModule.name,
-        personsModule.name,
-        clubsModule.name
-    ])
+    'ngTable',
+    coreModule.name,
+    personsModule.name,
+    clubsModule.name
+])
     .controller('UsersEditController', UsersEditController)
     .service('UserPersister', UsersServices.UserPersister)
     .service('Users', UsersServices.Users)
@@ -23,7 +25,13 @@ export default angular.module('fls.masterdata.users', [
     .service('UserAccountStates', UsersServices.UserAccountStates)
     .directive('flsUsers', UsersEditDirective.factory)
     .directive('flsUserForm', UserFormDirective.factory)
-    .config(function ($routeProvider) {
+    .config(($routeProvider, ngTableFilterConfigProvider) => {
+        ngTableFilterConfigProvider.setConfig({
+            aliasUrls: {
+                "accountStates": "./user-account-states-dropdown-filter.html"
+            }
+        });
+
         $routeProvider
             .when('/masterdata/users',
                 {
@@ -43,4 +51,7 @@ export default angular.module('fls.masterdata.users', [
                         user: userAuth
                     }
                 });
+    })
+    .run(($templateCache) => {
+        $templateCache.put("./user-account-states-dropdown-filter.html", require("./user-account-states-dropdown-filter.html"));
     });
