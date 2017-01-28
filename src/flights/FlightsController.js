@@ -146,7 +146,7 @@ export default class FlightsController {
                             var tow = $scope.towerAircrafts[i];
                             if (tow.AircraftId === ($scope.flightDetails.TowFlightDetailsData && $scope.flightDetails.TowFlightDetailsData.AircraftId)) {
                                 $scope.flightDetails.TowFlightDetailsData.AircraftId = tow.AircraftId;
-                                $scope.towplaneRegistration = tow.Immatriculation.substring(tow.Immatriculation.indexOf('-') + 2);
+                                $scope.towplaneRegistration = tow.Immatriculation.substring(tow.Immatriculation.indexOf('-') + 1);
                             }
                         }
                     }
