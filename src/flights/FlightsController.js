@@ -5,7 +5,7 @@ import AddPersonController from "../masterdata/persons/modal/AddPersonController
 export default class FlightsController {
     constructor($scope, $q, $log, $modal, $timeout, MessageManager, $location, $routeParams,
                 TimeService, Flights, NgTableParams, PagedFlights,
-                FlightTypes, Locations, Persons, PersonPersister, PassengerPersister,
+                FlightTypes, Locations, Persons, PersonsV2, PersonPersister, PassengerPersister,
                 Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes,
                 SoloFlightCheckboxEnablementCalculator, Clubs, AircraftOperatingCounters, DropdownItemsRenderService) {
         $scope.busy = true;
@@ -249,7 +249,7 @@ export default class FlightsController {
         function loadMasterdata() {
             $scope.busy = true;
             var promises = [
-                Persons.getAllPersons().$promise.then((result) => {
+                PersonsV2.getAllPersons().$promise.then((result) => {
                     angular.copy(result, $scope.allPersons);
                 }),
                 Persons.getGliderPilots().$promise.then((result) => {
