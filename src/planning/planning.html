@@ -1,128 +1,74 @@
 <div class="container-fluid flscontainer">
-    <h1 translate="PLANNING"></h1>
-    <fls-message-bar ng-show="!busy"></fls-message-bar>
-    <fls-busy-indicator busy="busy"
-                        error="error">
-        <div class="col-xs-12">
-            <search-bar search-string="searchString"></search-bar>
-
-            <table class="fls">
-                <tr class="visible-md visible-lg">
-                    <th translate="DATE"></th>
-                    <th translate="DAY"></th>
-                    <th translate="LOCATION"></th>
-                    <th translate="REMARKS"></th>
-                    <th translate="TOWING_PILOT"></th>
-                    <th translate="FLIGHT_OPERATOR"></th>
-                    <th translate="INSTRUCTOR"></th>
-                    <th translate="NUM_RESERVATIONS"></th>
-                    <th class="hidden-print">&nbsp;</th>
-                </tr>
-                <tr class="hidden-md hidden-lg">
-                    <th>
-                        <span translate="DATE"></span><br>
-                        <span translate="DAY"></span>
-                    </th>
-                    <th>
-                        <span translate="LOCATION"></span><br>
-                        <span translate="NUM_RESERVATIONS"></span>
-                    </th>
-                    <th>
-                        <span translate="TOWING_PILOT"></span><br>
-                        <span translate="FLIGHT_OPERATOR"></span><br>
-                        <span translate="INSTRUCTOR"></span><br>
-                    </th>
-                </tr>
-                <tr class="visible-md visible-lg"
-                    ng-repeat-start="planningDay in planningDays | filter:searchString"
-                    ng-class="{'saturday':planningDay.isSaturday,'sunday':planningDay.isSunday,'today':planningDay.isToday}">
-                    <td ng-click="view(planningDay)"
-                        style="cursor:pointer;"
-                        ng-bind="planningDay.Day | date:'dd.MM.yyyy'"></td>
-                    <td ng-click="view(planningDay)"
-                        style="cursor:pointer;"
-                        ng-bind="planningDay.Day |  amDateFormat:'dddd'"></td>
-                    <td ng-click="view(planningDay)"
-                        style="cursor:pointer;"
-                        ng-bind="planningDay.LocationName"></td>
-                    <td ng-click="view(planningDay)"
-                        style="cursor:pointer;"
-                        ng-bind="planningDay.Remarks"></td>
-                    <td ng-click="view(planningDay)"
-                        style="cursor:pointer;"
-                        ng-bind="planningDay.TowingPilotName"></td>
-                    <td ng-click="view(planningDay)"
-                        style="cursor:pointer;"
-                        ng-bind="planningDay.FlightOperatorName"></td>
-                    <td ng-click="view(planningDay)"
-                        style="cursor:pointer;"
-                        ng-bind="planningDay.InstructorName"></td>
-                    <td ng-click="view(planningDay)"
-                        style="cursor:pointer;"
-                        ng-bind="planningDay.NumberOfAircraftReservations"></td>
-                    <td class="hidden-print controls-column">
-                        <a title="{{'EDIT' | translate}}"
-                           ng-click="edit(planningDay)"
-                           style="cursor:pointer;"
-                           class="col-xs-4"><span class="fa fa-pencil"
-                                                  style="color:#111123;font-weight: 500;"></span></a>
-                        <a title="{{'DELETE' | translate}}"
-                           ng-click="delete(planningDay)"
-                           style="cursor:pointer;"
-                           class="col-xs-4"><span class="fa fa-trash-o"
-                                                  style="color:#a70000;font-weight: 500;"></span></a>
-                        <fls-history entity-name="planningDay"
-                                     entity-id="planningDay.PlanningDayId"
-                                     class="col-xs-4"></fls-history>
-                    </td>
-                </tr>
-                <tr class="hidden-md hidden-lg"
-                    ng-click="view(planningDay)"
-                    style="cursor:pointer;"
-                    ng-class="{'saturday':planningDay.isSaturday,'sunday':planningDay.isSunday,'today':planningDay.isToday}">
-                    <td>
-                    <span
-                            ng-bind="planningDay.Day | date:'dd.MM.yyyy'"></span><br>
-                    <span
-                            ng-bind="planningDay.Day | amDateFormat:'dddd'"></span>
-                    </td>
-                    <td>
-                    <span
-                            ng-bind="planningDay.LocationName"></span><br>
-                    <span
-                            ng-bind="planningDay.NumberOfAircraftReservations"></span>
-                    </td>
-                    <td>
-                    <span
-                            ng-bind="planningDay.TowingPilotName"></span><br>
-                    <span
-                            ng-bind="planningDay.FlightOperatorName"></span><br>
-                    <span
-                            ng-bind="planningDay.InstructorName"></span>
-                    </td>
-                </tr>
-                <tr ng-repeat-end
-                    class="hidden-md hidden-lg last-line"
-                    ng-click="edit(planningDay)"
-                    style="cursor:pointer;"
-                    ng-class="{'saturday':planningDay.isSaturday,'sunday':planningDay.isSunday}">
-                    <td colspan="3"><span ng-bind="planningDay.Remarks"></span>&nbsp;</td>
-                </tr>
-            </table>
-        </div>
-    </fls-busy-indicator>
-    <div class="hidden-print">
+    <div class="hidden-print pull-right" style="margin-top:-10px;">
         <button type="button"
                 class="btn btn-default pull-right"
-                style="margin:10px;margin-right:0;"
+                style="margin-right:0;"
                 ng-click="new()"
                 translate="NEW">New
         </button>
         <button type="button"
                 class="btn btn-default pull-right"
-                style="margin:10px;margin-right:0;"
+                style="margin-right:10px;"
                 ng-click="setup()"
                 translate="SETUP">Setup
         </button>
     </div>
+    <h1 translate="PLANNING"></h1>
+    <fls-message-bar ng-show="!busy"></fls-message-bar>
+    <fls-busy-indicator busy="busy"
+                        error="error">
+        <div class="col-xs-12">
+            <table ng-table="tableParams"
+                   class="fls fls-table-with-details"
+                   show-filter="true"
+                   ng-show="!busy && !error">
+                <tr ng-repeat="planningDay in $data"
+                    ng-click="showPlanningDayDetails(planningDay)"
+                    title="{{'EDIT' | translate}}">
+                    <td ng-bind="planningDay.Day | date:'dd.MM.yyyy'"
+                        data-title="'DATE' | translate"
+                        filter="{ Day: 'text'}"
+                        sortable="'Day'"></td>
+                    <td ng-bind="planningDay.Day |  amDateFormat:'dddd'"
+                        data-title="'DAY' | translate"
+                        filter="{ Weekday: 'text'}"
+                        sortable="'Weekday'"></td>
+                    <td ng-bind="planningDay.LocationName"
+                        data-title="'LOCATION' | translate"
+                        filter="{ LocationName: 'text'}"
+                        sortable="'LocationName'"></td>
+                    <td ng-bind="planningDay.Remarks"
+                        data-title="'REMARKS' | translate"
+                        filter="{ Remarks: 'text'}"
+                        sortable="'Remarks'"></td>
+                    <td ng-bind="planningDay.TowingPilotName"
+                        data-title="'TOWING_PILOT' | translate"
+                        filter="{ TowingPilotName: 'text'}"
+                        sortable="'TowingPilotName'"></td>
+                    <td ng-bind="planningDay.FlightOperatorName"
+                        data-title="'FLIGHT_OPERATOR' | translate"
+                        filter="{ FlightOperatorName: 'text'}"
+                        sortable="'FlightOperatorName'"></td>
+                    <td ng-bind="planningDay.InstructorName"
+                        data-title="'INSTRUCTOR' | translate"
+                        filter="{ InstructorName: 'text'}"
+                        sortable="'InstructorName'"></td>
+                    <td ng-bind="planningDay.NumberOfAircraftReservations"
+                        data-title="'NUM_RESERVATIONS' | translate"
+                        filter="{ NumberOfAircraftReservations: 'text'}"
+                        sortable="'NumberOfAircraftReservations'"></td>
+                    <td class="hidden-print controls-column">
+                        <a title="{{'DELETE' | translate}}"
+                           ng-click="deletePlanningDay(planningDay, $event); $event.stopPropagation();"
+                           class="col-xs-4 delete-link">
+                            <span class="fa fa-trash-o"></span>
+                        </a>
+                        <fls-history entity-name="PlanningDay"
+                                     entity-id="planningDay.PlanningDayId"
+                                     class="col-xs-4"></fls-history>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </fls-busy-indicator>
 </div>

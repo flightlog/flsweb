@@ -1,75 +1,106 @@
-var app = angular.module('fls.planning');
+export class PagedPlanningDays {
+    constructor($http, GLOBALS, MessageManager) {
+        this.$http = $http;
+        this.GLOBALS = GLOBALS;
+        this.MessageManager = MessageManager;
+    }
 
-app.factory('PlanningDays', function ($resource, GLOBALS) {
-    return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/overview/future', null, {
-        query: {
-            method: 'GET',
-            isArray: true
-        }
-    });
-});
+    getPlanningDays(filter, sorting, pageStart, pageSize) {
+        return this.$http
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/planningdays/page/${pageStart + 1}/${pageSize}`, {
+                Sorting: sorting,
+                SearchFilter: filter
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'planning days list'));
+    }
+}
 
-app.factory('PlanningDayReader', function ($resource, GLOBALS) {
-    return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/:id', null, {
-        get: {
-            method: 'GET',
-            isArray: false
-        }
-    });
-});
-
-app.factory('PlanningDaysUpdater', function ($resource, GLOBALS) {
-    return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/:id', null, {
-        saveDay: {
-            method: 'POST',
-            headers: {
-                'X-HTTP-Method-Override': 'PUT'
+export class PlanningDays {
+    constructor($resource, GLOBALS) {
+        return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/overview/future', null, {
+            query: {
+                method: 'GET',
+                isArray: true
             }
-        },
-        $save: {
-            method: 'POST'
-        }
-    });
-});
+        });
+    }
+}
 
-app.factory('PlanningDaysDeleter', function ($resource, GLOBALS) {
-    return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/:id', null, {
-        deleteDay: {
-            method: 'POST',
-            params: {
-                id: '@id'
+export class PlanningDayReader {
+    constructor($resource, GLOBALS) {
+        return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/:id', null, {
+            get: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+    }
+}
+
+export class PlanningDaysUpdater {
+    constructor($resource, GLOBALS) {
+        return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/:id', null, {
+            saveDay: {
+                method: 'POST',
+                headers: {
+                    'X-HTTP-Method-Override': 'PUT'
+                }
             },
-            headers: {
-                'X-HTTP-Method-Override': 'DELETE'
+            $save: {
+                method: 'POST'
             }
-        }
-    });
-});
+        });
+    }
+}
 
-app.factory('PlanningDaysInserter', function ($resource, GLOBALS) {
-    return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays', null, {
-        $save: {
-            method: 'POST'
-        }
-    });
-});
+export class PlanningDaysDeleter {
+    constructor($resource, GLOBALS) {
+        return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/:id', null, {
+            deleteDay: {
+                method: 'POST',
+                params: {
+                    id: '@id'
+                },
+                headers: {
+                    'X-HTTP-Method-Override': 'DELETE'
+                }
+            }
+        });
+    }
+}
 
-app.factory('PlanningDaysRuleBased', function ($resource, GLOBALS) {
-    return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/create/rule', null, {
-        runSetup: {
-            isArray: true,
-            method: 'POST'
-        }
-    });
-});
+export class PlanningDaysInserter {
+    constructor($resource, GLOBALS) {
+        return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays', null, {
+            $save: {
+                method: 'POST'
+            }
+        });
+    }
+}
 
-app.factory('ReservationsByPlanningDay', function ($resource, GLOBALS) {
-    return $resource(GLOBALS.BASE_URL + '/api/v1/aircraftreservations/planningday/:id', null, {
-        query: {
-            method: 'GET',
-            isArray: true
-        }
-    });
-});
+export class PlanningDaysRuleBased {
+    constructor($resource, GLOBALS) {
+        return $resource(GLOBALS.BASE_URL + '/api/v1/planningdays/create/rule', null, {
+            runSetup: {
+                isArray: true,
+                method: 'POST'
+            }
+        });
+    }
+}
 
+export class ReservationsByPlanningDay {
+    constructor($resource, GLOBALS) {
+        return $resource(GLOBALS.BASE_URL + '/api/v1/aircraftreservations/planningday/:id', null, {
+            query: {
+                method: 'GET',
+                isArray: true
+            }
+        });
+    }
+}
 

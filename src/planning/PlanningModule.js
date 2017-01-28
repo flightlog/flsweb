@@ -5,16 +5,27 @@ import PlanningDayEditController from './PlanningDayEditController';
 import PlanningDaySetupController from './PlanningDaySetupController';
 import masterdataModule from '../masterdata/MasterdataModule';
 import reservationsModule from '../reservations/ReservationsModule';
+import * as PlanningService from './PlanningService';
 import {userAuth} from '../core/AuthService';
+import 'ng-table';
 
 export default angular.module('fls.planning', [
-        coreModule.name,
-        masterdataModule.name,
-        reservationsModule.name
-    ])
+    'ngTable',
+    coreModule.name,
+    masterdataModule.name,
+    reservationsModule.name
+])
     .controller('PlanningDaysController', PlanningDaysController)
     .controller('PlanningDayEditController', PlanningDayEditController)
     .controller('PlanningDaySetupController', PlanningDaySetupController)
+    .service('PagedPlanningDays', PlanningService.PagedPlanningDays)
+    .service('PlanningDayReader', PlanningService.PlanningDayReader)
+    .service('PlanningDays', PlanningService.PlanningDays)
+    .service('PlanningDaysInserter', PlanningService.PlanningDaysInserter)
+    .service('PlanningDaysUpdater', PlanningService.PlanningDaysUpdater)
+    .service('PlanningDaysDeleter', PlanningService.PlanningDaysDeleter)
+    .service('PlanningDaysRuleBased', PlanningService.PlanningDaysRuleBased)
+    .service('ReservationsByPlanningDay', PlanningService.ReservationsByPlanningDay)
     .config(($routeProvider) => {
         $routeProvider
             .when('/planning',
@@ -45,5 +56,3 @@ export default angular.module('fls.planning', [
                     }
                 });
     });
-
-require('./PlanningService');

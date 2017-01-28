@@ -1,177 +1,269 @@
 <div class="container flscontainer">
     <fls-message-bar></fls-message-bar>
 
-        <fls-busy-indicator busy="busy"
-                            error="error">
-            <div class="col-md-12"
-                 ng-show="error"
-                 style="position:absolute;left:0;height:600px;z-index:9999;background-color: rgba(255,255,255,0.7);">
+    <fls-busy-indicator busy="busy"
+                        error="error">
+        <div class="col-md-12"
+             ng-show="error"
+             style="position:absolute;left:0;height:600px;z-index:9999;background-color: rgba(255,255,255,0.7);">
                 <pre class="col-md-12"
                      ng-bind="error"></pre>
+        </div>
+        <form role="form"
+              name="planningForm"
+              ng-submit="save(planningDay)"
+              class="col-xs-12 css-form"
+              ng-class="{'readonly-form':!planningDay.CanUpdateRecord}">
+            <div class="form-group">
+                <label for="date"><span translate="DATE">Date</span>:</label>
+                <fls-date-picker id="date"
+                                 ng-model="planningDay.Day"
+                                 ng-disabled="!planningDay.CanUpdateRecord"
+                                 required></fls-date-picker>
             </div>
-            <form role="form"
-                  name="planningForm"
-                  ng-submit="save(planningDay)"
-                  class="col-xs-12 css-form"
-                  ng-class="{'readonly-form':!planningDay.CanUpdateRecord}">
-                <div class="form-group">
-                    <label for="date"><span translate="DATE">Date</span>:</label>
-                    <fls-date-picker id="date"
-                                     ng-model="planningDay.Day"
-                                     ng-disabled="!planningDay.CanUpdateRecord"
-                                     required></fls-date-picker>
-                </div>
-                <div class="form-group">
-                    <label for="LocationId"><span translate="LOCATION">Location</span>:</label>
+            <div class="form-group">
+                <label for="LocationId"><span translate="LOCATION">Location</span>:</label>
 
-                    <selectize id="LocationId"
-                               name="LocationId"
-                               options="locations"
-                               ng-disabled="!planningDay.CanUpdateRecord"
-                               config="{
+                <selectize id="LocationId"
+                           name="LocationId"
+                           options="locations"
+                           ng-disabled="!planningDay.CanUpdateRecord"
+                           config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationId',
                                 searchField: ['LocationName', 'IcaoCode'],
                                 render: renderLocation
                             }"
-                               ng-model="planningDay.LocationId"
-                               required></selectize>
-                </div>
-                <div class="form-group">
-                    <label for="remarks"><span translate="REMARKS">Remarks</span>:</label>
-                    <input type="text"
-                           class="form-control"
-                           id="remarks"
-                           ng-model="planningDay.Remarks"
-                           ng-disabled="!planningDay.CanUpdateRecord">
-                </div>
-                <div class="form-group">
-                    <label for="TowingPilotPersonId"><span translate="TOWING_PILOT">Towing Pilot</span>:</label>
+                           ng-model="planningDay.LocationId"
+                           required></selectize>
+            </div>
+            <div class="form-group">
+                <label for="remarks"><span translate="REMARKS">Remarks</span>:</label>
+                <input type="text"
+                       class="form-control"
+                       id="remarks"
+                       ng-model="planningDay.Remarks"
+                       ng-disabled="!planningDay.CanUpdateRecord">
+            </div>
+            <div class="form-group">
+                <label for="TowingPilotPersonId"><span translate="TOWING_PILOT">Towing Pilot</span>:</label>
 
-                    <div class="input-group col-md-12">
-                        <selectize name="TowingPilotPersonId"
-                                   options="towingPilots"
-                                   ng-disabled="!planningDay.CanUpdateRecord"
-                                   config="{
+                <div class="input-group col-md-12">
+                    <selectize name="TowingPilotPersonId"
+                               options="towingPilots"
+                               ng-disabled="!planningDay.CanUpdateRecord"
+                               config="{
                                     inputClass: 'form-control selectize-input',
                                     maxItems: 1,
                                     valueField: 'PersonId',
                                     searchField: ['Firstname', 'Lastname', 'City'],
                                     render: renderPerson
                                 }"
-                                   ng-model="planningDay.TowingPilotPersonId"></selectize>
-                        <span class="input-group-btn"
-                              ng-show="planningDay.CanUpdateRecord">
+                               ng-model="planningDay.TowingPilotPersonId"></selectize>
+                    <span class="input-group-btn"
+                          ng-show="planningDay.CanUpdateRecord">
                             <button type="button"
                                     ng-click="planningDay.TowingPilotPersonId = undefined;"
                                     class="btn btn-default">Reset
                             </button>
                         </span>
-                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="FlightOperatorPersonId"><span translate="FLIGHT_OPERATOR"></span>:</label>
+            </div>
+            <div class="form-group">
+                <label for="FlightOperatorPersonId"><span translate="FLIGHT_OPERATOR"></span>:</label>
 
-                    <div class="input-group col-md-12">
-                        <selectize name="FlightOperatorPersonId"
-                                   options="gliderPilots"
-                                   ng-disabled="!planningDay.CanUpdateRecord"
-                                   config="{
+                <div class="input-group col-md-12">
+                    <selectize name="FlightOperatorPersonId"
+                               options="gliderPilots"
+                               ng-disabled="!planningDay.CanUpdateRecord"
+                               config="{
                                     inputClass: 'form-control selectize-input',
                                     maxItems: 1,
                                     valueField: 'PersonId',
                                     searchField: ['Firstname', 'Lastname', 'City'],
                                     render: renderPerson
                                 }"
-                                   ng-model="planningDay.FlightOperatorPersonId"></selectize>
-                        <span class="input-group-btn"
-                              ng-show="planningDay.CanUpdateRecord">
+                               ng-model="planningDay.FlightOperatorPersonId"></selectize>
+                    <span class="input-group-btn"
+                          ng-show="planningDay.CanUpdateRecord">
                             <button type="button"
                                     ng-click="planningDay.FlightOperatorPersonId = undefined;"
                                     class="btn btn-default">Reset
                             </button>
                         </span>
-                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="InstructorPersonId"><span translate="INSTRUCTOR"></span>:</label>
+            </div>
+            <div class="form-group">
+                <label for="InstructorPersonId"><span translate="INSTRUCTOR"></span>:</label>
 
-                    <div class="input-group col-md-12">
-                        <selectize name="InstructorPersonId"
-                                   options="instructors"
-                                   ng-disabled="!planningDay.CanUpdateRecord"
-                                   config="{
+                <div class="input-group col-md-12">
+                    <selectize name="InstructorPersonId"
+                               options="instructors"
+                               ng-disabled="!planningDay.CanUpdateRecord"
+                               config="{
                                     inputClass: 'form-control selectize-input',
                                     maxItems: 1,
                                     valueField: 'PersonId',
                                     searchField: ['Firstname', 'Lastname', 'City'],
                                     render: renderPerson
                                 }"
-                                   ng-model="planningDay.InstructorPersonId"></selectize>
-                        <span class="input-group-btn"
-                              ng-show="planningDay.CanUpdateRecord">
+                               ng-model="planningDay.InstructorPersonId"></selectize>
+                    <span class="input-group-btn"
+                          ng-show="planningDay.CanUpdateRecord">
                             <button type="button"
                                     ng-click="planningDay.InstructorPersonId = undefined;"
                                     class="btn btn-default">Reset
                             </button>
                         </span>
-                    </div>
-                </div>
-                <div class="flscontainer">
-                    <button type="button"
-                            ng-click="cancel()"
-                            class="btn btn-default pull-right"
-                            translate="CANCEL">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                            class="btn btn-default pull-right"
-                            style="margin-right:10px;"
-                            translate="SAVE"
-                            ng-disabled="!planningDay.CanUpdateRecord || !planningForm.$valid">Save
-                    </button>
-                    <button type="button"
-                            ng-click="edit()"
-                            class="btn btn-default pull-right"
-                            style="margin-right:10px;"
-                            ng-show="!planningDay.CanUpdateRecord && editAllowed">
-                        <span class="fa fa-pencil"></span>
-                        Edit
-                    </button>
-                </div>
-            </form>
-            <div class="col-xs-12">
-                <h3><span translate="RESERVATIONS"></span>:</h3>
-
-                <div>
-                    <fls-reservations-table></fls-reservations-table>
                 </div>
             </div>
-            <div class="col-xs-12 hidden-print">
+            <div class="flscontainer">
                 <button type="button"
+                        ng-click="cancel()"
                         class="btn btn-default pull-right"
-                        style="margin:10px;margin-right:0;"
-                        ng-click="newReservation()"
-                        translate="NEW"></button>
+                        translate="CANCEL">
+                    Cancel
+                </button>
+                <button type="submit"
+                        class="btn btn-default pull-right"
+                        style="margin-right:10px;"
+                        translate="SAVE"
+                        ng-disabled="!planningDay.CanUpdateRecord || !planningForm.$valid">Save
+                </button>
+                <button type="button"
+                        ng-click="edit()"
+                        class="btn btn-default pull-right"
+                        style="margin-right:10px;"
+                        ng-show="!planningDay.CanUpdateRecord && editAllowed">
+                    <span class="fa fa-pencil"></span>
+                    Edit
+                </button>
             </div>
-            <div class="col-xs-12"
-                 ng-show="debug">
+        </form>
+        <div class="col-xs-12">
+            <h3><span translate="RESERVATIONS"></span>:</h3>
+
+            <div>
+                <table class="fls"
+                       ng-show="!busy && !error">
+                    <tr class="visible-md visible-lg">
+                        <th translate="DATE"
+                            class="visible-md visible-lg">Date
+                        </th>
+                        <th translate="START"
+                            class="visible-md visible-lg">Start
+                        </th>
+                        <th translate="END"
+                            class="visible-md visible-lg">End
+                        </th>
+                        <th translate="LOCATION">Location</th>
+                        <th translate="IMMATRICULATION">Immatriculation</th>
+                        <th translate="PILOT_NAME"
+                            class="visible-md visible-lg">Pilot Name
+                        </th>
+                        <th translate="INSTRUCTOR_NAME"
+                            class="visible-md visible-lg">Instructor Name
+                        </th>
+                        <th translate="RESERVATION_TYPE">Reservation Type</th>
+                        <th translate="REMARKS">Remarks</th>
+                        <th class="hidden-print">&nbsp;</th>
+                    </tr>
+                    <tr class="hidden-md hidden-lg">
+                        <th class="hidden-md hidden-lg">
+                            <span translate="DATE">Date</span><br>
+                            <span translate="START">Start</span><br>
+                            <span translate="END">End</span>
+                            <span translate="LOCATION">Location</span>
+                        </th>
+                        <th>Immatr.</th>
+                        <th class="hidden-md hidden-lg">
+                            <span translate="RESERVATION_TYPE">Reservation Type</span> <br>
+                            <span translate="PILOT_NAME">Pilot Name</span><br>
+                            <span translate="INSTRUCTOR_NAME">Instructor Name</span>
+                        </th>
+                    </tr>
+                    <tr ng-click="showReservationDetails(reservation)"
+                        ng-repeat-start="reservation in reservations | filter:searchString"
+                        class="clickable visible-md visible-lg">
+                        <td ng-bind="reservation.Start | date:'dd.MM.yyyy'"></td>
+                        <td ng-show="!reservation.IsAllDayReservation"
+                            ng-bind="reservation.Start | date:'HH:mm'"></td>
+                        <td ng-show="!reservation.IsAllDayReservation"
+                            ng-bind="reservation.End | date:'HH:mm'"></td>
+                        <td ng-show="reservation.IsAllDayReservation"
+                            translate="ALL_DAY"
+                            colspan="2"></td>
+                        <td ng-bind="reservation.LocationName"></td>
+                        <td ng-bind="reservation.Immatriculation"></td>
+                        <td ng-bind="reservation.PilotName"></td>
+                        <td ng-bind="reservation.InstructorName"></td>
+                        <td ng-bind="reservation.ReservationTypeName"></td>
+                        <td ng-bind="reservation.Remarks"></td>
+                        <td class="hidden-print controls-column">
+                            <fls-history entity-name="AircraftReservation"
+                                         entity-id="reservation.AircraftReservationId"
+                                         class="col-xs-4"></fls-history>
+                        </td>
+                    </tr>
+                    <tr ng-click="showReservationDetails(reservation)"
+                        style="cursor:pointer;"
+                        class="hidden-md hidden-lg">
+                        <td>
+                    <span
+                            ng-bind="reservation.Start | date:'dd.MM.yyyy'"></span><br>
+                            <span
+                                    ng-bind="reservation.Start | date:'HH:mm'"
+                                    ng-show="!reservation.IsAllDayReservation"></span><br>
+                            <span
+                                    ng-bind="reservation.End | date:'HH:mm'"
+                                    ng-show="!reservation.IsAllDayReservation"></span>
+                            <span
+                                    translate="ALL_DAY"
+                                    ng-show="reservation.IsAllDayReservation"></span>
+                        </td>
+                        <td ng-bind="reservation.Immatriculation"></td>
+                        <td>
+                            <span ng-bind="reservation.ReservationTypeName"></span><br>
+                            <span
+                                    ng-bind="reservation.PilotName"></span><br>
+                            <span
+                                    ng-bind="reservation.InstructorName"></span>
+                        </td>
+                    </tr>
+                    <tr ng-repeat-end
+                        ng-click="showReservationDetails(reservation)"
+                        style="cursor:pointer;"
+                        class="hidden-md hidden-lg last-line">
+                        <td colspan="3"><span ng-bind="reservation.Remarks"></span>&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-xs-12 hidden-print">
+            <button type="button"
+                    class="btn btn-default pull-right"
+                    style="margin:10px;margin-right:0;"
+                    ng-click="newReservation()"
+                    translate="NEW"></button>
+        </div>
+        <div class="col-xs-12"
+             ng-show="debug">
                 <pre ng-bind="planningDay | json"
                      style="margin-top:20px;"></pre>
-                <pre class="col-md-12"
-                     ng-show="debug"
-                     ng-bind="reservations | json"
-                     style="margin-top:20px;"></pre>
-                <pre class="col-md-6"
-                     ng-show="debug"
-                     ng-bind="towingPilots | json"
-                     style="margin-top:20px;"></pre>
-                <pre class="col-md-6"
-                     ng-show="debug"
-                     ng-bind="gliderPilots | json"
-                     style="margin-top:20px;"></pre>
-            </div>
-        </fls-busy-indicator>
+            <pre class="col-md-12"
+                 ng-show="debug"
+                 ng-bind="reservations | json"
+                 style="margin-top:20px;"></pre>
+            <pre class="col-md-6"
+                 ng-show="debug"
+                 ng-bind="towingPilots | json"
+                 style="margin-top:20px;"></pre>
+            <pre class="col-md-6"
+                 ng-show="debug"
+                 ng-bind="gliderPilots | json"
+                 style="margin-top:20px;"></pre>
+        </div>
+    </fls-busy-indicator>
 
 </div>

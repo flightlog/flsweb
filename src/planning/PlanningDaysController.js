@@ -1,49 +1,63 @@
 import moment from 'moment';
 
 export default class PlanningDaysController {
-    constructor(GLOBALS, $scope, $location, PlanningDays, PlanningDaysDeleter, MessageManager) {
+    constructor(GLOBALS, $scope, $location, PagedPlanningDays, NgTableParams, PlanningDaysDeleter, MessageManager) {
 
-        $scope.busy = true;
+        $scope.busy = false;
+        $scope.loadingTable = false;
         $scope.debug = GLOBALS.DEBUG;
 
-        PlanningDays.query().$promise
-            .then(function (result) {
-                for (var i = 0; i < result.length; i++) {
-                    var d = result[i];
-                    var m = d.Day && moment(d.Day);
-                    d.isSaturday = m && m.toDate().getDay() === 6;
-                    d.isSunday = m && m.toDate().getDay() === 0;
-                    d._formattedDate = m && m.format('DD.MM.YYYY dddd');
-                }
-                $scope.planningDays = result;
-            })
-            .catch(_.partial(MessageManager.raiseError, 'load', 'planned days'))
-            .finally(function () {
-                $scope.busy = false;
-            });
+        $scope.tableParams = new NgTableParams({
+            filter: {},
+            sorting: {
+                Day: 'desc'
+            },
+            count: 10
+        }, {
+            counts: [],
+            getData: function (params) {
+                let pageSize = params.count();
+                let pageStart = (params.page() - 1) * pageSize;
+                $scope.loadingTable = true;
 
-        $scope.edit = function (planningDay) {
+                return PagedPlanningDays.getPlanningDays($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
+                    .then((res) => {
+                        $scope.loadingTable = false;
+                        params.total(res.TotalRows);
+
+                        let result = res.Items;
+                        for (var i = 0; i < result.length; i++) {
+                            var d = result[i];
+                            var m = d.Day && moment(d.Day);
+                            d.isSaturday = m && m.toDate().getDay() === 6;
+                            d.isSunday = m && m.toDate().getDay() === 0;
+                            d._formattedDate = m && m.format('DD.MM.YYYY dddd');
+                        }
+
+                        return result;
+                    });
+            }
+        });
+
+        $scope.edit = (planningDay) => {
             $location.path('/planning/' + planningDay.PlanningDayId + '/edit');
         };
-        $scope.view = function (planningDay) {
+        $scope.showPlanningDayDetails = (planningDay) => {
             $location.path('/planning/' + planningDay.PlanningDayId + '/view');
         };
-        $scope.delete = function (planningDay) {
+        $scope.deletePlanningDay = (planningDay) => {
             if (window.confirm('Do you really want to delete this planningday?')) {
                 PlanningDaysDeleter.deleteDay({id: planningDay.PlanningDayId}).$promise
-                    .then(function (/*result*/) {
-                        console.log('successfully removed planningDay.');
-                        $scope.planningDays = _.filter($scope.planningDays, function (d) {
-                            return d !== planningDay;
-                        });
+                    .then(() => {
+                        $scope.tableParams.reload();
                     })
                     .catch(_.partial(MessageManager.raiseError, 'delete', 'planned day'));
             }
         };
-        $scope.new = function () {
+        $scope.new = () => {
             $location.path('/planning/new/edit');
         };
-        $scope.setup = function () {
+        $scope.setup = () => {
             $location.path('/planningsetup');
         };
     }
