@@ -1,3 +1,23 @@
+export class PagedUsers {
+    constructor($http, GLOBALS, MessageManager) {
+        this.$http = $http;
+        this.GLOBALS = GLOBALS;
+        this.MessageManager = MessageManager;
+    }
+
+    getUsers(filter, sorting, pageStart, pageSize) {
+        return this.$http
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/users/page/${pageStart + 1}/${pageSize}`, {
+                Sorting: sorting,
+                SearchFilter: filter
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'users list'));
+    }
+}
+
 export class Users {
     constructor($resource, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/users/overview/club', null, {

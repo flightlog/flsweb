@@ -1,39 +1,21 @@
 <div>
-    <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
-    <section style="margin-bottom: 10px;">
-        <div class="btn-group">
-            <button class="btn btn-default" ng-class="{'active': filters[accountState.AccountStateName]}"
-                    translate="FILTER_USER_STATE_{{accountState.AccountStateName}}"
-                    ng-click="toggleRequiredAccountStateFilter(accountState.AccountStateName)"
-                    ng-repeat="accountState in userAccountStates"></button>
-            <button class="btn btn-default"
-                    translate="ALL"
-                    ng-click="resetRequiredAccountStateFilter()"></button>
-        </div>
-    </section>
-    <table class="fls">
-        <tr>
-            <th translate="USER_NAME"></th>
-            <th translate="FRIENDLY_USER_NAME"></th>
-            <th translate="PERSON_NAME"></th>
-            <th translate="CLUB_NAME"></th>
-            <th translate="ROLES"></th>
-            <th translate="USER_ACCOUNT_STATE"></th>
-            <th class="hidden-print">&nbsp;</th>
-        </tr>
-        <tr ng-repeat-start="user in users | filter:searchString | filterByUserState:filters">
-            <td ng-bind="user.UserName"></td>
-            <td ng-bind="user.FriendlyName"></td>
-            <td ng-bind="user.PersonName"></td>
-            <td ng-bind="user.ClubName"></td>
-            <td ng-bind="user.UserRoles"></td>
-            <td ng-bind="user.AccountState"></td>
+    <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true" ng-show="!busy && !error">
+        <tr ng-repeat="user in $data" ng-click="editUser(user)" title="{{'EDIT' | translate}}">
+            <td ng-bind="user.UserName" data-title="'USER_NAME' | translate" filter="{ UserName: 'text'}" sortable="'UserName'"></td>
+            <td ng-bind="user.FriendlyName" data-title="'FRIENDLY_USER_NAME' | translate" filter="{ FriendlyName: 'text'}" sortable="'FriendlyName'"></td>
+            <td ng-bind="user.PersonName" data-title="'PERSON_NAME' | translate" filter="{ PersonName: 'text'}" sortable="'PersonName'"></td>
+            <td ng-bind="user.ClubName" data-title="'CLUB_NAME' | translate" filter="{ ClubName: 'text'}" sortable="'ClubName'"></td>
+            <td ng-bind="user.UserRoles" data-title="'ROLES' | translate" filter="{ UserRoles: 'text'}" sortable="'UserRoles'"></td>
+            <td ng-bind="user.AccountState" data-title="'USER_ACCOUNT_STATE' | translate" filter="{ AccountState: 'text'}" sortable="'AccountState'"></td>
             <td class="hidden-print controls-column">
-                <a ng-click="editUser(user)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-pencil" style="color:#111123;font-weight: 500;"></span></a>
-                <a ng-click="deleteUser(user)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-trash-o" style="color:#a70000;font-weight: 500;"></span></a>
+                <a ng-show="isClubAdmin"
+                   title="{{'DELETE' | translate}}"
+                   ng-click="deleteUser(user); $event.stopPropagation();"
+                   class="col-xs-4 delete-link">
+                    <span class="fa fa-trash-o"></span>
+                </a>
                 <fls-history entity-name="User" entity-id="user.UserId" class="col-xs-4"></fls-history>
             </td>
         </tr>
-        <tr ng-repeat-end></tr>
     </table>
 </div>

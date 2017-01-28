@@ -1,7 +1,7 @@
 import AddPersonController from '../persons/modal/AddPersonController';
 
 export default class UsersEditController {
-    constructor($scope, GLOBALS, $q, $location, $routeParams, AuthService, Users, UserRoles, UserService, Persons,
+    constructor($scope, GLOBALS, $q, $location, $routeParams, AuthService, NgTableParams, PagedUsers, UserRoles, UserService, Persons,
                 Clubs, $modal, PersonPersister, UserPersister, UserAccountStates, MessageManager, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
@@ -64,11 +64,29 @@ export default class UsersEditController {
                     $scope.busy = false;
                 });
         } else {
-            Users.getAllUsers().$promise
-                .then(function (result) {
-                    $scope.users = result;
-                    $scope.busy = false;
-                });
+            $scope.busy = false;
+            $scope.tableParams = new NgTableParams({
+                filter: {},
+                sorting: {
+                    UserName: 'asc'
+                },
+                count: 100
+            }, {
+                counts: [],
+                getData: function (params) {
+                    let pageSize = params.count();
+                    let pageStart = (params.page() - 1) * pageSize;
+
+                    let filter = Object.assign({}, $scope.tableParams.filter(), $scope.userAccountStates);
+
+                    return PagedUsers.getUsers(filter, $scope.tableParams.sorting(), pageStart, pageSize)
+                        .then((result) => {
+                            params.total(result.TotalRows);
+
+                            return result.Items;
+                        });
+                }
+            });
         }
 
         $scope.toggleRoleSelection = (user, RoleId) => {
@@ -144,10 +162,12 @@ export default class UsersEditController {
             let previousState = $scope.filters[stateName];
             $scope.filters = {};
             $scope.filters[stateName] = !previousState;
+            $scope.tableParams.reload();
         };
 
         $scope.resetRequiredAccountStateFilter = () => {
             $scope.filters = {};
+            $scope.tableParams.reload();
         };
 
     }

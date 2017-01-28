@@ -17,22 +17,12 @@ export default angular.module('fls.masterdata.users', [
     .controller('UsersEditController', UsersEditController)
     .service('UserPersister', UsersServices.UserPersister)
     .service('Users', UsersServices.Users)
+    .service('PagedUsers', UsersServices.PagedUsers)
     .service('UserRoles', UsersServices.UserRoles)
     .service('UserService', UsersServices.UserService)
     .service('UserAccountStates', UsersServices.UserAccountStates)
     .directive('flsUsers', UsersEditDirective.factory)
     .directive('flsUserForm', UserFormDirective.factory)
-    .filter('filterByUserState', function() {
-        return function(users, requiredState) {
-            return _.filter(users, (user) => {
-                let matches = true;
-                for (let state in requiredState) {
-                    matches &= (user.AccountState == state) || !requiredState[state];
-                }
-                return matches;
-            });
-        };
-    })
     .config(function ($routeProvider) {
         $routeProvider
             .when('/masterdata/users',
