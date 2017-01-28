@@ -28,7 +28,7 @@ describe('AirMovementsController', () => {
     it('should reset block end time if negative', () => {
         // arrange
         $scope = scope();
-        new AirMovementsController($scope, q(), timeout(), timeService(), renderer(), authService());
+        new AirMovementsController($scope, q(), timeout(), timeService(), renderer(), authService(), {}, ngTableParams());
         $scope.operatingCounters = {
             EngineOperatingCounterUnitTypeKeyName: "Min"
         };
@@ -50,7 +50,7 @@ describe('AirMovementsController', () => {
     it('should calculate block duration for high counter states', () => {
         // arrange
         $scope = scope();
-        new AirMovementsController($scope, q(), timeout(), timeService(), renderer(), authService());
+        new AirMovementsController($scope, q(), timeout(), timeService(), renderer(), authService(), {}, ngTableParams());
         $scope.operatingCounters = {
             EngineOperatingCounterUnitTypeKeyName: "Min"
         };
@@ -106,7 +106,11 @@ describe('AirMovementsController', () => {
             $default: ()=> {
                 return {loginResult: {}};
             }
-        }, {});
+        });
+    }
+
+    function ngTableParams() {
+        return () => {}
     }
 
 });

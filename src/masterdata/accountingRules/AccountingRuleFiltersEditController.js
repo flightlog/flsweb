@@ -1,6 +1,6 @@
 export default class AccountingRuleFiltersEditController {
-    constructor($scope, $routeParams, $location, GLOBALS, AuthService,
-                PagedAccountingRuleFilters, NgTableParams) {
+    constructor($scope, $routeParams, $location, NgTableParams, GLOBALS, AuthService,
+                PagedAccountingRuleFilters) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;

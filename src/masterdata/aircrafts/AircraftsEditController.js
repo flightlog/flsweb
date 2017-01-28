@@ -2,8 +2,8 @@ import moment from "moment";
 import * as _ from "lodash";
 
 export default class AircraftsEditController {
-    constructor($scope, $q, $location, $routeParams, $window, GLOBALS, AuthService, AircraftsOverviews, AircraftService,
-                Aircraft, AircraftTypes, CounterUnitTypes, Clubs, Persons, MessageManager, StringUtils, DropdownItemsRenderService) {
+    constructor($scope, $q, $routeParams, $location, NgTableParams, $window, GLOBALS, AuthService, PagedAircrafts, AircraftService,
+                Aircraft, AircraftTypes, CounterUnitTypes, Clubs, Persons, MessageManager, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
@@ -23,16 +23,6 @@ export default class AircraftsEditController {
             }
             return Aircraft.get({id: $routeParams.id}).$promise;
         }
-
-        $scope.comparator = function (actual, expected) {
-            if (!expected) {
-                return true;
-            }
-            return StringUtils.contains(actual.Immatriculation, expected)
-                || StringUtils.contains(actual.AircraftModel, expected)
-                || StringUtils.contains(actual.CompetitionSign, expected)
-                || StringUtils.contains(actual.ManufacturerName, expected);
-        };
 
         $scope.cancel = function () {
             $location.path('/masterdata/aircrafts');
@@ -79,13 +69,27 @@ export default class AircraftsEditController {
                     $scope.busy = false;
                 });
         } else {
-            AircraftsOverviews.query().$promise
-                .then((result) => {
-                    $scope.aircrafts = result;
-                })
-                .finally(() => {
-                    $scope.busy = false;
-                });
+            $scope.busy = false;
+            $scope.tableParams = new NgTableParams({
+                filter: {},
+                sorting: {
+                    Immatriculation: 'asc'
+                },
+                count: 100
+            }, {
+                counts:[],
+                getData: function(params) {
+                    let pageSize = params.count();
+                    let pageStart = (params.page() - 1) * pageSize;
+
+                    return PagedAircrafts.getAircrafts($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
+                        .then((result) => {
+                            params.total(result.TotalRows);
+
+                            return result.Items;
+                        });
+                }
+            });
         }
 
         $scope.newAircraft = function () {
@@ -97,9 +101,9 @@ export default class AircraftsEditController {
         };
 
         $scope.deleteAircraft = function (aircraft) {
-            AircraftService.delete(aircraft, $scope.aircrafts)
+            AircraftService.delete(aircraft)
                 .then(function (res) {
-                    $scope.aircrafts = res;
+                    $scope.tableParams.reload();
                 })
                 .catch(_.partial(MessageManager.raiseError, 'remove', 'aircraft'));
         };

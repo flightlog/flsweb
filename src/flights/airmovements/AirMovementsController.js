@@ -4,9 +4,9 @@ import AddPersonController from "../../masterdata/persons/modal/AddPersonControl
 
 export default class AirMovementsController {
 
-    constructor($scope, $q, $timeout, TimeService, DropdownItemsRenderService, AuthService, $routeParams,
+    constructor($scope, $q, $timeout, TimeService, DropdownItemsRenderService, AuthService, $routeParams, NgTableParams,
                 $log, $modal, MessageManager,
-                AirMovements, NgTableParams, CounterUnitTypes, PagedFlights, $location,
+                AirMovements, CounterUnitTypes, PagedFlights, $location,
                 Locations, Persons, PersonsV2, PersonPersister, PassengerPersister, Aircrafts, FlightTypes,
                 SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters) {
         const format = 'HH:mm';

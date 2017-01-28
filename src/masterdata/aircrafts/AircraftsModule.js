@@ -18,6 +18,7 @@ export default angular.module('fls.masterdata.aircrafts', [
     .directive('flsAircraftForm', AircraftFormDirective.factory)
     .service('Aircraft', AircraftsServices.Aircraft)
     .service('Aircrafts', AircraftsServices.Aircrafts)
+    .service('PagedAircrafts', AircraftsServices.PagedAircrafts)
     .service('AircraftsOverviews', AircraftsServices.AircraftsOverviews)
     .service('AircraftService', AircraftsServices.AircraftService)
     .service('AircraftTypes', AircraftTypes)

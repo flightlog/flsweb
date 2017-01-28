@@ -1,4 +1,10 @@
 <div class="container-fluid flscontainer">
+    <div class="hidden-print" ng-if="onNewClick">
+        <button type="button" class="btn btn-default pull-right" style="margin:-10px;margin-right:0;"
+                ng-click="onNewClick()"
+                translate="NEW">New
+        </button>
+    </div>
     <h1 translate="{{title}}"></h1>
     <div>
         <fls-message-bar ng-show="!busy"></fls-message-bar>
@@ -6,10 +12,4 @@
     <fls-busy-indicator busy="busy" error="error">
         <ng-transclude></ng-transclude>
     </fls-busy-indicator>
-    <div class="hidden-print" ng-if="onNewClick">
-        <button type="button" class="btn btn-default pull-right" style="margin:10px;margin-right:0;"
-                ng-click="onNewClick()"
-                translate="NEW">New
-        </button>
-    </div>
 </div>

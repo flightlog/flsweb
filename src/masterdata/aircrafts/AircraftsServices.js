@@ -1,3 +1,23 @@
+export class PagedAircrafts {
+    constructor($http, GLOBALS, MessageManager) {
+        this.$http = $http;
+        this.GLOBALS = GLOBALS;
+        this.MessageManager = MessageManager;
+    }
+
+    getAircrafts(filter, sorting, pageStart, pageSize) {
+        return this.$http
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/aircrafts/page/${pageStart + 1}/${pageSize}`, {
+                Sorting: sorting,
+                SearchFilter: filter
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'aircrafts list'));
+    }
+}
+
 export class AircraftsOverviews {
     constructor($resource, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/aircrafts/overview', null, {

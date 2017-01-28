@@ -303,12 +303,15 @@ td.immatriculation {
     background-color: #fafafa;
 }
 
+.fls-table-with-details tr td {
+    margin: 5px;
+}
+
 .fls-table-with-details tr:hover td:last-child:before {
     font-family: 'FontAwesome';
     content: "\f054";
     float: right;
     font-size: 16px;
-    margin: 5px;
 }
 
 .fls-table-with-details tr:hover .control-icon:hover {
@@ -323,6 +326,7 @@ td.immatriculation {
     color: #767676;
     padding: 0;
 }
+
 .control-icon span {
     margin: 5px;
     font-size: 16px;

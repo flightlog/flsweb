@@ -1,28 +1,20 @@
 <div class="col-xs-12">
-    <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
-    <table class="fls">
-        <tr>
-            <th translate="IMMATRICULATION"></th>
-            <th translate="AIRCRAFT_MODEL"></th>
-            <th translate="COMPETITION_SIGN"></th>
-            <th translate="MANUFACTURER_NAME"></th>
-            <th translate="NUMBER_OF_SEATS"></th>
-            <th class="hidden-print">&nbsp;</th>
-        </tr>
-        <tr ng-repeat-start="aircraft in aircrafts | filter:searchString:comparator">
-            <td ng-bind="aircraft.Immatriculation"></td>
-            <td ng-bind="aircraft.AircraftModel"></td>
-            <td ng-bind="aircraft.CompetitionSign"></td>
-            <td ng-bind="aircraft.ManufacturerName"></td>
-            <td ng-bind="aircraft.NrOfSeats"></td>
+    <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true" ng-show="!busy && !error">
+        <tr ng-repeat="aircraft in $data" ng-click="editAircraft(aircraft)" title="{{'EDIT' | translate}}">
+            <td ng-bind="aircraft.Immatriculation" data-title="'IMMATRICULATION' | translate" filter="{ Immatriculation: 'text'}" sortable="'RuleFilterName'"></td>
+            <td ng-bind="aircraft.AircraftModel" data-title="'AIRCRAFT_MODEL' | translate" filter="{ AircraftModel: 'text'}" sortable="'Target'"></td>
+            <td ng-bind="aircraft.CompetitionSign" data-title="'COMPETITION_SIGN' | translate" filter="{ CompetitionSign: 'text'}" sortable="'Description'"></td>
+            <td ng-bind="aircraft.ManufacturerName" data-title="'MANUFACTURER_NAME' | translate" filter="{ ManufacturerName: 'text'}" sortable="'AircraftTypeName'"></td>
+            <td ng-bind="aircraft.NrOfSeats" data-title="'NUMBER_OF_SEATS' | translate" filter="{ NrOfSeats: 'text'}" sortable="'AircraftTypeName'"></td>
             <td class="hidden-print controls-column">
-                <a ng-show="isClubAdmin" ng-click="editAircraft(aircraft)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-pencil"
-                                                                                   style="color:#111123;font-weight: 500;"></span></a>
-                <a ng-show="isClubAdmin" ng-click="deleteAircraft(aircraft)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-trash-o"
-                                                                                     style="color:#a70000;font-weight: 500;"></span></a>
+                <a ng-show="isClubAdmin"
+                   title="{{'DELETE' | translate}}"
+                   ng-click="deleteAircraft(aircraft); $event.stopPropagation();"
+                   class="col-xs-4 delete-link">
+                    <span class="fa fa-trash-o"></span>
+                </a>
                 <fls-history entity-name="Aircraft" entity-id="aircraft.AircraftId" class="col-xs-4"></fls-history>
             </td>
         </tr>
-        <tr ng-repeat-end></tr>
     </table>
 </div>
