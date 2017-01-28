@@ -189,7 +189,7 @@ h3.masterdata-widget {
 }
 
 td.controls-column {
-    width: 150px;
+    width: 130px;
 }
 
 .form-group {
@@ -275,8 +275,18 @@ td.immatriculation {
     cursor: pointer;
 }
 
+.fls-table-new-button {
+    margin-top: -10px;
+}
+
+.fls-table-with-details tr td,
+.fls-table-with-details tr th {
+    padding: 5px;
+}
+
 .fls-table-with-details tr {
     cursor: pointer;
+    min-height: 40px;
 }
 
 .fls-table-with-details tr:hover,
@@ -316,4 +326,10 @@ td.immatriculation {
     margin: 0;
     padding: 0 10px;
     color: #767676;
+}
+
+@media print {
+    .ng-table-filters {
+        display: none;
+    }
 }
