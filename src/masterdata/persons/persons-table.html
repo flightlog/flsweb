@@ -1,5 +1,4 @@
 <div>
-    <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
     <section class="row col-xs-12" style="margin-bottom: 10px;">
         <div class="btn-group">
             <button class="btn btn-default" ng-class="{'active': requiredFlagsFilter[requiredFlag]}"
@@ -11,38 +10,25 @@
                     ng-click="resetRequiredFlagsFilters()"></button>
         </div>
     </section>
-    <table class="fls">
-        <tr>
-            <th translate="FIRST_NAME"></th>
-            <th translate="LAST_NAME"></th>
-            <th translate="ADDRESS_LINE1"></th>
-            <th>
-                <span translate="ZIP_CODE"></span> /
-                <span translate="CITY"></span> /
-                (<span translate="COUNTRY"></span>)
-            </th>
-            <th translate="EMAIL_ADDRESS"></th>
-            <th translate="MOBILE_NUMBER"></th>
-            <th class="hidden-print">&nbsp;</th>
-        </tr>
-        <tr ng-repeat-start="person in persons | filter:searchString | filterByRequiredFlags:requiredFlagsFilter">
-            <td ng-bind="person.Firstname"></td>
-            <td ng-bind="person.Lastname"></td>
-            <td ng-bind="person.AddressLine"></td>
-            <td>
-                <span ng-bind="person.ZipCode"></span>
-                <span ng-bind="person.City"></span>
-                <span ng-show="person.CountryName && (person.ZipCode || person.City)">(<span ng-bind="person.CountryName"></span>)</span>
-                <span ng-show="person.CountryName && !(person.ZipCode || person.City)" ng-bind="person.CountryName"></span>
-            </td>
-            <td ng-bind="person.PrivateEmail"></td>
-            <td ng-bind="person.MobilePhoneNumber"></td>
+    <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true" ng-show="!busy && !error">
+        <tr ng-repeat="person in $data" ng-click="editPerson(person)" title="{{'EDIT' | translate}}">
+            <td ng-bind="person.Firstname" data-title="'FIRST_NAME' | translate" filter="{ Firstname: 'text'}" sortable="'Firstname'"></td>
+            <td ng-bind="person.Lastname" data-title="'LAST_NAME' | translate" filter="{ Lastname: 'text'}" sortable="'Lastname'"></td>
+            <td ng-bind="person.AddressLine" data-title="'ADDRESS_LINE1' | translate" filter="{ AddressLine: 'text'}" sortable="'AddressLine'"></td>
+            <td ng-bind="person.ZipCode" data-title="'ZIP_CODE' | translate" filter="{ ZipCode: 'text'}" sortable="'ZipCode'"></td>
+            <td ng-bind="person.City" data-title="'CITY' | translate" filter="{ City: 'text'}" sortable="'City'"></td>
+            <td ng-bind="person.CountryName" data-title="'COUNTRY' | translate" filter="{ CountryName: 'text'}" sortable="'CountryName'"></td>
+            <td ng-bind="person.PrivateEmail" data-title="'EMAIL_ADDRESS' | translate" filter="{ PrivateEmail: 'text'}" sortable="'PrivateEmail'"></td>
+            <td ng-bind="person.MobilePhoneNumber" data-title="'MOBILE_NUMBER' | translate" filter="{ MobilePhoneNumber: 'text'}" sortable="'MobilePhoneNumber'"></td>
             <td class="hidden-print controls-column">
-                <a ng-show="isClubAdmin" ng-click="editPerson(person)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-pencil" style="color:#111123;font-weight: 500;"></span></a>
-                <a ng-show="isClubAdmin" ng-click="deletePerson(person)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-trash-o" style="color:#a70000;font-weight: 500;"></span></a>
+                <a ng-show="isClubAdmin"
+                   title="{{'DELETE' | translate}}"
+                   ng-click="deletePerson(person); $event.stopPropagation();"
+                   class="col-xs-4 delete-link">
+                    <span class="fa fa-trash-o"></span>
+                </a>
                 <fls-history entity-name="Person" entity-id="person.PersonId" class="col-xs-4"></fls-history>
             </td>
         </tr>
-        <tr ng-repeat-end></tr>
     </table>
 </div>

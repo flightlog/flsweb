@@ -1,5 +1,5 @@
 export default class PersonsEditController {
-    constructor($scope, GLOBALS, $q, $location, $routeParams, $window, AuthService, Persons, PersonsV2, PersonService,
+    constructor($scope, GLOBALS, $q, $location, $routeParams, NgTableParams, $window, AuthService, PagedPersons, PersonService,
                 PersonPersister, MessageManager, Countries, MemberStates) {
 
         $scope.debug = GLOBALS.DEBUG;
@@ -19,9 +19,11 @@ export default class PersonsEditController {
             var previousValue = $scope.requiredFlagsFilter[flag];
             $scope.requiredFlagsFilter = {};
             $scope.requiredFlagsFilter[flag] = !previousValue;
+            $scope.tableParams.reload();
         };
         $scope.resetRequiredFlagsFilters = () => {
             $scope.requiredFlagsFilter = {};
+            $scope.tableParams.reload();
         };
 
         let masterdataPromise = $q.all([
@@ -61,9 +63,29 @@ export default class PersonsEditController {
                     $scope.busy = false;
                 });
         } else {
-            PersonsV2.getAllPersons().$promise.then(function (result) {
-                $scope.persons = result;
-                $scope.busy = false;
+            $scope.busy = false;
+            $scope.tableParams = new NgTableParams({
+                filter: {},
+                sorting: {
+                    Lastname: 'asc',
+                    Firstname: 'asc'
+                },
+                count: 100
+            }, {
+                counts: [],
+                getData: function (params) {
+                    let pageSize = params.count();
+                    let pageStart = (params.page() - 1) * pageSize;
+
+                    let filter = Object.assign({}, $scope.tableParams.filter(), $scope.requiredFlagsFilter);
+
+                    return PagedPersons.getPersons(filter, $scope.tableParams.sorting(), pageStart, pageSize)
+                        .then((result) => {
+                            params.total(result.TotalRows);
+
+                            return result.Items;
+                        });
+                }
             });
         }
 
@@ -94,8 +116,8 @@ export default class PersonsEditController {
 
         $scope.deletePerson = function (person) {
             PersonService.delete(person, $scope.persons)
-                .then(function (res) {
-                    $scope.persons = res;
+                .then(() => {
+                    $scope.tableParams.reload();
                 })
                 .catch(_.partial(MessageManager.raiseError, 'remove', 'person'));
         };
