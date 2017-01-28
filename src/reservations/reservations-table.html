@@ -8,14 +8,18 @@
             data-title="'DATE' | translate"
             filter="{ Start: 'text'}"
             sortable="'Start'"></td>
-        <td ng-bind="reservation.Start | date:'HH:mm'"
+        <td ng-bind="reservation.Start | date:'HH:mm'" ng-show="!reservation.IsAllDayReservation"
             data-title="'START' | translate"
             filter="{ Start: 'text'}"
             sortable="'Start'"></td>
-        <td ng-bind="reservation.End | date:'HH:mm'"
+        <td ng-bind="reservation.End | date:'HH:mm'" ng-show="!reservation.IsAllDayReservation"
             data-title="'END' | translate"
             filter="{ End: 'text'}"
             sortable="'End'"></td>
+        <td ng-bind="'ALL_DAY' | translate" ng-show="reservation.IsAllDayReservation" colspan="2"
+            data-title="'START' | translate"
+            filter="{ Start: 'text'}"
+            sortable="'Start'"></td>
         <td ng-bind="reservation.LocationName"
             data-title="'LOCATION' | translate"
             filter="{ LocationName: 'text'}"
