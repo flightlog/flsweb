@@ -13,6 +13,7 @@ export default angular.module('fls.masterdata.clubs', [
     .directive('flsClubForm', ClubFormDirective.factory)
     .service('ClubPersister', ClubsServices.ClubPersister)
     .service('Clubs', ClubsServices.Clubs)
+    .service('PagedClubs', ClubsServices.PagedClubs)
     .service('ClubService', ClubsServices.ClubService)
     .controller('ClubsEditController', ClubsEditController)
     .config(function ($routeProvider) {

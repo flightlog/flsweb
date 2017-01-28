@@ -1,19 +1,15 @@
 <div class="col-xs-12">
-    <fls-simple-search-bar search-string="searchString"></fls-simple-search-bar>
-    <table class="fls" ng-show="!busy && !error">
-        <tr>
-            <th translate="NAME"></th>
-            <th translate="COUNTRY"></th>
-            <th class="hidden-print">&nbsp;</th>
-        </tr>
-        <tr ng-repeat="club in clubs | filter:searchString">
-            <td ng-bind="club.ClubName"></td>
-            <td ng-bind="club.CountryName"></td>
+    <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true" ng-show="!busy && !error">
+        <tr ng-repeat="club in $data" ng-click="editClub(club)" title="{{'EDIT' | translate}}">
+            <td ng-bind="club.ClubName" data-title="'NAME' | translate" filter="{ ClubName: 'text'}" sortable="'ClubName'"></td>
+            <td ng-bind="club.CountryName" data-title="'COUNTRY' | translate" filter="{ CountryName: 'text'}" sortable="'CountryName'"></td>
             <td class="hidden-print controls-column">
-                <a ng-show="isClubAdmin" ng-click="editClub(club)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-pencil"
-                                                                           style="color:#111123;font-weight: 500;"></span></a>
-                <a ng-show="isClubAdmin" ng-click="deleteClub(club)" style="cursor:pointer;" class="col-xs-4"><span class="fa fa-trash-o"
-                                                                             style="color:#a70000;font-weight: 500;"></span></a>
+                <a ng-show="isClubAdmin"
+                   title="{{'DELETE' | translate}}"
+                   ng-click="deleteClub(club); $event.stopPropagation();"
+                   class="col-xs-4 delete-link">
+                    <span class="fa fa-trash-o"></span>
+                </a>
                 <fls-history entity-name="Club" entity-id="club.ClubId" class="col-xs-4"></fls-history>
             </td>
         </tr>

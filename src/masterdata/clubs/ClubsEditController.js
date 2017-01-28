@@ -1,5 +1,5 @@
 export default class ClubEditController {
-    constructor($scope, $q, $routeParams, $location, GLOBALS, AuthService, MessageManager, Clubs, ClubService, ClubPersister,
+    constructor($scope, $q, $routeParams, $location, NgTableParams, GLOBALS, AuthService, MessageManager, PagedClubs, ClubService, ClubPersister,
                 Countries, Locations, FlightTypes, StartTypes, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
@@ -49,13 +49,27 @@ export default class ClubEditController {
                     $scope.busy = false;
                 });
         } else {
-            Clubs.query().$promise
-                .then((result) => {
-                    $scope.clubs = result;
-                })
-                .finally(() => {
-                    $scope.busy = false;
-                });
+            $scope.busy = false;
+            $scope.tableParams = new NgTableParams({
+                filter: {},
+                sorting: {
+                    ClubName: 'asc'
+                },
+                count: 100
+            }, {
+                counts:[],
+                getData: function(params) {
+                    let pageSize = params.count();
+                    let pageStart = (params.page() - 1) * pageSize;
+
+                    return PagedClubs.getClubs($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
+                        .then((result) => {
+                            params.total(result.TotalRows);
+
+                            return result.Items;
+                        });
+                }
+            });
         }
 
         $scope.cancel = function () {
@@ -91,8 +105,8 @@ export default class ClubEditController {
 
         $scope.deleteClub = function (club) {
             ClubService.delete(club, $scope.clubs)
-                .then(function (res) {
-                    $scope.clubs = res;
+                .then(() => {
+                    $scope.tableParams.reload();
                 })
                 .catch(_.partial(MessageManager.raiseError, 'remove', 'club'));
         };

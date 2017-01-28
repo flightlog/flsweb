@@ -1,13 +1,26 @@
+export class PagedClubs {
+    constructor($http, GLOBALS, MessageManager) {
+        this.$http = $http;
+        this.GLOBALS = GLOBALS;
+        this.MessageManager = MessageManager;
+    }
+
+    getClubs(filter, sorting, pageStart, pageSize) {
+        return this.$http
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/clubs/page/${pageStart + 1}/${pageSize}`, {
+                Sorting: sorting,
+                SearchFilter: filter
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'clubs list'));
+    }
+}
+
 export class Clubs {
     constructor($resource, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/clubs/:dest', null, {
-            query: {
-                method: 'GET',
-                isArray: true,
-                params: {
-                    dest: 'overview'
-                }
-            },
             getMyClub: {
                 method: 'GET',
                 isArray: false,
