@@ -9,7 +9,7 @@ export class PagedFlights {
         return this.$http
             .post(`${this.GLOBALS.BASE_URL}/api/v1/flights/gliderflights/page/${pageStart + 1}/${pageSize}`, {
                 Sorting: sorting,
-                SearchFilter: filter
+                SearchFilter: Object.assign({}, filter, {StartDateTime: filter.StartDateTime && {Fixed: filter.StartDateTime}})
             })
             .then((response) => {
                 return response.data;
@@ -21,7 +21,7 @@ export class PagedFlights {
         return this.$http
             .post(`${this.GLOBALS.BASE_URL}/api/v1/flights/motorflights/page/${pageStart + 1}/${pageSize}`, {
                 Sorting: sorting,
-                SearchFilter: filter
+                SearchFilter: Object.assign({}, filter, {StartDateTime: filter.StartDateTime && {Fixed: filter.StartDateTime}})
             })
             .then((response) => {
                 return response.data;

@@ -9,7 +9,7 @@ export class PagedReservations {
         return this.$http
             .post(`${this.GLOBALS.BASE_URL}/api/v1/aircraftreservations/page/${pageStart + 1}/${pageSize}`, {
                 Sorting: sorting,
-                SearchFilter: filter
+                SearchFilter: Object.assign({}, filter, {Start: filter.Start && {Fixed: filter.Start}})
             })
             .then((response) => {
                 return response.data;

@@ -6,20 +6,16 @@
         title="{{'EDIT' | translate}}">
         <td ng-bind="reservation.Start | date:'dd.MM.yyyy'"
             data-title="'DATE' | translate"
-            filter="{ Start: 'text'}"
+            filter="{ Start: 'date'}"
             sortable="'Start'"></td>
-        <td ng-bind="reservation.Start | date:'HH:mm'" ng-show="!reservation.IsAllDayReservation"
+        <td ng-bind="reservation.IsAllDayReservation ? ('ALL_DAY' | translate) : (reservation.Start | date:'HH:mm')"
             data-title="'START' | translate"
-            filter="{ Start: 'text'}"
-            sortable="'Start'"></td>
-        <td ng-bind="reservation.End | date:'HH:mm'" ng-show="!reservation.IsAllDayReservation"
+
+            ></td>
+        <td ng-bind="reservation.IsAllDayReservation ? '' : (reservation.End | date:'HH:mm')"
             data-title="'END' | translate"
-            filter="{ End: 'text'}"
-            sortable="'End'"></td>
-        <td ng-bind="'ALL_DAY' | translate" ng-show="reservation.IsAllDayReservation" colspan="2"
-            data-title="'START' | translate"
-            filter="{ Start: 'text'}"
-            sortable="'Start'"></td>
+
+            ></td>
         <td ng-bind="reservation.LocationName"
             data-title="'LOCATION' | translate"
             filter="{ LocationName: 'text'}"

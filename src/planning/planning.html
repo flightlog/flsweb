@@ -26,11 +26,11 @@
                     title="{{'EDIT' | translate}}">
                     <td ng-bind="planningDay.Day | date:'dd.MM.yyyy'"
                         data-title="'DATE' | translate"
-                        filter="{ Day: 'text'}"
+                        filter="{ Day: 'date'}"
                         sortable="'Day'"></td>
                     <td ng-bind="planningDay.Day |  amDateFormat:'dddd'"
                         data-title="'DAY' | translate"
-                        filter="{ Weekday: 'text'}"
+
                         sortable="'Weekday'"></td>
                     <td ng-bind="planningDay.LocationName"
                         data-title="'LOCATION' | translate"

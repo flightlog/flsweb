@@ -26,7 +26,7 @@
                     </td>
                     <td ng-bind="flight.StartDateTime | date:'dd.MM.yyyy'"
                         data-title="'DATE' | translate"
-                        filter="{ Target: 'text'}"
+                        filter="{ StartDateTime: 'date'}"
                         sortable="'StartDateTime'"></td>
                     <td ng-bind="flight.Immatriculation"
                         data-title="'GLIDER_PLANE' | translate"
@@ -54,7 +54,7 @@
                         sortable="'LdgDateTime'"></td>
                     <td ng-bind="flight.GliderFlightDuration && ('0001-01-01T' + flight.GliderFlightDuration) | date:'HH:mm'"
                         data-title="'GLIDER_FLIGHT_DURATION' | translate"
-                        filter="{ GliderFlightDuration: 'text'}"
+
                         sortable="'GliderFlightDuration'"></td>
                     <td ng-bind="flight.TowAircraftImmatriculation"
                         data-title="'TOWING_PLANE' | translate"
@@ -70,7 +70,7 @@
                         sortable="'TowFlightLdgDateTime'"></td>
                     <td ng-bind="flight.TowFlightDuration && ('0001-01-01T' + flight.TowFlightDuration) | date:'HH:mm'"
                         data-title="'TOW_DURATION' | translate"
-                        filter="{ TowFlightDuration: 'text'}"
+
                         sortable="'TowFlightDuration'"></td>
                     <td ng-bind="flight.FlightComment"
                         data-title="'COMMENT' | translate"

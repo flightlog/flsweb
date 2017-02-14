@@ -14,18 +14,18 @@
                         <td data-title="'STATUS' | translate" filter="{ _combinedAirState: 'text'}" sortable="'_combinedAirState'">
                             <fls-flight-status flight="flight"></fls-flight-status>
                         </td>
-                        <td ng-bind="flight.StartDateTime | date:'dd.MM.yyyy'" data-title="'DATE' | translate" filter="{ Target: 'text'}" sortable="'StartDateTime'"></td>
+                        <td ng-bind="flight.StartDateTime | date:'dd.MM.yyyy'" data-title="'DATE' | translate" filter="{ StartDateTime: 'date'}" sortable="'StartDateTime'"></td>
                         <td ng-bind="flight.Immatriculation" data-title="'GLIDER_PLANE' | translate" filter="{ Immatriculation: 'text'}" sortable="'Immatriculation'"></td>
                         <td ng-bind="flight.PilotName" data-title="'GLIDER_PILOT' | translate" filter="{ PilotName: 'text'}" sortable="'PilotName'"></td>
                         <td ng-bind="flight.SecondCrewName" data-title="'SECOND_CREW_MEMBER' | translate" filter="{ SecondCrewName: 'text'}" sortable="'SecondCrewName'"></td>
                         <td ng-bind="flight.StartLocation" data-title="'START_LOCATION' | translate" filter="{ StartLocation: 'text'}" sortable="'StartLocation'"></td>
                         <td ng-bind="flight.StartDateTime | date:'HH:mm'" data-title="'TAKEOFF' | translate" filter="{ StartDateTime: 'text'}" sortable="'StartDateTime'"></td>
                         <td ng-bind="flight.LdgDateTime | date:'HH:mm'" data-title="'LANDING' | translate" filter="{ LdgDateTime: 'text'}" sortable="'LdgDateTime'"></td>
-                        <td ng-bind="flight.GliderFlightDuration && ('0001-01-01T' + flight.GliderFlightDuration) | date:'HH:mm'" data-title="'GLIDER_FLIGHT_DURATION' | translate" filter="{ GliderFlightDuration: 'text'}" sortable="'GliderFlightDuration'"></td>
+                        <td ng-bind="flight.GliderFlightDuration && ('0001-01-01T' + flight.GliderFlightDuration) | date:'HH:mm'" data-title="'GLIDER_FLIGHT_DURATION' | translate" sortable="'GliderFlightDuration'"></td>
                         <td ng-bind="flight.TowAircraftImmatriculation" data-title="'TOWING_PLANE' | translate" filter="{ TowAircraftImmatriculation: 'text'}" sortable="'TowAircraftImmatriculation'"></td>
                         <td ng-bind="flight.TowPilotName" data-title="'TOWING_PILOT' | translate" filter="{ TowPilotName: 'text'}" sortable="'TowPilotName'"></td>
                         <td ng-bind="flight.TowFlightLdgDateTime | date:'HH:mm'" data-title="'TOW_LANDING' | translate" filter="{ TowFlightLdgDateTime: 'text'}" sortable="'TowFlightLdgDateTime'"></td>
-                        <td ng-bind="flight.TowFlightDuration && ('0001-01-01T' + flight.TowFlightDuration) | date:'HH:mm'" data-title="'TOW_DURATION' | translate" filter="{ TowFlightDuration: 'text'}" sortable="'TowFlightDuration'"></td>
+                        <td ng-bind="flight.TowFlightDuration && ('0001-01-01T' + flight.TowFlightDuration) | date:'HH:mm'" data-title="'TOW_DURATION' | translate" sortable="'TowFlightDuration'"></td>
                         <td ng-bind="flight.FlightComment" data-title="'COMMENT' | translate" filter="{ FlightComment: 'text'}" sortable="'FlightComment'"></td>
                         <td class="hidden-print controls-column">
                             <a ng-show="isClubAdmin"
