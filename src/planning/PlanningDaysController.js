@@ -12,7 +12,7 @@ export default class PlanningDaysController {
             sorting: {
                 Day: 'desc'
             },
-            count: 10
+            count: 100
         }, {
             counts: [],
             getData: function (params) {
