@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from "moment";
 
 export default class ReservationEditController {
     constructor($scope, GLOBALS, $q, $timeout, $routeParams, $location,
@@ -7,6 +7,7 @@ export default class ReservationEditController {
                 AircraftsOverviews, ReservationValidator, NavigationCache, MessageManager, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
+        $scope.form = {};
         var prefillMoment = moment($routeParams['date']) || moment();
         var prefillLocationId = $routeParams['locationId'];
 
@@ -17,6 +18,34 @@ export default class ReservationEditController {
         let suggestedStop = prefillMoment.clone().hour(18).minute(0).second(0).toDate();
 
         $scope.busy = true;
+
+        function loadMasterData() {
+            $scope.md = {};
+
+            return $q.all([
+                AircraftsOverviews.query().$promise
+                    .then((result) => {
+                        $scope.md.aircrafts = result;
+                    }),
+                ReservationTypes.query().$promise
+                    .then((result) => {
+                        $scope.md.reservationTypes = result;
+                    }),
+                Persons.getGliderPilots().$promise
+                    .then((result) => {
+                        $scope.md.gliderPilots = result;
+                    }),
+                Persons.getGliderInstructors().$promise
+                    .then((result) => {
+                        $scope.md.instructors = result;
+                    }),
+                Locations.getLocations().$promise
+                    .then((result) => {
+                        $scope.md.locations = result;
+                    })
+            ]);
+        }
+
         function loadReservation(user) {
             var deferred = $q.defer();
             if ($routeParams.id === 'new') {
@@ -30,29 +59,32 @@ export default class ReservationEditController {
                     PilotPersonId: user.PersonId
                 };
                 deferred.resolve(res);
+
                 return deferred.promise;
             }
             return Reservations.get({subpath: $routeParams.id}).$promise;
         }
 
-        var loadingReservationPromise = loadReservation(AuthService.getUser())
-            .then(function (result) {
-                if (result) {
-                    $scope.editAllowed = result.CanUpdateRecord;
-                    $scope.reservation = result;
-                    $scope.reservation.CanUpdateRecord = $scope.reservation.CanUpdateRecord && $routeParams.mode === 'edit';
-                    $scope.reservation.IsAllDayReservation = $scope.reservation.IsAllDayReservation || false;
-                    $scope.reservation._start = !$scope.reservation.IsAllDayReservation && moment(result.Start).clone() || suggestedStart;
-                    $scope.reservation.End = !$scope.reservation.IsAllDayReservation && result.End || suggestedStop;
-                }
-            })
-            .then(function () {
-                return Locations.getLocations();
-            })
-            .then(function (result) {
-                $scope.locations = result;
-            })
-            .catch(_.partial(MessageManager.raiseError, 'load', 'reservation'));
+        function mapReservationEditMode(result) {
+            if (result) {
+                $scope.editAllowed = result.CanUpdateRecord;
+                $scope.reservation = result;
+                $scope.reservation.CanUpdateRecord = $scope.reservation.CanUpdateRecord && $routeParams.mode === 'edit';
+                $scope.reservation.IsAllDayReservation = $scope.reservation.IsAllDayReservation || false;
+                $scope.reservation._start = !$scope.reservation.IsAllDayReservation && moment(result.Start).clone() || suggestedStart;
+                $scope.reservation.End = !$scope.reservation.IsAllDayReservation && result.End || suggestedStop;
+            }
+        }
+
+        loadMasterData()
+            .then(() => loadReservation(AuthService.getUser()))
+            .then(mapReservationEditMode)
+            .catch(_.partial(MessageManager.raiseError, 'load', 'reservation'))
+            .finally(() => {
+                $scope.calculateInstructorRequired();
+                $scope.form.reservationForm.ReservationTypeId.$validate();
+                $scope.busy = false;
+            });
 
         $scope.cancel = function () {
             $location.path(NavigationCache.cancellingLocation || '/reservations');
@@ -87,36 +119,8 @@ export default class ReservationEditController {
             }
         };
 
-        var promises = [];
-        promises.push(AircraftsOverviews.query().$promise
-            .then(function (result) {
-                $scope.aircrafts = result;
-            }));
-        promises.push(ReservationTypes.query().$promise
-            .then(function (result) {
-                $scope.reservationTypes = result;
-            }));
-        promises.push(Persons.getGliderPilots().$promise
-            .then(function (result) {
-                $scope.gliderPilots = result;
-            }));
-        promises.push(Persons.getGliderInstructors().$promise
-            .then(function (result) {
-                $scope.instructors = result;
-            }));
-        promises.push(loadingReservationPromise);
-
-        $q.all(promises)
-            .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'))
-            .finally(function () {
-                $scope.calculateInstructorRequired();
-                $scope.busy = false;
-            });
-
         $scope.calculateInstructorRequired = () => {
-            $timeout(() => {
-                $scope.instructorRequired = ReservationValidator.calculateInstructorRequired($scope.reservationTypes, $scope.reservation);
-            }, 0);
+            $scope.instructorRequired = ReservationValidator.calculateInstructorRequired($scope.md.reservationTypes, $scope.reservation);
         };
         $scope.edit = function (reservation) {
             $location.path('/reservations/' + reservation.AircraftReservationId + '/edit');

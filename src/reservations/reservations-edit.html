@@ -7,11 +7,13 @@
                 <pre class="col-md-12"
                      ng-bind="error"></pre>
         </div>
+
         <form role="form"
+              novalidate
               ng-submit="save(reservation)"
               class="css-form"
               ng-class="{'readonly-form':!reservation.CanUpdateRecord}"
-              name="reservationForm">
+              name="form.reservationForm">
             <div class="form-group input-append col-md-3 flsdatepicker">
                 <label for="start"
                        translate="DATE">Date:</label>
@@ -54,7 +56,7 @@
 
                 <selectize id="resType"
                            name="ReservationTypeId"
-                           options="reservationTypes"
+                           options="md.reservationTypes"
                            ng-disabled="!reservation.CanUpdateRecord"
                            config="{
                                 inputClass: 'form-control selectize-input',
@@ -72,7 +74,7 @@
 
                 <selectize id="Pilot"
                            name="Pilot"
-                           options="gliderPilots"
+                           options="md.gliderPilots"
                            ng-disabled="!reservation.CanUpdateRecord"
                            config="{
                                 inputClass: 'form-control selectize-input',
@@ -90,7 +92,7 @@
 
                 <selectize id="Instructor"
                            name="Instructor"
-                           options="instructors"
+                           options="md.instructors"
                            ng-disabled="!reservation.CanUpdateRecord"
                            config="{
                                 inputClass: 'form-control selectize-input',
@@ -107,7 +109,7 @@
 
                 <selectize id="Aircraft"
                            name="Aircraft"
-                           options="aircrafts"
+                           options="md.aircrafts"
                            ng-disabled="!reservation.CanUpdateRecord"
                            config="{
                                 inputClass: 'form-control selectize-input',
@@ -125,7 +127,7 @@
 
                 <selectize id="Location"
                            name="Location"
-                           options="locations"
+                           options="md.locations"
                            ng-disabled="!reservation.CanUpdateRecord"
                            config="{
                                 inputClass: 'form-control selectize-input',
