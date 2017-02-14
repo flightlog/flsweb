@@ -26,7 +26,7 @@
 
                 <selectize id="LocationId"
                            name="LocationId"
-                           options="locations"
+                           options="md.locations"
                            ng-disabled="!planningDay.CanUpdateRecord"
                            config="{
                                 inputClass: 'form-control selectize-input',
@@ -51,7 +51,7 @@
 
                 <div class="input-group col-md-12">
                     <selectize name="TowingPilotPersonId"
-                               options="towingPilots"
+                               options="md.towingPilots"
                                ng-disabled="!planningDay.CanUpdateRecord"
                                config="{
                                     inputClass: 'form-control selectize-input',
@@ -75,7 +75,7 @@
 
                 <div class="input-group col-md-12">
                     <selectize name="FlightOperatorPersonId"
-                               options="gliderPilots"
+                               options="md.gliderPilots"
                                ng-disabled="!planningDay.CanUpdateRecord"
                                config="{
                                     inputClass: 'form-control selectize-input',
@@ -99,7 +99,7 @@
 
                 <div class="input-group col-md-12">
                     <selectize name="InstructorPersonId"
-                               options="instructors"
+                               options="md.instructors"
                                ng-disabled="!planningDay.CanUpdateRecord"
                                config="{
                                     inputClass: 'form-control selectize-input',

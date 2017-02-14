@@ -8,11 +8,33 @@ export default class PlanningDayEditController {
 
         $scope.debug = GLOBALS.DEBUG;
         NavigationCache.setCancellingLocationHere();
-
         $scope.renderPerson = DropdownItemsRenderService.personRenderer();
         $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
 
         $scope.busy = true;
+
+        function loadMasterData() {
+            $scope.md = {};
+            return $q.all([
+                Persons.getGliderPilots().$promise
+                    .then((result) => {
+                        $scope.md.gliderPilots = result;
+                    }),
+                Persons.getTowingPilots().$promise
+                    .then((result) => {
+                        $scope.md.towingPilots = result;
+                    }),
+                Persons.getGliderInstructors().$promise
+                    .then((result) => {
+                        $scope.md.instructors = result;
+                    }),
+                Locations.getLocations().$promise
+                    .then((result) => {
+                        $scope.md.locations = result;
+                    })
+            ]);
+        }
+
         function loadPlanningDay() {
             var deferred = $q.defer();
             if ($routeParams.id === 'new') {
@@ -24,19 +46,37 @@ export default class PlanningDayEditController {
             return PlanningDayReader.get({id: $routeParams.id}).$promise;
         }
 
-        var loadingDayPromise = loadPlanningDay()
-            .then(function (result) {
-                $scope.editAllowed = result.CanUpdateRecord;
-                $scope.planningDay = result;
-                $scope.planningDay.CanUpdateRecord = $scope.planningDay.CanUpdateRecord && $routeParams.mode === 'edit';
-            })
-            .then(function () {
-                return Locations.getLocations();
-            })
-            .then(function (result) {
-                $scope.locations = result;
-            })
-            .catch(_.partial(MessageManager.raiseError, 'load', 'planned day'));
+        function mapPlanningDayEditMode(result) {
+            $scope.editAllowed = result.CanUpdateRecord;
+            $scope.planningDay = result;
+            $scope.planningDay.CanUpdateRecord = $scope.planningDay.CanUpdateRecord && $routeParams.mode === 'edit';
+        }
+
+        function loadReservationsByPlanningDay() {
+            if ($routeParams.id === 'new') {
+                return [];
+            }
+            return ReservationsByPlanningDay.query({id: $routeParams.id}).$promise;
+        }
+
+        function mapReservations(result) {
+            $scope.reservations = result;
+            // TODO clarify if we can get the server to send the timezone so we dont have to hardcode this to UTC
+            for (var i = 0; i < result.length; i++) {
+                $scope.reservations[i].Start = moment.utc(result[i].Start).toDate();
+                $scope.reservations[i].End = moment.utc(result[i].End).toDate();
+            }
+        }
+
+        loadMasterData()
+            .then(loadPlanningDay)
+            .then(mapPlanningDayEditMode)
+            .then(loadReservationsByPlanningDay)
+            .then(mapReservations)
+            .catch(_.partial(MessageManager.raiseError, 'load', 'planned day'))
+            .finally(() => {
+                $scope.busy = false;
+            });
 
         $scope.cancel = function () {
             $location.path('/planning');
@@ -61,41 +101,6 @@ export default class PlanningDayEditController {
                     .catch(_.partial(MessageManager.raiseError, 'insert', 'planned day'));
             }
         };
-
-        var promises = [];
-        promises.push(Persons.getTowingPilots().$promise
-            .then(function (result) {
-                $scope.towingPilots = result;
-            }));
-        promises.push(Persons.getGliderPilots().$promise
-            .then(function (result) {
-                $scope.gliderPilots = result;
-            }));
-        promises.push(Persons.getGliderInstructors().$promise
-            .then(function (result) {
-                $scope.instructors = result;
-            }));
-        promises.push(loadingDayPromise);
-
-        $q.all(promises)
-            .then(() => {
-                if ($routeParams.id === 'new') {
-                    return [];
-                }
-                return ReservationsByPlanningDay.query({id: $routeParams.id}).$promise;
-            })
-            .then((result) => {
-                $scope.reservations = result;
-                // TODO clarify if we can get the server to send the timezone so we dont have to hardcode this to UTC
-                for (var i = 0; i < result.length; i++) {
-                    $scope.reservations[i].Start = moment.utc(result[i].Start).toDate();
-                    $scope.reservations[i].End = moment.utc(result[i].End).toDate();
-                }
-            })
-            .catch(_.partial(MessageManager.raiseError, 'load', 'planned day data'))
-            .finally(() => {
-                $scope.busy = false;
-            });
 
         function openReservationEditor(reservation, mode) {
             $location.path('/reservations/' + reservation.AircraftReservationId + '/' + mode);
