@@ -19,9 +19,8 @@
                 <tr ng-repeat="flight in $data"
                     ng-click="editFlight(flight)"
                     title="{{'EDIT' | translate}}">
-                    <td data-title="'STATUS' | translate"
-                        filter="{ _combinedAirState: 'text'}"
-                        sortable="'_combinedAirState'">
+                    <td data-title="'STATUS' | translate">
+                        
                         <fls-flight-status flight="flight"></fls-flight-status>
                     </td>
                     <td ng-bind="flight.StartDateTime | date:'dd.MM.yyyy'"
