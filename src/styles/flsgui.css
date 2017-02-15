@@ -115,6 +115,10 @@ td.formbg {
     font-weight: 200;
 }
 
+.readonly-form button.writing-button {
+    display: none;
+}
+
 .readonly-form .form-group {
     margin: 0;
     padding: 10px;

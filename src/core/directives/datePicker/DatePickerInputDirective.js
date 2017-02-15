@@ -4,12 +4,12 @@ import * as angular from "angular";
 import * as _ from "lodash";
 
 export default class DatePickerInputDirective {
-    static factory($timeout) {
+    static factory() {
         return {
             restrict: 'E',
             require: '^ngModel',
             template: `
-                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
+                    <div ng-class="{'input-group col-md-12 col-sm-12 col-xs-12': !hideButton}">
                           <input class="form-control"
                                  type="text"
                                  pikaday="myPicker"
@@ -18,10 +18,9 @@ export default class DatePickerInputDirective {
                                  ng-change="checkIfEmpty()"
                                  on-select="onPikadaySelect(pikaday)"
                                  pattern="([0-9]{2}\\.){2}[0-9]{4}">
-                          <span class="input-group-btn">
-                                <button class="btn btn-default"
+                          <span class="input-group-btn" ng-if="!hideButton">
+                                <button class="btn btn-default writing-button"
                                         type="button"
-                                        ng-if="!isDisabled"
                                         ng-click="clear()">
                                       <span class="fa fa-times"></span>
                                  </button>
@@ -31,7 +30,8 @@ export default class DatePickerInputDirective {
             controller: DataPickerInputController,
             scope: {
                 ngModel: '=',
-                hourOfDay: '@'
+                hourOfDay: '@',
+                hideButton: '@'
             },
             link: function (scope, element, attrs, modelCtrl) {
                 let format = "DD.MM.YYYY";
@@ -66,10 +66,6 @@ export default class DatePickerInputDirective {
                 }
 
                 scope.$watch('ngModel', setPikadayValue);
-
-                scope.$watch('ngDisabled', () => {
-                    scope.isDisabled = !!attrs.disabled;
-                });
 
                 scope.$watch('ngRequired', () => {
                     scope.isRequired = !!attrs.required;
