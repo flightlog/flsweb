@@ -12,7 +12,7 @@ export default class FlightsController {
         this.TimeService = TimeService;
         $scope.debug = GLOBALS.DEBUG;
         $scope.showChart = false;
-        var format = 'HH:mm';
+        let format = 'HH:mm';
         $scope.gliderImg = require('../images/glider.png');
         $scope.towPlaneImg = require('../images/towplane.png');
         $scope.isClubAdmin = AuthService.isClubAdmin();
@@ -61,7 +61,7 @@ export default class FlightsController {
                             $scope.busy = false;
                             params.total(result.TotalRows);
                             let flights = result.Items;
-                            for (var i = 0; i < result.length; i++) {
+                            for (let i = 0; i < result.length; i++) {
                                 flights[i]._formattedDate = result[i].StartDateTime && moment(result[i].StartDateTime).format('DD.MM.YYYY HH:mm dddd');
                             }
 
@@ -74,17 +74,18 @@ export default class FlightsController {
             });
         }
 
-
         if ($routeParams.id !== undefined) {
             loadMasterdata()
                 .then(() => {
                     if ($routeParams.id === 'new') {
-                        $scope.newFlight = {};
-                        selectFlight($scope.newFlight);
+                        return newFlight();
+                    } else if ($location.path().indexOf('/copy') > 0) {
+                        return copyFlight($routeParams.id);
                     } else {
-                        selectFlight({FlightId: $routeParams.id});
+                        return loadFlight($routeParams.id);
                     }
                 })
+                .then(mapFlightToForm)
                 .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'));
 
         } else {
@@ -104,8 +105,8 @@ export default class FlightsController {
                         $scope.flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds = undefined;
                     }
                     if ($scope.flightDetails && $scope.gliderAircrafts) {
-                        for (var i = 0; i < $scope.gliderAircrafts.length; i++) {
-                            var glider = $scope.gliderAircrafts[i];
+                        for (let i = 0; i < $scope.gliderAircrafts.length; i++) {
+                            let glider = $scope.gliderAircrafts[i];
                             if (glider.AircraftId === $scope.flightDetails.GliderFlightDetailsData.AircraftId) {
                                 if (!$scope.flightDetails.GliderFlightDetailsData.IsSoloFlight && glider.NrOfSeats === 1) {
                                     $scope.flightDetails.GliderFlightDetailsData.IsSoloFlight = true;
@@ -142,8 +143,8 @@ export default class FlightsController {
                 if (hasDetails()) {
                     $scope.towplaneRegistration = '';
                     if ($scope.flightDetails && $scope.towerAircrafts) {
-                        for (var i = 0; i < $scope.towerAircrafts.length; i++) {
-                            var tow = $scope.towerAircrafts[i];
+                        for (let i = 0; i < $scope.towerAircrafts.length; i++) {
+                            let tow = $scope.towerAircrafts[i];
                             if (tow.AircraftId === ($scope.flightDetails.TowFlightDetailsData && $scope.flightDetails.TowFlightDetailsData.AircraftId)) {
                                 $scope.flightDetails.TowFlightDetailsData.AircraftId = tow.AircraftId;
                                 $scope.towplaneRegistration = tow.Immatriculation.substring(tow.Immatriculation.indexOf('-') + 1);
@@ -158,55 +159,62 @@ export default class FlightsController {
             let deferred = $q.defer();
             flightDetails.GliderFlightDetailsData.FlightCostBalanceType = 1;
             flightDetails.CanUpdateRecord = true;
-            Clubs.getMyClub().$promise.then((result) => {
-                $scope.myClub = result;
-                flightDetails.GliderFlightDetailsData.StartLocationId = flightDetails.GliderFlightDetailsData.StartLocationId || $scope.myClub.HomebaseId;
-                flightDetails.GliderFlightDetailsData.LdgLocationId = flightDetails.GliderFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
-                flightDetails.GliderFlightDetailsData.FlightTypeId = flightDetails.GliderFlightDetailsData.FlightTypeId || $scope.myClub.DefaultGliderFlightTypeId;
-                flightDetails.GliderFlightDetailsData.NrOfLdgs = 1;
-                flightDetails.TowFlightDetailsData.StartLocationId = flightDetails.TowFlightDetailsData.StartLocationId || $scope.myClub.HomebaseId;
-                flightDetails.TowFlightDetailsData.LdgLocationId = flightDetails.TowFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
-                flightDetails.TowFlightDetailsData.FlightTypeId = flightDetails.TowFlightDetailsData.FlightTypeId || $scope.myClub.DefaultTowFlightTypeId;
-                flightDetails.TowFlightDetailsData.NrOfLdgs = 1;
-                flightDetails.StartType = flightDetails.StartType || $scope.myClub.DefaultStartType || "1";
-                deferred.resolve(flightDetails);
-            }).catch((reason) => {
-                deferred.reject(reason);
-            });
+
+            Clubs.getMyClub().$promise
+                .then((result) => {
+                    $scope.myClub = result;
+                    flightDetails.GliderFlightDetailsData.StartLocationId = flightDetails.GliderFlightDetailsData.StartLocationId || $scope.myClub.HomebaseId;
+                    flightDetails.GliderFlightDetailsData.LdgLocationId = flightDetails.GliderFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
+                    flightDetails.GliderFlightDetailsData.FlightTypeId = flightDetails.GliderFlightDetailsData.FlightTypeId || $scope.myClub.DefaultGliderFlightTypeId;
+                    flightDetails.GliderFlightDetailsData.NrOfLdgs = 1;
+                    flightDetails.TowFlightDetailsData.StartLocationId = flightDetails.TowFlightDetailsData.StartLocationId || $scope.myClub.HomebaseId;
+                    flightDetails.TowFlightDetailsData.LdgLocationId = flightDetails.TowFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
+                    flightDetails.TowFlightDetailsData.FlightTypeId = flightDetails.TowFlightDetailsData.FlightTypeId || $scope.myClub.DefaultTowFlightTypeId;
+                    flightDetails.TowFlightDetailsData.NrOfLdgs = 1;
+                    flightDetails.StartType = flightDetails.StartType || $scope.myClub.DefaultStartType || "1";
+
+                    deferred.resolve(flightDetails);
+                })
+                .catch((reason) => {
+                    deferred.reject(reason);
+                });
+
             return deferred.promise;
         }
 
-        function loadFlight(flight, toBeCopied) {
-            if (flight.FlightId) {
-                return Flights.getFlight({id: flight.FlightId}).$promise;
-            }
-            if (toBeCopied) {
-                return Flights.getFlight({id: toBeCopied.FlightId}).$promise
-                    .then((res) => {
-                        let flightDetails = {};
-                        flightDetails.GliderFlightDetailsData = res.GliderFlightDetailsData || {};
-                        flightDetails.StartType = res.StartType;
-                        flightDetails.FlightId = undefined;
-                        flightDetails.TowFlightDetailsData = res.TowFlightDetailsData || {};
-                        flightDetails.GliderFlightDetailsData.FlightId = undefined;
-                        flightDetails.GliderFlightDetailsData.StartDateTime = undefined;
-                        flightDetails.GliderFlightDetailsData.LdgDateTime = undefined;
-                        flightDetails.GliderFlightDetailsData.FlightComment = undefined;
-                        flightDetails.GliderFlightDetailsData.CouponNumber = undefined;
-                        flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds = undefined;
-                        flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds = undefined;
-                        flightDetails.TowFlightDetailsData.FlightId = undefined;
-                        flightDetails.TowFlightDetailsData.StartDateTime = undefined;
-                        flightDetails.TowFlightDetailsData.LdgDateTime = undefined;
-                        flightDetails.TowFlightDetailsData.FlightComment = undefined;
-                        return initForNewFlight(flightDetails);
-                    });
-            } else {
-                return $q.when(initForNewFlight({
-                    GliderFlightDetailsData: {},
-                    TowFlightDetailsData: {}
-                }));
-            }
+        function loadFlight(flightId) {
+            return Flights.getFlight({id: flightId}).$promise;
+        }
+
+        function newFlight() {
+            return $q.when(initForNewFlight({
+                GliderFlightDetailsData: {},
+                TowFlightDetailsData: {}
+            }));
+        }
+
+        function copyFlight(flightId) {
+            return Flights.getFlight({id: flightId}).$promise
+                .then((res) => {
+                    let flightDetails = {};
+                    flightDetails.GliderFlightDetailsData = res.GliderFlightDetailsData || {};
+                    flightDetails.StartType = res.StartType;
+                    flightDetails.FlightId = undefined;
+                    flightDetails.TowFlightDetailsData = res.TowFlightDetailsData || {};
+                    flightDetails.GliderFlightDetailsData.FlightId = undefined;
+                    flightDetails.GliderFlightDetailsData.StartDateTime = undefined;
+                    flightDetails.GliderFlightDetailsData.LdgDateTime = undefined;
+                    flightDetails.GliderFlightDetailsData.FlightComment = undefined;
+                    flightDetails.GliderFlightDetailsData.CouponNumber = undefined;
+                    flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds = undefined;
+                    flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds = undefined;
+                    flightDetails.TowFlightDetailsData.FlightId = undefined;
+                    flightDetails.TowFlightDetailsData.StartDateTime = undefined;
+                    flightDetails.TowFlightDetailsData.LdgDateTime = undefined;
+                    flightDetails.TowFlightDetailsData.FlightComment = undefined;
+
+                    return initForNewFlight(flightDetails);
+                });
         }
 
         $scope.getTimeNow = function () {
@@ -222,7 +230,7 @@ export default class FlightsController {
 
         function loadMasterdata() {
             $scope.busy = true;
-            var promises = [
+            let promises = [
                 PersonsV2.getAllPersons().$promise.then((result) => {
                     angular.copy(result, $scope.allPersons);
                 }),
@@ -272,40 +280,41 @@ export default class FlightsController {
                 });
         }
 
-        function selectFlight(flight, toBeCopied) {
+        function mapFlightToForm(result) {
+            $scope.flightDetails = result;
+            if (result.TowFlightDetailsData && result.TowFlightDetailsData.AircraftId === '00000000-0000-0000-0000-000000000000') {
+                result.TowFlightDetailsData.AircraftId = "";
+            }
+            if (result.TowFlightDetailsData && result.TowFlightDetailsData.PilotPersonId === '00000000-0000-0000-0000-000000000000') {
+                result.TowFlightDetailsData.PilotPersonId = "";
+            }
+
+            let gld = $scope.flightDetails.GliderFlightDetailsData;
+            let tow = $scope.flightDetails.TowFlightDetailsData;
+            $scope.times = {
+                flightDate: gld && gld.StartDateTime || gld.FlightDate || new Date(),
+                gliderStart: TimeService.time(gld && gld.StartDateTime),
+                gliderLanding: TimeService.time(gld && gld.LdgDateTime),
+                towingStart: TimeService.time(gld && gld.StartDateTime),
+                towingLanding: TimeService.time(tow && tow.LdgDateTime),
+                engineCounterFormat: 'seconds'
+            };
+            $scope.times.gliderDuration = calcDuration($scope.times.gliderStart, $scope.times.gliderLanding);
+            $scope.times.towingDuration = calcDuration($scope.times.gliderStart, $scope.times.towingLanding);
+
+            $scope.flightTypeChanged();
+            $scope.flightCostBalanceTypeChanged();
+            $scope.startTypeChanged();
+            calcDurationWarning();
+            recalcRouteRequirements();
+        }
+
+        function selectFlight(flight) {
             $scope.PersonForInvoiceRequired = false;
             $scope.warnTowFlightLongerThanGliderFlight = false;
 
-            loadFlight(flight, toBeCopied)
-                .then((result) => {
-                    $scope.flightDetails = result;
-                    if (result.TowFlightDetailsData && result.TowFlightDetailsData.AircraftId === '00000000-0000-0000-0000-000000000000') {
-                        result.TowFlightDetailsData.AircraftId = "";
-                    }
-                    if (result.TowFlightDetailsData && result.TowFlightDetailsData.PilotPersonId === '00000000-0000-0000-0000-000000000000') {
-                        result.TowFlightDetailsData.PilotPersonId = "";
-                    }
-
-                    let gld = $scope.flightDetails.GliderFlightDetailsData;
-                    let tow = $scope.flightDetails.TowFlightDetailsData;
-                    $scope.times = {
-                        flightDate: gld && gld.StartDateTime || gld.FlightDate || new Date(),
-                        gliderStart: TimeService.time(gld && gld.StartDateTime),
-                        gliderLanding: TimeService.time(gld && gld.LdgDateTime),
-                        towingStart: TimeService.time(gld && gld.StartDateTime),
-                        towingLanding: TimeService.time(tow && tow.LdgDateTime),
-                        engineCounterFormat: 'seconds'
-                    };
-                    $scope.times.gliderDuration = calcDuration($scope.times.gliderStart, $scope.times.gliderLanding);
-                    $scope.times.towingDuration = calcDuration($scope.times.gliderStart, $scope.times.towingLanding);
-                })
-                .then(() => {
-                    $scope.flightTypeChanged();
-                    $scope.flightCostBalanceTypeChanged();
-                    $scope.startTypeChanged();
-                    calcDurationWarning();
-                    recalcRouteRequirements();
-                })
+            loadFlight(flight)
+                .then(mapFlightToForm)
                 .catch(_.partial(MessageManager.raiseError, 'load', 'flight'))
                 .finally(() => {
                     $scope.busyLoadingFlight = false;
@@ -313,21 +322,11 @@ export default class FlightsController {
                 });
         }
 
-        $scope.cancel = () => {
-            $scope.selectedFlight = undefined;
-            $scope.flightDetails = undefined;
-            $location.path('/flights');
-        };
-
-        $scope.new = (toBeCopied) => {
-            $location.path('/flights/new');
-        };
-
         $scope.save = function (flightDetails) {
             MessageManager.reset();
             $scope.busyLoadingFlight = true;
 
-            var flightDate = moment($scope.times.flightDate).format("DD.MM.YYYY");
+            let flightDate = moment($scope.times.flightDate).format("DD.MM.YYYY");
             flightDetails.GliderFlightDetailsData.StartDateTime = TimeService.parseDateTime(flightDate, $scope.times.gliderStart);
             flightDetails.GliderFlightDetailsData.FlightDate = flightDetails.GliderFlightDetailsData.StartDateTime;
             flightDetails.GliderFlightDetailsData.LdgDateTime = TimeService.parseDateTime(flightDate, $scope.times.gliderLanding);
@@ -358,13 +357,10 @@ export default class FlightsController {
             if (window.confirm('Do you really want to delete this flight?')) {
                 Flights.deleteFlight({id: flight.FlightId}).$promise
                     .then(function () {
-                        console.log('successfully removed flight.');
                         if ($scope.selectedFlight === flight) {
                             $scope.cancel();
                         }
-                        $scope.flights = _.filter($scope.flights, function (f) {
-                            return f !== flight;
-                        });
+                        $scope.tableParams.reload();
                     })
                     .catch(_.partial(MessageManager.raiseError, 'delete', 'flight'));
             }
@@ -384,8 +380,8 @@ export default class FlightsController {
 
         $scope.flightTypeChanged = function () {
             $timeout(() => {
-                for (var i = 0; i < $scope.gliderFlightTypes.length; i++) {
-                    var t = $scope.gliderFlightTypes[i];
+                for (let i = 0; i < $scope.gliderFlightTypes.length; i++) {
+                    let t = $scope.gliderFlightTypes[i];
                     if (hasDetails() && t.FlightTypeId === $scope.flightDetails.GliderFlightDetailsData.FlightTypeId) {
                         $scope.selectedFlightType = t;
                         recalcCheckboxState();
@@ -396,7 +392,7 @@ export default class FlightsController {
         };
 
         function createModalConfig(flags) {
-            var flagsOrDefaults = flags || {
+            let flagsOrDefaults = flags || {
                     GliderPilot: true,
                     TowingPilot: false,
                     Passenger: false
@@ -413,7 +409,7 @@ export default class FlightsController {
         }
 
         $scope.newGliderPilot = function () {
-            var modalInstance = $modal.open(createModalConfig({
+            let modalInstance = $modal.open(createModalConfig({
                 GliderPilot: true
             }));
 
@@ -430,7 +426,7 @@ export default class FlightsController {
         };
 
         $scope.newTowingPilot = function () {
-            var modalInstance = $modal.open(createModalConfig({
+            let modalInstance = $modal.open(createModalConfig({
                 TowingPilot: true
             }));
 
@@ -447,7 +443,7 @@ export default class FlightsController {
         };
 
         $scope.newPassenger = function () {
-            var modalInstance = $modal.open(createModalConfig({
+            let modalInstance = $modal.open(createModalConfig({
                 GliderPilot: false,
                 Passenger: true
             }));
@@ -466,7 +462,7 @@ export default class FlightsController {
 
         $scope.flightCostBalanceTypeChanged = function () {
             $timeout(() => {
-                for (var i = 0; i < $scope.flightCostBalanceTypes.length; i++) {
+                for (let i = 0; i < $scope.flightCostBalanceTypes.length; i++) {
                     if (hasDetails() && $scope.flightCostBalanceTypes[i].FlightCostBalanceTypeId == $scope.flightDetails.GliderFlightDetailsData.FlightCostBalanceType) {
                         $scope.PersonForInvoiceRequired = $scope.flightCostBalanceTypes[i].PersonForInvoiceRequired;
                     }
@@ -490,8 +486,8 @@ export default class FlightsController {
         }
 
         function calcDurationWarning() {
-            var gliderDuration = moment($scope.times.gliderDuration, format);
-            var towDuration = moment($scope.times.towingDuration, format);
+            let gliderDuration = moment($scope.times.gliderDuration, format);
+            let towDuration = moment($scope.times.towingDuration, format);
             if (gliderDuration.isValid() && towDuration.isValid()) {
                 $scope.warnTowFlightLongerThanGliderFlight = gliderDuration.isBefore(towDuration);
             }
@@ -501,16 +497,16 @@ export default class FlightsController {
         }
 
         function calcDuration(from, to) {
-            var toMoment = moment(to, format);
-            var fromMoment = moment(from, format);
+            let toMoment = moment(to, format);
+            let fromMoment = moment(from, format);
             if (toMoment.isValid() && fromMoment.isValid()) {
                 return toMoment.subtract(fromMoment).format(format);
             }
         }
 
         function calcLanding(start, duration) {
-            var startMoment = moment(start, format);
-            var durationMoment = moment(duration, format);
+            let startMoment = moment(start, format);
+            let durationMoment = moment(duration, format);
             if (startMoment.isValid() && durationMoment.isValid()) {
                 return startMoment.add(durationMoment).format(format);
             }
@@ -589,56 +585,56 @@ export default class FlightsController {
         }
 
         $scope.formatGliderStart = () => {
-            var times = $scope.times;
+            let times = $scope.times;
             times.gliderStart = this.TimeService.formatTime(times.gliderStart);
             times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
             times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
         };
 
         $scope.setGliderStart = () => {
-            var times = $scope.times;
+            let times = $scope.times;
             times.gliderStart = $scope.getTimeNow();
             times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
             times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
         };
 
         $scope.formatGliderLanding = () => {
-            var times = $scope.times;
+            let times = $scope.times;
             times.gliderLanding = this.TimeService.formatTime(times.gliderLanding);
             times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
             calcDurationWarning();
         };
 
         $scope.setGliderLanding = () => {
-            var times = $scope.times;
+            let times = $scope.times;
             times.gliderLanding = $scope.getTimeNow();
             times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
             calcDurationWarning();
         };
 
         $scope.formatGliderDuration = () => {
-            var times = $scope.times;
+            let times = $scope.times;
             times.gliderDuration = this.TimeService.formatTime(times.gliderDuration);
             times.gliderLanding = calcLanding(times.gliderStart, times.gliderDuration);
             calcDurationWarning();
         };
 
         $scope.formatTowLanding = () => {
-            var times = $scope.times;
+            let times = $scope.times;
             times.towingLanding = this.TimeService.formatTime(times.towingLanding);
             times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
             calcDurationWarning();
         };
 
         $scope.setTowLanding = () => {
-            var times = $scope.times;
+            let times = $scope.times;
             times.towingLanding = $scope.getTimeNow();
             times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
             calcDurationWarning();
         };
 
         $scope.formatTowDuration = () => {
-            var times = $scope.times;
+            let times = $scope.times;
             times.towingDuration = this.TimeService.formatTime(times.towingDuration);
             times.towingLanding = calcLanding(times.gliderStart, times.towingDuration);
             calcDurationWarning();
@@ -657,8 +653,20 @@ export default class FlightsController {
             $scope.engineSecondsCountersChanged();
         };
 
-        $scope.editFlight = function (flight) {
+        $scope.cancel = () => {
+            $location.path('/flights');
+        };
+
+        $scope.newFlight = () => {
+            $location.path('/flights/new');
+        };
+
+        $scope.editFlight = (flight) => {
             $location.path('/flights/' + flight.FlightId);
+        };
+
+        $scope.copyFlight = (flight) => {
+            $location.path('/flights/copy/' + flight.FlightId);
         };
 
     }

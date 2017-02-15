@@ -49,5 +49,14 @@ export default angular.module('fls.flights', [
                     resolve: {
                         user: userAuth
                     }
+                })
+            .when('/flights/copy/:id',
+                {
+                    controller: FlightsController,
+                    template: require('./flight-edit-form.html'),
+                    publicAccess: true,
+                    resolve: {
+                        user: userAuth
+                    }
                 });
     });

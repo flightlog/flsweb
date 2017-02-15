@@ -1,5 +1,5 @@
 <div class="container-fluid flscontainer">
-    <button type="button" ng-click="new(false)" class="btn btn-default pull-right hidden-print fls-table-new-button" translate="NEW">
+    <button type="button" ng-click="newFlight()" class="btn btn-default pull-right hidden-print fls-table-new-button" translate="NEW">
     </button>
     <div>
         <h1 translate="FLIGHTS"></h1>
@@ -35,7 +35,7 @@
                                 <span class="fa fa-trash-o"></span>
                             </a>
                             <a title="{{'COPY' | translate}}"
-                               ng-click="new(flight)"
+                               ng-click="copyFlight(flight); $event.stopPropagation();"
                                class="col-md-4 control-icon">
                                 <span class="fa fa-files-o"></span>
                             </a>
