@@ -51,12 +51,12 @@ export default class AirMovementsController {
             $scope.filterDates.toDate = today;
             reloadFlights();
         };
-        $scope.loadMonths = function (num) {
+        $scope.loadMonths = (num) => {
             $scope.filterDates.fromDate = moment().subtract(num, 'months');
             $scope.filterDates.toDate = today;
             reloadFlights();
         };
-        $scope.loadMonth = function (num) {
+        $scope.loadMonth = (num) => {
             $scope.filterDates.fromDate = moment().startOf('month').subtract(num, 'months');
             $scope.filterDates.toDate = moment().startOf('month').subtract(num - 1, 'months');
             reloadFlights();
@@ -77,49 +77,54 @@ export default class AirMovementsController {
         };
 
         function reloadFlights() {
-            $scope.busy = false;
-            $scope.tableParams = new NgTableParams({
-                filter: {},
-                sorting: {
-                    StartDateTime: 'desc'
-                },
-                count: 100
-            }, {
-                counts: [],
-                getData: function (params) {
-                    $scope.busy = true;
-                    let pageSize = params.count();
-                    let pageStart = (params.page() - 1) * pageSize;
+            if ($scope.tableParams) {
+                $scope.tableParams.reload();
+            } else {
+                $scope.busy = false;
+                $scope.tableParams = new NgTableParams({
+                    filter: {},
+                    sorting: {
+                        StartDateTime: 'desc'
+                    },
+                    count: 100
+                }, {
+                    counts: [],
+                    getData: function (params) {
+                        $scope.busy = true;
+                        let pageSize = params.count();
+                        let pageStart = (params.page() - 1) * pageSize;
 
-                    return PagedFlights.getMotorFlights($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
-                        .then((result) => {
-                            $scope.busy = false;
-                            params.total(result.TotalRows);
-                            let flights = result.Items;
-                            for (var i = 0; i < result.length; i++) {
-                                flights[i]._formattedDate = result[i].StartDateTime && moment(result[i].StartDateTime).format('DD.MM.YYYY HH:mm dddd');
-                            }
+                        return PagedFlights.getMotorFlights($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
+                            .then((result) => {
+                                $scope.busy = false;
+                                params.total(result.TotalRows);
+                                let flights = result.Items;
+                                for (let i = 0; i < result.length; i++) {
+                                    flights[i]._formattedDate = result[i].StartDateTime && moment(result[i].StartDateTime).format('DD.MM.YYYY HH:mm dddd');
+                                }
 
-                            return result.Items;
-                        })
-                        .finally(() => {
-                            $scope.busy = false;
-                        });
-                }
-            });
+                                return result.Items;
+                            })
+                            .finally(() => {
+                                $scope.busy = false;
+                            });
+                    }
+                });
+            }
         }
-
 
         if ($routeParams.id !== undefined) {
             loadMasterdata()
                 .then(() => {
                     if ($routeParams.id === 'new') {
-                        $scope.newFlight = {};
-                        return selectFlight($scope.newFlight);
+                        return newFlight();
+                    } else if ($location.path().indexOf('/copy') > 0) {
+                        return copyFlight($routeParams.id);
                     } else {
-                        return selectFlight({FlightId: $routeParams.id});
+                        return loadFlight($routeParams.id);
                     }
                 })
+                .then(mapFlightToForm)
                 .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'));
 
         } else {
@@ -170,35 +175,38 @@ export default class AirMovementsController {
                 flightDetails.StartType = flightDetails.StartType || $scope.myClub.DefaultStartType || 5;
             });
             flightDetails.CanUpdateRecord = true;
+
             return flightDetails;
         }
 
-        function loadFlight(flight, toBeCopied) {
-            if (flight.FlightId) {
-                return AirMovements.getFlight({id: flight.FlightId}).$promise;
-            }
-            if (toBeCopied) {
-                return AirMovements.getFlight({id: toBeCopied.FlightId}).$promise
-                    .then((res) => {
-                        let flightDetails = {};
-                        flightDetails.StartType = res.StartType;
-                        flightDetails.FlightId = undefined;
-                        flightDetails.MotorFlightDetailsData = res.MotorFlightDetailsData || {};
-                        flightDetails.MotorFlightDetailsData.FlightId = undefined;
-                        flightDetails.MotorFlightDetailsData.StartDateTime = undefined;
-                        flightDetails.MotorFlightDetailsData.LdgDateTime = undefined;
-                        flightDetails.MotorFlightDetailsData.FlightComment = undefined;
-                        flightDetails.MotorFlightDetailsData.BlockStartDateTime = undefined;
-                        flightDetails.MotorFlightDetailsData.BlockEndDateTime = undefined;
-                        flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds = undefined;
-                        flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds = undefined;
-                        return initForNewFlight(flightDetails);
-                    });
-            } else {
-                return $q.when(initForNewFlight({
-                    MotorFlightDetailsData: {}
-                }));
-            }
+        function loadFlight(flightId) {
+            return AirMovements.getFlight({id: flightId}).$promise;
+        }
+
+        function newFlight() {
+            return $q.when(initForNewFlight({
+                MotorFlightDetailsData: {}
+            }));
+        }
+
+        function copyFlight(flightId) {
+            return loadFlight(flightId)
+                .then((res) => {
+                    let flightDetails = {};
+                    flightDetails.StartType = res.StartType;
+                    flightDetails.FlightId = undefined;
+                    flightDetails.MotorFlightDetailsData = res.MotorFlightDetailsData || {};
+                    flightDetails.MotorFlightDetailsData.FlightId = undefined;
+                    flightDetails.MotorFlightDetailsData.StartDateTime = undefined;
+                    flightDetails.MotorFlightDetailsData.LdgDateTime = undefined;
+                    flightDetails.MotorFlightDetailsData.FlightComment = undefined;
+                    flightDetails.MotorFlightDetailsData.BlockStartDateTime = undefined;
+                    flightDetails.MotorFlightDetailsData.BlockEndDateTime = undefined;
+                    flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds = undefined;
+                    flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds = undefined;
+
+                    return initForNewFlight(flightDetails);
+                });
         }
 
         $scope.getTimeNow = () => {
@@ -246,55 +254,43 @@ export default class AirMovementsController {
         }
 
 
-        function selectFlight(flight, toBeCopied) {
+        function mapFlightToForm(result) {
+            $scope.flightDetails = result;
+
+            let motorFlight = $scope.flightDetails.MotorFlightDetailsData;
+
+            $scope.times = {
+                flightDate: (motorFlight.StartDateTime || motorFlight.FlightDate) || new Date(),
+                motorStart: TimeService.time(motorFlight.StartDateTime),
+                motorLanding: TimeService.time(motorFlight.LdgDateTime),
+                blockTimeStart: TimeService.time(motorFlight.BlockStartDateTime),
+                blockTimeEnd: TimeService.time(motorFlight.BlockEndDateTime),
+                engineCounterFormat: 'seconds'
+            };
+            $scope.times.motorDuration = calcDuration($scope.times.motorStart, $scope.times.motorLanding);
+            $scope.times.blockDuration = calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd);
+
+            Aircrafts.getTowingPlanes().$promise.then((result) => {
+                $scope.motorAircrafts = result;
+                $scope.motorAircraftSelectionChanged(false);
+            });
+            $scope.flightTypeChanged();
+            $scope.recalcRouteRequirements();
+            $scope.busy = false;
+        }
+
+        function selectFlight(flight) {
             $scope.operatingCounters = undefined;
             $scope.PersonForInvoiceRequired = false;
 
-            return loadFlight(flight, toBeCopied)
-                .then((result) => {
-                    $scope.flightDetails = result;
-
-                    let motorFlight = $scope.flightDetails.MotorFlightDetailsData;
-
-                    $scope.times = {
-                        flightDate: (motorFlight.StartDateTime || motorFlight.FlightDate) || new Date(),
-                        motorStart: TimeService.time(motorFlight.StartDateTime),
-                        motorLanding: TimeService.time(motorFlight.LdgDateTime),
-                        blockTimeStart: TimeService.time(motorFlight.BlockStartDateTime),
-                        blockTimeEnd: TimeService.time(motorFlight.BlockEndDateTime),
-                        engineCounterFormat: 'seconds'
-                    };
-                    $scope.times.motorDuration = calcDuration($scope.times.motorStart, $scope.times.motorLanding);
-                    $scope.times.blockDuration = calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd);
-
-                    Aircrafts.getTowingPlanes().$promise.then((result) => {
-                        $scope.motorAircrafts = result;
-                        $scope.motorAircraftSelectionChanged(false);
-                    });
-                })
-                .then(() => {
-                    $scope.flightTypeChanged();
-                    $scope.recalcRouteRequirements();
-                })
-                .catch(_.partial(MessageManager.raiseError, 'load', 'flight'))
-                .finally(() => {
-                    $scope.busyLoadingFlight = false;
-                    $scope.busy = $scope.loadingMasterdata;
-                });
+            return loadFlight(flight)
+                .then(mapFlightToForm)
+                .catch(_.partial(MessageManager.raiseError, 'load', 'flight'));
         }
-
-        $scope.cancel = () => {
-            $location.path('/airmovements');
-        };
-
-        $scope.new = (toBeCopied) => {
-            $location.path('/airmovements/new');
-        };
 
         $scope.save = (flightDetails) => {
             MessageManager.reset();
-            $scope.busyLoadingFlight = true;
-            var flightDate = moment($scope.times.flightDate).format("DD.MM.YYYY");
+            let flightDate = moment($scope.times.flightDate).format("DD.MM.YYYY");
             flightDetails.MotorFlightDetailsData.StartDateTime = TimeService.parseDateTime(flightDate, $scope.times.motorStart);
             flightDetails.MotorFlightDetailsData.LdgDateTime = TimeService.parseDateTime(flightDate, $scope.times.motorLanding);
             flightDetails.MotorFlightDetailsData.BlockStartDateTime = TimeService.parseDateTime(flightDate, $scope.times.blockTimeStart);
@@ -302,20 +298,12 @@ export default class AirMovementsController {
 
             if (flightDetails.FlightId) {
                 new AirMovements(flightDetails).$saveFlight({id: flightDetails.FlightId})
-                    .then(reloadFlights)
                     .then($scope.cancel)
-                    .catch(_.partial(MessageManager.raiseError, 'save', 'flight'))
-                    .finally(() => {
-                        $scope.busyLoadingFlight = false;
-                    });
+                    .catch(_.partial(MessageManager.raiseError, 'save', 'flight'));
             } else {
                 new AirMovements(flightDetails).$save()
-                    .then(reloadFlights)
                     .then($scope.cancel)
-                    .catch(_.partial(MessageManager.raiseError, 'insert', 'flight'))
-                    .finally(() => {
-                        $scope.busyLoadingFlight = false;
-                    });
+                    .catch(_.partial(MessageManager.raiseError, 'insert', 'flight'));
             }
         };
 
@@ -323,13 +311,10 @@ export default class AirMovementsController {
             if (window.confirm('Do you really want to delete this flight?')) {
                 AirMovements.deleteFlight({id: flight.FlightId}).$promise
                     .then(() => {
-                        console.log('successfully removed flight.');
                         if ($scope.selectedFlight === flight) {
                             $scope.cancel();
                         }
-                        $scope.flights = _.filter($scope.flights, function (f) {
-                            return f !== flight;
-                        });
+                        $scope.tableParams.reload();
                     })
                     .catch(_.partial(MessageManager.raiseError, 'delete', 'flight'));
             }
@@ -395,7 +380,7 @@ export default class AirMovementsController {
         };
 
         function findSelectedLandingLocation() {
-            for (var i = 0; i < $scope.locations.length; i++) {
+            for (let i = 0; i < $scope.locations.length; i++) {
                 let location = $scope.locations[i];
                 if (location.LocationId === $scope.flightDetails.MotorFlightDetailsData.LdgLocationId) {
                     return location;
@@ -405,7 +390,7 @@ export default class AirMovementsController {
         }
 
         function findSelectedStartLocation() {
-            for (var i = 0; i < $scope.locations.length; i++) {
+            for (let i = 0; i < $scope.locations.length; i++) {
                 let location = $scope.locations[i];
                 if (location.LocationId === $scope.flightDetails.MotorFlightDetailsData.StartLocationId) {
                     return location;
@@ -492,9 +477,21 @@ export default class AirMovementsController {
             $scope.engineSecondsCountersChanged();
         };
 
-        $scope.editFlight = function (flight) {
+        $scope.cancel = () => {
+            $location.path('/airmovements');
+        };
+
+        $scope.newFlight = () => {
+            $location.path('/airmovements/new');
+        };
+
+        $scope.editFlight = (flight) => {
             $location.path('/airmovements/' + flight.FlightId);
         };
-    }
 
+        $scope.copyFlight = (flight) => {
+            $location.path('/airmovements/copy/' + flight.FlightId);
+        };
+
+    }
 }

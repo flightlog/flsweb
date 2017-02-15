@@ -2,7 +2,7 @@
      ng-init="reloadList();">
 
     <button type="button"
-            ng-click="new(false)"
+            ng-click="newFlight()"
             class="btn btn-default pull-right"
             translate="NEW"
             style="margin-top:-10px;">
@@ -84,7 +84,7 @@
                             <span class="fa fa-trash-o"></span>
                         </a>
                         <a title="{{'COPY' | translate}}"
-                           ng-click="new(flight)"
+                           ng-click="copyFlight(flight); $event.stopPropagation();"
                            class="col-md-4 control-icon">
                             <span class="fa fa-files-o"></span>
                         </a>

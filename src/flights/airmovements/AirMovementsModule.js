@@ -44,5 +44,14 @@ export default angular.module('fls.airMovements.airmovements', [
                     resolve: {
                         user: userAuth
                     }
+                })
+            .when('/airmovements/copy/:id',
+                {
+                    controller: AirMovementsController,
+                    template: require('./air-movement-edit-form.html'),
+                    publicAccess: true,
+                    resolve: {
+                        user: userAuth
+                    }
                 });
     });
