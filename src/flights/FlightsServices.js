@@ -7,7 +7,7 @@ export class PagedFlights {
 
     getGliderFlights(filter, sorting, pageStart, pageSize) {
         return this.$http
-            .post(`${this.GLOBALS.BASE_URL}/api/v1/flights/gliderflights/page/${pageStart + 1}/${pageSize}`, {
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/flights/gliderflights/page/${pageStart}/${pageSize}`, {
                 Sorting: sorting,
                 SearchFilter: Object.assign({}, filter, {StartDateTime: filter.StartDateTime && {Fixed: filter.StartDateTime}})
             })
@@ -19,7 +19,7 @@ export class PagedFlights {
 
     getMotorFlights(filter, sorting, pageStart, pageSize) {
         return this.$http
-            .post(`${this.GLOBALS.BASE_URL}/api/v1/flights/motorflights/page/${pageStart + 1}/${pageSize}`, {
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/flights/motorflights/page/${pageStart}/${pageSize}`, {
                 Sorting: sorting,
                 SearchFilter: Object.assign({}, filter, {StartDateTime: filter.StartDateTime && {Fixed: filter.StartDateTime}})
             })

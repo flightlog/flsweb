@@ -7,7 +7,7 @@ export class PagedAircrafts {
 
     getAircrafts(filter, sorting, pageStart, pageSize) {
         return this.$http
-            .post(`${this.GLOBALS.BASE_URL}/api/v1/aircrafts/page/${pageStart + 1}/${pageSize}`, {
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/aircrafts/page/${pageStart}/${pageSize}`, {
                 Sorting: sorting,
                 SearchFilter: filter
             })

@@ -7,7 +7,7 @@ export class PagedPersons {
 
     getPersons(filter, sorting, pageStart, pageSize) {
         return this.$http
-            .post(`${this.GLOBALS.BASE_URL}/api/v1/persons/page/${pageStart + 1}/${pageSize}`, {
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/persons/page/${pageStart}/${pageSize}`, {
                 Sorting: sorting,
                 SearchFilter: filter
             })

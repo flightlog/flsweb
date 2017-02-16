@@ -7,7 +7,7 @@ export class PagedAccountingRuleFilters {
 
     getAccountingRuleFilters(filter, sorting, pageStart, pageSize) {
         return this.$http
-            .post(`${this.GLOBALS.BASE_URL}/api/v1/accountingrulefilters/page/${pageStart + 1}/${pageSize}`, {
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/accountingrulefilters/page/${pageStart}/${pageSize}`, {
                 Sorting: sorting,
                 SearchFilter: filter
             })

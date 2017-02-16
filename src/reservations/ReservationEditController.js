@@ -8,20 +8,20 @@ export default class ReservationEditController {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.form = {};
-        var prefillMoment = moment($routeParams['date']) || moment();
-        var prefillLocationId = $routeParams['locationId'];
+        let prefillMoment = moment($routeParams['date']) || moment();
+        let prefillLocationId = $routeParams['locationId'];
 
         $scope.renderPerson = DropdownItemsRenderService.personRenderer();
         $scope.renderAircraft = DropdownItemsRenderService.aircraftRenderer();
         $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
         let suggestedStart = prefillMoment.clone().hour(10).minute(0).second(0).toDate();
         let suggestedStop = prefillMoment.clone().hour(18).minute(0).second(0).toDate();
-
         $scope.busy = true;
+        $scope.md = {
+            instructorRequired: false
+        };
 
         function loadMasterData() {
-            $scope.md = {};
-
             return $q.all([
                 AircraftsOverviews.query().$promise
                     .then((result) => {
@@ -47,7 +47,7 @@ export default class ReservationEditController {
         }
 
         function loadReservation(user) {
-            var deferred = $q.defer();
+            let deferred = $q.defer();
             if ($routeParams.id === 'new') {
                 let res = {
                     CanUpdateRecord: true,
@@ -91,18 +91,18 @@ export default class ReservationEditController {
         };
         $scope.save = function (reservation) {
             $scope.busy = true;
-            var dt = new Date(reservation.Start);
-            var filteredDate = moment(dt).format('YYYY-MM-DD');
+            let dt = new Date(reservation.Start);
+            let filteredDate = moment(dt).format('YYYY-MM-DD');
             if (reservation.IsAllDayReservation) {
                 reservation.Start = filteredDate;
                 reservation.End = filteredDate;
             } else {
-                var startMoment = moment(reservation._start);
+                let startMoment = moment(reservation._start);
                 reservation.Start = moment(reservation.Start).hours(startMoment.hours()).minutes(startMoment.minutes());
             }
             reservation._start = undefined;
             if (reservation.AircraftReservationId) {
-                var r = new ReservationUpdater(reservation);
+                let r = new ReservationUpdater(reservation);
                 r.$saveReservation({id: reservation.AircraftReservationId})
                     .then($scope.cancel)
                     .catch(_.partial(MessageManager.raiseError, 'save', 'reservation'))
@@ -120,8 +120,13 @@ export default class ReservationEditController {
         };
 
         $scope.calculateInstructorRequired = () => {
-            $scope.instructorRequired = ReservationValidator.calculateInstructorRequired($scope.md.reservationTypes, $scope.reservation);
+            setTimeout(() => {
+                $scope.instructorRequired = ReservationValidator.calculateInstructorRequired($scope.md.reservationTypes, $scope.reservation);
+                
+                $scope.$apply();
+            }, 0);
         };
+
         $scope.edit = function (reservation) {
             $location.path('/reservations/' + reservation.AircraftReservationId + '/edit');
         };
