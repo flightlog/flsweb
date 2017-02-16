@@ -8,6 +8,7 @@ import Countries from "./Countries";
 import {StartTypes, SpecificStartTypes} from "./StartTypes";
 import {CounterUnitTypes} from "./CounterUnitTypes";
 import DatePickerInputDirective from "./directives/datePicker/DatePickerInputDirective";
+import DateRangePickerInputDirective from "./directives/dateRangePicker/DateRangePickerInputDirective";
 import TimeInputDirective from "./directives/timePicker/TimeInputDirective";
 import TimeCounterDirective from "./directives/timeCounter/TimeCounterDirective";
 import MessageBarDirective from "./directives/messageBar/MessageBarDirective";
@@ -44,6 +45,7 @@ export default angular.module("fls.core", [
     .value('selectizeConfig', {})
     .directive('searchBar', SearchBarDirective.factory)
     .directive('flsDatePicker', DatePickerInputDirective.factory)
+    .directive('flsDateRangePicker', DateRangePickerInputDirective.factory)
     .directive('flsTimeInput', TimeInputDirective.factory)
     .directive('flsTimeCounter', TimeCounterDirective.factory)
     .directive('flsSimpleSearchBar', SimpleSearchBarDirective.factory)

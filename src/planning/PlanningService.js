@@ -9,7 +9,7 @@ export class PagedPlanningDays {
         return this.$http
             .post(`${this.GLOBALS.BASE_URL}/api/v1/planningdays/page/${pageStart}/${pageSize}`, {
                 Sorting: sorting,
-                SearchFilter: Object.assign({}, filter, {Day: filter.Day && {Fixed: filter.Day}})
+                SearchFilter: filter
             })
             .then((response) => {
                 return response.data;

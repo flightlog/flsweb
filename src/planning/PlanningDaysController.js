@@ -8,7 +8,11 @@ export default class PlanningDaysController {
         $scope.debug = GLOBALS.DEBUG;
 
         $scope.tableParams = new NgTableParams({
-            filter: {},
+            filter: {
+                Day: {
+                    From: moment().format("YYYY-MM-DD")
+                }
+            },
             sorting: {
                 Day: 'asc'
             },
