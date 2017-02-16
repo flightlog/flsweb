@@ -11,7 +11,7 @@
         <div class="form-group col-md-4">
             <label for="locationType"><span translate="LOCATION_TYPE"></span></label>
 
-            <selectize id="locationType" name="locationType" options="locationTypes" ng-disabled="!location.CanUpdateRecord" config="{
+            <selectize id="locationType" name="locationType" options="md.locationTypes" ng-disabled="!location.CanUpdateRecord" config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationTypeId',
@@ -24,7 +24,7 @@
         <div class="form-group col-md-12">
             <label for="Country"><span translate="COUNTRY"></span></label>
 
-            <selectize id="Country" name="Country" options="countries" ng-disabled="!location.CanUpdateRecord" config="{
+            <selectize id="Country" name="Country" options="md.countries" ng-disabled="!location.CanUpdateRecord" config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'CountryId',
@@ -41,7 +41,7 @@
         <div class="form-group col-md-4">
             <label for="lengthUnitType"><span translate="LENGTH_UNIT"></span></label>
 
-            <selectize id="lengthUnitType" name="lengthUnitType" options="lengthUnitTypes" ng-disabled="!location.CanUpdateRecord" config="{
+            <selectize id="lengthUnitType" name="lengthUnitType" options="md.lengthUnitTypes" ng-disabled="!location.CanUpdateRecord" config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LengthUnitTypeId',
@@ -62,7 +62,7 @@
         <div class="form-group col-md-4">
             <label for="ElevationUnitType"><span translate="ELEVATION_UNIT"></span></label>
 
-            <selectize id="ElevationUnitType" name="ElevationUnitType" options="elevationUnitTypes" ng-disabled="!location.CanUpdateRecord" config="{
+            <selectize id="ElevationUnitType" name="ElevationUnitType" options="md.elevationUnitTypes" ng-disabled="!location.CanUpdateRecord" config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'ElevationUnitTypeId',

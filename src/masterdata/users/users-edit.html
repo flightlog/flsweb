@@ -3,6 +3,7 @@
         <fls-busy-indicator busy="busy" error="error">
             <fls-message-bar></fls-message-bar>
             <form role="form" ng-submit="save(user)" class="css-form"
+                  ng-if="!busy"
                   ng-class="{'readonly-form':!user.CanUpdateRecord}" name="userForm">
                 <div class="modal-body row">
                     <fls-user-form></fls-user-form>

@@ -1,4 +1,4 @@
-import AddPersonController from '../persons/modal/AddPersonController';
+import AddPersonController from "../persons/modal/AddPersonController";
 
 export default class UsersEditController {
     constructor($scope, GLOBALS, $q, $location, $routeParams, AuthService, NgTableParams, PagedUsers, UserRoles, UserService, Persons,
@@ -6,6 +6,7 @@ export default class UsersEditController {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
+        $scope.md = {};
         $scope.isSystemAdmin = AuthService.hasRole('SystemAdministrator');
         $scope.isClubAdmin = AuthService.hasRole('ClubAdministrator');
 
@@ -37,25 +38,27 @@ export default class UsersEditController {
         };
 
         if ($routeParams.id !== undefined) {
-            $q.all([
-                    loadUser()
-                        .then((user) => {
-                            $scope.user = user;
-                        }),
-                    UserRoles.getAllUserRoles().$promise
-                        .then((roles) => {
-                            $scope.roles = roles;
-                        }),
-                    Persons.query().$promise
-                        .then((persons) => {
-                            $scope.persons = persons;
-                        }),
-                    Clubs.query().$promise
-                        .then((clubs) => {
-                            $scope.clubs = clubs;
-                        })
+            $scope.busy = true;
+            $q
+                .all([
+                    UserRoles.getAllUserRoles().$promise.then((roles) => {
+                        $scope.md.roles = roles;
+                    }),
+                    Persons.query().$promise.then((persons) => {
+                        $scope.md.persons = persons;
+                    }),
+                    Clubs.query().$promise.then((clubs) => {
+                        $scope.md.clubs = clubs;
+                    }),
+                    UserAccountStates.query().$promise.then((userAccountStates) => {
+                        $scope.md.userAccountStates = userAccountStates;
+                    })
                 ])
-                .finally(function () {
+                .then(loadUser)
+                .then((user) => {
+                    $scope.user = user;
+                })
+                .finally(() => {
                     $scope.busy = false;
                 });
         } else {
@@ -73,7 +76,7 @@ export default class UsersEditController {
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
 
-                    let filter = Object.assign({}, $scope.tableParams.filter(), $scope.userAccountStates);
+                    let filter = Object.assign({}, $scope.tableParams.filter(), $scope.md.userAccountStates);
 
                     return PagedUsers.getUsers(filter, $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
@@ -98,7 +101,7 @@ export default class UsersEditController {
             if (!user.UserRoleIds) {
                 user.UserRoleIds = [];
             }
-            var idx = user.UserRoleIds.indexOf(RoleId);
+            let idx = user.UserRoleIds.indexOf(RoleId);
             if (idx > -1) {
                 user.UserRoleIds.splice(idx, 1);
             } else {
@@ -112,7 +115,7 @@ export default class UsersEditController {
         $scope.save = function (user) {
             $scope.busy = true;
             user.EmailConfirmationLink = AuthService.confirmationLink();
-            var p = new UserPersister(user);
+            let p = new UserPersister(user);
             if (user.UserId) {
                 p.$saveUser({id: user.UserId})
                     .then($scope.cancel)
@@ -151,7 +154,7 @@ export default class UsersEditController {
         }
 
         $scope.newPerson = function () {
-            var modalInstance = $modal.open(createModalConfig());
+            let modalInstance = $modal.open(createModalConfig());
 
             modalInstance.result.then(function (person) {
                 new PersonPersister(person).$save()

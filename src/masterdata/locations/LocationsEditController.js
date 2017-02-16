@@ -4,11 +4,9 @@ export default class LocationsEditController {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
+        $scope.md = {};
+        
         $scope.isClubAdmin = AuthService.isClubAdmin();
-        $scope.filter = {};
-        $scope.sorting = {
-            LocationName: 'asc'
-        };
 
         $scope.positionChanged = function () {
             $scope.openAipUrl = $sce.trustAsResourceUrl('http://maps.openaip.net/?lat=' + $scope.location.Latitude + '&lon=' + $scope.location.Longitude);
@@ -31,16 +29,16 @@ export default class LocationsEditController {
         if ($routeParams.id !== undefined) {
             $q.all([
                 Countries.query().$promise.then(function (result) {
-                    $scope.countries = result;
+                    $scope.md.countries = result;
                 }),
                 Locations.getLocationTypes().$promise.then(function (result) {
-                    $scope.locationTypes = result;
+                    $scope.md.locationTypes = result;
                 }),
                 Locations.getLengthUnitTypes().$promise.then(function (result) {
-                    $scope.lengthUnitTypes = result;
+                    $scope.md.lengthUnitTypes = result;
                 }),
                 Locations.getElevationUnitTypes().$promise.then(function (result) {
-                    $scope.elevationUnitTypes = result;
+                    $scope.md.elevationUnitTypes = result;
                 }),
                 loadLocation().then(function (location) {
                     $scope.location = location;
@@ -123,8 +121,6 @@ export default class LocationsEditController {
         };
 
         $scope.toggleSorting = (attribute) => {
-            console.log($scope.sorting);
-            console.log(attribute);
             $scope.sorting[attribute] = $scope.sorting[attribute] === 'asc' ? 'desc' : 'asc';
         };
     }

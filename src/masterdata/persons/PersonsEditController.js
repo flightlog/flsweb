@@ -16,7 +16,7 @@ export default class PersonsEditController {
         ];
         $scope.requiredFlagsFilter = {};
         $scope.toggleRequiredFlagFilter = (flag) => {
-            var previousValue = $scope.requiredFlagsFilter[flag];
+            let previousValue = $scope.requiredFlagsFilter[flag];
             $scope.requiredFlagsFilter = {};
             $scope.requiredFlagsFilter[flag] = !previousValue;
             $scope.tableParams.reload();
@@ -26,17 +26,8 @@ export default class PersonsEditController {
             $scope.tableParams.reload();
         };
 
-        let masterdataPromise = $q.all([
-            Countries.query().$promise.then(function (result) {
-                $scope.masterdata.countries = result;
-            }),
-            MemberStates.query().$promise.then(function (result) {
-                $scope.masterdata.memberStates = result;
-            })
-        ]);
-
         function loadPerson() {
-            var deferred = $q.defer();
+            let deferred = $q.defer();
             if ($routeParams.id === 'new') {
                 deferred.resolve({
                     CanUpdateRecord: true
@@ -54,9 +45,18 @@ export default class PersonsEditController {
         };
 
         if ($routeParams.id !== undefined) {
-            masterdataPromise
+            $scope.busy = true;
+            $q
+                .all([
+                    Countries.query().$promise.then(function (result) {
+                        $scope.masterdata.countries = result;
+                    }),
+                    MemberStates.query().$promise.then(function (result) {
+                        $scope.masterdata.memberStates = result;
+                    })
+                ])
                 .then(loadPerson)
-                .then(function (person) {
+                .then((person) => {
                     $scope.person = person;
                 })
                 .finally(function () {
@@ -100,7 +100,7 @@ export default class PersonsEditController {
         $scope.save = (person) => {
             $scope.busy = true;
 
-            var p = new PersonPersister(person);
+            let p = new PersonPersister(person);
             if (person.PersonId) {
                 p.$savePerson({id: person.PersonId})
                     .then($scope.cancel)

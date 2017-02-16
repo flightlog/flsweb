@@ -10,7 +10,7 @@ export default class ClubEditController {
         $scope.renderFlightType = DropdownItemsRenderService.flighttypeRenderer();
 
         function loadClub() {
-            var deferred = $q.defer();
+            let deferred = $q.defer();
             if ($routeParams.id === 'new') {
                 deferred.resolve({
                     CanUpdateRecord: true
@@ -20,25 +20,26 @@ export default class ClubEditController {
             return ClubPersister.get({id: $routeParams.id}).$promise;
         }
 
+        $scope.md = {};
         if ($routeParams.id !== undefined) {
             $q.all([
                     Countries.query().$promise.then(function (result) {
-                        $scope.countries = result;
+                        $scope.md.countries = result;
                     }),
                     Locations.getLocations().$promise.then(function (result) {
-                        $scope.locations = result;
+                        $scope.md.locations = result;
                     }),
                     StartTypes.query().$promise.then(function (result) {
-                        $scope.starttypes = result;
+                        $scope.md.starttypes = result;
                     }),
                     FlightTypes.queryFlightTypesFor({dest: 'gliders'}).$promise.then(function (result) {
-                        $scope.gliderFlightTypes = result;
+                        $scope.md.gliderFlightTypes = result;
                     }),
                     FlightTypes.queryFlightTypesFor({dest: 'towing'}).$promise.then(function (result) {
-                        $scope.towingFlightTypes = result;
+                        $scope.md.towingFlightTypes = result;
                     }),
                     FlightTypes.queryFlightTypesFor({dest: 'motor'}).$promise.then(function (result) {
-                        $scope.motorFlightTypes = result;
+                        $scope.md.motorFlightTypes = result;
                     }),
                     loadClub().then(function (club) {
                         $scope.club = club;
@@ -82,7 +83,7 @@ export default class ClubEditController {
         };
         $scope.save = function (club) {
             $scope.busy = true;
-            var p = new ClubPersister(club);
+            let p = new ClubPersister(club);
             if (club.ClubId) {
                 p.$saveClub({id: club.ClubId})
                     .then($scope.cancel)

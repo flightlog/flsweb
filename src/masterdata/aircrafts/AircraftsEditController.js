@@ -8,6 +8,7 @@ export default class AircraftsEditController {
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = false;
         $scope.isClubAdmin = AuthService.isClubAdmin();
+        $scope.md = {};
 
         $scope.renderAircraftType = DropdownItemsRenderService.aircrafttypeRenderer();
         $scope.renderPerson = DropdownItemsRenderService.personRenderer();
@@ -48,15 +49,17 @@ export default class AircraftsEditController {
             }
         };
 
-
         if ($routeParams.id !== undefined) {
-            let aircraftPromise = loadAircraft().then(aircraft => $scope.aircraft = aircraft);
-            let clubsPromise = Clubs.query().$promise.then(clubs => $scope.clubs = clubs);
-            let personsPromise = Persons.query().$promise.then(persons => $scope.persons = persons);
-            let aircraftTypesPromise = AircraftTypes.query().$promise.then(aircraftTypes => $scope.aircraftTypes = aircraftTypes);
-            let counterUnitTypesPromise = CounterUnitTypes.query().$promise.then(counterUnitTypes => $scope.counterUnitTypes = counterUnitTypes);
-
-            $q.all([aircraftPromise, clubsPromise, personsPromise, aircraftTypesPromise, counterUnitTypesPromise])
+            $scope.busy = true;
+            $q
+                .all([
+                    Clubs.query().$promise.then(clubs => $scope.md.clubs = clubs),
+                    Persons.query().$promise.then(persons => $scope.md.persons = persons),
+                    AircraftTypes.query().$promise.then(aircraftTypes => $scope.md.aircraftTypes = aircraftTypes),
+                    CounterUnitTypes.query().$promise.then(counterUnitTypes => $scope.md.counterUnitTypes = counterUnitTypes)
+                ])
+                .then(loadAircraft)
+                .then(aircraft => $scope.aircraft = aircraft)
                 .then(() => {
                     $scope.times = {
                         manufacturingYear: moment($scope.aircraft.YearOfManufacture).format("YYYY")
@@ -76,7 +79,7 @@ export default class AircraftsEditController {
                 },
                 count: 100
             }, {
-                counts:[],
+                counts: [],
                 getData: (params) => {
                     $scope.busy = true;
                     let pageSize = params.count();
@@ -105,7 +108,7 @@ export default class AircraftsEditController {
 
         $scope.deleteAircraft = function (aircraft) {
             AircraftService.delete(aircraft)
-                .then(function (res) {
+                .then(() => {
                     $scope.tableParams.reload();
                 })
                 .catch(_.partial(MessageManager.raiseError, 'remove', 'aircraft'));
@@ -121,7 +124,7 @@ export default class AircraftsEditController {
         };
 
         $scope.aircraftTypeChanged = () => {
-            $scope.selectedAircraftType = $scope.aircraftTypes
+            $scope.selectedAircraftType = $scope.md.aircraftTypes
                 .find(aircraftType => {
                     return ("" + aircraftType.AircraftTypeId) === ("" + $scope.aircraft.AircraftType);
                 });

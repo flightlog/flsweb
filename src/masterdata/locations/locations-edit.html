@@ -5,6 +5,7 @@
         <form role="form"
               ng-submit="save(location)"
               class="css-form"
+              ng-if="!busy"
               ng-class="{'readonly-form':!location.CanUpdateRecord}"
               name="locationForm">
             <fls-location-form></fls-location-form>

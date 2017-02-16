@@ -26,7 +26,7 @@
 
                     <selectize id="AircraftType"
                                name="AircraftType"
-                               options="aircraftTypes"
+                               options="md.aircraftTypes"
                                ng-change="aircraftTypeChanged()"
                                ng-disabled="!aircraft.CanUpdateRecord"
                                config="{
@@ -87,7 +87,7 @@
 
                     <selectize id="AircraftOwnerClubId"
                                name="AircraftOwnerClubId"
-                               options="clubs"
+                               options="md.clubs"
                                ng-disabled="!aircraft.CanUpdateRecord"
                                config="{
                                 inputClass: 'form-control selectize-input',
@@ -104,7 +104,7 @@
 
                     <selectize id="AircraftOwnerPersonId"
                                name="AircraftOwnerPersonId"
-                               options="persons"
+                               options="md.persons"
                                ng-disabled="!aircraft.CanUpdateRecord"
                                config="{
                                 inputClass: 'form-control selectize-input',
@@ -223,7 +223,7 @@
 
                     <selectize id="EngineOperatingCounterUnitTypeId"
                                name="EngineOperatingCounterUnitTypeId"
-                               options="counterUnitTypes"
+                               options="md.counterUnitTypes"
                                ng-disabled="!aircraft.CanUpdateRecord"
                                config="{
                                 inputClass: 'form-control selectize-input',

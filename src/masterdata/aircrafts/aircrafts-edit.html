@@ -3,7 +3,7 @@
         <fls-busy-indicator busy="busy" error="error">
             <fls-message-bar></fls-message-bar>
             <form role="form" ng-submit="save(aircraft)" class="row css-form"
-                  ng-class="{'readonly-form':!aircraft.CanUpdateRecord}" name="aircraftForm">
+                  ng-class="{'readonly-form':!aircraft.CanUpdateRecord}" name="aircraftForm" ng-if="!busy">
                 <div class="modal-body">
                     <fls-aircraft-form></fls-aircraft-form>
                 </div>
