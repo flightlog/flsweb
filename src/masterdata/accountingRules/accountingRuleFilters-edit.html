@@ -1,0 +1,34 @@
+<div class="container flscontainer">
+    <div class="col-md-12">
+        <fls-busy-indicator busy="busy" error="error">
+            <fls-message-bar></fls-message-bar>
+            <form role="form" ng-submit="save(accountingRuleFilter)" class="css-form"
+                  ng-class="{'readonly-form':!accountingRuleFilter.CanUpdateRecord}" name="accountingRuleFilterForm">
+                <div class="modal-body row">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="RuleFilterName"><span translate="NAME"></span></label>
+                            <input class="form-control" id="RuleFilterName" ng-model="accountingRuleFilter.RuleFilterName">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="Description"><span translate="DESCRIPTION"></span></label>
+                            <input class="form-control" id="Description" ng-model="accountingRuleFilter.Description">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="button" ng-click="cancel()" class="btn btn-default pull-right" translate="CANCEL">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-default pull-right"
+                            ng-disabled="accountingRuleFilterForm.$invalid || !accountingRuleFilter.CanUpdateRecord" translate="SAVE"
+                            style="margin-right:10px;">Save
+                    </button>
+                </div>
+            </form>
+        </fls-busy-indicator>
+        <pre ng-show="debug" ng-bind="person | json" style="margin-top:20px;"></pre>
+    </div>
+</div>

@@ -5,13 +5,22 @@ export default class AccountingRuleFiltersEditController {
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
         $scope.isClubAdmin = AuthService.isClubAdmin();
-        $scope.filter = {};
-        $scope.sorting = {
-            AccountingRuleFilterName: 'asc'
-        };
 
         if ($routeParams.id !== undefined) {
-            console.log("not implemented");
+            if ($routeParams.id === 'new') {
+                $scope.accountingRuleFilter = {
+                    CanUpdateRecord: true
+                };
+                $scope.busy = false;
+            } else {
+                PagedAccountingRuleFilters.getAccountingRuleFilter($routeParams.id)
+                    .then((result) => {
+                        $scope.accountingRuleFilter = result;
+                    })
+                    .finally(() => {
+                        $scope.busy = false;
+                    });
+            }
         } else {
             $scope.busy = false;
             $scope.tableParams = new NgTableParams({
@@ -21,8 +30,8 @@ export default class AccountingRuleFiltersEditController {
                 },
                 count: 100
             }, {
-                counts:[],
-                getData: function(params) {
+                counts: [],
+                getData: function (params) {
                     $scope.busy = true;
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;

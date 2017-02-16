@@ -16,4 +16,13 @@ export class PagedAccountingRuleFilters {
             })
             .catch(_.partial(this.MessageManager.raiseError, 'load', 'accountingRuleFilters list'));
     }
+
+    getAccountingRuleFilter(accountingRuleFilterId) {
+        return this.$http
+            .get(`${this.GLOBALS.BASE_URL}/api/v1/accountingrulefilters/${accountingRuleFilterId}`)
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'accountingRuleFilter'));
+    }
 }
