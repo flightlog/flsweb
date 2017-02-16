@@ -10,7 +10,7 @@ export default class PlanningDaysController {
         $scope.tableParams = new NgTableParams({
             filter: {},
             sorting: {
-                Day: 'desc'
+                Day: 'asc'
             },
             count: 100
         }, {
