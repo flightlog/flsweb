@@ -1,10 +1,10 @@
 import Pikaday from "pikaday";
 import moment from "moment";
 import * as angular from "angular";
-import * as _ from "lodash";
+import "lodash";
 
 export default class DatePickerInputDirective {
-    static factory() {
+    static factory($translate) {
         return {
             restrict: 'E',
             require: '^ngModel',
@@ -87,13 +87,13 @@ export default class DatePickerInputDirective {
                     if (scope.dates.fromDate && scope.dates.toDate) {
                         scope.formattedDate = formattedStartDate + ' - ' + formattedEndDate;
                     } else if (scope.dates.fromDate) {
-                        scope.formattedDate = formattedStartDate;
+                        scope.formattedDate = "> " + formattedStartDate;
                     } else if (scope.dates.toDate) {
-                        scope.formattedDate = formattedEndDate;
+                        scope.formattedDate = "< " + formattedEndDate;
                     } else {
                         scope.formattedDate = undefined;
                     }
-                    
+
                     modelCtrl.$setViewValue({
                         From: scope.dates.fromDate && moment(scope.dates.fromDate).format("YYYY-MM-DD"),
                         To: scope.dates.toDate && moment(scope.dates.toDate).format("YYYY-MM-DD")
