@@ -321,12 +321,14 @@ export default class AirMovementsController {
         };
 
         $scope.flightTypeChanged = () => {
-            for (let i = 0; i < $scope.motorFlightTypes.length; i++) {
-                let t = $scope.motorFlightTypes[i];
-                if (hasDetails() && t.FlightTypeId === $scope.flightDetails.MotorFlightDetailsData.FlightTypeId) {
-                    $scope.selectedFlightType = t;
+            $timeout(() => {
+                for (let i = 0; i < $scope.motorFlightTypes.length; i++) {
+                    let t = $scope.motorFlightTypes[i];
+                    if (hasDetails() && t.FlightTypeId === $scope.flightDetails.MotorFlightDetailsData.FlightTypeId) {
+                        $scope.selectedFlightType = t;
+                    }
                 }
-            }
+            }, 0);
         };
 
         function createModalConfig(flags) {
@@ -400,8 +402,10 @@ export default class AirMovementsController {
         }
 
         $scope.recalcRouteRequirements = () => {
-            $scope.routeRequirements.isOutboundRouteRequired = findSelectedStartLocation().IsOutboundRouteRequired;
-            $scope.routeRequirements.isInboundRouteRequired = findSelectedLandingLocation().IsInboundRouteRequired;
+            $timeout(() => {
+                $scope.routeRequirements.isOutboundRouteRequired = findSelectedStartLocation().IsOutboundRouteRequired;
+                $scope.routeRequirements.isInboundRouteRequired = findSelectedLandingLocation().IsInboundRouteRequired;
+            }, 0);
         };
 
         $scope.formatMotorStart = () => {
