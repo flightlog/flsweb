@@ -14,7 +14,7 @@
                         <td data-title="'STATUS' | translate">
                             <fls-flight-status flight="flight"></fls-flight-status>
                         </td>
-                        <td ng-bind="flight.StartDateTime | date:'dd.MM.yyyy'" data-title="'DATE' | translate" filter="{ StartDateTime: 'date'}" sortable="'StartDateTime'"></td>
+                        <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'" data-title="'DATE' | translate" filter="{ FlightDate: 'date'}" sortable="'FlightDate'"></td>
                         <td ng-bind="flight.Immatriculation" data-title="'GLIDER_PLANE' | translate" filter="{ Immatriculation: 'text'}" sortable="'Immatriculation'"></td>
                         <td ng-bind="flight.PilotName" data-title="'GLIDER_PILOT' | translate" filter="{ PilotName: 'text'}" sortable="'PilotName'"></td>
                         <td ng-bind="flight.SecondCrewName" data-title="'SECOND_CREW_MEMBER' | translate" filter="{ SecondCrewName: 'text'}" sortable="'SecondCrewName'"></td>

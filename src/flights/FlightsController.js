@@ -46,7 +46,7 @@ export default class FlightsController {
             $scope.tableParams = new NgTableParams({
                 filter: {},
                 sorting: {
-                    StartDateTime: 'desc'
+                    FlightDate: 'desc'
                 },
                 count: 100
             }, {
