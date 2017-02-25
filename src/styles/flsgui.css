@@ -193,6 +193,7 @@ h3.masterdata-widget {
 }
 
 td.controls-column {
+    white-space: nowrap;
     width: 150px;
 }
 
@@ -262,6 +263,12 @@ input.ng-invalid {
 
 .fls-table-new-button {
     margin-top: -10px;
+}
+
+.fls-table-with-details th {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .fls-table-with-details tr td,
@@ -338,12 +345,12 @@ input.ng-invalid {
     text-align: center;
 }
 
-.pagination>.active>a,
-.pagination>.active>a:focus,
-.pagination>.active>a:hover,
-.pagination>.active>span,
-.pagination>.active>span:focus,
-.pagination>.active>span:hover {
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
     background-color: #9d98b1;
     border-color: #9d98b1;
 }
@@ -359,4 +366,14 @@ td.flight--motor-cell {
 td.immatriculation,
 td.flight--time {
     font-weight: 800;
+}
+
+
+@media (max-width: 1024px) {
+    th.flight--time {
+        max-width: 50px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 }
