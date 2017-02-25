@@ -8,15 +8,10 @@
             data-title="'DATE' | translate"
             filter="{ Start: 'date'}"
             sortable="'Start'"></td>
-        <td ng-bind="reservation.IsAllDayReservation ? ('ALL_DAY' | translate) : (reservation.Start | date:'HH:mm')"
-            data-title="'START' | translate"
-
+        <td ng-bind="reservation.IsAllDayReservation ? ('ALL_DAY' | translate) : ((reservation.Start | date:'HH:mm') + ' - ' + (reservation.End | date:'HH:mm'))"
+            data-title="('START' | translate) + ' / ' + ('END' | translate)"
             ></td>
-        <td ng-bind="reservation.IsAllDayReservation ? '' : (reservation.End | date:'HH:mm')"
-            data-title="'END' | translate"
-
-            ></td>
-        <td ng-bind="reservation.LocationName"
+        <td ng-bind="reservation.LocationName" class="hidden-md"
             data-title="'LOCATION' | translate"
             filter="{ LocationName: 'text'}"
             sortable="'LocationName'"></td>

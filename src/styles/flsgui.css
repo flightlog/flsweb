@@ -240,25 +240,6 @@ input.ng-invalid {
     }
 }
 
-td.immatriculation,
-td.flight-start-time,
-td.flight-ldg-time {
-    font-weight: 500;
-    font-size: 1.1em;
-}
-
-td.flight-start-time {
-    color: #1f1078;
-}
-
-td.flight-ldg-time {
-    color: #0b7065;
-}
-
-td.immatriculation {
-    color: #719eb4;
-}
-
 .ng-table-counts {
     margin-top: 2px;
 }
@@ -367,3 +348,15 @@ td.immatriculation {
     border-color: #9d98b1;
 }
 
+td.flight--glider-cell {
+    color: #2f2a75;
+}
+
+td.flight--motor-cell {
+    color: #71531e;
+}
+
+td.immatriculation,
+td.flight--time {
+    font-weight: 800;
+}
