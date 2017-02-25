@@ -7,12 +7,16 @@
         <td ng-bind="reservation.Start | date:'dd.MM.yyyy'"
             data-title="'DATE' | translate"
             filter="{ Start: 'date'}"
-            sortable="'Start'"></td>
+            sortable="'Start'"></td>        
         <td ng-bind="reservation.IsAllDayReservation ? ('ALL_DAY' | translate) : ((reservation.Start | date:'HH:mm') + ' - ' + (reservation.End | date:'HH:mm'))"
             data-title="('START' | translate) + ' / ' + ('END' | translate)"
+            class="hidden-xs hidden-sm"
+            header-class="'hidden-xs hidden-sm'" 
             ></td>
-        <td ng-bind="reservation.LocationName" class="hidden-md"
+        <td ng-bind="reservation.LocationName"
             data-title="'LOCATION' | translate"
+            class="hidden-xs hidden-sm"
+            header-class="'hidden-xs hidden-sm'"
             filter="{ LocationName: 'text'}"
             sortable="'LocationName'"></td>
         <td ng-bind="reservation.Immatriculation"
@@ -25,17 +29,24 @@
             sortable="'PilotName'"></td>
         <td ng-bind="reservation.InstructorName"
             data-title="'INSTRUCTOR_NAME' | translate"
+            class="hidden-xs hidden-sm hidden-md"
+            header-class="'hidden-xs hidden-sm hidden-md'"
             filter="{ InstructorName: 'text'}"
             sortable="'InstructorName'"></td>
         <td ng-bind="reservation.ReservationTypeName"
             data-title="'RESERVATION_TYPE' | translate"
+            class="hidden-xs"
+            header-class="'hidden-xs'"
             filter="{ ReservationTypeName: 'text'}"
             sortable="'ReservationTypeName'"></td>
         <td ng-bind="reservation.Remarks"
             data-title="'REMARKS' | translate"
+            class="hidden-xs hidden-sm hidden-md"
+            header-class="'hidden-xs hidden-sm hidden-md'"
             filter="{ Remarks: 'text'}"
             sortable="'Remarks'"></td>
-        <td class="hidden-print controls-column">
+        <td class="hidden-print controls-column hidden-xs"
+            header-class="'hidden-print hidden-xs'">
             <a ng-show="isReservationAdmin"
                title="{{'DELETE' | translate}}"
                ng-click="deleteReservation(reservation, $event); $event.stopPropagation();"
