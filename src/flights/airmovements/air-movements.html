@@ -28,12 +28,12 @@
                         filter="{ StartDateTime: 'date'}"
                         sortable="'StartDateTime'"></td>
                     <td ng-bind="flight.Immatriculation"
-                        data-title="'GLIDER_PLANE' | translate"
+                        data-title="'MOTOR_PLANE' | translate"
                         class="flight--motor-cell immatriculation"
                         filter="{ Immatriculation: 'text'}"
                         sortable="'Immatriculation'"></td>
                     <td ng-bind="flight.PilotName"
-                        data-title="'GLIDER_PILOT' | translate"
+                        data-title="'PILOT' | translate"
                         class="flight--motor-cell"
                         filter="{ PilotName: 'text'}"
                         sortable="'PilotName'"></td>
@@ -52,29 +52,11 @@
                     <td ng-bind="flight.LdgDateTime | date:'HH:mm'"
                         class="flight--motor-cell flight--time"
                         data-title="'LANDING' | translate"></td>
-                    <td ng-bind="flight.GliderFlightDuration && ('0001-01-01T' + flight.GliderFlightDuration) | date:'HH:mm'"
-                        data-title="'GLIDER_FLIGHT_DURATION' | translate"
+                    <td ng-bind="flight.FlightDuration && ('0001-01-01T' + flight.FlightDuration) | date:'HH:mm'"
+                        data-title="'FLIGHT_DURATION' | translate"
                         class="flight--motor-cell flight--time"
 
-                        sortable="'GliderFlightDuration'"></td>
-                    <td ng-bind="flight.TowAircraftImmatriculation"
-                        data-title="'TOWING_PLANE' | translate"
-                        class="flight--motor-cell immatriculation"
-                        filter="{ TowAircraftImmatriculation: 'text'}"
-                        sortable="'TowAircraftImmatriculation'"></td>
-                    <td ng-bind="flight.TowPilotName"
-                        data-title="'TOWING_PILOT' | translate"
-                        class="flight--motor-cell"
-                        filter="{ TowPilotName: 'text'}"
-                        sortable="'TowPilotName'"></td>
-                    <td ng-bind="flight.TowFlightLdgDateTime | date:'HH:mm'"
-                        class="flight--motor-cell"
-                        data-title="'TOW_LANDING' | translate"></td>
-                    <td ng-bind="flight.TowFlightDuration && ('0001-01-01T' + flight.TowFlightDuration) | date:'HH:mm'"
-                        class="flight--motor-cell"
-                        data-title="'TOW_DURATION' | translate"
-
-                        sortable="'TowFlightDuration'"></td>
+                        sortable="'FlightDuration'"></td>
                     <td ng-bind="flight.FlightComment"
                         data-title="'COMMENT' | translate"
                         class="flight--motor-cell"
