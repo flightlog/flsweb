@@ -1,5 +1,5 @@
 export default class AccountingRuleFiltersEditController {
-    constructor($scope, $routeParams, $location, NgTableParams, GLOBALS, AuthService,
+    constructor($scope, $routeParams, $location, NgTableParams, GLOBALS, AuthService, AccountingRuleFilterService,
                 PagedAccountingRuleFilters, AccountingRuleFilter, MessageManager, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
@@ -9,7 +9,7 @@ export default class AccountingRuleFiltersEditController {
         let filterTypes = {
             RecipientAccountingRuleFilter: 10,
             NoLandingTaxAccountingRuleFilter: 20,
-            AircraftAccountingRuleFilter: 30,
+            AccountingRuleFilterAccountingRuleFilter: 30,
             InstructorFeeAccountingRuleFilter: 40,
             AdditionalFuelFeeAccountingRuleFilter: 50,
             LandingTaxAccountingRuleFilter: 60,
@@ -96,6 +96,14 @@ export default class AccountingRuleFiltersEditController {
                         $scope.busy = false;
                     });
             }
+        };
+
+        $scope.deleteAccountingRuleFilter = function (accountingRuleFilter) {
+            AccountingRuleFilterService.delete(accountingRuleFilter)
+                .then(() => {
+                    $scope.tableParams.reload();
+                })
+                .catch(_.partial(MessageManager.raiseError, 'remove', 'accountingRuleFilter'));
         };
 
 

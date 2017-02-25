@@ -38,7 +38,41 @@ export class AccountingRuleFilter {
             },
             $save: {
                 method: 'POST'
+            },
+            delete: {
+                method: 'POST',
+                params: {
+                    id: '@id'
+                },
+                headers: {
+                    'X-HTTP-Method-Override': 'DELETE'
+                }
             }
         });
+    }
+}
+
+export class AccountingRuleFilterService {
+    constructor($q, AccountingRuleFilter) {
+        return {
+            delete: function (accountingRuleFilter, accountingRuleFilters) {
+                var deferred = $q.defer();
+                if (window.confirm('Do you really want to remove this accountingRuleFilter from the database?')) {
+                    AccountingRuleFilter.delete({id: accountingRuleFilter.AccountingRuleFilterId}).$promise
+                        .then(function () {
+                            accountingRuleFilters = _.filter(accountingRuleFilters, function (d) {
+                                return d.AccountingRuleFilterId !== accountingRuleFilter.AccountingRuleFilterId;
+                            });
+                            deferred.resolve(accountingRuleFilters);
+                        })
+                        .catch(function (reason) {
+                            deferred.reject(reason);
+                        });
+                    return deferred.promise;
+                }
+                deferred.resolve(accountingRuleFilters);
+                return deferred.promise;
+            }
+        };
     }
 }
