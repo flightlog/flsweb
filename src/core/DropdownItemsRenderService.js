@@ -36,6 +36,13 @@ export default class DropdownItemsRenderService {
         };
     }
 
+    accountingRuleFilterTypeRenderer() {
+        return {
+            option: renderWithId('AccountingRuleFilterTypeId', 'AccountingRuleFilterTypeName'),
+            item: renderWithId('AccountingRuleFilterTypeId', 'AccountingRuleFilterTypeName')
+        };
+    }
+
     counterUnitTypeRenderer() {
         function render(item, escape) {
             return '<div class="option">' +

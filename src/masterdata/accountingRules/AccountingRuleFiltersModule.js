@@ -9,6 +9,7 @@ export default angular.module('fls.masterdata.accountingRuleFilters', ['ngTable'
     .directive('flsAccountingRuleFilters', AccountingRuleFiltersEditDirective.factory)
     .controller('AccountingRuleFiltersEditController', AccountingRuleFiltersEditController)
     .service('PagedAccountingRuleFilters', AccountingRuleFiltersServices.PagedAccountingRuleFilters)
+    .service('AccountingRuleFilter', AccountingRuleFiltersServices.AccountingRuleFilter)
     .config(function ($routeProvider) {
         $routeProvider
             .when('/masterdata/accountingRuleFilters',

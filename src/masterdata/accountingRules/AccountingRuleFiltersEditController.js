@@ -1,10 +1,35 @@
 export default class AccountingRuleFiltersEditController {
     constructor($scope, $routeParams, $location, NgTableParams, GLOBALS, AuthService,
-                PagedAccountingRuleFilters) {
+                PagedAccountingRuleFilters, AccountingRuleFilter, MessageManager, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
         $scope.isClubAdmin = AuthService.isClubAdmin();
+
+        let filterTypes = {
+            RecipientAccountingRuleFilter: 10,
+            NoLandingTaxAccountingRuleFilter: 20,
+            AircraftAccountingRuleFilter: 30,
+            InstructorFeeAccountingRuleFilter: 40,
+            AdditionalFuelFeeAccountingRuleFilter: 50,
+            LandingTaxAccountingRuleFilter: 60,
+            VsfFeeAccountingRuleFilter: 70
+        };
+
+        let filterTypeObjects = [];
+        for (let key in filterTypes) {
+            if (filterTypes.hasOwnProperty(key)) {
+                filterTypeObjects.push({
+                    AccountingRuleFilterTypeName: key,
+                    AccountingRuleFilterTypeId: filterTypes[key]
+                })
+            }
+        }
+        $scope.renderAccountingRuleFilterType = DropdownItemsRenderService.accountingRuleFilterTypeRenderer();
+
+        $scope.md = {
+            accountingRuleFilterTypes: filterTypeObjects
+        };
 
         if ($routeParams.id !== undefined) {
             if ($routeParams.id === 'new') {
@@ -53,6 +78,26 @@ export default class AccountingRuleFiltersEditController {
         $scope.cancel = function () {
             $location.path('/masterdata/accountingRuleFilters');
         };
+        $scope.save = function (accountingRuleFilter) {
+            $scope.busy = true;
+            var p = new AccountingRuleFilter(accountingRuleFilter);
+            if (accountingRuleFilter.AccountingRuleFilterId) {
+                p.$saveAccountingRuleFilter({id: accountingRuleFilter.AccountingRuleFilterId})
+                    .then($scope.cancel)
+                    .catch(_.partial(MessageManager.raiseError, 'update', 'accountingRuleFilter'))
+                    .finally(function () {
+                        $scope.busy = false;
+                    });
+            } else {
+                p.$save()
+                    .then($scope.cancel)
+                    .catch(_.partial(MessageManager.raiseError, 'insert', 'accountingRuleFilter'))
+                    .finally(function () {
+                        $scope.busy = false;
+                    });
+            }
+        };
+
 
         $scope.newAccountingRuleFilter = function () {
             $location.path('/masterdata/accountingRuleFilters/new');

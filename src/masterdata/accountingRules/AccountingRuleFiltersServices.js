@@ -26,3 +26,19 @@ export class PagedAccountingRuleFilters {
             .catch(_.partial(this.MessageManager.raiseError, 'load', 'accountingRuleFilter'));
     }
 }
+
+export class AccountingRuleFilter {
+    constructor($resource, GLOBALS) {
+        return $resource(GLOBALS.BASE_URL + '/api/v1/accountingrulefilters/:id', null, {
+            saveAccountingRuleFilter: {
+                method: 'POST',
+                headers: {
+                    'X-HTTP-Method-Override': 'PUT'
+                }
+            },
+            $save: {
+                method: 'POST'
+            }
+        });
+    }
+}

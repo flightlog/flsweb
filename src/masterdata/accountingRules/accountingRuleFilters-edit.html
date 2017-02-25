@@ -16,6 +16,33 @@
                             <label for="Description"><span translate="DESCRIPTION"></span></label>
                             <input class="form-control" id="Description" ng-model="accountingRuleFilter.Description">
                         </div>
+                        
+                        <div class="form-group col-md-6">
+                            <label for="ArticleTarget"><span translate="ARTICLE_TARGET"></span></label>
+                            <input class="form-control" id="ArticleTarget" ng-model="accountingRuleFilter.ArticleTarget">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="RecipientTarget"><span translate="RECIPIENT_TARGET"></span></label>
+                            <input class="form-control" id="RecipientTarget" ng-model="accountingRuleFilter.RecipientTarget">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="AccountingRuleFilterTypeId"><span translate="ACCOUNTING_RULE_FILTER_TYPE"></span></label>
+
+                            <selectize id="AccountingRuleFilterTypeId"
+                                       name="AccountingRuleFilterTypeId"
+                                       options="md.accountingRuleFilterTypes"
+                                       ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                                       config="{
+                                            inputClass: 'form-control selectize-input',
+                                            maxItems: 1,
+                                            valueField: 'AccountingRuleFilterTypeId',
+                                            searchField: ['AccountingRuleFilterTypeId', 'AccountingRuleFilterTypeName'],
+                                            render: renderAccountingRuleFilterType
+                                        }"
+                                       ng-model="accountingRuleFilter.AccountingRuleFilterTypeId"></selectize>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
