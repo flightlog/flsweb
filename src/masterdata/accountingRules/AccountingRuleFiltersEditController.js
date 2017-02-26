@@ -1,37 +1,18 @@
 export default class AccountingRuleFiltersEditController {
     constructor($scope, $routeParams, $location, NgTableParams, GLOBALS, AuthService, AccountingRuleFilterService,
-                PagedAccountingRuleFilters, AccountingRuleFilter, MessageManager, DropdownItemsRenderService) {
+                PagedAccountingRuleFilters, AccountingRuleFilter, MessageManager, DropdownItemsRenderService, AccountingRuleFilterTypesService) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
         $scope.isClubAdmin = AuthService.isClubAdmin();
-
-        let filterTypes = {
-            RecipientAccountingRuleFilter: 10,
-            NoLandingTaxAccountingRuleFilter: 20,
-            AccountingRuleFilterAccountingRuleFilter: 30,
-            InstructorFeeAccountingRuleFilter: 40,
-            AdditionalFuelFeeAccountingRuleFilter: 50,
-            LandingTaxAccountingRuleFilter: 60,
-            VsfFeeAccountingRuleFilter: 70
-        };
-
-        let filterTypeObjects = [];
-        for (let key in filterTypes) {
-            if (filterTypes.hasOwnProperty(key)) {
-                filterTypeObjects.push({
-                    AccountingRuleFilterTypeName: key,
-                    AccountingRuleFilterTypeId: filterTypes[key]
-                })
-            }
-        }
+        $scope.md = {};
         $scope.renderAccountingRuleFilterType = DropdownItemsRenderService.accountingRuleFilterTypeRenderer();
 
-        $scope.md = {
-            accountingRuleFilterTypes: filterTypeObjects
-        };
-
         if ($routeParams.id !== undefined) {
+            AccountingRuleFilterTypesService.getAccountingRuleFilterTypes().then((result) => {
+                $scope.md.accountingRuleFilterTypes = result;
+            });
+
             if ($routeParams.id === 'new') {
                 $scope.accountingRuleFilter = {
                     CanUpdateRecord: true

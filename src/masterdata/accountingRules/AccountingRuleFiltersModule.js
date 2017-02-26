@@ -11,6 +11,7 @@ export default angular.module('fls.masterdata.accountingRuleFilters', ['ngTable'
     .service('PagedAccountingRuleFilters', AccountingRuleFiltersServices.PagedAccountingRuleFilters)
     .service('AccountingRuleFilter', AccountingRuleFiltersServices.AccountingRuleFilter)
     .service('AccountingRuleFilterService', AccountingRuleFiltersServices.AccountingRuleFilterService)
+    .service('AccountingRuleFilterTypesService', AccountingRuleFiltersServices.AccountingRuleFilterTypesService)
     .config(function ($routeProvider) {
         $routeProvider
             .when('/masterdata/accountingRuleFilters',

@@ -27,6 +27,23 @@ export class PagedAccountingRuleFilters {
     }
 }
 
+export class AccountingRuleFilterTypesService {
+    constructor($http, GLOBALS, MessageManager) {
+        this.$http = $http;
+        this.GLOBALS = GLOBALS;
+        this.MessageManager = MessageManager;
+    }
+
+    getAccountingRuleFilterTypes() {
+        return this.$http
+            .get(`${this.GLOBALS.BASE_URL}/api/v1/accountingrulefiltertypes`)
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'accountingRuleFilterTypes list'));
+    }
+}
+
 export class AccountingRuleFilter {
     constructor($resource, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/accountingrulefilters/:id', null, {
