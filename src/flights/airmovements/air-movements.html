@@ -23,12 +23,12 @@
                         
                         <fls-flight-status flight="flight"></fls-flight-status>
                     </td>
-                    <td ng-bind="flight.StartDateTime | date:'dd.MM.yyyy'"
+                    <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'"
                         data-title="'DATE' | translate"
                         class="hidden-xs hidden-sm hidden-md"
                         header-class="'hidden-xs hidden-sm hidden-md'"
-                        filter="{ StartDateTime: 'date'}"
-                        sortable="'StartDateTime'"></td>
+                        filter="{ FlightDate: 'date'}" 
+                        sortable="'FlightDate'"></td>
                     <td ng-bind="flight.Immatriculation"
                         data-title="'MOTOR_PLANE' | translate"
                         class="flight--motor-cell immatriculation"
