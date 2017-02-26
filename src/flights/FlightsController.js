@@ -39,7 +39,7 @@ export default class FlightsController {
         $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
 
         $scope.reloadList = () => {
-            reloadFlights();
+            $scope.tableParams.reload();
         };
 
         function reloadFlights() {
@@ -218,9 +218,6 @@ export default class FlightsController {
         }
 
         $scope.getTimeNow = () => {
-            if (!$scope.times.flightDate) {
-                $scope.times.flightDate = new Date();
-            }
             return TimeService.time(new Date());
         };
 
@@ -292,13 +289,13 @@ export default class FlightsController {
             let gld = $scope.flightDetails.GliderFlightDetailsData;
             let tow = $scope.flightDetails.TowFlightDetailsData;
             $scope.times = {
-                flightDate: gld && gld.StartDateTime || gld.FlightDate || new Date(),
                 gliderStart: TimeService.time(gld && gld.StartDateTime),
                 gliderLanding: TimeService.time(gld && gld.LdgDateTime),
                 towingStart: TimeService.time(gld && gld.StartDateTime),
                 towingLanding: TimeService.time(tow && tow.LdgDateTime),
                 engineCounterFormat: 'seconds'
             };
+            $scope.flightDetails.FlightDate = $scope.flightDetails.FlightDate || gld && (gld.StartDateTime || gld.FlightDate) || (!result.FlightId && new Date());
             $scope.times.gliderDuration = calcDuration($scope.times.gliderStart, $scope.times.gliderLanding);
             $scope.times.towingDuration = calcDuration($scope.times.gliderStart, $scope.times.towingLanding);
 
@@ -309,26 +306,12 @@ export default class FlightsController {
             recalcRouteRequirements();
         }
 
-        function selectFlight(flight) {
-            $scope.PersonForInvoiceRequired = false;
-            $scope.warnTowFlightLongerThanGliderFlight = false;
-
-            return loadFlight(flight)
-                .then(mapFlightToForm)
-                .catch(_.partial(MessageManager.raiseError, 'load', 'flight'))
-                .finally(() => {
-                    $scope.busyLoadingFlight = false;
-                    $scope.busy = $scope.loadingMasterdata;
-                });
-        }
-
         $scope.save = function (flightDetails) {
             MessageManager.reset();
             $scope.busyLoadingFlight = true;
 
-            let flightDate = moment($scope.times.flightDate).format("DD.MM.YYYY");
+            let flightDate = moment(flightDetails.FlightDate).format("DD.MM.YYYY");
             flightDetails.GliderFlightDetailsData.StartDateTime = TimeService.parseDateTime(flightDate, $scope.times.gliderStart);
-            flightDetails.GliderFlightDetailsData.FlightDate = flightDetails.GliderFlightDetailsData.StartDateTime;
             flightDetails.GliderFlightDetailsData.LdgDateTime = TimeService.parseDateTime(flightDate, $scope.times.gliderLanding);
             if (!flightDetails.TowFlightDetailsData) {
                 flightDetails.TowFlightDetailsData = {};

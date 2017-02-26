@@ -84,7 +84,7 @@ export default class AirMovementsController {
                 $scope.tableParams = new NgTableParams({
                     filter: {},
                     sorting: {
-                        StartDateTime: 'desc'
+                        FlightDate: 'desc'
                     },
                     count: 100
                 }, {
@@ -210,9 +210,6 @@ export default class AirMovementsController {
         }
 
         $scope.getTimeNow = () => {
-            if (!$scope.times.flightDate) {
-                $scope.times.flightDate = new Date();
-            }
             return TimeService.time(new Date());
         };
 
@@ -260,13 +257,13 @@ export default class AirMovementsController {
             let motorFlight = $scope.flightDetails.MotorFlightDetailsData;
 
             $scope.times = {
-                flightDate: (motorFlight.StartDateTime || motorFlight.FlightDate) || new Date(),
                 motorStart: TimeService.time(motorFlight.StartDateTime),
                 motorLanding: TimeService.time(motorFlight.LdgDateTime),
                 blockTimeStart: TimeService.time(motorFlight.BlockStartDateTime),
                 blockTimeEnd: TimeService.time(motorFlight.BlockEndDateTime),
                 engineCounterFormat: 'seconds'
             };
+            $scope.flightDetails.FlightDate = $scope.flightDetails.FlightDate || (motorFlight.StartDateTime || motorFlight.FlightDate) || (!result.FlightId && new Date());
             $scope.times.motorDuration = calcDuration($scope.times.motorStart, $scope.times.motorLanding);
             $scope.times.blockDuration = calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd);
 
@@ -279,18 +276,9 @@ export default class AirMovementsController {
             $scope.busy = false;
         }
 
-        function selectFlight(flight) {
-            $scope.operatingCounters = undefined;
-            $scope.PersonForInvoiceRequired = false;
-
-            return loadFlight(flight)
-                .then(mapFlightToForm)
-                .catch(_.partial(MessageManager.raiseError, 'load', 'flight'));
-        }
-
         $scope.save = (flightDetails) => {
             MessageManager.reset();
-            let flightDate = moment($scope.times.flightDate).format("DD.MM.YYYY");
+            let flightDate = moment(flightDetails.FlightDate).format("DD.MM.YYYY");
             flightDetails.MotorFlightDetailsData.StartDateTime = TimeService.parseDateTime(flightDate, $scope.times.motorStart);
             flightDetails.MotorFlightDetailsData.LdgDateTime = TimeService.parseDateTime(flightDate, $scope.times.motorLanding);
             flightDetails.MotorFlightDetailsData.BlockStartDateTime = TimeService.parseDateTime(flightDate, $scope.times.blockTimeStart);
