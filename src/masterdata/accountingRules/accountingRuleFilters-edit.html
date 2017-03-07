@@ -1,61 +1,179 @@
 <div class="container flscontainer">
     <div class="col-md-12">
-        <fls-busy-indicator busy="busy" error="error">
+        <fls-busy-indicator busy="busy"
+                            error="error">
+            <h1 translate="ACCOUNTING_RULE_FILTERS"></h1>
             <fls-message-bar></fls-message-bar>
-            <form role="form" ng-submit="save(accountingRuleFilter)" class="css-form"
-                  ng-class="{'readonly-form':!accountingRuleFilter.CanUpdateRecord}" name="accountingRuleFilterForm">
-                <div class="modal-body row">
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="RuleFilterName"><span translate="NAME"></span></label>
-                            <input class="form-control" id="RuleFilterName" ng-model="accountingRuleFilter.RuleFilterName">
-                        </div>
+
+            <form role="form"
+                  ng-submit="save(accountingRuleFilter)"
+                  class="css-form"
+                  ng-class="{'readonly-form':!accountingRuleFilter.CanUpdateRecord}"
+                  name="accountingRuleFilterForm">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label for="AccountingRuleFilterTypeId"><span translate="ACCOUNTING_RULE_FILTER_TYPE"></span></label>
+
+                        <selectize id="AccountingRuleFilterTypeId"
+                                   name="AccountingRuleFilterTypeId"
+                                   options="md.accountingRuleFilterTypes"
+                                   ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                                   config="{
+                                                inputClass: 'form-control selectize-input',
+                                                maxItems: 1,
+                                                valueField: 'AccountingRuleFilterTypeId',
+                                                searchField: ['AccountingRuleFilterTypeId', 'AccountingRuleFilterTypeName'],
+                                                render: renderAccountingRuleFilterType
+                                            }"
+                                   ng-model="accountingRuleFilter.AccountingRuleFilterTypeId"
+                                   required></selectize>
+
+                        <fls-labelled-checkbox entity="accountingRuleFilter"
+                                               attribute="IsActive"
+                                               translation-key="ACCOUNTING_RULE_FILTER_ACTIVE"></fls-labelled-checkbox>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-md-12">
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+
+                        <div class="form-group">
+                            <label for="RuleFilterName"><span translate="ACCOUNTING_RULE_FILTER_NAME"></span></label>
+                            <input class="form-control"
+                                   id="RuleFilterName"
+                                   ng-model="accountingRuleFilter.RuleFilterName"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="Description"><span translate="DESCRIPTION"></span></label>
-                            <input class="form-control" id="Description" ng-model="accountingRuleFilter.Description">
-                        </div>
-                        
-                        <div class="form-group col-md-6">
-                            <label for="ArticleTarget"><span translate="ARTICLE_TARGET"></span></label>
-                            <input class="form-control" id="ArticleTarget" ng-model="accountingRuleFilter.ArticleTarget">
+                            <input class="form-control"
+                                   id="Description"
+                                   ng-model="accountingRuleFilter.Description">
                         </div>
 
-                        <div class="form-group col-md-6">
-                            <label for="RecipientTarget"><span translate="RECIPIENT_TARGET"></span></label>
-                            <input class="form-control" id="RecipientTarget" ng-model="accountingRuleFilter.RecipientTarget">
-                        </div>
+                        <div class="form-group">
+                            <label for="AccountingRuleFilterTypeId"><span translate="ARTICLE"></span></label>
 
-                        <div class="form-group col-md-12">
-                            <label for="AccountingRuleFilterTypeId"><span translate="ACCOUNTING_RULE_FILTER_TYPE"></span></label>
-
-                            <selectize id="AccountingRuleFilterTypeId"
-                                       name="AccountingRuleFilterTypeId"
-                                       options="md.accountingRuleFilterTypes"
+                            <selectize id="ArticleTarget"
+                                       name="ArticleTarget"
+                                       options="[{id:'1'}, {id:'2'}]"
                                        ng-disabled="!accountingRuleFilter.CanUpdateRecord"
                                        config="{
-                                            inputClass: 'form-control selectize-input',
-                                            maxItems: 1,
-                                            valueField: 'AccountingRuleFilterTypeId',
-                                            searchField: ['AccountingRuleFilterTypeId', 'AccountingRuleFilterTypeName'],
-                                            render: renderAccountingRuleFilterType
-                                        }"
-                                       ng-model="accountingRuleFilter.AccountingRuleFilterTypeId"></selectize>
+                                                inputClass: 'form-control selectize-input',
+                                                maxItems: 1,
+                                                valueField: 'id',
+                                                searchField: ['id'] ,
+                                                labelField: 'id'
+                                            }"
+                                       ng-model="accountingRuleFilter.ArticleTarget"></selectize>
                         </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        
+                        <fls-labelled-checkbox entity="accountingRuleFilter"
+                                               attribute="IsRuleForSelfstartedGliderFlights"
+                                               translation-key="FOR_SELF_STARTER_GLIDER_FLIGHTS"></fls-labelled-checkbox>
+                        
+                        <fls-labelled-checkbox entity="accountingRuleFilter"
+                                               attribute="IsRuleForGliderFlights"
+                                               translation-key="FOR_GLIDER_FLIGHTS"></fls-labelled-checkbox>
+
+                        <fls-labelled-checkbox entity="accountingRuleFilter"
+                                               attribute="IsRuleForTowingFlights"
+                                               translation-key="FOR_TOWING_FLIGHTS"></fls-labelled-checkbox>
+
+                        <fls-labelled-checkbox entity="accountingRuleFilter"
+                                               attribute="IsRuleForMotorFlights"
+                                               translation-key="FOR_MOTOR_FLIGHTS"></fls-labelled-checkbox>
+
+                    </div>
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            <label for="AccountingRuleFilterTypeId"><span translate="AIRCRAFTS"></span></label>
+
+                            <selectize id="MatchedAircraftImmatriculations"
+                                       name="MatchedAircraftImmatriculations"
+                                       options="md.aircrafts"
+                                       ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                                       config="{
+                                                inputClass: 'form-control selectize-input',
+                                                valueField: 'Immatriculation',
+                                                searchField: ['Immatriculation'] ,
+                                                labelField: 'Immatriculation'
+                                            }"
+                                       ng-model="accountingRuleFilter.MatchedAircraftImmatriculations"></selectize>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="AccountingRuleFilterTypeId"><span translate="FLIGHT_TYPES"></span></label>
+
+                            <selectize id="MatchedFlightTypeCodesAsJson"
+                                       name="MatchedFlightTypeCodesAsJson"
+                                       options="md.flightTypes"
+                                       ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                                       config="{
+                                                inputClass: 'form-control selectize-input',
+                                                valueField: 'FlightCode',
+                                                searchField: ['FlightCode', 'FlightTypeName'] ,
+                                                labelField: 'FlightTypeName'
+                                            }"
+                                       ng-model="accountingRuleFilter.MatchedFlightTypeCodesAsJson"></selectize>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="AccountingRuleFilterTypeId"><span translate="START_LOCATIONS"></span></label>
+
+                            <selectize id="MatchedStartLocations"
+                                       name="MatchedStartLocations"
+                                       options="md.locations"
+                                       ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                                       config="{
+                                                inputClass: 'form-control selectize-input',
+                                                valueField: 'IcaoCode',
+                                                searchField: ['LocationName', 'IcaoCode'] ,
+                                                labelField: 'LocationName'
+                                            }"
+                                       ng-model="accountingRuleFilter.MatchedStartLocations"></selectize>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="AccountingRuleFilterTypeId"><span translate="LANDING_LOCATIONS"></span></label>
+
+                            <selectize id="MatchedLdgLocations"
+                                       name="MatchedLdgLocations"
+                                       options="md.locations"
+                                       ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                                       config="{
+                                                inputClass: 'form-control selectize-input',
+                                                valueField: 'IcaoCode',
+                                                searchField: ['LocationName', 'IcaoCode'] ,
+                                                labelField: 'LocationName'
+                                            }"
+                                       ng-model="accountingRuleFilter.MatchedLdgLocations"></selectize>
+                        </div>
+
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="button" ng-click="cancel()" class="btn btn-default pull-right" translate="CANCEL">
+                    <button type="button"
+                            ng-click="cancel()"
+                            class="btn btn-default pull-right"
+                            translate="CANCEL">
                         Cancel
                     </button>
-                    <button type="submit" class="btn btn-default pull-right"
-                            ng-disabled="accountingRuleFilterForm.$invalid || !accountingRuleFilter.CanUpdateRecord" translate="SAVE"
+                    <button type="submit"
+                            class="btn btn-default pull-right"
+                            ng-disabled="accountingRuleFilterForm.$invalid || !accountingRuleFilter.CanUpdateRecord"
+                            translate="SAVE"
                             style="margin-right:10px;">Save
                     </button>
                 </div>
             </form>
         </fls-busy-indicator>
-        <pre ng-show="debug" ng-bind="person | json" style="margin-top:20px;"></pre>
+        <pre ng-show="debug"
+             ng-bind="person | json"
+             style="margin-top:20px;"></pre>
     </div>
 </div>

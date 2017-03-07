@@ -10,31 +10,31 @@ export default class SelectizeDirective {
             require: '^ngModel',
             scope: {ngModel: '=', config: '=?', options: '=?', ngDisabled: '=', ngRequired: '&'},
             link: function (scope, plainElement, attrs, modelCtrl) {
-                var element = $(plainElement);
+                let element = $(plainElement);
 
-                var selectize,
-                    settings = angular.extend({}, Selectize.defaults, selectizeConfig, scope.config);
+                let selectize;
+                let settings = angular.extend({}, Selectize.defaults, selectizeConfig, scope.config);
 
                 scope.options = scope.options || [];
                 scope.config = scope.config || {};
 
-                var isEmpty = function (val) {
+                let isEmpty = function (val) {
                     return val === undefined || val === null || !val.length; //support checking empty arrays
                 };
 
-                var toggle = function (disabled) {
+                let toggle = function (disabled) {
                     disabled ? selectize.disable() : selectize.enable();
                 };
 
-                var validate = function () {
-                    var isInvalid = (scope.ngRequired() || attrs.required || settings.required) && isEmpty(scope.ngModel);
+                let validate = function () {
+                    let isInvalid = (scope.ngRequired() || attrs.required || settings.required) && isEmpty(scope.ngModel);
                     modelCtrl.$setValidity('required', !isInvalid);
                 };
 
-                var setSelectizeOptions = function (curr, prev) {
+                let setSelectizeOptions = function (curr, prev) {
                     angular.forEach(prev, function (opt) {
                         if (curr.indexOf(opt) === -1) {
-                            var value = opt[settings.valueField];
+                            let value = opt[settings.valueField];
                             selectize.removeOption(value, true);
                         }
                     });
@@ -45,7 +45,7 @@ export default class SelectizeDirective {
                     setSelectizeValue();
                 };
 
-                var setSelectizeValue = function () {
+                let setSelectizeValue = function () {
                     validate();
 
                     selectize.$control.toggleClass('ng-valid', modelCtrl.$valid);
@@ -58,8 +58,8 @@ export default class SelectizeDirective {
                     }
                 };
 
-                settings.onChange = function (value) {
-                    var value = angular.copy(selectize.items);
+                settings.onChange = function () {
+                    let value = angular.copy(selectize.items);
                     if (settings.maxItems == 1) {
                         value = value[0]
                     }
