@@ -70,6 +70,8 @@ export default class AccountingRuleFiltersEditController {
         };
         $scope.save = function (accountingRuleFilter) {
             $scope.busy = true;
+            accountingRuleFilter.ArticleTarget = {};
+            accountingRuleFilter.RecipientTarget = {};
             var p = new AccountingRuleFilter(accountingRuleFilter);
             if (accountingRuleFilter.AccountingRuleFilterId) {
                 p.$saveAccountingRuleFilter({id: accountingRuleFilter.AccountingRuleFilterId})
