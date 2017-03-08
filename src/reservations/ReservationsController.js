@@ -6,7 +6,11 @@ export default class ReservationsController {
         $scope.isReservationAdmin = AuthService.isClubAdmin();
         $scope.busy = false;
         $scope.tableParams = new NgTableParams({
-            filter: {},
+            filter: {
+					Start: {
+						From: moment().format("YYYY-MM-DD")						
+					}
+				},
             sorting: {
                 Start: 'desc'
             },

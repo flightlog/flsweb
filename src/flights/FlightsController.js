@@ -44,7 +44,12 @@ export default class FlightsController {
 
         function reloadFlights() {
             $scope.tableParams = new NgTableParams({
-                filter: {},
+                filter: {
+					FlightDate: {
+						From: moment().format("YYYY-MM-DD"),
+						To: moment().format("YYYY-MM-DD")
+					}
+				},
                 sorting: {
                     FlightDate: 'desc'
                 },

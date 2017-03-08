@@ -82,7 +82,12 @@ export default class AirMovementsController {
             } else {
                 $scope.busy = false;
                 $scope.tableParams = new NgTableParams({
-                    filter: {},
+                    filter: {
+						FlightDate: {
+							From: moment().format("YYYY-MM-DD"),
+							To: moment().format("YYYY-MM-DD")
+						}
+					},
                     sorting: {
                         FlightDate: 'desc'
                     },
