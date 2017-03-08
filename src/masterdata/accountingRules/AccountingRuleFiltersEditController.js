@@ -1,5 +1,5 @@
 export default class AccountingRuleFiltersEditController {
-    constructor($scope, $routeParams, $location, NgTableParams, GLOBALS, AuthService, AccountingRuleFilterService, AircraftsOverviews, FlightTypes, Locations,
+    constructor($scope, $routeParams, $location, NgTableParams, GLOBALS, AuthService, AccountingRuleFilterService, AircraftsOverviews, FlightTypes, Locations, ArticlesService,
                 PagedAccountingRuleFilters, AccountingRuleFilter, MessageManager, DropdownItemsRenderService, AccountingRuleFilterTypesService) {
 
         $scope.debug = GLOBALS.DEBUG;
@@ -20,6 +20,9 @@ export default class AccountingRuleFiltersEditController {
             });
             Locations.getLocations().$promise.then((result) => {
                 $scope.md.locations = result;
+            });
+            ArticlesService.getArticles().then((result) => {
+                $scope.md.articles = result;
             });
 
             if ($routeParams.id === 'new') {

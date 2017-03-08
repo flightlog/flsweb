@@ -2,6 +2,7 @@ import angular from 'angular';
 import AccountingRuleFiltersEditController from './AccountingRuleFiltersEditController';
 import AccountingRuleFiltersEditDirective from './AccountingRuleFiltersEditDirective';
 import * as AccountingRuleFiltersServices from './AccountingRuleFiltersServices';
+import {ArticlesService} from './ArticlesService';
 import 'ng-table';
 import {userAuth} from '../../core/AuthService';
 
@@ -12,6 +13,7 @@ export default angular.module('fls.masterdata.accountingRuleFilters', ['ngTable'
     .service('AccountingRuleFilter', AccountingRuleFiltersServices.AccountingRuleFilter)
     .service('AccountingRuleFilterService', AccountingRuleFiltersServices.AccountingRuleFilterService)
     .service('AccountingRuleFilterTypesService', AccountingRuleFiltersServices.AccountingRuleFilterTypesService)
+    .service('ArticlesService', ArticlesService)
     .config(function ($routeProvider) {
         $routeProvider
             .when('/masterdata/accountingRuleFilters',

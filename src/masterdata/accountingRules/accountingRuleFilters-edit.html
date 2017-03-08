@@ -55,14 +55,14 @@
 
                             <selectize id="ArticleTarget"
                                        name="ArticleTarget"
-                                       options="[{id:'1'}, {id:'2'}]"
+                                       options="md.articles"
                                        ng-disabled="!accountingRuleFilter.CanUpdateRecord"
                                        config="{
                                                 inputClass: 'form-control selectize-input',
                                                 maxItems: 1,
-                                                valueField: 'id',
-                                                searchField: ['id'] ,
-                                                labelField: 'id'
+                                                valueField: 'ArticleId',
+                                                searchField: ['ArticleName', 'ArticleNumber'] ,
+                                                labelField: 'ArticleName'
                                             }"
                                        ng-model="accountingRuleFilter.ArticleTarget"></selectize>
                         </div>
