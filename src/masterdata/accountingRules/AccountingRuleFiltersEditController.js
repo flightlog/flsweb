@@ -1,12 +1,16 @@
 export default class AccountingRuleFiltersEditController {
-    constructor($scope, $routeParams, $location, NgTableParams, GLOBALS, AuthService, AccountingRuleFilterService, AircraftsOverviews, FlightTypes, Locations, ArticlesService,
+    constructor($scope, $routeParams, $location, NgTableParams, GLOBALS, AuthService, AccountingRuleFilterService, AircraftsOverviews, FlightTypes, Locations, ArticlesService, PagedPersons,
                 PagedAccountingRuleFilters, AccountingRuleFilter, MessageManager, DropdownItemsRenderService, AccountingRuleFilterTypesService) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
         $scope.isClubAdmin = AuthService.isClubAdmin();
         $scope.md = {};
+        $scope.selection = {};
+        $scope.text = {};
         $scope.renderAccountingRuleFilterType = DropdownItemsRenderService.accountingRuleFilterTypeRenderer();
+        $scope.renderArticle = DropdownItemsRenderService.articleRenderer();
+        $scope.renderPerson = DropdownItemsRenderService.personRenderer();
 
         if ($routeParams.id !== undefined) {
             AccountingRuleFilterTypesService.getAccountingRuleFilterTypes().then((result) => {
@@ -24,6 +28,9 @@ export default class AccountingRuleFiltersEditController {
             ArticlesService.getArticles().then((result) => {
                 $scope.md.articles = result;
             });
+            PagedPersons.getAllPersons().then((result) => {
+                $scope.md.persons = result;
+            });
 
             if ($routeParams.id === 'new') {
                 $scope.accountingRuleFilter = {
@@ -34,6 +41,14 @@ export default class AccountingRuleFiltersEditController {
                 PagedAccountingRuleFilters.getAccountingRuleFilter($routeParams.id)
                     .then((result) => {
                         $scope.accountingRuleFilter = result;
+                        if ($scope.accountingRuleFilter.ArticleTarget) {
+                            $scope.selection.ArticleNumber = $scope.accountingRuleFilter.ArticleTarget.ArticleNumber;
+                            $scope.text.DeliveryLineText = $scope.accountingRuleFilter.ArticleTarget.DeliveryLineText;
+                        }
+                        if ($scope.accountingRuleFilter.RecipientTarget) {
+                            $scope.selection.PersonClubMemberNumber = $scope.accountingRuleFilter.RecipientTarget.PersonClubMemberNumber;
+                            $scope.text.DeliveryLineText = $scope.accountingRuleFilter.RecipientTarget.DeliveryLineText;
+                        }
                     })
                     .finally(() => {
                         $scope.busy = false;
@@ -73,9 +88,20 @@ export default class AccountingRuleFiltersEditController {
         };
         $scope.save = function (accountingRuleFilter) {
             $scope.busy = true;
-            accountingRuleFilter.ArticleTarget = {};
-            accountingRuleFilter.RecipientTarget = {};
-            var p = new AccountingRuleFilter(accountingRuleFilter);
+            if ($scope.targetTypeRecipientVisible()) {
+                accountingRuleFilter.ArticleTarget = {};
+                accountingRuleFilter.RecipientTarget = $scope.selection.PersonClubMemberNumber && {
+                        PersonClubMemberNumber: $scope.selection.PersonClubMemberNumber
+                    } || {};
+            } else {
+                accountingRuleFilter.ArticleTarget = $scope.selection.ArticleNumber && {
+                        ArticleNumber: $scope.selection.ArticleNumber,
+                        DeliveryLineText: $scope.text.DeliveryLineText
+                    } || {};
+                accountingRuleFilter.RecipientTarget = {};
+            }
+
+            let p = new AccountingRuleFilter(accountingRuleFilter);
             if (accountingRuleFilter.AccountingRuleFilterId) {
                 p.$saveAccountingRuleFilter({id: accountingRuleFilter.AccountingRuleFilterId})
                     .then($scope.cancel)
@@ -109,6 +135,31 @@ export default class AccountingRuleFiltersEditController {
         $scope.editAccountingRuleFilter = function (accountingRuleFilter) {
             $location.path('/masterdata/accountingRuleFilters/' + accountingRuleFilter.AccountingRuleFilterId);
         };
+
+        $scope.articleChanged = () => {
+            if ($scope.selection && $scope.selection.ArticleNumber) {
+                let selectedArticle = $scope.md.articles.find((article) => article.ArticleNumber === $scope.selection.ArticleNumber);
+                $scope.text.DeliveryLineText = selectedArticle && selectedArticle.ArticleName;
+            } else {
+                $scope.text.DeliveryLineText = "";
+            }
+            $scope.$apply();
+        };
+
+        $scope.recipientChanged = () => {
+            if ($scope.selection && $scope.selection.PersonClubMemberNumber) {
+                let selectedPerson = $scope.md.persons.find((person) => person.MemberNumber === $scope.selection.PersonClubMemberNumber);
+                $scope.text.DeliveryLineText = selectedPerson && (selectedPerson.Firstname + ' ' + selectedPerson.Lastname);
+            } else {
+                $scope.text.DeliveryLineText = "";
+            }
+            $scope.$apply();
+        };
+
+        $scope.targetTypeRecipientVisible = () => {
+            return $scope.accountingRuleFilter
+                && $scope.accountingRuleFilter.AccountingRuleFilterTypeId == 10;
+        }
     }
 }
 

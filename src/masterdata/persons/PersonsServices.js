@@ -16,6 +16,15 @@ export class PagedPersons {
             })
             .catch(_.partial(this.MessageManager.raiseError, 'load', 'persons list'));
     }
+
+    getAllPersons() {
+        return this.$http
+            .get(`${this.GLOBALS.BASE_URL}/api/v1/persons`)
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'persons list'));
+    }
 }
 
 export class PersonsV2 {
