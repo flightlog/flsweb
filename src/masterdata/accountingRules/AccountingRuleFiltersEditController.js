@@ -47,7 +47,7 @@ export default class AccountingRuleFiltersEditController {
                         }
                         if ($scope.accountingRuleFilter.RecipientTarget) {
                             $scope.selection.PersonClubMemberNumber = $scope.accountingRuleFilter.RecipientTarget.PersonClubMemberNumber;
-                            $scope.text.DeliveryLineText = $scope.accountingRuleFilter.RecipientTarget.DeliveryLineText;
+                            $scope.text.RecipientName = $scope.accountingRuleFilter.RecipientTarget.RecipientName;
                         }
                     })
                     .finally(() => {
@@ -91,7 +91,8 @@ export default class AccountingRuleFiltersEditController {
             if ($scope.targetTypeRecipientVisible()) {
                 accountingRuleFilter.ArticleTarget = {};
                 accountingRuleFilter.RecipientTarget = $scope.selection.PersonClubMemberNumber && {
-                        PersonClubMemberNumber: $scope.selection.PersonClubMemberNumber
+                        PersonClubMemberNumber: $scope.selection.PersonClubMemberNumber,
+                        RecipientName: $scope.text.RecipientName
                     } || {};
             } else {
                 accountingRuleFilter.ArticleTarget = $scope.selection.ArticleNumber && {
@@ -149,9 +150,9 @@ export default class AccountingRuleFiltersEditController {
         $scope.recipientChanged = () => {
             if ($scope.selection && $scope.selection.PersonClubMemberNumber) {
                 let selectedPerson = $scope.md.persons.find((person) => person.MemberNumber === $scope.selection.PersonClubMemberNumber);
-                $scope.text.DeliveryLineText = selectedPerson && (selectedPerson.Firstname + ' ' + selectedPerson.Lastname);
+                $scope.text.RecipientName = selectedPerson && (selectedPerson.Firstname + ' ' + selectedPerson.Lastname);
             } else {
-                $scope.text.DeliveryLineText = "";
+                $scope.text.RecipientName = "";
             }
             $scope.$apply();
         };

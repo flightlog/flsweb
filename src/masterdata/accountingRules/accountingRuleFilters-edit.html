@@ -90,6 +90,13 @@
                                    ng-model="selection.ArticleNumber"></selectize>
                     </div>
 
+                    <div class="form-group col-md-6" ng-if="!targetTypeRecipientVisible()">
+                        <label for="DeliveryLineText"><span translate="DELIVERY_LINE_TEXT"></span></label>
+                        <input class="form-control"
+                               id="DeliveryLineText"
+                               ng-model="text.DeliveryLineText">
+                    </div>
+
                     <div class="form-group col-md-6" ng-if="targetTypeRecipientVisible()">
                         <label for="RecipientTarget"><span translate="RECIPIENT"></span></label>
 
@@ -108,11 +115,11 @@
                                    ng-model="selection.PersonClubMemberNumber"></selectize>
                     </div>
 
-                    <div class="form-group col-md-6">
-                        <label for="DeliveryLineText"><span translate="DELIVERY_LINE_TEXT"></span></label>
+                    <div class="form-group col-md-6" ng-if="targetTypeRecipientVisible()">
+                        <label for="RecipientName"><span translate="RECIPIENT_NAME"></span></label>
                         <input class="form-control"
-                               id="DeliveryLineText"
-                               ng-model="text.DeliveryLineText">
+                               id="RecipientName"
+                               ng-model="text.RecipientName">
                     </div>
                     
                     <div class="col-md-12">
