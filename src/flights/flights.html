@@ -102,7 +102,7 @@
                             sortable="'FlightComment'"></td>
                         <td class="hidden-print controls-column hidden-xs"
                             header-class="'hidden-print hidden-xs'">
-                            <a ng-show="isClubAdmin"
+                            <a ng-show="flight.CanDeleteRecord"
                                title="{{'DELETE' | translate}}"
                                ng-click="delete(flight); $event.stopPropagation();"
                                class="col-xs-4 control-icon delete-link">

@@ -21,7 +21,7 @@
             <td ng-bind="person.PrivateEmail" data-title="'EMAIL_ADDRESS' | translate" filter="{ PrivateEmail: 'text'}" sortable="'PrivateEmail'"></td>
             <td ng-bind="person.MobilePhoneNumber" data-title="'MOBILE_NUMBER' | translate" filter="{ MobilePhoneNumber: 'text'}" sortable="'MobilePhoneNumber'"></td>
             <td class="hidden-print controls-column">
-                <a ng-show="isClubAdmin"
+                <a ng-show="flight.CanDeleteRecord"
                    title="{{'DELETE' | translate}}"
                    ng-click="deletePerson(person); $event.stopPropagation();"
                    class="col-xs-4 delete-link">

@@ -7,7 +7,7 @@
             <td ng-bind="aircraft.ManufacturerName" data-title="'MANUFACTURER_NAME' | translate" filter="{ ManufacturerName: 'text'}" sortable="'ManufacturerName'"></td>
             <td ng-bind="aircraft.NrOfSeats" data-title="'NUMBER_OF_SEATS' | translate" filter="{ NrOfSeats: 'text'}" sortable="'NrOfSeats'"></td>
             <td class="hidden-print controls-column">
-                <a ng-show="isClubAdmin"
+                <a ng-show="flight.CanDeleteRecord"
                    title="{{'DELETE' | translate}}"
                    ng-click="deleteAircraft(aircraft); $event.stopPropagation();"
                    class="col-xs-4 delete-link">

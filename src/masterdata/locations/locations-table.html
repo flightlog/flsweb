@@ -6,7 +6,7 @@
             <td ng-bind="location.IcaoCode" data-title="'ICAO_CODE' | translate" filter="{ IcaoCode: 'text'}" sortable="'IcaoCode'"></td>
             <td ng-bind="location.CountryName" data-title="'COUNTRY' | translate" filter="{ CountryName: 'countries'}" sortable="'CountryName'"></td>
             <td class="hidden-print controls-column">
-                <a ng-show="isClubAdmin"
+                <a ng-show="flight.CanDeleteRecord"
                    title="{{'DELETE' | translate}}"
                    ng-click="deleteLocation(location); $event.stopPropagation();"
                    class="col-xs-4 delete-link">

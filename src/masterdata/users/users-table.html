@@ -8,7 +8,7 @@
             <td ng-bind="user.UserRoles" data-title="'ROLES' | translate" filter="{ UserRoles: 'text'}" sortable="'UserRoles'"></td>
             <td ng-bind="user.AccountState" data-title="'USER_ACCOUNT_STATE' | translate" filter="{ AccountState: 'accountStates'}" sortable="'AccountState'"></td>
             <td class="hidden-print controls-column">
-                <a ng-show="isClubAdmin"
+                <a ng-show="flight.CanDeleteRecord"
                    title="{{'DELETE' | translate}}"
                    ng-click="deleteUser(user); $event.stopPropagation();"
                    class="col-xs-4 delete-link">
