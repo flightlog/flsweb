@@ -4,11 +4,11 @@ import AddPersonController from "../../masterdata/persons/modal/AddPersonControl
 
 export default class AirMovementsController {
 
-    constructor($scope, $q, $timeout, TimeService, DropdownItemsRenderService, AuthService, $routeParams, NgTableParams,
+    constructor($scope, $q, $timeout, TimeService, DropdownItemsRenderService, AuthService, $routeParams, NgTableParams, TableSettingsCacheFactory,
                 $log, $modal, MessageManager,
                 AirMovements, CounterUnitTypes, PagedFlights, $location,
                 Locations, Persons, PersonsV2, PersonPersister, PassengerPersister, Aircrafts, FlightTypes,
-                SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters, TableSettingsCacheFactory) {
+                SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters) {
         const format = 'HH:mm';
         $scope.towPlaneImg = require('../../images/towplane.png');
         $scope.busy = true;
