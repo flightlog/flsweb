@@ -77,7 +77,12 @@ export default class AirMovementsController {
         };
 
         let tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("AirMovementsController", {
-            filter: {},
+            filter: {
+                FlightDate: {
+                    From: moment().format("YYYY-MM-DD"),
+                    To: moment().format("YYYY-MM-DD")
+                }
+            },
             sorting: {
                 FlightDate: 'desc'
             },

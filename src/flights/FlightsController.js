@@ -39,7 +39,12 @@ export default class FlightsController {
         $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
 
         let tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightsController", {
-            filter: {},
+            filter: {
+                FlightDate: {
+                    From: moment().format("YYYY-MM-DD"),
+                    To: moment().format("YYYY-MM-DD")
+                }
+            },
             sorting: {
                 FlightDate: 'desc'
             },
