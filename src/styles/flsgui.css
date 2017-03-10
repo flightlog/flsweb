@@ -377,3 +377,22 @@ td.flight--time {
         text-overflow: ellipsis;
     }
 }
+
+.fls-include-exclude-radio-choice {
+    margin-left: 20px;
+    float: left;
+}
+
+.fls-list-selection-label {
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.fls-list-selection-label-text {
+    min-width: 120px;
+    float: left;
+}
+
+.fls-include-exclude-radio-choice input {
+    margin-right: 4px;
+}

@@ -1,0 +1,8 @@
+{
+    "AccountingRuleFilterId": "e9d52e02-944f-4f79-b1f9-56a413d3ef4b",
+    "RuleFilterName": "bla",
+    "Description": "lorem",
+    "Id": "e9d52e02-944f-4f79-b1f9-56a413d3ef4b",
+    "CanUpdateRecord": true,
+    "CanDeleteRecord": true
+}

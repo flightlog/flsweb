@@ -12,7 +12,8 @@
                   name="accountingRuleFilterForm">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label for="AccountingRuleFilterTypeId"><span translate="ACCOUNTING_RULE_FILTER_TYPE"></span></label>
+                        <label for="AccountingRuleFilterTypeId"><span
+                                translate="ACCOUNTING_RULE_FILTER_TYPE"></span></label>
 
                         <selectize id="AccountingRuleFilterTypeId"
                                    name="AccountingRuleFilterTypeId"
@@ -53,11 +54,11 @@
 
                     </div>
                     <div class="col-md-4">
-                        
+
                         <fls-labelled-checkbox entity="accountingRuleFilter"
                                                attribute="IsRuleForSelfstartedGliderFlights"
                                                translation-key="FOR_SELF_STARTER_GLIDER_FLIGHTS"></fls-labelled-checkbox>
-                        
+
                         <fls-labelled-checkbox entity="accountingRuleFilter"
                                                attribute="IsRuleForGliderFlights"
                                                translation-key="FOR_GLIDER_FLIGHTS"></fls-labelled-checkbox>
@@ -121,11 +122,15 @@
                                id="RecipientName"
                                ng-model="text.RecipientName">
                     </div>
-                    
-                    <div class="col-md-12">
+
+                    <div class="col-md-12 fls-list-selection-panel">
 
                         <div class="form-group">
-                            <label for="MatchedAircraftImmatriculations"><span translate="AIRCRAFTS"></span></label>
+                            <label for="MatchedAircraftImmatriculations" class="fls-list-selection-label">
+                                <div translate="AIRCRAFTS" class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="aircraftIncl" value="ONLY"> nur folgende</div>
+                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="aircraftIncl" value="EXCEPT"> alle ausser</div>
+                            </label>
 
                             <selectize id="MatchedAircraftImmatriculations"
                                        name="MatchedAircraftImmatriculations"
@@ -141,7 +146,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="MatchedFlightTypeCodes"><span translate="FLIGHT_TYPES"></span></label>
+                            <label for="MatchedFlightTypeCodes" class="fls-list-selection-label">
+                                <div translate="FLIGHT_TYPES" class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="flightTypesIncl" value="ONLY"> nur folgende</div>
+                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="flightTypesIncl" value="EXCEPT"> alle ausser</div>
+                            </label>
 
                             <selectize id="MatchedFlightTypeCodes"
                                        name="MatchedFlightTypeCodes"
@@ -157,7 +166,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="MatchedStartLocations"><span translate="START_LOCATIONS"></span></label>
+                            <label for="MatchedStartLocations" class="fls-list-selection-label">
+                                <div translate="START_LOCATIONS" class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="startLocationsIncl" value="ONLY"> nur folgende</div>
+                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="startLocationsIncl" value="EXCEPT"> alle ausser</div>
+                            </label>
 
                             <selectize id="MatchedStartLocations"
                                        name="MatchedStartLocations"
@@ -173,7 +186,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="MatchedLdgLocations"><span translate="LANDING_LOCATIONS"></span></label>
+                            <label for="MatchedLdgLocations" class="fls-list-selection-label">
+                                <div translate="LANDING_LOCATIONS" class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="ldgLocationsIncl" value="ONLY"> nur folgende</div>
+                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="ldgLocationsIncl" value="EXCEPT"> alle ausser</div>
+                            </label>
 
                             <selectize id="MatchedLdgLocations"
                                        name="MatchedLdgLocations"
