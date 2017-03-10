@@ -14,12 +14,12 @@ export default class AddPersonController {
             HasGliderPilotLicence: flags.GliderPilot,
             HasGliderPassengerLicence: flags.Passenger,
             HasTowPilotLicence: flags.TowingPilot,
-            HasMotorPilotLicence: flags.TowingPilot,
+            HasMotorPilotLicence: flags.TowingPilot || flags.MotorPilot,
             ClubRelatedPersonDetails: {
                 IsGliderPilot: flags.GliderPilot,
                 IsPassenger: flags.Passenger,
                 IsTowPilot: flags.TowingPilot,
-                IsMotorPilot: flags.TowingPilot
+                IsMotorPilot: flags.TowingPilot || flags.MotorPilot
             }
         };
         $scope.flags = flags;
