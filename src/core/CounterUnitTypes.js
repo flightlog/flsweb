@@ -3,7 +3,8 @@ export class CounterUnitTypes {
         return $resource(GLOBALS.BASE_URL + '/api/v1/counterunittypes', null, {
             query: {
                 method: 'GET',
-                isArray: true
+                isArray: true,
+                cache: true
             }
         });
     }

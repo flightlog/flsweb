@@ -65,7 +65,8 @@ export class FlightCostBalanceTypes {
         return $resource(GLOBALS.BASE_URL + '/api/v1/flightcostbalancetypes', null, {
             query: {
                 method: 'GET',
-                isArray: true
+                isArray: true,
+                cache: true
             }
         });
     }

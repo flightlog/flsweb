@@ -65,7 +65,7 @@ export class ClubService {
     constructor($q, $window, ClubPersister) {
         return {
             delete: function (club, clubs) {
-                var deferred = $q.defer();
+                let deferred = $q.defer();
                 if ($window.confirm('Do you really want to remove this club from the database?')) {
                     ClubPersister.delete({id: club.ClubId}).$promise
                         .then(function () {

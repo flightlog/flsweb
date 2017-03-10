@@ -33,7 +33,7 @@ export class PersonsV2 {
             getAllPersons: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     clubonly: true
                 }
@@ -48,7 +48,7 @@ export class Persons {
             getMotorPilots: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'motorpilots',
                     clubonly: true
@@ -57,7 +57,7 @@ export class Persons {
             getMotorInstructors: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'motorinstructors',
                     clubonly: true
@@ -66,7 +66,7 @@ export class Persons {
             getTowingPilots: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'towingpilots',
                     clubonly: true
@@ -75,7 +75,7 @@ export class Persons {
             getGliderPilots: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'gliderpilots',
                     clubonly: true
@@ -84,7 +84,7 @@ export class Persons {
             getGliderInstructors: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'gliderinstructors',
                     clubonly: true
@@ -93,7 +93,7 @@ export class Persons {
             getGliderObservers: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'gliderobserverpilots',
                     clubonly: true
@@ -102,7 +102,7 @@ export class Persons {
             getWinchOperators: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'winchoperators',
                     clubonly: true
@@ -111,7 +111,7 @@ export class Persons {
             getPassengers: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'passengers',
                     clubonly: true
@@ -120,7 +120,7 @@ export class Persons {
             getMyPerson: {
                 method: 'GET',
                 isArray: false,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'my'
                 }
@@ -129,20 +129,44 @@ export class Persons {
     }
 }
 
+function invalidate(GLOBALS, $cacheFactory, result) {
+    let $httpDefaultCache = $cacheFactory.get('$http');
+
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/listitems/true');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/motorpilots/listitems/true');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/motorinstructors/listitems/true');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/towingpilots/listitems/true');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/gliderpilots/listitems/true');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/gliderinstructors/listitems/true');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/gliderobserverpilots/listitems/true');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/winchoperators/listitems/true');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/passengers/listitems/true');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/passengers/my/');
+
+    return Promise.resolve(result.data);
+}
+
 export class PersonPersister {
-    constructor($resource, GLOBALS) {
+    constructor($resource, GLOBALS, $cacheFactory) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/persons/:id', null, {
             savePerson: {
                 method: 'POST',
                 headers: {
                     'X-HTTP-Method-Override': 'PUT'
+                },
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
                 }
             },
-            $save: {
-                method: 'POST'
+            save: {
+                method: 'POST',
+                interceptor: {
+                    response: (result) => invalidate(GLOBALS, $cacheFactory, result)
+                }
             },
             get: {
-                method: 'GET'
+                method: 'GET',
+                cache: false
             },
             delete: {
                 method: 'POST',
@@ -151,6 +175,9 @@ export class PersonPersister {
                 },
                 headers: {
                     'X-HTTP-Method-Override': 'DELETE'
+                },
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
                 }
             }
         });
@@ -158,16 +185,22 @@ export class PersonPersister {
 }
 
 export class PassengerPersister {
-    constructor($resource, GLOBALS) {
+    constructor($resource, GLOBALS, $cacheFactory) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/persons/passengers/:id', null, {
             savePerson: {
                 method: 'POST',
                 headers: {
                     'X-HTTP-Method-Override': 'PUT'
+                },
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
                 }
             },
             $save: {
-                method: 'POST'
+                method: 'POST',
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
+                }
             },
             get: {
                 method: 'GET'
@@ -179,6 +212,9 @@ export class PassengerPersister {
                 },
                 headers: {
                     'X-HTTP-Method-Override': 'DELETE'
+                },
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
                 }
             }
         });
@@ -189,7 +225,7 @@ export class PersonService {
     constructor($q, PersonPersister) {
         return {
             delete: function (person, persons) {
-                var deferred = $q.defer();
+                let deferred = $q.defer();
                 if (window.confirm('Do you really want to remove this person from the database?')) {
                     PersonPersister.delete({id: person.PersonId}).$promise
                         .then(function () {

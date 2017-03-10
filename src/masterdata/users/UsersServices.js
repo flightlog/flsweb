@@ -1,4 +1,4 @@
-export class PagedUsers {
+ export class PagedUsers {
     constructor($http, GLOBALS, MessageManager) {
         this.$http = $http;
         this.GLOBALS = GLOBALS;
@@ -18,13 +18,21 @@ export class PagedUsers {
     }
 }
 
+ function invalidate(GLOBALS, $cacheFactory, result) {
+     let $httpDefaultCache = $cacheFactory.get('$http');
+
+     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/users/overview/club');
+
+     return Promise.resolve(result.data);
+ }
+
 export class Users {
     constructor($resource, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/users/overview/club', null, {
             getAllUsers: {
                 method: 'GET',
                 isArray: true,
-                cache: false
+                cache: true
             }
         });
     }
@@ -36,7 +44,7 @@ export class UserRoles {
             getAllUserRoles: {
                 method: 'GET',
                 isArray: true,
-                cache: false
+                cache: true
             }
         });
     }
@@ -48,7 +56,7 @@ export class UserAccountStates {
             query: {
                 method: 'GET',
                 isArray: true,
-                cache: false
+                cache: true
             }
         });
     }
@@ -61,10 +69,16 @@ export class UserPersister {
                 method: 'POST',
                 headers: {
                     'X-HTTP-Method-Override': 'PUT'
+                },
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
                 }
             },
-            $save: {
-                method: 'POST'
+            save: {
+                method: 'POST',
+                interceptor: {
+                    response: (result) => invalidate(GLOBALS, $cacheFactory, result)
+                }
             },
             get: {
                 method: 'GET'
@@ -76,6 +90,9 @@ export class UserPersister {
                 },
                 headers: {
                     'X-HTTP-Method-Override': 'DELETE'
+                },
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
                 }
             }
         });
@@ -86,7 +103,7 @@ export class UserService {
     constructor($q, UserPersister) {
         return {
             delete: function (user, users) {
-                var deferred = $q.defer();
+                let deferred = $q.defer();
                 if (window.confirm('Do you really want to remove this user from the database?')) {
                     UserPersister.delete({id: user.UserId}).$promise
                         .then(function () {

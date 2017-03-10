@@ -24,7 +24,7 @@ export class AircraftsOverviews {
             query: {
                 method: 'GET',
                 isArray: true,
-                cache: false
+                cache: true
             }
         });
     }
@@ -36,7 +36,7 @@ export class Aircrafts {
             getGliders: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'gliders'
                 }
@@ -44,7 +44,7 @@ export class Aircrafts {
             getTowingPlanes: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'towingaircrafts'
                 }
@@ -52,7 +52,7 @@ export class Aircrafts {
             getMotorPlanes: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'motoraircrafts'
                 }
@@ -61,22 +61,39 @@ export class Aircrafts {
     }
 }
 
+function invalidate(GLOBALS, $cacheFactory, result) {
+    let $httpDefaultCache = $cacheFactory.get('$http');
+
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/aircrafts/overview');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/aircrafts/listitems/gliders');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/aircrafts/listitems/towingaircrafts');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/aircrafts/listitems/motoraircrafts');
+
+    return Promise.resolve(result.data);
+}
 
 export class Aircraft {
-    constructor($resource, GLOBALS) {
+    constructor($resource, GLOBALS, $cacheFactory) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/aircrafts/:id', null, {
             get: {
                 method: 'GET',
-                isArray: false
+                isArray: false,
+                cache: false
             },
             saveAircraft: {
                 method: 'POST',
                 headers: {
                     'X-HTTP-Method-Override': 'PUT'
+                },
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
                 }
             },
-            $save: {
-                method: 'POST'
+            save: {
+                method: 'POST',
+                interceptor: {
+                    response: (result) => invalidate(GLOBALS, $cacheFactory, result)
+                }
             },
             delete: {
                 method: 'POST',
@@ -85,6 +102,9 @@ export class Aircraft {
                 },
                 headers: {
                     'X-HTTP-Method-Override': 'DELETE'
+                },
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
                 }
             }
         });
@@ -95,7 +115,7 @@ export class AircraftService {
     constructor($q, Aircraft) {
         return {
             delete: function (aircraft, aircrafts) {
-                var deferred = $q.defer();
+                let deferred = $q.defer();
                 if (window.confirm('Do you really want to remove this aircraft from the database?')) {
                     Aircraft.delete({id: aircraft.AircraftId}).$promise
                         .then(function () {

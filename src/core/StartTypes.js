@@ -3,7 +3,8 @@ export class StartTypes {
         return $resource(GLOBALS.BASE_URL + '/api/v1/starttypes', null, {
             query: {
                 method: 'GET',
-                isArray: true
+                isArray: true,
+                cache: true
             }
         });
     }
@@ -14,7 +15,8 @@ export class SpecificStartTypes {
         return $resource(GLOBALS.BASE_URL + '/api/v1/starttypes/:kind', null, {
             queryStartTypesFor: {
                 method: 'GET',
-                isArray: true
+                isArray: true,
+                cache: true
             }
         });
     }

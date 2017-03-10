@@ -18,12 +18,24 @@ export class PagedLocations {
     }
 }
 
+function invalidate(GLOBALS, $cacheFactory, result) {
+    let $httpDefaultCache = $cacheFactory.get('$http');
+
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/locations/');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/locationtypes/listitems');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/lengthunittypes/listitems');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/elevationunittypes/listitems');
+
+    return Promise.resolve(result.data);
+}
+
 export class Locations {
     constructor($resource, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/:dest/:id', null, {
             getLocations: {
                 method: 'GET',
                 isArray: true,
+                cache: true,
                 params: {
                     dest: 'locations',
                     id: ''
@@ -32,6 +44,7 @@ export class Locations {
             getLocationTypes: {
                 method: 'GET',
                 isArray: true,
+                cache: true,
                 params: {
                     dest: 'locationtypes',
                     id: 'listitems'
@@ -40,6 +53,7 @@ export class Locations {
             getLengthUnitTypes: {
                 method: 'GET',
                 isArray: true,
+                cache: true,
                 params: {
                     dest: 'lengthunittypes',
                     id: 'listitems'
@@ -48,6 +62,7 @@ export class Locations {
             getElevationUnitTypes: {
                 method: 'GET',
                 isArray: true,
+                cache: true,
                 params: {
                     dest: 'elevationunittypes',
                     id: 'listitems'
@@ -56,6 +71,7 @@ export class Locations {
             getLocationDetails: {
                 method: 'GET',
                 isArray: false,
+                cache: true,
                 params: {
                     dest: 'locations'
                 }
@@ -71,10 +87,16 @@ export class LocationPersister {
                 method: 'POST',
                 headers: {
                     'X-HTTP-Method-Override': 'PUT'
+                },
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
                 }
             },
-            $save: {
-                method: 'POST'
+            save: {
+                method: 'POST',
+                interceptor: {
+                    response: (result) => invalidate(GLOBALS, $cacheFactory, result)
+                }
             },
             get: {
                 method: 'GET'
@@ -86,6 +108,9 @@ export class LocationPersister {
                 },
                 headers: {
                     'X-HTTP-Method-Override': 'DELETE'
+                },
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
                 }
             }
         });

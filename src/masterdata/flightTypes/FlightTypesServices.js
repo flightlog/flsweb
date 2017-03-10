@@ -4,7 +4,7 @@ export class FlightTypes {
             query: {
                 method: 'GET',
                 isArray: true,
-                cache: false,
+                cache: true,
                 params: {
                     dest: 'overview'
                 }
@@ -12,28 +12,45 @@ export class FlightTypes {
             queryFlightTypesFor: {
                 method: 'GET',
                 isArray: true,
-                cache: false
+                cache: true
             }
         });
     }
 }
 
+function invalidate(GLOBALS, $cacheFactory, result) {
+    let $httpDefaultCache = $cacheFactory.get('$http');
+
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/flighttypes/overview');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/flighttypes/gliders');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/flighttypes/towing');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/flighttypes/motor');
+
+    return Promise.resolve(result.data);
+}
 
 export class FlightType {
     constructor($resource, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/flighttypes/:id', null, {
             get: {
                 method: 'GET',
-                isArray: false
+                isArray: false,
+                cache: false
             },
             saveFlightType: {
                 method: 'POST',
                 headers: {
                     'X-HTTP-Method-Override': 'PUT'
+                },
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
                 }
             },
-            $save: {
-                method: 'POST'
+            save: {
+                method: 'POST',
+                interceptor: {
+                    response: (result) => invalidate(GLOBALS, $cacheFactory, result)
+                }
             },
             delete: {
                 method: 'POST',
@@ -42,6 +59,9 @@ export class FlightType {
                 },
                 headers: {
                     'X-HTTP-Method-Override': 'DELETE'
+                },
+                interceptor: {
+                    response: () => invalidate(GLOBALS, $cacheFactory)
                 }
             }
         });
