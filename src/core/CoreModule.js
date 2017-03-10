@@ -24,6 +24,7 @@ import AuditLogService from "./directives/history/AuditLogService";
 import DropdownItemsRenderService from "./DropdownItemsRenderService";
 import SelectizeDirective from "./directives/Selectize";
 import StringUtils from "./StringUtils";
+import {TableSettingsCacheFactory} from "./TableSettingsCache";
 import angularCookies from "angular-cookies";
 import angularResource from "angular-resource";
 import ngStorage from "ngstorage";
@@ -58,6 +59,7 @@ export default angular.module("fls.core", [
     .directive('selectize', SelectizeDirective.factory)
     .directive('flsHistory', HistoryDirective.factory)
     .service('StringUtils', StringUtils)
+    .service('TableSettingsCacheFactory', TableSettingsCacheFactory)
     .service('AuthService', AuthService)
     .service('MessageManager', MessageManager)
     .service('NavigationCache', NavigationCache)

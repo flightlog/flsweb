@@ -8,7 +8,7 @@ export default class AirMovementsController {
                 $log, $modal, MessageManager,
                 AirMovements, CounterUnitTypes, PagedFlights, $location,
                 Locations, Persons, PersonsV2, PersonPersister, PassengerPersister, Aircrafts, FlightTypes,
-                SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters) {
+                SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters, TableSettingsCacheFactory) {
         const format = 'HH:mm';
         $scope.towPlaneImg = require('../../images/towplane.png');
         $scope.busy = true;
@@ -76,28 +76,26 @@ export default class AirMovementsController {
             reloadFlights();
         };
 
+        let tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("AirMovementsController", {
+            filter: {},
+            sorting: {
+                FlightDate: 'desc'
+            },
+            count: 100
+        });
+
         function reloadFlights() {
             if ($scope.tableParams) {
                 $scope.tableParams.reload();
             } else {
                 $scope.busy = false;
-                $scope.tableParams = new NgTableParams({
-                    filter: {
-						FlightDate: {
-							From: moment().format("YYYY-MM-DD"),
-							To: moment().format("YYYY-MM-DD")
-						}
-					},
-                    sorting: {
-                        FlightDate: 'desc'
-                    },
-                    count: 100
-                }, {
+                $scope.tableParams = new NgTableParams(tableSettingsCache.currentSettings(), {
                     counts: [],
                     getData: function (params) {
                         $scope.busy = true;
                         let pageSize = params.count();
                         let pageStart = (params.page() - 1) * pageSize;
+                        tableSettingsCache.update($scope.tableParams.filter(), $scope.tableParams.sorting());
 
                         return PagedFlights.getMotorFlights($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                             .then((result) => {

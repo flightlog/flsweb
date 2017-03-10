@@ -24,6 +24,7 @@ export default class DatePickerInputDirective {
                                          ng-model="dates.toDate">
                         </fls-date-picker>
                         
+                        <button class="btn btn-default pull-left" style="margin-top:10px;" ng-click="today()">Today</button>
                         <button class="btn btn-default pull-right" style="margin-top:10px;" ng-click="toggleEditor()">Close</button>
                     </div>
                 </div>
@@ -98,6 +99,12 @@ export default class DatePickerInputDirective {
                         From: scope.dates.fromDate && moment(scope.dates.fromDate).format("YYYY-MM-DD"),
                         To: scope.dates.toDate && moment(scope.dates.toDate).format("YYYY-MM-DD")
                     });
+                };
+
+                scope.today = () => {
+                    scope.dates.fromDate = moment();
+                    scope.dates.toDate = moment();
+                    scope.setResult();
                 };
 
                 formatObject(scope.ngModel);

@@ -6,7 +6,7 @@ export default class FlightsController {
     constructor($scope, $q, $log, $modal, $timeout, MessageManager, $location, $routeParams,
                 TimeService, Flights, NgTableParams, PagedFlights, AuthService,
                 FlightTypes, Locations, Persons, PersonsV2, PersonPersister, PassengerPersister,
-                Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes,
+                Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes, TableSettingsCacheFactory,
                 SoloFlightCheckboxEnablementCalculator, Clubs, AircraftOperatingCounters, DropdownItemsRenderService) {
         $scope.busy = true;
         this.TimeService = TimeService;
@@ -38,28 +38,35 @@ export default class FlightsController {
         $scope.renderAircraft = DropdownItemsRenderService.aircraftRenderer();
         $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
 
-        $scope.reloadList = () => {
-            $scope.tableParams.reload();
-        };
+        let tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightsController", {
+            filter: {},
+            sorting: {
+                FlightDate: 'desc'
+            },
+            count: 100
+        });
 
-        function reloadFlights() {
-            $scope.tableParams = new NgTableParams({
-                filter: {
-					FlightDate: {
-						From: moment().format("YYYY-MM-DD"),
-						To: moment().format("YYYY-MM-DD")
-					}
-				},
-                sorting: {
-                    FlightDate: 'desc'
-                },
-                count: 100
-            }, {
+        if ($routeParams.id !== undefined) {
+            loadMasterdata()
+                .then(() => {
+                    if ($routeParams.id === 'new') {
+                        return newFlight();
+                    } else if ($location.path().indexOf('/copy') > 0) {
+                        return copyFlight($routeParams.id);
+                    } else {
+                        return loadFlight($routeParams.id);
+                    }
+                })
+                .then(mapFlightToForm)
+                .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'));
+        } else {
+            $scope.tableParams = new NgTableParams(tableSettingsCache.currentSettings(), {
                 counts: [],
-                getData: function (params) {
+                getData: (params) => {
                     $scope.busy = true;
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
+                    tableSettingsCache.update($scope.tableParams.filter(), $scope.tableParams.sorting());
 
                     return PagedFlights.getGliderFlights($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
@@ -77,24 +84,6 @@ export default class FlightsController {
                         });
                 }
             });
-        }
-
-        if ($routeParams.id !== undefined) {
-            loadMasterdata()
-                .then(() => {
-                    if ($routeParams.id === 'new') {
-                        return newFlight();
-                    } else if ($location.path().indexOf('/copy') > 0) {
-                        return copyFlight($routeParams.id);
-                    } else {
-                        return loadFlight($routeParams.id);
-                    }
-                })
-                .then(mapFlightToForm)
-                .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'));
-
-        } else {
-            reloadFlights();
         }
 
         function hasDetails() {

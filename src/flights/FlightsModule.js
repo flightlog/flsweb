@@ -29,6 +29,7 @@ export default angular.module('fls.flights', [
     .service('FlightCostBalanceTypes', FlightsServices.FlightCostBalanceTypes)
     .service('Flights', FlightsServices.Flights)
     .service('PagedFlights', FlightsServices.PagedFlights)
+    .service('FilterCache', FlightsServices.FilterCache)
     .service('SoloFlightCheckboxEnablementCalculator', FlightsServices.SoloFlightCheckboxEnablementCalculator)
     .config(function ($routeProvider) {
         $routeProvider
