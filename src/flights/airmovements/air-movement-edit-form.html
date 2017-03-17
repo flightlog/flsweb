@@ -157,17 +157,9 @@
                            ng-model="times.motorDuration"
                            readonly>
                 </div>
-                <div class="form-group col-md-6 col-sm-12 col-xs-12">
-                    <label for="MotorFlightDetailsData.NrOfLdgs"><span translate="NR_LANDINGS"></span>:</label>
-                    <input type="number"
-                           class="form-control"
-                           id="MotorFlightDetailsData.NrOfLdgs"
-                           ng-disabled="!flightDetails.CanUpdateRecord"
-                           ng-model="flightDetails.MotorFlightDetailsData.NrOfLdgs">
-                </div>
             </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="form-group col-md-6 col-sm-6 col-xs-12 fls-secondary-field">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group col-md-3 col-sm-6 col-xs-12 fls-secondary-field">
                     <label><span translate="START_LOCATION"></span>:</label>
 
                     <selectize options="locations"
@@ -182,7 +174,7 @@
                             }"
                                ng-model="flightDetails.MotorFlightDetailsData.StartLocationId"></selectize>
                 </div>
-                <div class="form-group col-md-6 col-sm-6 col-xs-12 fls-secondary-field">
+                <div class="form-group col-md-3 col-sm-6 col-xs-12 fls-secondary-field">
                     <label><span translate="LANDING_LOCATION"></span>:</label>
 
                     <selectize options="locations"
@@ -197,9 +189,8 @@
                             }"
                                ng-model="flightDetails.MotorFlightDetailsData.LdgLocationId"></selectize>
                 </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="form-group col-md-6 col-sm-6 col-xs-12"
+
+                <div class="form-group col-md-3 col-sm-6 col-xs-12 fls-secondary-field"
                      ng-show="routeRequirements.isOutboundRouteRequired">
                     <label for="MotorFlightDetailsData.OutboundRoute"><span translate="OUTBOUND_ROUTE"></span>:</label>
                     <input type="text"
@@ -208,7 +199,7 @@
                            ng-disabled="!flightDetails.CanUpdateRecord"
                            ng-model="flightDetails.MotorFlightDetailsData.OutboundRoute">
                 </div>
-                <div class="form-group col-md-6 col-sm-6 col-xs-12"
+                <div class="form-group col-md-3 col-sm-6 col-xs-12 fls-secondary-field"
                      ng-show="routeRequirements.isInboundRouteRequired">
                     <label for="MotorFlightDetailsData.InboundRoute"><span translate="INBOUND_ROUTE"></span>:</label>
                     <input type="text"
@@ -216,6 +207,24 @@
                            id="MotorFlightDetailsData.InboundRoute"
                            ng-disabled="!flightDetails.CanUpdateRecord"
                            ng-model="flightDetails.MotorFlightDetailsData.InboundRoute">
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group col-md-3 col-sm-12 col-xs-12 fls-secondary-field">
+                    <label for="MotorFlightDetailsData.NrOfLdgsOnStartLocation"><span translate="NR_LANDINGS_AT_START_LOCATION"></span>:</label>
+                    <input type="number"
+                           class="form-control"
+                           id="MotorFlightDetailsData.NrOfLdgsOnStartLocation"
+                           ng-disabled="!flightDetails.CanUpdateRecord || !times.motorStart"
+                           ng-model="flightDetails.MotorFlightDetailsData.NrOfLdgsOnStartLocation">
+                </div>
+                <div class="form-group col-md-3 col-sm-12 col-xs-12 fls-secondary-field">
+                    <label for="MotorFlightDetailsData.NrOfLdgs"><span translate="NR_LANDINGS_AT_LANDING_LOCATION"></span>:</label>
+                    <input type="number"
+                           class="form-control"
+                           id="MotorFlightDetailsData.NrOfLdgs"
+                           ng-disabled="!flightDetails.CanUpdateRecord || !times.motorLanding"
+                           ng-model="flightDetails.MotorFlightDetailsData.NrOfLdgs">
                 </div>
             </div>
         </div>
@@ -277,8 +286,8 @@
                            readonly>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="form-group col-md-6 col-sm-6 col-xs-12 fls-secondary-field">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group col-md-3 col-sm-6 col-xs-12 fls-secondary-field">
                     <label for="flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds"><span translate="ENGINE_BEGIN"></span></label>
 
                     <div class="input-group">
@@ -303,7 +312,7 @@
                             translate="LAST_ENGINE_TIME"></span>:
                             <span ng-bind="times.LastEngineOperatingCounterFormatted"></span>)</span>
                 </div>
-                <div class="form-group col-md-6 col-sm-6 col-xs-12 fls-secondary-field">
+                <div class="form-group col-md-3 col-sm-6 col-xs-12 fls-secondary-field">
                     <label for="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds"><span translate="ENGINE_END"></span></label>
                     <input fls-time-counter
                            time-format='operatingCounters.EngineOperatingCounterUnitTypeKeyName'
@@ -314,9 +323,7 @@
                            ng-model="flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds"
                            ng-blur="engineSecondsCountersChanged();">
                 </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group col-md-3 col-sm-12 col-xs-12 fls-secondary-field">
                     <label for="times.engineSecondsCounterDuration"><span translate="ENGINE_DURATION"></span>:</label>
                     <input fls-time-counter
                            time-format='operatingCounters.EngineOperatingCounterUnitTypeKeyName'
