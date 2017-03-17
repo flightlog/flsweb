@@ -196,6 +196,7 @@ export default class FlightsController {
             return loadFlight(flightId)
                 .then((res) => {
                     let flightDetails = {};
+                    flightDetails.FlightDate = res.FlightDate;
                     flightDetails.GliderFlightDetailsData = res.GliderFlightDetailsData || {};
                     flightDetails.StartType = res.StartType;
                     flightDetails.FlightId = undefined;

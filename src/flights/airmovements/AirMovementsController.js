@@ -201,6 +201,7 @@ export default class AirMovementsController {
             return loadFlight(flightId)
                 .then((res) => {
                     let flightDetails = {};
+                    flightDetails.FlightDate = res.FlightDate;
                     flightDetails.StartType = res.StartType;
                     flightDetails.FlightId = undefined;
                     flightDetails.MotorFlightDetailsData = res.MotorFlightDetailsData || {};
