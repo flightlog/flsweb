@@ -26,7 +26,7 @@ function invalidate(GLOBALS, $cacheFactory, result) {
     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/flighttypes/towing');
     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/flighttypes/motor');
 
-    return Promise.resolve(result.data);
+    return Promise.resolve(result && result.data);
 }
 
 export class FlightType {

@@ -143,7 +143,7 @@ function invalidate(GLOBALS, $cacheFactory, result) {
     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/passengers/listitems/true');
     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/passengers/my/');
 
-    return Promise.resolve(result.data);
+    return Promise.resolve(result && result.data);
 }
 
 export class PersonPersister {

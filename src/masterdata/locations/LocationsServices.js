@@ -26,7 +26,7 @@ function invalidate(GLOBALS, $cacheFactory, result) {
     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/lengthunittypes/listitems');
     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/elevationunittypes/listitems');
 
-    return Promise.resolve(result.data);
+    return Promise.resolve(result && result.data);
 }
 
 export class Locations {

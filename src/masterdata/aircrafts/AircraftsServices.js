@@ -69,7 +69,7 @@ function invalidate(GLOBALS, $cacheFactory, result) {
     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/aircrafts/listitems/towingaircrafts');
     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/aircrafts/listitems/motoraircrafts');
 
-    return Promise.resolve(result.data);
+    return Promise.resolve(result && result.data);
 }
 
 export class Aircraft {

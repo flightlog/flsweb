@@ -23,7 +23,7 @@
 
      $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/users/overview/club');
 
-     return Promise.resolve(result.data);
+     return Promise.resolve(result && result.data);
  }
 
 export class Users {
