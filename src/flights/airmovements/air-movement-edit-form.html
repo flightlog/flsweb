@@ -155,7 +155,7 @@
                            id="motorDuration"
                            ng-disabled="!flightDetails.CanUpdateRecord"
                            ng-model="times.motorDuration"
-                           readonly>
+                           ng-blur="formatMotorDuration()">
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">

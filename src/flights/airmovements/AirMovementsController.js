@@ -42,7 +42,28 @@ export default class AirMovementsController {
             let toMoment = moment(to, format);
             let fromMoment = moment(from, format);
             if (toMoment.isValid() && fromMoment.isValid()) {
-                return toMoment.subtract(fromMoment).format(format);
+                let duration = moment.duration(toMoment.diff(fromMoment));
+                if ($scope.operatingCounters && $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName == "Min") {
+                    return moment.utc(duration.asMilliseconds()).format(format);
+                } else {
+                    return Math.round(duration.asMilliseconds() / 36000.0) / 100;
+                }
+            }
+        }
+
+        function addDuration(from, duration) {
+            let durationMoment;
+            if ($scope.operatingCounters && $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName === "Min") {
+                durationMoment = moment(duration, format);
+            } else {
+                if (isNaN(duration)) {
+                    return from.format(format);
+                }
+                durationMoment = moment.utc(parseFloat(duration) * 3600 * 1000);
+            }
+            let fromMoment = moment(from, format);
+            if (durationMoment.isValid() && fromMoment.isValid()) {
+                return fromMoment.add(durationMoment).format(format);
             }
         }
 
@@ -164,6 +185,8 @@ export default class AirMovementsController {
                                         $scope.operatingCounters.EngineOperatingCounterInSeconds,
                                         $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName
                                     );
+                                    $scope.times.motorDuration = calcDuration($scope.times.motorStart, $scope.times.motorLanding);
+                                    $scope.times.blockDuration = calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd);
 
                                     $scope.engineSecondsCountersChanged();
                                 }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
@@ -273,8 +296,6 @@ export default class AirMovementsController {
                 engineCounterFormat: 'seconds'
             };
             $scope.flightDetails.FlightDate = $scope.flightDetails.FlightDate || (motorFlight.StartDateTime || motorFlight.FlightDate) || (!result.FlightId && new Date());
-            $scope.times.motorDuration = calcDuration($scope.times.motorStart, $scope.times.motorLanding);
-            $scope.times.blockDuration = calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd);
 
             Aircrafts.getTowingPlanes().$promise.then((result) => {
                 $scope.motorAircrafts = result;
@@ -415,6 +436,14 @@ export default class AirMovementsController {
             let times = $scope.times;
             times.motorLanding = TimeService.formatTime(times.motorLanding);
             times.motorDuration = calcDuration(times.motorStart, times.motorLanding);
+        };
+
+        $scope.formatMotorDuration = () => {
+            let times = $scope.times;
+            if ($scope.times.engineCounterFormat === "Min") {
+                times.motorDuration = TimeService.formatTime(times.motorDuration);
+            }
+            times.motorLanding = addDuration(times.motorStart, times.motorDuration);
         };
 
         $scope.setMotorStart = () => {
