@@ -277,6 +277,7 @@
     <div class="form-group col-md-3 col-sm-6 col-xs-6">
         <label for="GliderFlightDetailsData.NrOfLdgs"><span translate="NR_LANDINGS"></span>:</label>
         <input type="number"
+               min="0"
                class="form-control"
                id="GliderFlightDetailsData.NrOfLdgs"
                ng-disabled="!flightDetails.CanUpdateRecord"
