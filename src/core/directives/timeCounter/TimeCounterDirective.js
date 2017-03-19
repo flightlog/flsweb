@@ -1,9 +1,3 @@
-import moment from "moment";
-import * as angular from "angular";
-import * as _ from "lodash";
-
-import TimeService from "../../TimeService";
-
 export default class TimeCounterDirective {
     static factory(TimeService) {
         return {
@@ -34,14 +28,29 @@ export default class TimeCounterDirective {
                 scope.$watch("timeFormat", updateTimeFormat);
 
                 function normalizeString(plainString) {
-                    if (!plainString || plainString.length < 3) {
-                        return "0" + scope.delimiter + String("0" + plainString).slice(-2);
+                    if (/(\d+)\.\d{2}/g.test(plainString)) {
+                        if (!plainString || plainString.length < 3) {
+                            return "0" + scope.delimiter + String("0" + plainString).slice(-2);
+                        }
+
+                        let delimiterIndex = plainString.length - 2;
+
+                        return plainString.substring(0, delimiterIndex) + scope.delimiter + plainString.substring(delimiterIndex)
                     }
-
-                    let delimiterIndex = plainString.length - 2;
-
-                    return plainString.substring(0, delimiterIndex) + scope.delimiter + plainString.substring(delimiterIndex)
                 }
+
+                modelCtrl.$validators.validTime = (modelValue, viewValue) => {
+                    if(!viewValue) {
+                        return true;
+                    }
+                    if (scope.delimiter === '.') {
+                        return /(\d+)\.\d{2}/g.test(viewValue);
+                    } else if (scope.delimiter === ':') {
+                        return /(\d+):\d{2}/g.test(viewValue);
+                    } else {
+                        return true;
+                    }
+                };
 
                 element.on('blur', () => {
                     if (modelCtrl.$viewValue && modelCtrl.$viewValue.indexOf(scope.delimiter) === -1) {
