@@ -28,25 +28,23 @@ export default class TimeCounterDirective {
                 scope.$watch("timeFormat", updateTimeFormat);
 
                 function normalizeString(plainString) {
-                    if (/(\d+)\.\d{2}/g.test(plainString)) {
-                        if (!plainString || plainString.length < 3) {
-                            return "0" + scope.delimiter + String("0" + plainString).slice(-2);
-                        }
-
-                        let delimiterIndex = plainString.length - 2;
-
-                        return plainString.substring(0, delimiterIndex) + scope.delimiter + plainString.substring(delimiterIndex)
+                    if (!plainString || plainString.length < 3) {
+                        return "0" + scope.delimiter + String("0" + plainString).slice(-2);
                     }
+
+                    let delimiterIndex = plainString.length - 2;
+
+                    return plainString.substring(0, delimiterIndex) + scope.delimiter + plainString.substring(delimiterIndex)
                 }
 
                 modelCtrl.$validators.validTime = (modelValue, viewValue) => {
-                    if(!viewValue) {
+                    if (!viewValue) {
                         return true;
                     }
                     if (scope.delimiter === '.') {
-                        return /(\d+)\.\d{2}/g.test(viewValue);
+                        return /(\d+)(\.\d{0,2})?/g.test(viewValue);
                     } else if (scope.delimiter === ':') {
-                        return /(\d+):\d{2}/g.test(viewValue);
+                        return /(\d+)(:\d{0,2})?/g.test(viewValue);
                     } else {
                         return true;
                     }
