@@ -56,6 +56,11 @@
                     <div class="col-md-4">
 
                         <fls-labelled-checkbox entity="accountingRuleFilter"
+                                               ng-if="targetTypeRecipientVisible()"
+                                               attribute="IsChargedToClubInternal"
+                                               translation-key="IS_CHARGED_TO_CLUB_INTERNAL"></fls-labelled-checkbox>
+
+                        <fls-labelled-checkbox entity="accountingRuleFilter"
                                                attribute="IsRuleForSelfstartedGliderFlights"
                                                translation-key="FOR_SELF_STARTER_GLIDER_FLIGHTS"></fls-labelled-checkbox>
 
