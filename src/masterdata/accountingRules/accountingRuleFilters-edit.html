@@ -73,10 +73,11 @@
 
                     </div>
 
-                    <div class="form-group col-md-6" ng-if="!targetTypeRecipientVisible()">
+                    <div class="form-group col-md-6"
+                         ng-if="!targetTypeRecipientVisible()">
                         <label for="ArticleTarget"><span translate="ARTICLE"></span></label>
 
-                        <selectize id="ArticleTarget"
+                        <selectize id="ArticleTarget"                                                  
                                    name="ArticleTarget"
                                    options="md.articles"
                                    ng-disabled="!accountingRuleFilter.CanUpdateRecord"
@@ -91,14 +92,16 @@
                                    ng-model="selection.ArticleNumber"></selectize>
                     </div>
 
-                    <div class="form-group col-md-6" ng-if="!targetTypeRecipientVisible()">
+                    <div class="form-group col-md-6"
+                         ng-if="!targetTypeRecipientVisible()">
                         <label for="DeliveryLineText"><span translate="DELIVERY_LINE_TEXT"></span></label>
                         <input class="form-control"
                                id="DeliveryLineText"
                                ng-model="text.DeliveryLineText">
                     </div>
 
-                    <div class="form-group col-md-6" ng-if="targetTypeRecipientVisible()">
+                    <div class="form-group col-md-6"
+                         ng-if="targetTypeRecipientVisible()">
                         <label for="RecipientTarget"><span translate="RECIPIENT"></span></label>
 
                         <selectize id="RecipientTarget"
@@ -116,7 +119,8 @@
                                    ng-model="selection.PersonClubMemberNumber"></selectize>
                     </div>
 
-                    <div class="form-group col-md-6" ng-if="targetTypeRecipientVisible()">
+                    <div class="form-group col-md-6"
+                         ng-if="targetTypeRecipientVisible()">
                         <label for="RecipientName"><span translate="RECIPIENT_NAME"></span></label>
                         <input class="form-control"
                                id="RecipientName"
@@ -126,10 +130,22 @@
                     <div class="col-md-12 fls-list-selection-panel">
 
                         <div class="form-group">
-                            <label for="MatchedAircraftImmatriculations" class="fls-list-selection-label">
-                                <div translate="AIRCRAFTS" class="fls-list-selection-label-text"></div>
-                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="aircraftIncl" value="ONLY"> nur folgende</div>
-                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="aircraftIncl" value="EXCEPT"> alle ausser</div>
+                            <label for="MatchedAircraftImmatriculations"
+                                   class="fls-list-selection-label">
+                                <div translate="AIRCRAFTS"
+                                     class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="aircraftIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllAircraftsExceptListed"
+                                           ng-value="false"> nur folgende
+                                </div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="aircraftIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllAircraftsExceptListed"
+                                           ng-value="true"> alle ausser
+                                </div>
                             </label>
 
                             <selectize id="MatchedAircraftImmatriculations"
@@ -146,10 +162,22 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="MatchedFlightTypeCodes" class="fls-list-selection-label">
-                                <div translate="FLIGHT_TYPES" class="fls-list-selection-label-text"></div>
-                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="flightTypesIncl" value="ONLY"> nur folgende</div>
-                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="flightTypesIncl" value="EXCEPT"> alle ausser</div>
+                            <label for="MatchedFlightTypeCodes"
+                                   class="fls-list-selection-label">
+                                <div translate="FLIGHT_TYPES"
+                                     class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="flightTypesIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllFlightTypesExceptListed"
+                                           ng-value="false"> nur folgende
+                                </div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="flightTypesIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllFlightTypesExceptListed"
+                                           ng-value="true"> alle ausser
+                                </div>
                             </label>
 
                             <selectize id="MatchedFlightTypeCodes"
@@ -166,10 +194,22 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="MatchedStartLocations" class="fls-list-selection-label">
-                                <div translate="START_LOCATIONS" class="fls-list-selection-label-text"></div>
-                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="startLocationsIncl" value="ONLY"> nur folgende</div>
-                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="startLocationsIncl" value="EXCEPT"> alle ausser</div>
+                            <label for="MatchedStartLocations"
+                                   class="fls-list-selection-label">
+                                <div translate="START_LOCATIONS"
+                                     class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="startLocationsIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllStartLocationsExceptListed"
+                                           ng-value="false"> nur folgende
+                                </div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="startLocationsIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllStartLocationsExceptListed"
+                                           ng-value="true"> alle ausser
+                                </div>
                             </label>
 
                             <selectize id="MatchedStartLocations"
@@ -186,10 +226,22 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="MatchedLdgLocations" class="fls-list-selection-label">
-                                <div translate="LANDING_LOCATIONS" class="fls-list-selection-label-text"></div>
-                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="ldgLocationsIncl" value="ONLY"> nur folgende</div>
-                                <div class="fls-include-exclude-radio-choice"><input type="radio" name="ldgLocationsIncl" value="EXCEPT"> alle ausser</div>
+                            <label for="MatchedLdgLocations"
+                                   class="fls-list-selection-label">
+                                <div translate="LANDING_LOCATIONS"
+                                     class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="ldgLocationsIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllLdgLocationsExceptListed"
+                                           ng-value="false"> nur folgende
+                                </div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="ldgLocationsIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllLdgLocationsExceptListed"
+                                           ng-value="true"> alle ausser
+                                </div>
                             </label>
 
                             <selectize id="MatchedLdgLocations"
