@@ -8,8 +8,11 @@ export default class LocationsEditController {
         
         $scope.isClubAdmin = AuthService.isClubAdmin();
 
-        $scope.positionChanged = function () {
-            $scope.openAipUrl = $sce.trustAsResourceUrl('http://maps.openaip.net/?lat=' + $scope.location.Latitude + '&lon=' + $scope.location.Longitude);
+        $scope.positionChanged = () => {
+            let lat = this.extractNumber($scope.location.Latitude);
+            let lon = this.extractNumber($scope.location.Longitude);
+
+            $scope.openAipUrl = $sce.trustAsResourceUrl('//maps.openaip.net/?lat=' + lat + '&lon=' + lon);
         };
 
         $scope.renderLengthUnit = DropdownItemsRenderService.lengthUnitRenderer();
@@ -123,6 +126,15 @@ export default class LocationsEditController {
         $scope.toggleSorting = (attribute) => {
             $scope.sorting[attribute] = $scope.sorting[attribute] === 'asc' ? 'desc' : 'asc';
         };
+    }
+
+    extractNumber(str) {
+        let matches = str.match(/(\d+(.\d.*))/);
+        if (matches) {
+            return matches[0];
+        }
+
+        return "";
     }
 }
 

@@ -2,101 +2,151 @@
     <div class="col-md-12">
         <div class="form-group col-md-4">
             <label for="LocationName"><span translate="LOCATION_NAME"></span></label>
-            <input class="form-control" id="LocationName" ng-model="location.LocationName">
+            <input class="form-control"
+                   id="LocationName"
+                   ng-model="location.LocationName">
         </div>
         <div class="form-group col-md-4">
             <label for="IcaoCode"><span translate="ICAO_CODE"></span></label>
-            <input class="form-control" id="IcaoCode" ng-model="location.IcaoCode">
+            <input class="form-control"
+                   id="IcaoCode"
+                   ng-model="location.IcaoCode">
         </div>
         <div class="form-group col-md-4">
             <label for="locationType"><span translate="LOCATION_TYPE"></span></label>
 
-            <selectize id="locationType" name="locationType" options="md.locationTypes" ng-disabled="!location.CanUpdateRecord" config="{
+            <selectize id="locationType"
+                       name="locationType"
+                       options="md.locationTypes"
+                       ng-disabled="!location.CanUpdateRecord"
+                       config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LocationTypeId',
                                 labelField: 'LocationTypeName',
                                 searchField: ['LocationTypeName']
-                            }" ng-model="location.LocationTypeId"></selectize>
+                            }"
+                       ng-model="location.LocationTypeId"></selectize>
         </div>
     </div>
     <div class="col-md-12">
         <div class="form-group col-md-12">
             <label for="Country"><span translate="COUNTRY"></span></label>
 
-            <selectize id="Country" name="Country" options="md.countries" ng-disabled="!location.CanUpdateRecord" config="{
+            <selectize id="Country"
+                       name="Country"
+                       options="md.countries"
+                       ng-disabled="!location.CanUpdateRecord"
+                       config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'CountryId',
                                 searchField: ['CountryName'],
                                 labelField: 'CountryName'
-                            }" ng-model="location.CountryId"></selectize>
+                            }"
+                       ng-model="location.CountryId"></selectize>
         </div>
     </div>
     <div class="col-md-12">
         <div class="form-group col-md-4">
             <label for="RunwayLength"><span translate="RUNWAY_LENGTH"></span></label>
-            <input class="form-control" id="RunwayLength" ng-model="location.RunwayLength">
+            <input class="form-control"
+                   id="RunwayLength"
+                   ng-model="location.RunwayLength">
         </div>
         <div class="form-group col-md-4">
             <label for="lengthUnitType"><span translate="LENGTH_UNIT"></span></label>
 
-            <selectize id="lengthUnitType" name="lengthUnitType" options="md.lengthUnitTypes" ng-disabled="!location.CanUpdateRecord" config="{
+            <selectize id="lengthUnitType"
+                       name="lengthUnitType"
+                       options="md.lengthUnitTypes"
+                       ng-disabled="!location.CanUpdateRecord"
+                       config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'LengthUnitTypeId',
                                 searchField: ['LengthUnitTypeName', 'LengthUnitTypeShortName'],
                                 render: renderLengthUnit
-                            }" ng-model="location.RunwayLengthUnitType"></selectize>
+                            }"
+                       ng-model="location.RunwayLengthUnitType"></selectize>
         </div>
         <div class="form-group col-md-4">
             <label for="RunwayDirection"><span translate="RUNWAY_DIRECTION"></span></label>
-            <input class="form-control" id="RunwayDirection" ng-model="location.RunwayDirection">
+            <input class="form-control"
+                   id="RunwayDirection"
+                   ng-model="location.RunwayDirection">
         </div>
     </div>
     <div class="col-md-12">
         <div class="form-group col-md-4">
             <label for="RunwayDirection"><span translate="RUNWAY_ELEVATION"></span></label>
-            <input class="form-control" id="RunwayDirection" ng-model="location.Elevation">
+            <input class="form-control"
+                   id="RunwayDirection"
+                   ng-model="location.Elevation">
         </div>
         <div class="form-group col-md-4">
             <label for="ElevationUnitType"><span translate="ELEVATION_UNIT"></span></label>
 
-            <selectize id="ElevationUnitType" name="ElevationUnitType" options="md.elevationUnitTypes" ng-disabled="!location.CanUpdateRecord" config="{
+            <selectize id="ElevationUnitType"
+                       name="ElevationUnitType"
+                       options="md.elevationUnitTypes"
+                       ng-disabled="!location.CanUpdateRecord"
+                       config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'ElevationUnitTypeId',
                                 searchField: ['ElevationUnitTypeName', 'ElevationUnitTypeShortName'],
                                 render: renderElevetionUnit
-                            }" ng-model="location.ElevationUnitType"></selectize>
+                            }"
+                       ng-model="location.ElevationUnitType"></selectize>
         </div>
-        <label class="checkbox col-md-11 col-md-offset-1" for="IsInboundRouteRequired">
-            <input type="checkbox" id="IsInboundRouteRequired" ng-model="location.IsInboundRouteRequired">
+        <label class="checkbox col-md-11 col-md-offset-1"
+               for="IsInboundRouteRequired">
+            <input type="checkbox"
+                   id="IsInboundRouteRequired"
+                   ng-model="location.IsInboundRouteRequired">
             <span translate="IS_INBOUND_ROUTE_REQUIRED"></span>
         </label>
-        <label class="checkbox col-md-11 col-md-offset-1" for="IsOutboundRouteRequired">
-            <input type="checkbox" id="IsOutboundRouteRequired" ng-model="location.IsOutboundRouteRequired">
+        <label class="checkbox col-md-11 col-md-offset-1"
+               for="IsOutboundRouteRequired">
+            <input type="checkbox"
+                   id="IsOutboundRouteRequired"
+                   ng-model="location.IsOutboundRouteRequired">
             <span translate="IS_OUTBOUND_ROUTE_REQUIRED"></span>
         </label>
     </div>
     <div class="col-md-12">
         <div class="form-group col-md-6">
             <label for="Latitude"><span translate="LATITUDE"></span></label>
-            <input class="form-control" id="Latitude" ng-model="location.Latitude" ng-blur="positionChanged()">
+            <input class="form-control"
+                   id="Latitude"
+                   ng-model="location.Latitude"
+                   ng-blur="positionChanged()">
         </div>
         <div class="form-group col-md-6">
             <label for="Longitude"><span translate="LONGITUDE"></span></label>
-            <input class="form-control" id="Longitude" ng-model="location.Longitude" ng-blur="positionChanged()">
+            <input class="form-control"
+                   id="Longitude"
+                   ng-model="location.Longitude"
+                   ng-blur="positionChanged()">
         </div>
     </div>
     <div class="col-md-12">
         <div class="form-group col-md-12">
             <label for="Description"><span translate="DESCRIPTION"></span></label>
-            <input class="form-control" id="Description" ng-model="location.Description">
+            <input class="form-control"
+                   id="Description"
+                   ng-model="location.Description">
         </div>
     </div>
-    <div class="col-md-12" ng-if="location.Latitude && location.Longitude" style="margin-top:10px;">
-        <iframe class="col-md-12" ng-src="{{openAipUrl}}" width="100%" height="500px;" frameBorder="0">
+    <div class="col-md-12"
+         ng-if="location.Latitude && location.Longitude"
+         style="margin-top:10px;margin-bottom:15px;">
+        <iframe class="col-md-12"
+                ng-src="{{openAipUrl}}"
+                width="100%"
+                height="500px;"
+                frameBorder="0">
         </iframe>
     </div>
 </div>
