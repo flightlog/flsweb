@@ -56,11 +56,6 @@
                     <div class="col-md-4">
 
                         <fls-labelled-checkbox entity="accountingRuleFilter"
-                                               ng-if="targetTypeRecipientVisible()"
-                                               attribute="IsChargedToClubInternal"
-                                               translation-key="IS_CHARGED_TO_CLUB_INTERNAL"></fls-labelled-checkbox>
-
-                        <fls-labelled-checkbox entity="accountingRuleFilter"
                                                attribute="IsRuleForSelfstartedGliderFlights"
                                                translation-key="FOR_SELF_STARTER_GLIDER_FLIGHTS"></fls-labelled-checkbox>
 
@@ -130,6 +125,28 @@
                         <input class="form-control"
                                id="RecipientName"
                                ng-model="text.RecipientName">
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <fls-labelled-checkbox entity="accountingRuleFilter"
+                                               ng-if="targetTypeRecipientVisible()"
+                                               attribute="IsChargedToClubInternal"
+                                               translation-key="IS_CHARGED_TO_CLUB_INTERNAL"></fls-labelled-checkbox>
+
+                        <div ng-if="isRuleTypeAircraftFilter()" class="col-md-12 fls-inline-form">
+                                <fls-labelled-checkbox entity="md"
+                                                       attribute="showMinMax"
+                                                       translation-key="FLIGHT_DURATION_UNLIMITED"></fls-labelled-checkbox>
+                            <div ng-if="md.showMinMax">
+                                <span translate="OR_FLIGHT_DIRATION_BETWEEN"></span>
+                                <input class="form-control fls-inline-form-control" type="number" ng-model="accountingRuleFilter.MinFlightTimeMatchingValue">
+                                <span translate="AND_MAXIMUM_INCL"></span>
+                                <input class="form-control fls-inline-form-control" type="number" ng-model="accountingRuleFilter.MaxFlightTimeMatchingValue">
+                                <span translate="MINUTES"></span>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="col-md-12 fls-list-selection-panel">

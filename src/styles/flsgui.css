@@ -400,3 +400,15 @@ td.flight--time {
 .multiline-selectize {
     height: 100px;
 }
+
+.fls-inline-form-control {
+    display: inline-block;
+    width: auto;
+    margin: 0 3px;
+    padding: 2px;
+    height: 1.5em;
+}
+
+.fls-inline-form {
+    display: flex;
+}

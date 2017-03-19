@@ -49,6 +49,7 @@ export default class AccountingRuleFiltersEditController {
                             $scope.selection.PersonClubMemberNumber = $scope.accountingRuleFilter.RecipientTarget.PersonClubMemberNumber;
                             $scope.text.RecipientName = $scope.accountingRuleFilter.RecipientTarget.RecipientName;
                         }
+                        $scope.md.showMinMax = !!$scope.accountingRuleFilter.MinFlightTimeMatchingValue || !!$scope.accountingRuleFilter.MaxFlightTimeMatchingValue;
                     })
                     .finally(() => {
                         $scope.busy = false;
@@ -160,7 +161,12 @@ export default class AccountingRuleFiltersEditController {
         $scope.targetTypeRecipientVisible = () => {
             return $scope.accountingRuleFilter
                 && $scope.accountingRuleFilter.AccountingRuleFilterTypeId == 10;
-        }
+        };
+
+        $scope.isRuleTypeAircraftFilter = () => {
+            return $scope.accountingRuleFilter
+                && $scope.accountingRuleFilter.AccountingRuleFilterTypeId == 30;
+        };
     }
 }
 
