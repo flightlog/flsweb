@@ -77,7 +77,7 @@
                          ng-if="!targetTypeRecipientVisible()">
                         <label for="ArticleTarget"><span translate="ARTICLE"></span></label>
 
-                        <selectize id="ArticleTarget"                                                  
+                        <selectize id="ArticleTarget"
                                    name="ArticleTarget"
                                    options="md.articles"
                                    ng-disabled="!accountingRuleFilter.CanUpdateRecord"
@@ -127,27 +127,56 @@
                                ng-model="text.RecipientName">
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 fls-inline-form"
+                         ng-if="targetTypeRecipientVisible()">
 
                         <fls-labelled-checkbox entity="accountingRuleFilter"
-                                               ng-if="targetTypeRecipientVisible()"
                                                attribute="IsChargedToClubInternal"
                                                translation-key="IS_CHARGED_TO_CLUB_INTERNAL"></fls-labelled-checkbox>
+                    </div>
 
-                        <div ng-if="isRuleTypeAircraftFilter()" class="col-md-12 fls-inline-form">
-                                <fls-labelled-checkbox entity="md"
-                                                       attribute="showMinMax"
-                                                       translation-key="FLIGHT_DURATION_UNLIMITED"></fls-labelled-checkbox>
-                            <div ng-if="md.showMinMax">
-                                <span translate="OR_FLIGHT_DIRATION_BETWEEN"></span>
-                                <input class="form-control fls-inline-form-control" type="number" ng-model="accountingRuleFilter.MinFlightTimeMatchingValue">
-                                <span translate="AND_MAXIMUM_INCL"></span>
-                                <input class="form-control fls-inline-form-control" type="number" ng-model="accountingRuleFilter.MaxFlightTimeMatchingValue">
-                                <span translate="MINUTES"></span>
-                            </div>
+                    <div ng-if="isRuleTypeAircraftFilter()"
+                         class="col-md-12 fls-inline-form">
+
+                        <fls-labelled-checkbox entity="md"
+                                               attribute="showMinMax"
+                                               translation-key="FLIGHT_DURATION_UNLIMITED"></fls-labelled-checkbox>
+                        <div ng-if="md.showMinMax">
+                            <span translate="OR_FLIGHT_DIRATION_BETWEEN"></span>
+                            <input class="form-control fls-inline-form-control"
+                                   type="number"
+                                   ng-model="accountingRuleFilter.MinFlightTimeMatchingValue">
+                            <span translate="AND_MAXIMUM_INCL"></span>
+                            <input class="form-control fls-inline-form-control"
+                                   type="number"
+                                   ng-model="accountingRuleFilter.MaxFlightTimeMatchingValue">
+                            <span translate="MINUTES"></span>
                         </div>
+                    </div>
+
+                    <div class="col-md-12 fls-inline-form"
+                         ng-if="isRuleTypeAircraftFilter()">
+
+                        <fls-labelled-checkbox entity="md"
+                                               attribute="showThreadsholdText"
+                                               translation-key="THREASHOLD_TEXT"></fls-labelled-checkbox>
+
+                        <input class="form-control fls-inline-form-control fls-inline-form-control-large"
+                               type="text"
+                               ng-if="md.showThreadsholdText"
+                               ng-model="accountingRuleFilter.ThresholdText">
 
                     </div>
+
+                    <div class="col-md-12 fls-inline-form"
+                         ng-if="isRuleTypeAircraftFilter()">
+
+                        <fls-labelled-checkbox entity="accountingRuleFilter"
+                                               attribute="IncludeFlightTypeName"
+                                               translation-key="INCLUDE_FLIGHT_TYPE_IN_BOOKING_TEXT"></fls-labelled-checkbox>
+
+                    </div>
+
 
                     <div class="col-md-12 fls-list-selection-panel">
 

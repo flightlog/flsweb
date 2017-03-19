@@ -49,7 +49,8 @@ export default class AccountingRuleFiltersEditController {
                             $scope.selection.PersonClubMemberNumber = $scope.accountingRuleFilter.RecipientTarget.PersonClubMemberNumber;
                             $scope.text.RecipientName = $scope.accountingRuleFilter.RecipientTarget.RecipientName;
                         }
-                        $scope.md.showMinMax = !!$scope.accountingRuleFilter.MinFlightTimeMatchingValue || !!$scope.accountingRuleFilter.MaxFlightTimeMatchingValue;
+                        $scope.md.showMinMax = $scope.accountingRuleFilter.MinFlightTimeMatchingValue > 0 || $scope.accountingRuleFilter.MaxFlightTimeMatchingValue < 2147483647;
+                        $scope.md.showThreadsholdText = !!$scope.accountingRuleFilter.ThresholdText;
                     })
                     .finally(() => {
                         $scope.busy = false;
@@ -89,6 +90,13 @@ export default class AccountingRuleFiltersEditController {
         };
         $scope.save = function (accountingRuleFilter) {
             $scope.busy = true;
+            if(!$scope.md.showThreadsholdText) {
+                accountingRuleFilter.ThresholdText = undefined;
+            }
+            if(!$scope.md.showMinMax) {
+                accountingRuleFilter.MinFlightTimeMatchingValue = undefined;
+                accountingRuleFilter.MaxFlightTimeMatchingValue = undefined;
+            }
             if ($scope.targetTypeRecipientVisible()) {
                 accountingRuleFilter.ArticleTarget = {};
                 accountingRuleFilter.RecipientTarget = $scope.selection.PersonClubMemberNumber && {

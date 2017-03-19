@@ -368,7 +368,6 @@ td.flight--time {
     font-weight: 800;
 }
 
-
 @media (max-width: 1024px) {
     th.flight--time {
         max-width: 50px;
@@ -409,6 +408,19 @@ td.flight--time {
     height: 1.5em;
 }
 
+.fls-inline-form-control-large {
+    flex-grow: 1;
+}
+
 .fls-inline-form {
     display: flex;
+}
+
+.fls-inline-form fls-labelled-checkbox {
+    min-width: 300px;
+}
+
+.fls-inline-form fls-labelled-checkbox label {
+    margin: 0 20px;
+    padding: 0;
 }
