@@ -4,6 +4,7 @@ var minimist = require('minimist');
 var webpack = require('webpack');
 var TARGET = minimist(process.argv.slice(2)).TARGET || 'PROD';
 const SERVER_URL = minimist(process.argv.slice(2)).SERVER_URL;
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 var config = {
@@ -19,7 +20,8 @@ var config = {
 
     module: {
         loaders: [
-            {test: /.*\.js$/, exclude: /node_modules/, loader: "babel-loader",
+            {
+                test: /.*\.js$/, exclude: /node_modules/, loader: "babel-loader",
                 query: {
                     presets: ['es2015']
                 }
@@ -39,6 +41,9 @@ var config = {
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: false,
             mangle: false
+        }),
+        new HtmlWebpackPlugin({
+            template: "index.html"
         })
     ],
 
@@ -49,7 +54,7 @@ var config = {
         stats: {colors: true},
         hot: true,
         port: 3000,
-        headers: { "X-Custom-Header": "yes" },
+        headers: {"X-Custom-Header": "yes"},
         proxy: {
             "/Token": {
                 target: SERVER_URL,
@@ -66,5 +71,12 @@ var config = {
     devtool: TARGET === "DEV" ? "#cheap-module-eval-source-map" : "none"
 
 };
+
+if (TARGET !== "DEV") {
+    config.output = {
+        path: path.join(__dirname, "dist"),
+        filename: "bundle.[hash].js"
+    };
+}
 
 module.exports = config;
