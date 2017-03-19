@@ -24,8 +24,6 @@
                         </td>
                         <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'"
                             data-title="'DATE' | translate"
-                            class="hidden-xs hidden-sm hidden-md"
-                            header-class="'hidden-xs hidden-sm hidden-md'"
                             filter="{ FlightDate: 'date'}"
                             sortable="'FlightDate'"></td>
                         <td ng-bind="flight.Immatriculation"
@@ -35,9 +33,10 @@
                             class="flight--glider-cell immatriculation"></td>
                         <td ng-bind="flight.PilotName"
                             data-title="'GLIDER_PILOT' | translate"
+                            class="flight--glider-cell hidden-xs hidden-sm hidden-md"
+                            header-class="'hidden-xs hidden-sm hidden-md'"
                             filter="{ PilotName: 'text'}"
-                            sortable="'PilotName'"
-                            class="flight--glider-cell"></td>
+                            sortable="'PilotName'"></td>
                         <td ng-bind="flight.SecondCrewName"
                             data-title="'SECOND_CREW_MEMBER' | translate"
                             filter="{ SecondCrewName: 'text'}"

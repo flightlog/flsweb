@@ -25,8 +25,6 @@
                     </td>
                     <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'"
                         data-title="'DATE' | translate"
-                        class="hidden-xs hidden-sm hidden-md"
-                        header-class="'hidden-xs hidden-sm hidden-md'"
                         filter="{ FlightDate: 'date'}" 
                         sortable="'FlightDate'"></td>
                     <td ng-bind="flight.Immatriculation"
@@ -36,7 +34,8 @@
                         sortable="'Immatriculation'"></td>
                     <td ng-bind="flight.PilotName"
                         data-title="'PILOT' | translate"
-                        class="flight--motor-cell"
+                        class="flight--motor-cell hidden-xs hidden-sm hidden-md"
+                        header-class="'hidden-xs hidden-sm hidden-md'"
                         filter="{ PilotName: 'text'}"
                         sortable="'PilotName'"></td>
                     <td ng-bind="flight.SecondCrewName"
