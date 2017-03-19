@@ -396,3 +396,7 @@ td.flight--time {
 .fls-include-exclude-radio-choice input {
     margin-right: 4px;
 }
+
+.multiline-selectize {
+    height: 100px;
+}
