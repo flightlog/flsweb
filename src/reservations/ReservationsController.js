@@ -1,21 +1,25 @@
 import moment from "moment";
 
 export default class ReservationsController {
-    constructor($scope, $location, AuthService, ReservationService, PagedReservations, NavigationCache, NgTableParams) {
+    constructor($scope, $location, AuthService, ReservationService, PagedReservations, NavigationCache, NgTableParams, TableSettingsCacheFactory) {
         NavigationCache.setCancellingLocationHere();
         $scope.isReservationAdmin = AuthService.isClubAdmin();
         $scope.busy = false;
-        $scope.tableParams = new NgTableParams({
+
+
+        let tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("ReservationsController", {
             filter: {
-					Start: {
-						From: moment().format("YYYY-MM-DD")						
-					}
-				},
+                Start: {
+                    From: moment().format("YYYY-MM-DD")
+                }
+            },
             sorting: {
                 Start: 'desc'
             },
             count: 100
-        }, {
+        });
+
+        $scope.tableParams = new NgTableParams(tableSettingsCache.currentSettings(), {
             counts: [],
             getData: function (params) {
                 $scope.busy = true;
@@ -25,6 +29,7 @@ export default class ReservationsController {
                 return PagedReservations.getReservations($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                     .then((res) => {
                         $scope.busy = false;
+                        tableSettingsCache.update($scope.tableParams.filter(), $scope.tableParams.sorting());
                         params.total(res.TotalRows);
 
                         let result = res.Items;

@@ -1,13 +1,13 @@
 import moment from 'moment';
 
 export default class PlanningDaysController {
-    constructor(GLOBALS, $scope, $location, PagedPlanningDays, NgTableParams, PlanningDaysDeleter, MessageManager) {
+    constructor(GLOBALS, $scope, $location, PagedPlanningDays, NgTableParams, PlanningDaysDeleter, MessageManager, TableSettingsCacheFactory) {
 
         $scope.busy = false;
         $scope.loadingTable = false;
         $scope.debug = GLOBALS.DEBUG;
 
-        $scope.tableParams = new NgTableParams({
+        let tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("PlanningDaysController", {
             filter: {
                 Day: {
                     From: moment().format("YYYY-MM-DD")
@@ -17,7 +17,9 @@ export default class PlanningDaysController {
                 Day: 'asc'
             },
             count: 100
-        }, {
+        });
+
+        $scope.tableParams = new NgTableParams(tableSettingsCache.currentSettings(), {
             counts: [],
             getData: function (params) {
                 $scope.busy = true;
@@ -27,6 +29,7 @@ export default class PlanningDaysController {
                 return PagedPlanningDays.getPlanningDays($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
                     .then((res) => {
                         $scope.busy = false;
+                        tableSettingsCache.update($scope.tableParams.filter(), $scope.tableParams.sorting());
                         params.total(res.TotalRows);
 
                         let result = res.Items;
