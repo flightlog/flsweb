@@ -175,6 +175,11 @@ export default class AccountingRuleFiltersEditController {
             return $scope.accountingRuleFilter
                 && $scope.accountingRuleFilter.AccountingRuleFilterTypeId == 30;
         };
+
+        $scope.isRuleTypeNoLandingTax = () => {
+            return $scope.accountingRuleFilter
+                && $scope.accountingRuleFilter.AccountingRuleFilterTypeId == 20;
+        };
     }
 }
 
