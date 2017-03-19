@@ -217,6 +217,7 @@
                             <span translate="NR_LANDINGS_AT_START_LOCATION"></span>:
                         </label>
                         <input type="number"
+                               min="0"
                                ng-if="flightDetails.MotorFlightDetailsData.StartLocationId != flightDetails.MotorFlightDetailsData.LdgLocationId"
                                class="form-control"
                                id="MotorFlightDetailsData.NrOfLdgsOnStartLocation"
@@ -226,6 +227,7 @@
                     <div class="form-group col-md-3 col-sm-12 col-xs-12 fls-secondary-field">
                         <label for="MotorFlightDetailsData.NrOfLdgs"><span translate="NR_LANDINGS_AT_LANDING_LOCATION"></span>:</label>
                         <input type="number"
+                               min="0"
                                class="form-control"
                                id="MotorFlightDetailsData.NrOfLdgs"
                                ng-disabled="!flightDetails.CanUpdateRecord || !times.motorLanding"
