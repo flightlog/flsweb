@@ -19,7 +19,7 @@ export default class LocationsEditController {
         $scope.renderElevetionUnit = DropdownItemsRenderService.renderElevetionUnit();
 
         function loadLocation() {
-            var deferred = $q.defer();
+            let deferred = $q.defer();
             if ($routeParams.id === 'new') {
                 deferred.resolve({
                     CanUpdateRecord: true
@@ -129,7 +129,7 @@ export default class LocationsEditController {
     }
 
     extractNumber(str) {
-        let matches = str.match(/(\d+(.\d.*))/);
+        let matches = str && str.match(/(\d+(.\d.*))/);
         if (matches) {
             return matches[0];
         }
