@@ -44,6 +44,23 @@ export class AccountingRuleFilterTypesService {
     }
 }
 
+export class FlightCrewTypesService {
+    constructor($http, GLOBALS, MessageManager) {
+        this.$http = $http;
+        this.GLOBALS = GLOBALS;
+        this.MessageManager = MessageManager;
+    }
+
+    getFlightCrewTypes() {
+        return this.$http
+            .get(`${this.GLOBALS.BASE_URL}/api/v1/flightcrewtypes/listitems`)
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'flightCrewTypes list'));
+    }
+}
+
 export class AccountingRuleFilter {
     constructor($resource, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/accountingrulefilters/:id', null, {

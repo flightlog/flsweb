@@ -364,6 +364,38 @@
                                        ng-model="accountingRuleFilter.MatchedClubMemberNumbers"></selectize>
                         </div>
 
+                        <div class="form-group">
+                            <label for="MatchedClubMembers"
+                                   class="fls-list-selection-label">
+                                <div translate="FLIGHT_CREW_TYPES"
+                                     class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="flightCrewTypesIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllFlightCrewTypesExceptListed"
+                                           ng-value="false"> nur folgende
+                                </div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="flightCrewTypesIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllFlightCrewTypesExceptListed"
+                                           ng-value="true"> alle ausser
+                                </div>
+                            </label>
+
+                            <selectize id="FlightCrewTypes"
+                                       name="FlightCrewTypes"
+                                       options="md.flightCrewTypes"
+                                       ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                                       config="{
+                                                inputClass: 'form-control selectize-input multiline-selectize',
+                                                valueField: 'FlightCrewTypeId',
+                                                searchField: ['FlightCrewTypeName'] ,
+                                                labelField: 'FlightCrewTypeName'
+                                            }"
+                                       ng-model="accountingRuleFilter.MatchedFlightCrewTypes"></selectize>
+                        </div>
+
                     </div>
                 </div>
                 <div class="form-group">

@@ -13,6 +13,7 @@ export default angular.module('fls.masterdata.accountingRuleFilters', ['ngTable'
     .service('AccountingRuleFilter', AccountingRuleFiltersServices.AccountingRuleFilter)
     .service('AccountingRuleFilterService', AccountingRuleFiltersServices.AccountingRuleFilterService)
     .service('AccountingRuleFilterTypesService', AccountingRuleFiltersServices.AccountingRuleFilterTypesService)
+    .service('FlightCrewTypesService', AccountingRuleFiltersServices.FlightCrewTypesService)
     .service('ArticlesService', ArticlesService)
     .config(function ($routeProvider) {
         $routeProvider
