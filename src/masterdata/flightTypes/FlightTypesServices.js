@@ -30,7 +30,7 @@ function invalidate(GLOBALS, $cacheFactory, result) {
 }
 
 export class FlightType {
-    constructor($resource, GLOBALS) {
+    constructor($resource, $cacheFactory, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/flighttypes/:id', null, {
             get: {
                 method: 'GET',

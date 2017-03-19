@@ -63,7 +63,7 @@ export class UserAccountStates {
 }
 
 export class UserPersister {
-    constructor($resource, GLOBALS) {
+    constructor($resource, $cacheFactory, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/users/:id', null, {
             saveUser: {
                 method: 'POST',
