@@ -3,7 +3,7 @@
         <h1 translate="MY_DASHBOARD"></h1>
         <fls-message-bar></fls-message-bar>
     </div>
-    <fls-busy-indicator busy="ctrl.busy" error="ctrl.error">
+    <fls-busy-indicator busy="ctrl.busy" error="ctrl.error" ng-if="ctrl.showStatistics">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
                 <h4 translate="MY_FLIGHTS" style="margin-bottom: 40px;"></h4>

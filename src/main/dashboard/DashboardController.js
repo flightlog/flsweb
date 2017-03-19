@@ -4,9 +4,11 @@ export default class DashboardController {
     constructor(dashboardService, AuthService, MessageManager, $translate, dashboardDataModelAdapter) {
         this.busy = true;
         this.dashboardService = dashboardService;
+        this.showStatistics = false;
 
         this.user = AuthService.getUser();
-        if(this.user.PersonId) {
+        if (this.user.PersonId) {
+            this.showStatistics = true;
             this.dashboardService.query().$promise
                 .then((result) => {
                     this.dashboardData = result;
@@ -20,6 +22,7 @@ export default class DashboardController {
             $translate("ERROR_NO_CORRESPONDING_PERSON", {user: this.user.FriendlyName}).then((message) => {
                 MessageManager.showMessage(message);
             });
+            this.showStatistics = false;
             this.busy = false;
         }
 
