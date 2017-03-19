@@ -204,6 +204,8 @@ export default class AirMovementsController {
                 flightDetails.MotorFlightDetailsData.LdgLocationId = flightDetails.MotorFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
                 flightDetails.MotorFlightDetailsData.FlightTypeId = flightDetails.MotorFlightDetailsData.FlightTypeId || $scope.myClub.DefaultMotorFlightTypeId;
                 flightDetails.StartType = flightDetails.StartType || $scope.myClub.DefaultStartType || 5;
+                
+                $scope.recalcRouteRequirements();
             });
             flightDetails.CanUpdateRecord = true;
 
