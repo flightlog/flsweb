@@ -81,7 +81,7 @@ export class Locations {
 }
 
 export class LocationPersister {
-    constructor($resource, GLOBALS) {
+    constructor($resource, $cacheFactory, GLOBALS) {
         return $resource(GLOBALS.BASE_URL + '/api/v1/locations/:id', null, {
             saveLocation: {
                 method: 'POST',
