@@ -16,10 +16,12 @@
                    show-filter="true">
                 <tr ng-repeat="flight in $data"
                     ng-click="editFlight(flight)"
+                    ng-class="{
+                      'fls-flight-row-warning': flight.ValidationState == 28 || flight.ProcessState > 0
+                    }"
                     title="{{'EDIT' | translate}}">
                     <td data-title="'STATUS' | translate">
-                        
-                        <fls-flight-status flight="flight"></fls-flight-status>
+                        <fls-flight-status flight="flight" mode="'MOTOR'"></fls-flight-status>
                     </td>
                     <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'"
                         data-title="'DATE' | translate"

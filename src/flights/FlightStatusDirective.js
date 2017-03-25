@@ -3,7 +3,8 @@ export default class FlightStatusDirective {
         return {
             template: require("./flight-status-icon.html"),
             scope: {
-                flight: "="
+                flight: "=",
+                mode: "="
             },
             controller: ($scope) => {
                 let flight = $scope.flight;
@@ -34,10 +35,11 @@ export default class FlightStatusDirective {
                 }
 
                 $scope.status = {
-                    glider: validationState(flight.ValidationState) || processedState(flight.ProcessState) || statusOfFlight(flight.StartDateTime, flight.LdgDateTime),
-                    tow: validationState(flight.ValidationState) || processedState(flight.ProcessState) || flight.TowFlightId && statusOfFlight(flight.StartDateTime, flight.TowFlightLdgDateTime)
+                    glider: validationState(flight.ValidationState) || processedState(flight.ProcessState) || statusOfFlight(flight.StartDateTime, flight.LdgDateTime)
                 };
-                console.log($scope.status);
+                if($scope.mode !== "MOTOR") {
+                    $scope.status.tow = validationState(flight.ValidationState) || processedState(flight.ProcessState) || flight.TowFlightId && statusOfFlight(flight.StartDateTime, flight.TowFlightLdgDateTime);
+                }
             }
         }
     }
