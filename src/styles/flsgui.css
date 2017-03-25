@@ -474,8 +474,8 @@ td.flight--time {
 
 .fls-new-button {
     position: fixed;
-    right: 50px;
-    bottom: 50px;
+    right: 8vw;
+    bottom: 8vh;
     z-index: 9999;
 }
 
@@ -487,7 +487,7 @@ td.flight--time {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.43);
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
 }
 
 .fls-new-button button:focus {
@@ -495,5 +495,7 @@ td.flight--time {
 }
 
 .fls-new-button button:hover {
+    color: white;
     background-color: rgba(37, 32, 128, 1);
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.43);
 }
