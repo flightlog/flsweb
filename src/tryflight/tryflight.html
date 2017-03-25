@@ -204,13 +204,21 @@
                             <button type="submit"
                                     class="btn btn-default pull-right"
                                     translate="APPLY_FOR_TRY_FLIGHT"
-                                    ng-disabled="tryflightForm.$pristine">
+                                    ng-disabled="tryflightForm.$pristine || !ctrl.recaptchaResponse">
                             </button>
+                            
+                            <div class="fls-recaptcha"
+                                 vc-recaptcha
+                                 theme="'light'"
+                                 key="ctrl.recaptcha.key"
+                                 on-create="ctrl.recaptcha.setWidgetId(widgetId)"
+                                 on-success="ctrl.recaptcha.setResponse(response)"
+                                 on-expire="ctrl.recaptcha.cbExpiration()"></div>
                         </div>
 
                     </form>
                 </div>
-                
+
                 <div ng-show="ctrl.success"
                      class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <p translate="APPLICATION_FOR_TRY_FLIGHT_WAS_SUCCESSFUL"></p>

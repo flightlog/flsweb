@@ -67,6 +67,10 @@ angular-moment@0.10.3:
   dependencies:
     moment ">=2.8.0 <2.11.0"
 
+angular-recaptcha@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/angular-recaptcha/-/angular-recaptcha-4.0.4.tgz#40fc34094f0e35a6f5c0b23439ed0533bca686d0"
+
 angular-resource@1.4.6:
   version "1.4.6"
   resolved "https://registry.yarnpkg.com/angular-resource/-/angular-resource-1.4.6.tgz#873dd72a93c37b295b90f2dc32377331ba18da01"

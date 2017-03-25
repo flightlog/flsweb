@@ -2,10 +2,12 @@ import angular from 'angular';
 import coreModule from '../core/CoreModule';
 import TryflightController from './TryflightController';
 import {TrialFlightResourceService} from './TrialFlightResourceService';
+import "angular-recaptcha";
 
 export default angular.module('fls.tryflight', [
-        coreModule.name
-    ])
+    coreModule.name,
+    'vcRecaptcha'
+])
     .controller('TryflightController', TryflightController)
     .service('TrialFlightResourceService', TrialFlightResourceService)
     .config(($routeProvider) => {
