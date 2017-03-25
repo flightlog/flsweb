@@ -3,8 +3,11 @@ import moment from "moment";
 
 export default class TryflightController {
 
-    constructor(MessageManager, AuthService, TrialFlightResourceService, $routeParams) {
+    constructor(MessageManager, AuthService, TrialFlightResourceService, $routeParams, $location) {
         let clubKey = $routeParams["club"];
+        if(!clubKey) {
+            $location.path("/main");
+        }
         this.MessageManager = MessageManager;
         this.TrialFlightResourceService = TrialFlightResourceService;
         AuthService.setShowNavBar(false);
