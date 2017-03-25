@@ -12,7 +12,7 @@ export default angular.module('fls.tryflight', [
     .service('TrialFlightResourceService', TrialFlightResourceService)
     .config(($routeProvider) => {
         $routeProvider
-            .when('/tryflight',
+            .when('/trialflight',
                 {
                     bindToController: true,
                     controllerAs: 'ctrl',
