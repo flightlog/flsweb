@@ -23,7 +23,8 @@ export default angular.module('fls.masterdata.accountingRuleFilters', ['ngTable'
                     template: require('./accountingRuleFilters.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "ACCOUNTING_RULE_FILTERS"
                     }
                 })
             .when('/masterdata/accountingRuleFilters/:id',
@@ -32,7 +33,8 @@ export default angular.module('fls.masterdata.accountingRuleFilters', ['ngTable'
                     template: require('./accountingRuleFilters-edit.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "ACCOUNTING_RULE_FILTERS"
                     }
                 });
     });

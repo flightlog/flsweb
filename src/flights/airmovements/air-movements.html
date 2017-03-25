@@ -1,15 +1,13 @@
 <div class="container-fluid flscontainer"
      ng-init="reloadList();">
-
-    <button type="button"
-            ng-click="newFlight()"
-            class="btn btn-default pull-right"
-            translate="NEW"
-            style="margin-top:-10px;">
-    </button>
-    <h1 translate="MOTOR_MOVEMENTS"></h1>
+    <div class="hidden-print fls-new-button">
+        <button type="button"
+                ng-click="newFlight()">
+            <span class="fa fa-plus fa-2x"></span>
+        </button>
+    </div>
+    <fls-message-bar></fls-message-bar>
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <fls-message-bar></fls-message-bar>
         <fls-busy-indicator busy="busy"
                             error="error">
 

@@ -23,7 +23,8 @@ export default angular.module('fls.masterdata.memberStates', [
                     template: require('./member-states.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "MEMBER_STATE"
                     }
                 })
             .when('/masterdata/memberStates/:id',
@@ -32,7 +33,8 @@ export default angular.module('fls.masterdata.memberStates', [
                     template: require('./member-states-edit.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "MEMBER_STATE"
                     }
                 });
     });

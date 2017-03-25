@@ -23,7 +23,8 @@ export default angular.module('fls.masterdata.flightTypes', [
                     template: require('./flight-types.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "FLIGHT_TYPES"
                     }
                 })
             .when('/masterdata/flightTypes/:id',
@@ -32,7 +33,8 @@ export default angular.module('fls.masterdata.flightTypes', [
                     template: require('./flight-types-edit.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "FLIGHT_TYPES"
                     }
                 });
     });

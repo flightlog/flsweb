@@ -34,7 +34,8 @@ export default angular.module('fls.planning', [
                     template: require('./planning.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "PLANNING"
                     }
                 })
             .when('/planning/:id/:mode',
@@ -43,7 +44,8 @@ export default angular.module('fls.planning', [
                     template: require('./planning-edit.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "PLANNING"
                     }
                 })
             .when('/planningsetup',
@@ -52,7 +54,8 @@ export default angular.module('fls.planning', [
                     template: require('./planning-setup.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "PLANNING"
                     }
                 });
     });

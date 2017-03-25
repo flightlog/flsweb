@@ -28,7 +28,8 @@ export default angular.module('fls.masterdata.locations', ['ngTable'])
                     template: require('./locations.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "LOCATIONS"
                     }
                 })
             .when('/masterdata/locations/:id',
@@ -37,7 +38,8 @@ export default angular.module('fls.masterdata.locations', ['ngTable'])
                     template: require('./locations-edit.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "LOCATIONS"
                     }
                 });
     })

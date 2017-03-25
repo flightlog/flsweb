@@ -10,7 +10,12 @@ export default class NavigationBarDirective {
 
 class NavigationBarController {
 
-    constructor($rootScope, $scope, $location, AuthService, GLOBALS) {
+    constructor($rootScope, $scope, $location, AuthService, GLOBALS, $route) {
+        $rootScope.$on("$routeChangeSuccess", () => {
+            console.log($route.current);
+            $scope.titleKey = $route.current && $route.current.locals["titleKey"];
+        });
+
         $(document).on('click','.navbar-collapse.in',function(e) {
             if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
                 $(this).collapse('hide');

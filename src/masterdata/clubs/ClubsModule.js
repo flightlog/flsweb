@@ -24,7 +24,8 @@ export default angular.module('fls.masterdata.clubs', [
                 template: require('./clubs.html'),
                 publicAccess: true,
                 resolve: {
-                    user: userAuth
+                    user: userAuth,
+                    titleKey: () => "CLUBS"
                 }
             })
             .when('/masterdata/clubs/:id',
@@ -33,7 +34,8 @@ export default angular.module('fls.masterdata.clubs', [
                 template: require('./clubs-edit.html'),
                 publicAccess: true,
                 resolve: {
-                    user: userAuth
+                    user: userAuth,
+                    titleKey: () => "CLUBS"
                 }
             });
     });

@@ -19,7 +19,8 @@ export default angular.module('fls.system.logs', [
                     template: require('./logs.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "LOGS"
                     }
                 });
     });

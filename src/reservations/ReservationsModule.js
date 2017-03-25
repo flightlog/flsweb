@@ -30,7 +30,8 @@ export default angular.module('fls.reservations', [
                 template: require('./reservations.html'),
                 publicAccess: true,
                 resolve: {
-                    user: userAuth
+                    user: userAuth,
+                    titleKey: () => "RESERVATIONS"
                 }
             })
             .when('/reservations/:id/:mode',
@@ -39,7 +40,8 @@ export default angular.module('fls.reservations', [
                 template: require('./reservations-edit.html'),
                 publicAccess: true,
                 resolve: {
-                    user: userAuth
+                    user: userAuth,
+                    titleKey: () => "RESERVATIONS"
                 }
             });
     });

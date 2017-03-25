@@ -1,11 +1,9 @@
 <div class="container-fluid flscontainer">
-    <button type="button"
-            ng-click="newFlight()"
-            class="btn btn-default pull-right hidden-print fls-table-new-button"
-            translate="NEW">
-    </button>
-    <div>
-        <h1 translate="FLIGHTS"></h1>
+    <div class="hidden-print fls-new-button">
+        <button type="button"
+                ng-click="newFlight()">
+            <span class="fa fa-plus fa-2x"></span>
+        </button>
     </div>
     <div>
         <div class="col-md-12 col-sm-12 col-xs-12">

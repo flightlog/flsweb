@@ -33,7 +33,8 @@ export default angular.module('fls.airMovements.airmovements', [
                     template: require('./air-movements.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "MOTOR_MOVEMENTS"
                     }
                 })
             .when('/airmovements/:id',
@@ -42,7 +43,8 @@ export default angular.module('fls.airMovements.airmovements', [
                     template: require('./air-movement-edit-form.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "MOTOR_MOVEMENTS"
                     }
                 })
             .when('/airmovements/copy/:id',
@@ -51,7 +53,8 @@ export default angular.module('fls.airMovements.airmovements', [
                     template: require('./air-movement-edit-form.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "MOTOR_MOVEMENTS"
                     }
                 });
     });

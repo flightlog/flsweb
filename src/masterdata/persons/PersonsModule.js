@@ -41,7 +41,8 @@ export default angular.module('fls.masterdata.persons', [
                     template: require('./persons.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "PERSONS"
                     }
                 })
             .when('/masterdata/persons/:id',
@@ -50,7 +51,8 @@ export default angular.module('fls.masterdata.persons', [
                     template: require('./persons-edit.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "PERSONS"
                     }
                 });
     });
