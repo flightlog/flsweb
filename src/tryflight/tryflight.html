@@ -43,6 +43,7 @@
                                     <input type="text"
                                            class="form-control"
                                            id="AddressLine1"
+                                           required
                                            ng-model="ctrl.TrialFlightRegistrationDetails.AddressLine1">
                                 </div>
                             </div>
@@ -54,6 +55,7 @@
                                     <input type="text"
                                            class="form-control"
                                            id="zip"
+                                           required
                                            ng-model="ctrl.TrialFlightRegistrationDetails.ZipCode">
                                 </div>
                             </div>
@@ -63,6 +65,7 @@
                                     <input type="text"
                                            class="form-control"
                                            id="city"
+                                           required
                                            ng-model="ctrl.TrialFlightRegistrationDetails.City">
                                 </div>
                             </div>
@@ -127,6 +130,7 @@
                                         <label for="InvoiceToLastname"><span translate="NAME"></span>:</label>
                                         <input type="text"
                                                class="form-control"
+                                               ng-required="!ctrl.TrialFlightRegistrationDetails.InvoiceAddressIsSame"
                                                id="InvoiceToLastname"
                                                ng-model="ctrl.TrialFlightRegistrationDetails.InvoiceToLastname">
                                     </div>
@@ -136,6 +140,7 @@
                                         <label for="InvoiceToFirstname"><span translate="FIRST_NAME"></span>:</label>
                                         <input type="text"
                                                class="form-control"
+                                               ng-required="!ctrl.TrialFlightRegistrationDetails.InvoiceAddressIsSame"
                                                id="InvoiceToFirstname"
                                                ng-model="ctrl.TrialFlightRegistrationDetails.InvoiceToFirstname">
                                     </div>
@@ -147,6 +152,7 @@
                                         <label for="InvoiceToAddressLine1"><span translate="ADDRESS"></span>:</label>
                                         <input type="text"
                                                class="form-control"
+                                               ng-required="!ctrl.TrialFlightRegistrationDetails.InvoiceAddressIsSame"
                                                id="InvoiceToAddressLine1"
                                                ng-model="ctrl.TrialFlightRegistrationDetails.InvoiceToAddressLine1">
                                     </div>
@@ -158,6 +164,7 @@
                                         <label for="InvoiceToZipCode"><span translate="ZIP_CODE"></span>:</label>
                                         <input type="text"
                                                class="form-control"
+                                               ng-required="!ctrl.TrialFlightRegistrationDetails.InvoiceAddressIsSame"
                                                id="InvoiceToZipCode"
                                                ng-model="ctrl.TrialFlightRegistrationDetails.InvoiceToZipCode">
                                     </div>
@@ -167,6 +174,7 @@
                                         <label for="InvoiceToCity"><span translate="CITY"></span>:</label>
                                         <input type="text"
                                                class="form-control"
+                                               ng-required="!ctrl.TrialFlightRegistrationDetails.InvoiceAddressIsSame"
                                                id="InvoiceToCity"
                                                ng-model="ctrl.TrialFlightRegistrationDetails.InvoiceToCity">
                                     </div>
