@@ -438,6 +438,7 @@ export default class AirMovementsController {
             let times = $scope.times;
             times.motorLanding = TimeService.formatTime(times.motorLanding);
             times.motorDuration = calcDuration(times.motorStart, times.motorLanding);
+            $scope.flightDetails.MotorFlightDetailsData.NrOfLdgs = $scope.flightDetails.MotorFlightDetailsData.NrOfLdgs || 1;
         };
 
         $scope.formatMotorDuration = () => {
@@ -523,6 +524,16 @@ export default class AirMovementsController {
 
         $scope.copyFlight = (flight) => {
             $location.path('/airmovements/copy/' + flight.FlightId);
+        };
+
+        $scope.togglMotorStartTimeInformation = () => {
+            $scope.flightDetails.MotorFlightDetailsData.NoStartTimeInformation = !$scope.flightDetails.MotorFlightDetailsData.NoStartTimeInformation;
+            $scope.times.motorStart = undefined;
+        };
+
+        $scope.togglMotorLandingTimeInformation = () => {
+            $scope.flightDetails.MotorFlightDetailsData.NoLdgTimeInformation = !$scope.flightDetails.MotorFlightDetailsData.NoLdgTimeInformation;
+            $scope.times.motorLanding = undefined;
         };
 
     }

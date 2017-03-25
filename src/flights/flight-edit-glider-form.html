@@ -202,15 +202,23 @@
             <input name="gliderStart"
                    class="form-control"
                    id="Start"
-                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   ng-disabled="!flightDetails.CanUpdateRecord || flightDetails.GliderFlightDetailsData.NoStartTimeInformation"
                    ng-model="times.gliderStart"
                    ng-blur="formatGliderStart()">
-            <span class="input-group-btn">
+            <div class="input-group-btn">
                 <button ng-show="flightDetails.CanUpdateRecord"
                         class="btn btn-default"
                         type="button"
+                        ng-if="!flightDetails.GliderFlightDetailsData.NoStartTimeInformation"
                         ng-click="setGliderStart()"><span class="fa fa-clock-o"></span></button>
-              </span>
+                <button ng-show="flightDetails.CanUpdateRecord"
+                        class="btn btn-default"
+                        type="button"
+                        title="NO_TIME_INFORMATION"
+                        ng-class="{'active': flightDetails.GliderFlightDetailsData.NoStartTimeInformation}"
+                        ng-click="toggleGliderStartTimeInformation()">?
+                </button>
+            </div>
         </div>
     </div>
     <div class="form-group col-md-4 col-sm-6 col-xs-6">
@@ -220,16 +228,23 @@
             <input name="gliderLanding"
                    class="form-control"
                    id="Landing"
-                   ng-disabled="!flightDetails.CanUpdateRecord"
+                   ng-disabled="!flightDetails.CanUpdateRecord || flightDetails.GliderFlightDetailsData.NoLdgTimeInformation"
                    ng-model="times.gliderLanding"
                    ng-blur="formatGliderLanding()">
-            <span class="input-group-btn">
+            <div class="input-group-btn">
                 <button ng-show="flightDetails.CanUpdateRecord"
                         class="btn btn-default"
                         type="button"
-                        ng-click="setGliderLanding()"
-                        ng-blur="flightDetails.GliderFlightDetailsData.NrOfLdgs = flightDetails.GliderFlightDetailsData.NrOfLdgs || 1;"><span class="fa fa-clock-o"></span></button>
-              </span>
+                        ng-if="!flightDetails.GliderFlightDetailsData.NoLdgTimeInformation"
+                        ng-click="setGliderLanding()"><span class="fa fa-clock-o"></span></button>
+                <button ng-show="flightDetails.CanUpdateRecord"
+                        class="btn btn-default"
+                        type="button"
+                        title="NO_TIME_INFORMATION"
+                        ng-class="{'active': flightDetails.GliderFlightDetailsData.NoLdgTimeInformation}"
+                        ng-click="toggleGliderLandingTimeInformation()">?
+                </button>
+            </div>
         </div>
     </div>
     <div class="form-group col-md-4 col-sm-12 col-xs-12">

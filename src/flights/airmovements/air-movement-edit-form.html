@@ -117,16 +117,23 @@
                         <div class="input-group">
                             <input class="form-control"
                                    id="MotorFlightDetailsData.StartDateTime"
-                                   ng-disabled="!flightDetails.CanUpdateRecord"
+                                   ng-disabled="!flightDetails.CanUpdateRecord || flightDetails.MotorFlightDetailsData.NoStartTimeInformation"
                                    ng-model="times.motorStart"
                                    ng-blur="formatMotorStart()">
-                            <span class="input-group-btn">
-                        <button ng-show="flightDetails.CanUpdateRecord"
-                                class="btn btn-default"
-                                type="button"
-                                ng-click="setMotorStart()"><span class="fa fa-clock-o"></span>
-                        </button>
-                      </span>
+                            <div class="input-group-btn">
+                                <button ng-show="flightDetails.CanUpdateRecord"
+                                        class="btn btn-default"
+                                        type="button"
+                                        ng-if="!flightDetails.MotorFlightDetailsData.NoStartTimeInformation"
+                                        ng-click="setMotorStart()"><span class="fa fa-clock-o"></span></button>
+                                <button ng-show="flightDetails.CanUpdateRecord"
+                                        class="btn btn-default"
+                                        type="button"
+                                        title="NO_TIME_INFORMATION"
+                                        ng-class="{'active': flightDetails.MotorFlightDetailsData.NoStartTimeInformation}"
+                                        ng-click="togglMotorStartTimeInformation()">?
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
@@ -135,17 +142,23 @@
                         <div class="input-group">
                             <input class="form-control"
                                    id="MotorFlightDetailsData.LdgDateTime"
-                                   ng-disabled="!flightDetails.CanUpdateRecord"
+                                   ng-disabled="!flightDetails.CanUpdateRecord || flightDetails.MotorFlightDetailsData.NoLdgTimeInformation"
                                    ng-model="times.motorLanding"
                                    ng-blur="formatMotorLanding()">
-                            <span class="input-group-btn">
-                    <button ng-show="flightDetails.CanUpdateRecord"
-                            class="btn btn-default"
-                            type="button"
-                            ng-click="setMotorLanding()"
-                            ng-blur="flightDetails.MotorFlightDetailsData.NrOfLdgs = flightDetails.MotorFlightDetailsData.NrOfLdgs || 1;"><span class="fa fa-clock-o"></span>
-                    </button>
-                  </span>
+                            <div class="input-group-btn">
+                                <button ng-show="flightDetails.CanUpdateRecord"
+                                        class="btn btn-default"
+                                        type="button"
+                                        ng-if="!flightDetails.MotorFlightDetailsData.NoLdgTimeInformation"
+                                        ng-click="setMotorLanding()"><span class="fa fa-clock-o"></span></button>
+                                <button ng-show="flightDetails.CanUpdateRecord"
+                                        class="btn btn-default"
+                                        type="button"
+                                        title="NO_TIME_INFORMATION"
+                                        ng-class="{'active': flightDetails.MotorFlightDetailsData.NoLdgTimeInformation}"
+                                        ng-click="togglMotorLandingTimeInformation()">?
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

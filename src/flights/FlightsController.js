@@ -587,6 +587,7 @@ export default class FlightsController {
             let times = $scope.times;
             times.gliderLanding = this.TimeService.formatTime(times.gliderLanding);
             times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
+            $scope.flightDetails.GliderFlightDetailsData.NrOfLdgs = $scope.flightDetails.GliderFlightDetailsData.NrOfLdgs || 1;
             calcDurationWarning();
         };
 
@@ -608,6 +609,7 @@ export default class FlightsController {
             let times = $scope.times;
             times.towingLanding = this.TimeService.formatTime(times.towingLanding);
             times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
+            $scope.flightDetails.TowFlightDetailsData.NrOfLdgs = $scope.flightDetails.TowFlightDetailsData.NrOfLdgs || 1
             calcDurationWarning();
         };
 
@@ -653,6 +655,22 @@ export default class FlightsController {
         $scope.copyFlight = (flight) => {
             $location.path('/flights/copy/' + flight.FlightId);
         };
+
+        $scope.toggleGliderStartTimeInformation = () => {
+            $scope.flightDetails.GliderFlightDetailsData.NoStartTimeInformation = !$scope.flightDetails.GliderFlightDetailsData.NoStartTimeInformation;
+            $scope.flightDetails.TowFlightDetailsData.NoStartTimeInformation = $scope.flightDetails.GliderFlightDetailsData.NoStartTimeInformation;
+            $scope.times.gliderStart = undefined;
+        };
+
+        $scope.toggleGliderLandingTimeInformation = () => {
+            $scope.flightDetails.GliderFlightDetailsData.NoLdgTimeInformation = !$scope.flightDetails.GliderFlightDetailsData.NoLdgTimeInformation;
+            $scope.times.gliderLanding = undefined;
+        };
+
+        $scope.toggleTowLandingTimeInformation = () => {
+            $scope.flightDetails.TowFlightDetailsData.NoLdgTimeInformation = !$scope.flightDetails.TowFlightDetailsData.NoLdgTimeInformation;
+            $scope.times.towingLanding = undefined;
+        }
 
     }
 }
