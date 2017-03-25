@@ -303,6 +303,7 @@ export default class FlightsController {
             $scope.flightCostBalanceTypeChanged();
             $scope.startTypeChanged();
             $scope.gliderAircraftSelectionChanged();
+            $scope.towingAircraftSelectionChanged();
             calcDurationWarning();
             recalcRouteRequirements();
         }
