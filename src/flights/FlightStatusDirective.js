@@ -6,7 +6,7 @@ export default class FlightStatusDirective {
                 flight: "="
             },
             controller: ($scope) => {
-                var flight = $scope.flight;
+                let flight = $scope.flight;
 
                 function statusOfFlight(start, landing) {
                     if (start && landing) {
@@ -18,10 +18,20 @@ export default class FlightStatusDirective {
                     }
                 }
 
+                function processedState(processState) {
+                    if (processState == 40) {
+                        return "LOCKED";
+                    }
+                    if (processState == 50) {
+                        return "DELIVERED";
+                    }
+                }
+
                 $scope.status = {
-                    glider: statusOfFlight(flight.StartDateTime, flight.LdgDateTime),
-                    tow: flight.TowFlightId && statusOfFlight(flight.StartDateTime, flight.TowFlightLdgDateTime)
+                    glider: processedState(flight.ProcessState) || statusOfFlight(flight.StartDateTime, flight.LdgDateTime),
+                    tow: processedState(flight.ProcessState) || flight.TowFlightId && statusOfFlight(flight.StartDateTime, flight.TowFlightLdgDateTime)
                 };
+                console.log($scope.status);
             }
         }
     }
