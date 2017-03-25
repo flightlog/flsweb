@@ -5,6 +5,10 @@ export default class MainController {
         this.towerImage = require('../images/tower.jpg');
         this.planningImage = require('../images/planning.jpg');
         $scope.getEnabledFeatures = AuthService.getEnabledFeatures;
+
+        $scope.showLoginForm = () => {
+            AuthService.promptLogin();
+        }
     }
 
 }

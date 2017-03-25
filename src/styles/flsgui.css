@@ -424,3 +424,29 @@ td.flight--time {
     margin: 0 20px;
     padding: 0;
 }
+
+.try-flight-root {
+    margin: -50px 0 0;
+    padding: 20px;
+    width: 100vw;
+    height: 100vh;
+    font-family: Verdana, Arial, Sans-Serif, sans-serif;
+    color: #444444;
+    background-color: #336699;
+}
+
+.try-flight-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    max-width: 950px;
+}
+
+.try-flight-container .try-flight-header {
+    margin: -50px -50px 50px;
+    height: 130px;
+    background-image: url(https://fgzo.ch/images/header950x130-06.jpg);
+}

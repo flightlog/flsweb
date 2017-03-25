@@ -1,0 +1,74 @@
+<div class="try-flight-root">
+    <div class="try-flight-container">
+        <div class="try-flight-header"></div>
+        <h1 translate="TRY_FLIGHT"></h1>
+        <div>
+            <fls-message-bar ng-show="!busy"></fls-message-bar>
+            <fls-busy-indicator busy="ctrl.busy"
+                                error="ctrl.error">
+                <div ng-show="!ctrl.success">
+                    <p class="col-xs-12"
+                       translate="TRY_FLIGHT_FORM_EXPLANATION"></p>
+
+                    <form role="form"
+                          ng-submit="ctrl.tryflight(email)"
+                          class="col-xs-12"
+                          name="tryflightForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name"><span translate="NAME"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="name"
+                                           ng-model="name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstname"><span translate="FIRST_NAME"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="firstname"
+                                           ng-model="firstname">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name"><span translate="NAME"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="name"
+                                           ng-model="name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstname"><span translate="FIRST_NAME"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="firstname"
+                                           ng-model="firstname">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <button type="submit"
+                                    class="btn btn-default pull-right"
+                                    translate="SUBMIT"
+                                    ng-disabled="tryflightForm.$pristine">
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div ng-show="ctrl.success"
+                     class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <p translate="GENERATE_NEW_PASSWORD_SUCCEEDED"></p>
+                </div>
+            </fls-busy-indicator>
+        </div>
+    </div>
+</div>

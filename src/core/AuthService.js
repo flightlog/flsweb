@@ -2,13 +2,20 @@ import * as $ from 'jquery';
 
 export default class AuthService {
     constructor($http, $location, $window, GLOBALS, $sessionStorage) {
-        var storage = $sessionStorage.$default({loginResult: {}});
+        let storage = $sessionStorage.$default({loginResult: {}});
 
         function confirmationLink() {
             return $window.location.origin + $window.location.pathname + "#/confirm?userid={userid}&code={code}";
         }
 
-        var srv = {
+        let srv = {
+            _showNavBar: true,
+            setShowNavBar: (show) => {
+                srv._showNavBar = show;
+            },
+            showNavBar: () => {
+                return srv._showNavBar;
+            },
             isClubAdmin: function () {
                 return srv.hasRole("ClubAdministrator");
             },
@@ -86,7 +93,7 @@ export default class AuthService {
                 $location.path('/main');
             },
             getToken: function () {
-                var loginResult = storage.loginResult;
+                let loginResult = storage.loginResult;
                 /* jshint camelcase: false */
                 return loginResult && loginResult['access_token'];
             },
@@ -97,10 +104,10 @@ export default class AuthService {
                 if (!storage.user) {
                     return false;
                 }
-                for (var assignedRoleIdIdx in storage.user['UserRoleIds']) {
-                    var assignedRoleId = storage.user['UserRoleIds'][assignedRoleIdIdx];
-                    for (var roleIdx in storage.userRoles) {
-                        var role = storage.userRoles[roleIdx];
+                for (let assignedRoleIdIdx in storage.user['UserRoleIds']) {
+                    let assignedRoleId = storage.user['UserRoleIds'][assignedRoleIdIdx];
+                    for (let roleIdx in storage.userRoles) {
+                        let role = storage.userRoles[roleIdx];
                         if (role['RoleId'] === assignedRoleId) {
                             if (role['RoleApplicationKeyString'] === roleApplicationKeyStringToCheck) {
                                 return true;

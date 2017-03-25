@@ -83,7 +83,7 @@
 <body ng-controller="AppController">
 
 <!-- Navigation -->
-<fls-navigation-bar></fls-navigation-bar>
+<fls-navigation-bar ng-if="showNavBar()"></fls-navigation-bar>
 
 <div ng-view="" style="padding-top:50px;">
     <div class="wrapper">
