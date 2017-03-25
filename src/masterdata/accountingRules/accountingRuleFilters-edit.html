@@ -139,9 +139,9 @@
                          class="col-md-12 fls-inline-form">
 
                         <fls-labelled-checkbox entity="md"
-                                               attribute="showMinMax"
+                                               attribute="flightDurationUnlimited"
                                                translation-key="FLIGHT_DURATION_UNLIMITED"></fls-labelled-checkbox>
-                        <div ng-if="md.showMinMax">
+                        <div ng-if="!md.flightDurationUnlimited">
                             <span translate="OR_FLIGHT_DIRATION_BETWEEN"></span>
                             <input class="form-control fls-inline-form-control"
                                    type="number"
