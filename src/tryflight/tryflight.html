@@ -1,7 +1,7 @@
 <div class="try-flight-root">
     <div class="try-flight-container">
         <div class="try-flight-header"></div>
-        <h1 translate="TRY_FLIGHT"></h1>
+        <h1 translate="TRY_FLIGHT_APPLICATION"></h1>
         <div>
             <fls-message-bar ng-show="!busy"></fls-message-bar>
             <fls-busy-indicator busy="ctrl.busy"
@@ -11,7 +11,7 @@
                        translate="TRY_FLIGHT_FORM_EXPLANATION"></p>
 
                     <form role="form"
-                          ng-submit="ctrl.tryflight(email)"
+                          ng-submit="ctrl.tryflight()"
                           class="col-xs-12"
                           name="tryflightForm">
                         <div class="row">
@@ -21,7 +21,8 @@
                                     <input type="text"
                                            class="form-control"
                                            id="name"
-                                           ng-model="name">
+                                           required
+                                           ng-model="ctrl.TrialFlightRegistrationDetails.Lastname">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -30,43 +31,204 @@
                                     <input type="text"
                                            class="form-control"
                                            id="firstname"
-                                           ng-model="firstname">
+                                           required
+                                           ng-model="ctrl.TrialFlightRegistrationDetails.Firstname">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="AddressLine1"><span translate="ADDRESS"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="AddressLine1"
+                                           ng-model="ctrl.TrialFlightRegistrationDetails.AddressLine1">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name"><span translate="NAME"></span>:</label>
+                                    <label for="zip"><span translate="ZIP_CODE"></span>:</label>
                                     <input type="text"
                                            class="form-control"
-                                           id="name"
-                                           ng-model="name">
+                                           id="zip"
+                                           ng-model="ctrl.TrialFlightRegistrationDetails.ZipCode">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="firstname"><span translate="FIRST_NAME"></span>:</label>
+                                    <label for="city"><span translate="CITY"></span>:</label>
                                     <input type="text"
                                            class="form-control"
-                                           id="firstname"
-                                           ng-model="firstname">
+                                           id="city"
+                                           ng-model="ctrl.TrialFlightRegistrationDetails.City">
                                 </div>
                             </div>
                         </div>
-                        
-                        <div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="PrivatePhoneNumber"><span translate="PRIVATE_PHONE"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="PrivatePhoneNumber"
+                                           ng-model="ctrl.TrialFlightRegistrationDetails.PrivatePhoneNumber">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="BusinessPhoneNumber"><span translate="BUSINESS_PHONE"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="BusinessPhoneNumber"
+                                           ng-model="ctrl.TrialFlightRegistrationDetails.BusinessPhoneNumber">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="MobilePhoneNumber"><span translate="MOBILE_NUMBER"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="MobilePhoneNumber"
+                                           ng-model="ctrl.TrialFlightRegistrationDetails.MobilePhoneNumber">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="PrivateEmail"><span translate="EMAIL"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="PrivateEmail"
+                                           ng-model="ctrl.TrialFlightRegistrationDetails.PrivateEmail">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row try-flight-section">
+                            <div class="col-md-12">
+                                <span translate="INVOICE_TO"></span>:
+                            </div>
+                            <div class="col-md-12">
+                                <fls-labelled-checkbox entity="ctrl.TrialFlightRegistrationDetails"
+                                                       attribute="InvoiceAddressIsSame"
+                                                       translation-key="SAME_ADDRESS_AS_PARTICIPANT"></fls-labelled-checkbox>
+                            </div>
+                        </div>
+                        <div ng-if="!ctrl.TrialFlightRegistrationDetails.InvoiceAddressIsSame">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="InvoiceToLastname"><span translate="NAME"></span>:</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="InvoiceToLastname"
+                                               ng-model="ctrl.TrialFlightRegistrationDetails.InvoiceToLastname">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="InvoiceToFirstname"><span translate="FIRST_NAME"></span>:</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="InvoiceToFirstname"
+                                               ng-model="ctrl.TrialFlightRegistrationDetails.InvoiceToFirstname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="InvoiceToAddressLine1"><span translate="ADDRESS"></span>:</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="InvoiceToAddressLine1"
+                                               ng-model="ctrl.TrialFlightRegistrationDetails.InvoiceToAddressLine1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="InvoiceToZipCode"><span translate="ZIP_CODE"></span>:</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="InvoiceToZipCode"
+                                               ng-model="ctrl.TrialFlightRegistrationDetails.InvoiceToZipCode">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="InvoiceToCity"><span translate="CITY"></span>:</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="InvoiceToCity"
+                                               ng-model="ctrl.TrialFlightRegistrationDetails.InvoiceToCity">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row try-flight-section">
+                            <div class="col-md-12">
+                                <strong>Programm:</strong>
+                                <ul>
+                                    <li>13:00 Uhr Treffpunkt vor dem C-Büro</li>
+                                    <li>13:15 Uhr Theorieblock</li>
+                                    <li>Ab 14:30 Uhr Schnupperflüge</li>
+                                    <li>Ca. 17:00 Uhr Ende</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row try-flight-section">
+                            <div class="col-md-12">
+                                <span translate="CHOOSE_TRY_FLIGHT_DAY"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="col-md-4"
+                                       ng-repeat="tryFlightDay in ctrl.choice.tryFlightDays">
+                                    <input type="radio"
+                                           name="selectedDay"
+                                           ng-value="tryFlightDay"
+                                           ng-model="ctrl.selectedDay">
+                                    <span ng-bind="tryFlightDay.formatted"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row try-flight-section">
                             <button type="submit"
                                     class="btn btn-default pull-right"
-                                    translate="SUBMIT"
+                                    translate="APPLY_FOR_TRY_FLIGHT"
                                     ng-disabled="tryflightForm.$pristine">
                             </button>
                         </div>
+
                     </form>
                 </div>
+                
                 <div ng-show="ctrl.success"
                      class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <p translate="GENERATE_NEW_PASSWORD_SUCCEEDED"></p>
+                    <p translate="APPLICATION_FOR_TRY_FLIGHT_WAS_SUCCESSFUL"></p>
+                    <p><a href="http://www.fgzo.ch"
+                          translate="BACK_TO_HOMEPAGE"></a></p>
+                </div>
+
+                <div class="try-flight-section">
+                    <div class="col-md-12 try-flight-section">
+                        <p>Bei Verhinderung bitte bis Mittwochabend vor dem Schnupperflugtag dem Sekretariat
+                           melden. </p>
+                        <p>Die Anmeldung kostet Fr. 200.- und wird dir vom Sekretariat in Rechnung gestellt. Wird
+                           mit der fliegerischen Ausbildung begonnen, werden dir Fr. 100.- bei der ersten
+                           Rechnung gutgeschrieben.</p>
+                        <p>Weitere Informationen über die Durchführung werden dir bis Donnerstagabend vor dem
+                           Schnupperflugtag bekannt gegeben. Wird ein Schnupperflugtag wetterbedingt
+                           abgesagt, kann an einem anderen Schnupperflugtag teilgenommen werden.</p>
+                    </div>
                 </div>
             </fls-busy-indicator>
         </div>
