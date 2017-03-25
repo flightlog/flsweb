@@ -6,7 +6,7 @@
             <td ng-bind="user.PersonName" data-title="'PERSON_NAME' | translate" filter="{ PersonName: 'text'}" sortable="'PersonName'"></td>
             <td ng-bind="user.ClubName" data-title="'CLUB_NAME' | translate" filter="{ ClubName: 'text'}" sortable="'ClubName'"></td>
             <td ng-bind="user.UserRoles" data-title="'ROLES' | translate" filter="{ UserRoles: 'text'}" sortable="'UserRoles'"></td>
-            <td ng-bind="user.AccountState" data-title="'USER_ACCOUNT_STATE' | translate" filter="{ AccountState: 'accountStates'}" sortable="'AccountState'"></td>
+            <td ng-bind="user.AccountState" data-title="'USER_ACCOUNT_STATE' | translate" filter="{ AccountState: 'text'}" sortable="'AccountState'"></td>
             <td class="hidden-print controls-column">
                 <a ng-show="flight.CanDeleteRecord"
                    title="{{'DELETE' | translate}}"

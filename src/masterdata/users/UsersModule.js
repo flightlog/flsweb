@@ -1,5 +1,4 @@
 import angular from 'angular';
-import * as _ from 'lodash';
 import UsersEditController from './UsersEditController';
 import UsersEditDirective from './UsersEditDirective';
 import UserFormDirective from './UserFormDirective';
@@ -25,13 +24,7 @@ export default angular.module('fls.masterdata.users', [
     .service('UserAccountStates', UsersServices.UserAccountStates)
     .directive('flsUsers', UsersEditDirective.factory)
     .directive('flsUserForm', UserFormDirective.factory)
-    .config(($routeProvider, ngTableFilterConfigProvider) => {
-        ngTableFilterConfigProvider.setConfig({
-            aliasUrls: {
-                "accountStates": "./user-account-states-dropdown-filter.html"
-            }
-        });
-
+    .config(($routeProvider) => {
         $routeProvider
             .when('/masterdata/users',
                 {
@@ -51,7 +44,4 @@ export default angular.module('fls.masterdata.users', [
                         user: userAuth
                     }
                 });
-    })
-    .run(($templateCache) => {
-        $templateCache.put("./user-account-states-dropdown-filter.html", require("./user-account-states-dropdown-filter.html"));
     });
