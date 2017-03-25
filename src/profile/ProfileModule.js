@@ -17,7 +17,8 @@ export default angular.module('profile', [
                     template: require('./profile.html'),
                     publicAccess: false,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "MY_PROFILE"
                     }
                 });
     });

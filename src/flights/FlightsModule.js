@@ -39,7 +39,8 @@ export default angular.module('fls.flights', [
                     template: require('./flights.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "FLIGHTS"
                     }
                 })
             .when('/flights/:id',
@@ -48,7 +49,8 @@ export default angular.module('fls.flights', [
                     template: require('./flight-edit-form.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "FLIGHTS"
                     }
                 })
             .when('/flights/copy/:id',
@@ -57,7 +59,8 @@ export default angular.module('fls.flights', [
                     template: require('./flight-edit-form.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "FLIGHTS"
                     }
                 });
     });

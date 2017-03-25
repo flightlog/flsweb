@@ -31,7 +31,8 @@ export default angular.module('fls.masterdata.aircrafts', [
                     template: require('./aircrafts.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "AIRCRAFTS"
                     }
                 })
             .when('/masterdata/aircrafts/:id',
@@ -40,7 +41,8 @@ export default angular.module('fls.masterdata.aircrafts', [
                     template: require('./aircrafts-edit.html'),
                     publicAccess: true,
                     resolve: {
-                        user: userAuth
+                        user: userAuth,
+                        titleKey: () => "AIRCRAFTS"
                     }
                 });
     });

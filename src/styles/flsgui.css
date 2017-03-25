@@ -11,6 +11,22 @@ div.flscontainer {
     margin-bottom: 30px;
 }
 
+.navbar-brand a {
+    color: gray;
+    padding-right: 10px;
+}
+
+.navbar-brand a:focus,
+.navbar-brand a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+.fls-navbar-title {
+    font-weight: 300;
+    color: #494949;
+}
+
 table.fls {
     border-collapse: separate;
     border-radius: 4px;
@@ -454,4 +470,30 @@ td.flight--time {
 
 .try-flight-section {
     margin-top: 30px;
+}
+
+.fls-new-button {
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    z-index: 9999;
+}
+
+.fls-new-button button {
+    border: 0;
+    margin-left: 20px;
+    color: white;
+    background-color: rgba(37, 32, 128, 0.68);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.43);
+}
+
+.fls-new-button button:focus {
+    outline: none;
+}
+
+.fls-new-button button:hover {
+    background-color: rgba(37, 32, 128, 1);
 }

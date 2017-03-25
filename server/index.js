@@ -7,7 +7,12 @@ app.post(api + "/locations/page/:pageStart/:pageSize", function (req, res) {
 });
 
 app.post(api + "/accountingrulefilters/page/:pageStart/:pageSize", function (req, res) {
-    res.send(require("./mock-data/accountingrulefilters.json"));
+    let filters = require("./mock-data/accountingrulefilters.json");
+    let moreFilters = {Items:[]};
+    for(let i = 0; i < 100; i++) {
+        moreFilters.Items.push(Object.assign({}, filters[0], {AccountingRuleFilterId: i}));
+    }
+    res.send(moreFilters);
 });
 app.get(api + "/accountingrulefilters/:id", function (req, res) {
     res.send(require("./mock-data/accountingrulefilter-detail.json"));

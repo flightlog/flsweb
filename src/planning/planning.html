@@ -1,19 +1,16 @@
 <div class="container-fluid flscontainer">
-    <div class="hidden-print pull-right" style="margin-top:-10px;">
+    <div class="hidden-print fls-new-button">
         <button type="button"
-                class="btn btn-default pull-right"
-                style="margin-right:0;"
-                ng-click="new()"
-                translate="NEW">New
+                title="{{'SETUP'|translate}}"
+                ng-click="setup()">
+            <span class="fa fa-cogs fa-2x"></span>
         </button>
         <button type="button"
-                class="btn btn-default pull-right"
-                style="margin-right:10px;"
-                ng-click="setup()"
-                translate="SETUP">Setup
+                title="{{'NEW'|translate}}"
+                ng-click="new()">
+            <span class="fa fa-plus fa-2x"></span>
         </button>
     </div>
-    <h1 translate="PLANNING"></h1>
     <fls-message-bar ng-show="!busy"></fls-message-bar>
     <fls-busy-indicator busy="busy"
                         error="error">
