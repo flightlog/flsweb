@@ -37,6 +37,7 @@ export default class AccountingRuleFiltersEditController {
 
             if ($routeParams.id === 'new') {
                 $scope.accountingRuleFilter = {
+                    IsActive: true,
                     CanUpdateRecord: true
                 };
                 $scope.busy = false;
@@ -93,10 +94,10 @@ export default class AccountingRuleFiltersEditController {
         };
         $scope.save = function (accountingRuleFilter) {
             $scope.busy = true;
-            if(!$scope.md.showThreadsholdText) {
+            if (!$scope.md.showThreadsholdText) {
                 accountingRuleFilter.ThresholdText = undefined;
             }
-            if($scope.md.flightDurationUnlimited) {
+            if ($scope.md.flightDurationUnlimited) {
                 accountingRuleFilter.MinFlightTimeMatchingValue = undefined;
                 accountingRuleFilter.MaxFlightTimeMatchingValue = undefined;
             }
