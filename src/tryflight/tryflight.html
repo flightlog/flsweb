@@ -200,13 +200,7 @@
                             </div>
                         </div>
 
-                        <div class="row try-flight-section">
-                            <button type="submit"
-                                    class="btn btn-default pull-right"
-                                    translate="APPLY_FOR_TRY_FLIGHT"
-                                    ng-disabled="tryflightForm.$pristine || !ctrl.recaptchaResponse">
-                            </button>
-                            
+                        <div class="col-md-12 try-flight-section">
                             <div class="fls-recaptcha"
                                  vc-recaptcha
                                  theme="'light'"
@@ -214,6 +208,12 @@
                                  on-create="ctrl.recaptcha.setWidgetId(widgetId)"
                                  on-success="ctrl.recaptcha.setResponse(response)"
                                  on-expire="ctrl.recaptcha.cbExpiration()"></div>
+                            
+                            <button type="submit"
+                                    class="btn btn-default"
+                                    translate="APPLY_FOR_TRY_FLIGHT"
+                                    ng-disabled="tryflightForm.$pristine || !ctrl.recaptchaResponse">
+                            </button>
                         </div>
 
                     </form>
