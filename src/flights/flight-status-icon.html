@@ -1,6 +1,7 @@
 <div>
 <span ng-class="{
                              'fa fa-cloud': status.glider === 'AIRBORN',
+                             'lnr lnr-warning': status.glider === 'VALIDATION_FAILED',
                              'lnr lnr-lock': status.glider === 'LOCKED',
                              'lnr lnr-link': status.glider === 'DELIVERED',
                              'lnr lnr-checkmark-circle': status.glider === 'LANDED',
@@ -9,6 +10,7 @@
 </span>
 <span ng-if="status.tow" ng-class="{
                              'fa fa-cloud': status.tow === 'AIRBORN',
+                             'lnr lnr-warning': status.tow === 'VALIDATION_FAILED',
                              'lnr lnr-lock': status.tow === 'LOCKED',
                              'lnr lnr-link': status.tow === 'DELIVERED',
                              'lnr lnr-checkmark-circle': status.tow === 'LANDED',

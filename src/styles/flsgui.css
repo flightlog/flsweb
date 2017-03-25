@@ -504,3 +504,11 @@ td.flight--time {
     background-color: rgba(37, 32, 128, 1);
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.43);
 }
+
+table.fls-table-with-details tr.fls-flight-row-warning td,
+table.fls-table-with-details tr.fls-flight-row-warning td.flight--glider-cell,
+table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
+    color: gray;
+    text-shadow: -1px -1px 0 white;
+    background-color: rgba(130, 126, 131, 0.2);
+}

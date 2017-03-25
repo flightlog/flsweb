@@ -8,13 +8,9 @@ export default class FlightStatusDirective {
             controller: ($scope) => {
                 let flight = $scope.flight;
 
-                function statusOfFlight(start, landing) {
-                    if (start && landing) {
-                        return "LANDED";
-                    } else if (start) {
-                        return "AIRBORN";
-                    } else {
-                        return "WAITING";
+                function validationState(validationState) {
+                    if (validationState == 28) {
+                        return "VALIDATION_FAILED";
                     }
                 }
 
@@ -27,9 +23,19 @@ export default class FlightStatusDirective {
                     }
                 }
 
+                function statusOfFlight(start, landing) {
+                    if (start && landing) {
+                        return "LANDED";
+                    } else if (start) {
+                        return "AIRBORN";
+                    } else {
+                        return "WAITING";
+                    }
+                }
+
                 $scope.status = {
-                    glider: processedState(flight.ProcessState) || statusOfFlight(flight.StartDateTime, flight.LdgDateTime),
-                    tow: processedState(flight.ProcessState) || flight.TowFlightId && statusOfFlight(flight.StartDateTime, flight.TowFlightLdgDateTime)
+                    glider: validationState(flight.ValidationState) || processedState(flight.ProcessState) || statusOfFlight(flight.StartDateTime, flight.LdgDateTime),
+                    tow: validationState(flight.ValidationState) || processedState(flight.ProcessState) || flight.TowFlightId && statusOfFlight(flight.StartDateTime, flight.TowFlightLdgDateTime)
                 };
                 console.log($scope.status);
             }
