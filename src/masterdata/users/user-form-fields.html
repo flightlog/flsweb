@@ -20,7 +20,7 @@
     </div>
     <label class="checkbox col-md-11 col-md-offset-1"
            for="{{role.RoleApplicationKeyString}}"
-           ng-repeat="role in roles">
+           ng-repeat="role in md.roles">
         <input type="checkbox"
                id="{{role.RoleApplicationKeyString}}"
                ng-click="toggleRoleSelection(user, role.RoleId)"
