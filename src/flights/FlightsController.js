@@ -7,9 +7,15 @@ export default class FlightsController {
                 TimeService, Flights, NgTableParams, PagedFlights, AuthService,
                 FlightTypes, Locations, Persons, PersonsV2, PersonPersister, PassengerPersister,
                 Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes, TableSettingsCacheFactory,
-                SoloFlightCheckboxEnablementCalculator, Clubs, AircraftOperatingCounters, DropdownItemsRenderService) {
+                SoloFlightCheckboxEnablementCalculator, Clubs, AircraftOperatingCounters, DropdownItemsRenderService,
+                localStorageService) {
         $scope.busy = true;
         this.TimeService = TimeService;
+
+        if (!localStorageService.get("towPilotByAircraftId")) {
+            localStorageService.set("towPilotByAircraftId", {});
+        }
+
         $scope.debug = GLOBALS.DEBUG;
         $scope.showChart = false;
         let format = 'HH:mm';
@@ -134,10 +140,20 @@ export default class FlightsController {
             }, 0);
         };
 
-        $scope.towingAircraftSelectionChanged = () => {
-            if ($scope.flightDetails.TowFlightDetailsData && !$scope.flightDetails.TowFlightDetailsData.PilotPersonId) {
-                $scope.flightDetails.TowFlightDetailsData.PilotPersonId = "";
+        function resetTowFlightDefaults() {
+            let flightDetails = $scope.flightDetails;
+            flightDetails.TowFlightDetailsData.StartLocationId = flightDetails.TowFlightDetailsData.StartLocationId || $scope.myClub.HomebaseId;
+            flightDetails.TowFlightDetailsData.LdgLocationId = flightDetails.TowFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
+            flightDetails.TowFlightDetailsData.FlightTypeId = flightDetails.TowFlightDetailsData.FlightTypeId || $scope.myClub.DefaultTowFlightTypeId;
+            flightDetails.TowFlightDetailsData.NrOfLdgs = 1;
+
+            flightDetails.TowFlightDetailsData.AircraftId = flightDetails.TowFlightDetailsData.AircraftId || localStorageService.get("lastTowAircraftId");
+            if (flightDetails.TowFlightDetailsData.AircraftId) {
+                flightDetails.TowFlightDetailsData.PilotPersonId = localStorageService.get("towPilotByAircraftId")[flightDetails.TowFlightDetailsData.AircraftId] || flightDetails.TowFlightDetailsData.PilotPersonId;
             }
+        }
+
+        $scope.towingAircraftSelectionChanged = () => {
             $timeout(() => {
                 if (hasDetails()) {
                     $scope.towplaneRegistration = '';
@@ -147,6 +163,16 @@ export default class FlightsController {
                             if (tow.AircraftId === ($scope.flightDetails.TowFlightDetailsData && $scope.flightDetails.TowFlightDetailsData.AircraftId)) {
                                 $scope.flightDetails.TowFlightDetailsData.AircraftId = tow.AircraftId;
                                 $scope.towplaneRegistration = tow.Immatriculation.substring(tow.Immatriculation.indexOf('-') + 1);
+
+                                if (!$scope.myClub) {
+                                    Clubs.getMyClub().$promise
+                                        .then((result) => {
+                                            $scope.myClub = result;
+                                            resetTowFlightDefaults();
+                                        });
+                                } else {
+                                    resetTowFlightDefaults();
+                                }
                             }
                         }
                     }
@@ -162,15 +188,23 @@ export default class FlightsController {
             Clubs.getMyClub().$promise
                 .then((result) => {
                     $scope.myClub = result;
+                    flightDetails.StartType = flightDetails.StartType || $scope.myClub.DefaultStartType || "1";
+
                     flightDetails.GliderFlightDetailsData.StartLocationId = flightDetails.GliderFlightDetailsData.StartLocationId || $scope.myClub.HomebaseId;
                     flightDetails.GliderFlightDetailsData.LdgLocationId = flightDetails.GliderFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
                     flightDetails.GliderFlightDetailsData.FlightTypeId = flightDetails.GliderFlightDetailsData.FlightTypeId || $scope.myClub.DefaultGliderFlightTypeId;
+                    flightDetails.GliderFlightDetailsData.StartLocationId = localStorageService.get("lastStartLocation");
+                    flightDetails.GliderFlightDetailsData.LdgLocationId = localStorageService.get("lastStartLocation");
+                    flightDetails.GliderFlightDetailsData.OutboundRoute = localStorageService.get("lastGliderOutbound");
+                    flightDetails.GliderFlightDetailsData.InboundRoute = localStorageService.get("lastGliderInbound");
                     flightDetails.GliderFlightDetailsData.NrOfLdgs = 1;
-                    flightDetails.TowFlightDetailsData.StartLocationId = flightDetails.TowFlightDetailsData.StartLocationId || $scope.myClub.HomebaseId;
-                    flightDetails.TowFlightDetailsData.LdgLocationId = flightDetails.TowFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
-                    flightDetails.TowFlightDetailsData.FlightTypeId = flightDetails.TowFlightDetailsData.FlightTypeId || $scope.myClub.DefaultTowFlightTypeId;
-                    flightDetails.TowFlightDetailsData.NrOfLdgs = 1;
-                    flightDetails.StartType = flightDetails.StartType || $scope.myClub.DefaultStartType || "1";
+
+                    flightDetails.TowFlightDetailsData.AircraftId = localStorageService.get("lastTowAircraftId");
+                    flightDetails.TowFlightDetailsData.PilotPersonId = localStorageService.get("towPilotByAircraftId")[flightDetails.TowFlightDetailsData.AircraftId];
+                    flightDetails.TowFlightDetailsData.OutboundRoute = localStorageService.get("lastTowOutbound");
+                    flightDetails.TowFlightDetailsData.InboundRoute = localStorageService.get("lastTowInbound");
+                    flightDetails.TowFlightDetailsData.StartLocationId = localStorageService.get("lastStartLocation");
+                    flightDetails.TowFlightDetailsData.LdgLocationId = localStorageService.get("lastStartLocation");
 
                     deferred.resolve(flightDetails);
                 })
@@ -309,6 +343,18 @@ export default class FlightsController {
         }
 
         $scope.save = function (flightDetails) {
+            if (flightDetails.TowFlightDetailsData && flightDetails.TowFlightDetailsData.AircraftId) {
+                let towPilotByAircraftId = localStorageService.get("towPilotByAircraftId");
+                towPilotByAircraftId[flightDetails.TowFlightDetailsData.AircraftId] = flightDetails.TowFlightDetailsData.PilotPersonId;
+                localStorageService.set("towPilotByAircraftId", towPilotByAircraftId);
+                localStorageService.set("lastTowAircraftId", flightDetails.TowFlightDetailsData.AircraftId);
+                localStorageService.set("lastTowOutbound", flightDetails.TowFlightDetailsData.OutboundRoute);
+                localStorageService.set("lastTowInbound", flightDetails.TowFlightDetailsData.InboundRoute);
+            }
+            localStorageService.set("lastGliderOutbound", flightDetails.GliderFlightDetailsData.OutboundRoute);
+            localStorageService.set("lastGliderInbound", flightDetails.GliderFlightDetailsData.InboundRoute);
+            localStorageService.set("lastStartLocation", flightDetails.GliderFlightDetailsData.StartLocationId);
+
             MessageManager.reset();
             $scope.busyLoadingFlight = true;
 

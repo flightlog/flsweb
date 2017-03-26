@@ -53,6 +53,10 @@ angular-cookies@1.4.6:
   version "1.4.6"
   resolved "https://registry.yarnpkg.com/angular-cookies/-/angular-cookies-1.4.6.tgz#42ace7f66bdd93c2a45139eefd5bb88a9ae21dfe"
 
+angular-local-storage@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/angular-local-storage/-/angular-local-storage-0.5.2.tgz#7079beb0aa5ca91386d223125efefd13ca0ecd0c"
+
 angular-messages@1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/angular-messages/-/angular-messages-1.5.0.tgz#0961df33993475759d0052c6f97597e8510b82af"

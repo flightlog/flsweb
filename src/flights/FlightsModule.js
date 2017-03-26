@@ -12,16 +12,18 @@ import uiBootstrap from 'angular-ui-bootstrap';
 import ngStorage from 'ngstorage';
 import highChartsNgModule from 'highcharts-ng/dist/highcharts-ng.min'
 import 'ng-table';
+import 'angular-local-storage';
 
 export default angular.module('fls.flights', [
-        'ngTable',
-        coreModule.name,
-        personsModule.name,
-        ngStorage.name,
-        flightTypesModule.name,
-        uiBootstrap,
-        highChartsNgModule
-    ])
+    'ngTable',
+    'LocalStorageModule',
+    coreModule.name,
+    personsModule.name,
+    ngStorage.name,
+    flightTypesModule.name,
+    uiBootstrap,
+    highChartsNgModule
+])
     .controller('FlightsController', FlightsController)
     .directive('flsFlightEditGliderForm', GliderFormDirective.factory)
     .directive('flsFlightEditTowForm', TowFormDirective.factory)
