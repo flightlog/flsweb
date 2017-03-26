@@ -476,7 +476,6 @@ td.flight--time {
     margin-bottom: 15px;
 }
 
-
 .fls-new-button {
     position: fixed;
     right: 8vw;
@@ -511,4 +510,48 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
     color: gray;
     text-shadow: -1px -1px 0 white;
     background-color: rgba(130, 126, 131, 0.2);
+}
+
+.flight-state-choice-dropdown {
+    position: absolute;
+    z-index: 9999;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+}
+
+.flight-state-choices {
+    display: flex;
+}
+
+.flight-state-choice-list:first-child {
+    margin-right: 10px;
+}
+.flight-state-choice-list {
+    flex: 1;
+    border: 1px solid #ededed;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.flight-state-choice-list ul {
+    padding: 2px;
+}
+
+.flight-state-choice-list li {
+    list-style: none;
+}
+
+.flight-state-choice-list .tow-state-icon,
+.flight-state-choice-list .glider-state-icon {
+    margin-right: 10px;
+}
+
+.glider-state-icon {
+    color: #9f8ab3;
+}
+
+.tow-state-icon {
+    color: #c3a57f;
 }

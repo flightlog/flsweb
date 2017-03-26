@@ -12,7 +12,6 @@ class NavigationBarController {
 
     constructor($rootScope, $scope, $location, AuthService, GLOBALS, $route) {
         $rootScope.$on("$routeChangeSuccess", () => {
-            console.log($route.current);
             $scope.titleKey = $route.current && $route.current.locals["titleKey"];
         });
 

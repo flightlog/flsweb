@@ -1,6 +1,7 @@
 import moment from "moment";
 import * as _ from "lodash";
 import AddPersonController from "../masterdata/persons/modal/AddPersonController";
+import {FlightStateMapper} from "./FlightsServices";
 
 export default class FlightsController {
     constructor($scope, $q, $log, $modal, $timeout, MessageManager, $location, $routeParams,
@@ -79,7 +80,9 @@ export default class FlightsController {
                     let pageStart = (params.page() - 1) * pageSize;
                     tableSettingsCache.update($scope.tableParams.filter(), $scope.tableParams.sorting());
 
-                    return PagedFlights.getGliderFlights($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
+                    let filterWithStates = FlightStateMapper.mapFlightState($scope.tableParams.filter());
+
+                    return PagedFlights.getGliderFlights(filterWithStates, $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
                             $scope.busy = false;
                             params.total(result.TotalRows);
@@ -532,7 +535,7 @@ export default class FlightsController {
             let fromMoment = moment(from, format);
             if (toMoment.isValid() && fromMoment.isValid()) {
                 let d = moment.duration(toMoment.diff(fromMoment));
-                
+
                 return moment.utc(d.asMilliseconds()).format(format);
             }
         }

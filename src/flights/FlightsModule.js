@@ -6,6 +6,7 @@ import personsModule from '../masterdata/persons/PersonsModule';
 import GliderFormDirective from './GliderFormDirective';
 import TowFormDirective from './TowFormDirective';
 import FlightStatusDirective from './FlightStatusDirective';
+import FlightStateFilterDropdownDirective from './FlightStateFilterDropdownDirective';
 import flightTypesModule from '../masterdata/flightTypes/FlightTypesModule';
 import {userAuth} from '../core/AuthService';
 import uiBootstrap from 'angular-ui-bootstrap';
@@ -28,6 +29,7 @@ export default angular.module('fls.flights', [
     .directive('flsFlightEditGliderForm', GliderFormDirective.factory)
     .directive('flsFlightEditTowForm', TowFormDirective.factory)
     .directive('flsFlightStatus', FlightStatusDirective.factory)
+    .directive('flsFlightStatusFilter', FlightStateFilterDropdownDirective.factory)
     .service('FlightCostBalanceTypes', FlightsServices.FlightCostBalanceTypes)
     .service('Flights', FlightsServices.Flights)
     .service('PagedFlights', FlightsServices.PagedFlights)
@@ -65,4 +67,14 @@ export default angular.module('fls.flights', [
                         titleKey: () => "FLIGHTS"
                     }
                 });
+    })
+    .config((ngTableFilterConfigProvider) => {
+        ngTableFilterConfigProvider.setConfig({
+            aliasUrls: {
+                "flight-state": "./tableFilters/flight-state-filter.html"
+            }
+        });
+    })
+    .run(($templateCache) => {
+        $templateCache.put("./tableFilters/flight-state-filter.html", require("./tableFilters/flight-state-filter.html"));
     });

@@ -96,3 +96,69 @@ export class SoloFlightCheckboxEnablementCalculator {
         };
     }
 }
+
+export class FlightStateMapper {
+    static mapFlightState(filter) {
+        let filterWithStates = Object.assign({}, filter);
+        let flightState = filterWithStates._flightState || Object.assign({}, FlightStateMapper.allFlightStates());
+
+        if (FlightStateMapper.anyStateDisabled(flightState.glider) || FlightStateMapper.anyStateDisabled(flightState.tow)) {
+            filterWithStates._flightState = undefined;
+
+            filterWithStates.AirStates = [];
+            filterWithStates.ValidationStates = [];
+            filterWithStates.ProcessStates = [];
+            filterWithStates.TowFlightAirStates = [];
+            filterWithStates.TowFlightValidationStates = [];
+            filterWithStates.TowFlightProcessStates = [];
+
+            if (flightState.glider.ready) {
+                filterWithStates.AirStates.push(0);
+            }
+            if (flightState.glider.inAir) {
+                filterWithStates.AirStates.push(10);
+            }
+            if (flightState.glider.landed) {
+                filterWithStates.AirStates.push(20);
+            }
+            if (flightState.glider.locked) {
+                filterWithStates.ValidationStates = [0, 28, 30];
+                filterWithStates.ProcessStates = [0, 40, 50];
+            }
+            if (flightState.tow.ready) {
+                filterWithStates.TowFlightAirStates.push(0);
+            }
+            if (flightState.tow.inAir) {
+                filterWithStates.TowFlightAirStates.push(10);
+            }
+            if (flightState.tow.landed) {
+                filterWithStates.TowFlightAirStates.push(20);
+            }
+            if (flightState.tow.locked) {
+                filterWithStates.TowFlightValidationStates = [0, 28, 30];
+                filterWithStates.TowFlightProcessStates = [0, 40, 50];
+            }
+
+            return filterWithStates;
+        } else {
+            return filter;
+        }
+    }
+
+    static anyStateDisabled(stateObject) {
+        for (let key in stateObject) {
+            if (stateObject.hasOwnProperty(key) && !stateObject[key]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static allFlightStates() {
+        return {
+            glider: {ready: true, inAir: true, landed: true, locked: true},
+            tow: {ready: true, inAir: true, landed: true, locked: true}
+        };
+    }
+
+}

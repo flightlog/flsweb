@@ -1,20 +1,20 @@
 <div>
-<span ng-class="{
+<span class="glider-state-icon" ng-class="{
                              'fa fa-cloud': status.glider === 'AIRBORN',
                              'lnr lnr-warning': status.glider === 'VALIDATION_FAILED',
                              'lnr lnr-lock': status.glider === 'LOCKED',
                              'lnr lnr-link': status.glider === 'DELIVERED',
                              'lnr lnr-checkmark-circle': status.glider === 'LANDED',
                              'lnr lnr-hand': status.glider === 'WAITING'
-                           }" style="color:#9f8ab3;width:18px;" title="{{'GLIDER_PLANE' | translate}} {{status.glider | translate}}">
+                           }" title="{{'GLIDER_PLANE' | translate}} {{status.glider | translate}}">
 </span>
-<span ng-if="status.tow" ng-class="{
+<span class="tow-state-icon" ng-if="status.tow" ng-class="{
                              'fa fa-cloud': status.tow === 'AIRBORN',
                              'lnr lnr-warning': status.tow === 'VALIDATION_FAILED',
                              'lnr lnr-lock': status.tow === 'LOCKED',
                              'lnr lnr-link': status.tow === 'DELIVERED',
                              'lnr lnr-checkmark-circle': status.tow === 'LANDED',
                              'lnr lnr-hand': status.tow === 'WAITING'
-                           }" style="color:#c3a57f;" title="{{'TOWING_PLANE' | translate}} {{status.tow | translate}}">
+                           }" title="{{'TOWING_PLANE' | translate}} {{status.tow | translate}}">
 </span>
 </div>
