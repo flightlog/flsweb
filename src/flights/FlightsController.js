@@ -531,15 +531,17 @@ export default class FlightsController {
             let toMoment = moment(to, format);
             let fromMoment = moment(from, format);
             if (toMoment.isValid() && fromMoment.isValid()) {
-                return toMoment.subtract(fromMoment).format(format);
+                let d = moment.duration(toMoment.diff(fromMoment));
+                
+                return moment.utc(d.asMilliseconds()).format(format);
             }
         }
 
         function calcLanding(start, duration) {
             let startMoment = moment(start, format);
-            let durationMoment = moment(duration, format);
+            let durationMoment = moment.utc(duration, format);
             if (startMoment.isValid() && durationMoment.isValid()) {
-                return startMoment.add(durationMoment).format(format);
+                return startMoment.add(durationMoment.unix(), "seconds").format(format);
             }
         }
 
