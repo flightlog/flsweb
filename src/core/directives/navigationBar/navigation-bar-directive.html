@@ -70,8 +70,8 @@
                          style="background-color: rgba(255,255,255,0.7);color:black;position:absolute;right:50px;margin-top:20px;width:300px;border-radius:7px;border:2px solid #dcd9dc;padding:10px;">
                         <form ng-submit="login()">
                             <fls-busy-indicator busy="loginBusy" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <div class="form-group">
-                                    <label for="username" ng-show="!loginBusy" translate="USERNAME"></label>
+                                <div class="form-group" ng-show="!loginBusy">
+                                    <label for="username" translate="USERNAME"></label>
                                     <input type="text" id="username" name="username" ng-model="user.username"
                                            class="form-control">
                                 </div>
