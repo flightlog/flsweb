@@ -71,7 +71,7 @@
                         <form ng-submit="login()">
                             <fls-busy-indicator busy="loginBusy" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="form-group">
-                                    <label for="username" translate="USERNAME"></label>
+                                    <label for="username" ng-show="!loginBusy" translate="USERNAME"></label>
                                     <input type="text" id="username" name="username" ng-model="user.username"
                                            class="form-control">
                                 </div>
