@@ -122,9 +122,9 @@ export class FlightStateMapper {
 
             if (flightState.glider.ready) {
                 filterWithStates.AirStates.push(NEW);
-                filterWithStates.ValidationStates.push(NOT_VALIDATED);
-                filterWithStates.ProcessStates.push(NOT_PROCESSED);
             }
+            filterWithStates.ValidationStates.push(NOT_VALIDATED);
+            filterWithStates.ProcessStates.push(NOT_PROCESSED);
             if (flightState.glider.inAir) {
                 filterWithStates.AirStates.push(STARTED);
             }
@@ -133,7 +133,6 @@ export class FlightStateMapper {
             }
             if (flightState.glider.invalid) {
                 filterWithStates.ValidationStates.push(INVALID);
-                filterWithStates.ProcessStates.push(NOT_PROCESSED);
             }
             if (flightState.glider.locked) {
                 filterWithStates.ValidationStates.push(VALID);
@@ -145,12 +144,11 @@ export class FlightStateMapper {
             }
             if (flightState.tow.ready) {
                 filterWithStates.TowFlightAirStates.push(NEW);
-                filterWithStates.TowFlightValidationStates.push(NOT_VALIDATED);
-                filterWithStates.TowFlightProcessStates.push(NOT_PROCESSED);
             }
+            filterWithStates.TowFlightValidationStates.push(NOT_VALIDATED);
+            filterWithStates.TowFlightProcessStates.push(NOT_PROCESSED);
             if (flightState.tow.invalid) {
                 filterWithStates.TowFlightValidationStates.push(INVALID);
-                filterWithStates.TowFlightProcessStates.push(NOT_PROCESSED);
             }
             if (flightState.tow.locked) {
                 filterWithStates.TowFlightValidationStates.push(VALID);
