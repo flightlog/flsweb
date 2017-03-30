@@ -273,6 +273,7 @@ input.ng-invalid {
     float: right;
 }
 
+.fls-table-with-details tbody tr,
 .sortable {
     cursor: pointer;
 }
