@@ -108,7 +108,7 @@
                 <button ng-show="flightDetails.CanUpdateRecord"
                         class="btn btn-default"
                         type="button"
-                        title="NO_TIME_INFORMATION"
+                        title="{{'NO_TIME_INFORMATION' | translate}}"
                         ng-disabled="!flightDetails.TowFlightDetailsData.AircraftId"
                         ng-class="{'active': flightDetails.TowFlightDetailsData.NoLdgTimeInformation}"
                         ng-click="toggleTowLandingTimeInformation()">?

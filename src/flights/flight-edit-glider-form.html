@@ -214,7 +214,7 @@
                 <button ng-show="flightDetails.CanUpdateRecord"
                         class="btn btn-default"
                         type="button"
-                        title="NO_TIME_INFORMATION"
+                        title="{{'NO_TIME_INFORMATION' | translate}}"
                         ng-class="{'active': flightDetails.GliderFlightDetailsData.NoStartTimeInformation}"
                         ng-click="toggleGliderStartTimeInformation()">?
                 </button>
@@ -240,7 +240,7 @@
                 <button ng-show="flightDetails.CanUpdateRecord"
                         class="btn btn-default"
                         type="button"
-                        title="NO_TIME_INFORMATION"
+                        title="{{'NO_TIME_INFORMATION' | translate}}"
                         ng-class="{'active': flightDetails.GliderFlightDetailsData.NoLdgTimeInformation}"
                         ng-click="toggleGliderLandingTimeInformation()">?
                 </button>

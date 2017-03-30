@@ -129,7 +129,7 @@
                                 <button ng-show="flightDetails.CanUpdateRecord"
                                         class="btn btn-default"
                                         type="button"
-                                        title="NO_TIME_INFORMATION"
+                                        title="{{'NO_TIME_INFORMATION' | translate}}"
                                         ng-class="{'active': flightDetails.MotorFlightDetailsData.NoStartTimeInformation}"
                                         ng-click="togglMotorStartTimeInformation()">?
                                 </button>
@@ -154,7 +154,7 @@
                                 <button ng-show="flightDetails.CanUpdateRecord"
                                         class="btn btn-default"
                                         type="button"
-                                        title="NO_TIME_INFORMATION"
+                                        title="{{'NO_TIME_INFORMATION' | translate}}"
                                         ng-class="{'active': flightDetails.MotorFlightDetailsData.NoLdgTimeInformation}"
                                         ng-click="togglMotorLandingTimeInformation()">?
                                 </button>
