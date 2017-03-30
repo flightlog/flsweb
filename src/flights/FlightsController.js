@@ -201,12 +201,8 @@ export default class FlightsController {
                     flightDetails.GliderFlightDetailsData.FlightTypeId = flightDetails.GliderFlightDetailsData.FlightTypeId || $scope.myClub.DefaultGliderFlightTypeId;
                     flightDetails.GliderFlightDetailsData.StartLocationId = localStorageService.get("lastStartLocation");
                     flightDetails.GliderFlightDetailsData.LdgLocationId = localStorageService.get("lastStartLocation");
-                    // flightDetails.GliderFlightDetailsData.OutboundRoute = localStorageService.get("lastGliderOutbound");
-                    // flightDetails.GliderFlightDetailsData.InboundRoute = localStorageService.get("lastGliderInbound");
                     flightDetails.GliderFlightDetailsData.NrOfLdgs = 1;
 
-                    // flightDetails.TowFlightDetailsData.OutboundRoute = localStorageService.get("lastTowOutbound");
-                    // flightDetails.TowFlightDetailsData.InboundRoute = localStorageService.get("lastTowInbound");
                     flightDetails.TowFlightDetailsData.StartLocationId = localStorageService.get("lastStartLocation");
                     flightDetails.TowFlightDetailsData.LdgLocationId = localStorageService.get("lastStartLocation");
 
@@ -218,6 +214,10 @@ export default class FlightsController {
 
             return deferred.promise;
         }
+
+        $scope.copyRouteFromLast = (towFlightDetailsData, routeField, localStorageField) => {
+            towFlightDetailsData[routeField] = localStorageService.get(localStorageField);
+        };
 
         function loadFlight(flightId) {
             return Flights.getFlight({id: flightId}).$promise;
