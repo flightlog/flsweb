@@ -104,10 +104,8 @@ export class FlightStateMapper {
 
         if (FlightStateMapper.anyStateDisabled(flightState.glider) || FlightStateMapper.anyStateDisabled(flightState.tow)) {
             filterWithStates.AirStates = [];
-            filterWithStates.ValidationStates = [];
             filterWithStates.ProcessStates = [];
             filterWithStates.TowFlightAirStates = [];
-            filterWithStates.TowFlightValidationStates = [];
             filterWithStates.TowFlightProcessStates = [];
 
             const NEW = 0;
@@ -123,7 +121,7 @@ export class FlightStateMapper {
             if (flightState.glider.ready) {
                 filterWithStates.AirStates.push(NEW);
             }
-            filterWithStates.ValidationStates.push(NOT_VALIDATED);
+
             filterWithStates.ProcessStates.push(NOT_PROCESSED);
             if (flightState.glider.inAir) {
                 filterWithStates.AirStates.push(STARTED);
@@ -132,30 +130,38 @@ export class FlightStateMapper {
                 filterWithStates.AirStates.push(LANDED);
             }
             if (flightState.glider.invalid) {
-                filterWithStates.ValidationStates.push(INVALID);
+                filterWithStates.ProcessStates.push(INVALID);
+            }
+            if (flightState.glider.valid) {
+                filterWithStates.ProcessStates.push(VALID);
             }
             if (flightState.glider.locked) {
-                filterWithStates.ValidationStates.push(VALID);
                 filterWithStates.ProcessStates.push(LOCKED);
             }
             if (flightState.glider.delivered) {
-                filterWithStates.ValidationStates.push(VALID);
                 filterWithStates.ProcessStates.push(DELIVERED);
             }
             if (flightState.tow.ready) {
                 filterWithStates.TowFlightAirStates.push(NEW);
             }
-            filterWithStates.TowFlightValidationStates.push(NOT_VALIDATED);
+
             filterWithStates.TowFlightProcessStates.push(NOT_PROCESSED);
-            if (flightState.tow.invalid) {
-                filterWithStates.TowFlightValidationStates.push(INVALID);
+            if (flightState.tow.inAir) {
+                filterWithStates.TowFlightAirStates.push(STARTED);
+            }
+            if (flightState.tow.landed) {
+                filterWithStates.TowFlightAirStates.push(LANDED);
+            }
+			if (flightState.tow.invalid) {
+                filterWithStates.TowFlightProcessStates.push(INVALID);
+            }
+            if (flightState.tow.valid) {
+                filterWithStates.TowFlightProcessStates.push(VALID);
             }
             if (flightState.tow.locked) {
-                filterWithStates.TowFlightValidationStates.push(VALID);
                 filterWithStates.TowFlightProcessStates.push(LOCKED);
             }
             if (flightState.tow.delivered) {
-                filterWithStates.TowFlightValidationStates.push(VALID);
                 filterWithStates.TowFlightProcessStates.push(DELIVERED);
             }
 
@@ -186,7 +192,6 @@ export class FlightStateMapper {
             let direction = sorting["_flightState"];
             let newSorting = Object.assign({}, sorting, {_flightState: undefined});
             newSorting.AirState = direction;
-            newSorting.ValidationState = direction;
             newSorting.ProcessState = direction;
 
             return newSorting;

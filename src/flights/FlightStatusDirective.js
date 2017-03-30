@@ -9,14 +9,14 @@ export default class FlightStatusDirective {
             controller: ($scope) => {
                 let flight = $scope.flight;
 
-                function validationState(validationState) {
-                    if (validationState == 28) {
+                function processedState(processState) {
+                    if (processState == 28) {
                         return "VALIDATION_FAILED";
                     }
-                }
-
-                function processedState(processState) {
-                    if (processState == 40) {
+					if (processState == 30) {
+                        return "VALIDATION_OK";
+                    }
+					if (processState == 40) {
                         return "LOCKED";
                     }
                     if (processState == 50) {
@@ -35,10 +35,10 @@ export default class FlightStatusDirective {
                 }
 
                 $scope.status = {
-                    glider: validationState(flight.ValidationState) || processedState(flight.ProcessState) || statusOfFlight(flight.StartDateTime, flight.LdgDateTime)
+                    glider: processedState(flight.ProcessState) || statusOfFlight(flight.StartDateTime, flight.LdgDateTime)
                 };
                 if($scope.mode !== "MOTOR") {
-                    $scope.status.tow = validationState(flight.ValidationState) || processedState(flight.ProcessState) || flight.TowFlightId && statusOfFlight(flight.StartDateTime, flight.TowFlightLdgDateTime);
+                    $scope.status.tow = processedState(flight.ProcessState) || flight.TowFlightId && statusOfFlight(flight.StartDateTime, flight.TowFlightLdgDateTime);
                 }
             }
         }
