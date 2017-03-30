@@ -22,7 +22,7 @@
                         title="{{'EDIT' | translate}}">
                         <td data-title="'STATUS' | translate"
                             filter="{_flightState: 'flight-state'}"
-                            sortable="'_flightState'">
+                            sortable="'FlightState'">
                             <fls-flight-status flight="flight"></fls-flight-status>
                         </td>
                         <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'"
@@ -65,7 +65,6 @@
                         ></td>
                         <td ng-bind="flight.GliderFlightDuration && ('0001-01-01T' + flight.GliderFlightDuration) | date:'HH:mm'"
                             data-title="'GLIDER_FLIGHT_DURATION' | translate"
-                            sortable="'GliderFlightDuration'"
                             class="flight--glider-cell flight--time hidden-xs"
                             header-class="'flight--time hidden-xs'"
                         ></td>
@@ -92,7 +91,6 @@
                         ></td>
                         <td ng-bind="flight.TowFlightDuration && ('0001-01-01T' + flight.TowFlightDuration) | date:'HH:mm'"
                             data-title="'TOW_DURATION' | translate"
-                            sortable="'TowFlightDuration'"
                             class="flight--motor-cell flight--time hidden-xs hidden-sm"
                             header-class="'flight--time hidden-xs hidden-sm'"
                         ></td>
