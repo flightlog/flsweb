@@ -47,7 +47,7 @@
             sortable="'Remarks'"></td>
         <td class="hidden-print controls-column hidden-xs"
             header-class="'hidden-print hidden-xs'">
-            <a ng-show="isReservationAdmin"
+            <a ng-show="reservation.CanDeleteRecord"
                title="{{'DELETE' | translate}}"
                ng-click="deleteReservation(reservation, $event); $event.stopPropagation();"
                class="col-xs-4 delete-link">
