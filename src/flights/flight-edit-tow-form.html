@@ -27,13 +27,13 @@
                        ng-model="flightDetails.TowFlightDetailsData.AircraftId">
             </selectize>
 
-            <span class="input-group-btn">
+            <div class="input-group-btn">
                 <button type="button"
                         class="btn btn-default"
                         ng-click="copyTowingFromLast()"
                         title="{{'COPY_FROM_LAST_FLIGHT' | translate}}"
                         ng-disabled="!flightDetails.CanUpdateRecord"><span class="fa fa-history"></span></button>
-            </span>
+            </div>
         </div>
     </div>
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -53,14 +53,14 @@
                        ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId">
             </selectize>
 
-            <span class="input-group-btn">
+            <div class="input-group-btn">
                 <button type="button"
                         class="btn btn-default"
                         ng-click="newTowingPilot()"
                         translate="NEW"
                         ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
                         ng-show="flightDetails.CanUpdateRecord"></button>
-            </span>
+            </div>
         </div>
     </div>
     <div class="form-group col-md-12 col-sm-12 col-xs-12">

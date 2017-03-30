@@ -55,13 +55,13 @@
                             }"
                        ng-model="flightDetails.GliderFlightDetailsData.PilotPersonId"></selectize>
 
-            <span class="input-group-btn">
+            <div class="input-group-btn">
                     <button type="button"
                             class="btn btn-default"
                             ng-click="newGliderPilot()"
                             translate="NEW"
                             ng-show="flightDetails.CanUpdateRecord"></button>
-                </span>
+                </div>
         </div>
     </div>
     <div class="row col-xs-12">
@@ -138,13 +138,13 @@
                                 render: renderPerson
                             }"
                        ng-model="flightDetails.GliderFlightDetailsData.PassengerPersonId"></selectize>
-            <span class="input-group-btn">
+            <div class="input-group-btn">
                     <button type="button"
                             class="btn btn-default"
                             ng-click="newPassenger()"
                             translate="NEW"
                             ng-show="flightDetails.CanUpdateRecord"></button>
-                </span>
+                </div>
         </div>
     </div>
     <div class="form-group col-md-12 col-sm-12 col-xs-12"
@@ -350,18 +350,18 @@
                    ng-disabled="!flightDetails.CanUpdateRecord"
                    ng-model="flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds"
                    ng-blur="engineSecondsCountersChanged();">
-            <span class="input-group-btn">
+            <div class="input-group-btn">
                 <button ng-show="flightDetails.CanUpdateRecord"
                         ng-disabled="!times.lastOperatingCounterFormatted"
                         class="btn btn-default"
                         type="button"
                         ng-click="copyLastCounterToStartOperatingCounter()"><span class="fa fa-history"></span></button>
-              </span>
-        </div>
-        <span ng-show="times.lastOperatingCounterFormatted"
-              style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
-                translate="LAST_ENGINE_TIME"></span>:
-                            <span ng-bind="times.lastOperatingCounterFormatted"></span>)</span>
+              </div>
+            </div>
+            <span ng-show="times.lastOperatingCounterFormatted"
+                  style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
+                    translate="LAST_ENGINE_TIME"></span>:
+                                <span ng-bind="times.lastOperatingCounterFormatted"></span>)</span>
     </div>
     <div class="form-group col-md-6 col-sm-6 col-xs-12"
          ng-if="selectedGliderAircraft.HasEngine">
@@ -431,12 +431,12 @@
                             }"
                        ng-model="flightDetails.GliderFlightDetailsData.InvoiceRecipientPersonId"
                        ng-required="PersonForInvoiceRequired"></selectize>
-            <span class="input-group-btn">
+            <div class="input-group-btn">
                 <button type="button"
                         class="btn btn-default"
                         ng-click="newPassenger()"
                         translate="NEW"></button>
-            </span>
+            </div>
         </div>
     </div>
     <div class="form-group col-md-12 col-sm-12 col-xs-12"
