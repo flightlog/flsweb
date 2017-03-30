@@ -80,7 +80,9 @@ export default class FlightsController {
                     let pageStart = (params.page() - 1) * pageSize;
                     tableSettingsCache.update($scope.tableParams.filter(), $scope.tableParams.sorting());
 
-                    let filterWithStates = FlightStateMapper.mapFlightState($scope.tableParams.filter());
+                    let filterWithStates = Object.assign({}, FlightStateMapper.mapFlightState($scope.tableParams.filter()));
+                    delete filterWithStates._flightState;
+                    
                     let sortingWithStates = FlightStateMapper.flightStateSorting($scope.tableParams.sorting());
 
                     return PagedFlights.getGliderFlights(filterWithStates, sortingWithStates, pageStart, pageSize)
