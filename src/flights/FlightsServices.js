@@ -161,4 +161,17 @@ export class FlightStateMapper {
         };
     }
 
+    static flightStateSorting(sorting) {
+        if (sorting["_flightState"]) {
+            let newSorting = Object.assign({}, sorting, {_flightState: undefined});
+            newSorting.AirState = "asc";
+            newSorting.ValidationState = "asc";
+            newSorting.ProcessingState = "asc";
+
+            return newSorting;
+        }
+
+        return sorting;
+    }
+
 }
