@@ -143,17 +143,20 @@ export default class FlightsController {
             }, 0);
         };
 
+        $scope.copyTowingFromLast = () => {
+            let flightDetails = $scope.flightDetails;
+            flightDetails.TowFlightDetailsData.AircraftId = flightDetails.TowFlightDetailsData.AircraftId || localStorageService.get("lastTowAircraftId");
+            if (flightDetails.TowFlightDetailsData.AircraftId) {
+                flightDetails.TowFlightDetailsData.PilotPersonId = localStorageService.get("towPilotByAircraftId")[flightDetails.TowFlightDetailsData.AircraftId] || flightDetails.TowFlightDetailsData.PilotPersonId;
+            }
+        };
+
         function resetTowFlightDefaults() {
             let flightDetails = $scope.flightDetails;
             flightDetails.TowFlightDetailsData.StartLocationId = flightDetails.TowFlightDetailsData.StartLocationId || $scope.myClub.HomebaseId;
             flightDetails.TowFlightDetailsData.LdgLocationId = flightDetails.TowFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
             flightDetails.TowFlightDetailsData.FlightTypeId = flightDetails.TowFlightDetailsData.FlightTypeId || $scope.myClub.DefaultTowFlightTypeId;
             flightDetails.TowFlightDetailsData.NrOfLdgs = 1;
-
-            flightDetails.TowFlightDetailsData.AircraftId = flightDetails.TowFlightDetailsData.AircraftId || localStorageService.get("lastTowAircraftId");
-            if (flightDetails.TowFlightDetailsData.AircraftId) {
-                flightDetails.TowFlightDetailsData.PilotPersonId = localStorageService.get("towPilotByAircraftId")[flightDetails.TowFlightDetailsData.AircraftId] || flightDetails.TowFlightDetailsData.PilotPersonId;
-            }
         }
 
         $scope.towingAircraftSelectionChanged = () => {
@@ -198,14 +201,12 @@ export default class FlightsController {
                     flightDetails.GliderFlightDetailsData.FlightTypeId = flightDetails.GliderFlightDetailsData.FlightTypeId || $scope.myClub.DefaultGliderFlightTypeId;
                     flightDetails.GliderFlightDetailsData.StartLocationId = localStorageService.get("lastStartLocation");
                     flightDetails.GliderFlightDetailsData.LdgLocationId = localStorageService.get("lastStartLocation");
-                    flightDetails.GliderFlightDetailsData.OutboundRoute = localStorageService.get("lastGliderOutbound");
-                    flightDetails.GliderFlightDetailsData.InboundRoute = localStorageService.get("lastGliderInbound");
+                    // flightDetails.GliderFlightDetailsData.OutboundRoute = localStorageService.get("lastGliderOutbound");
+                    // flightDetails.GliderFlightDetailsData.InboundRoute = localStorageService.get("lastGliderInbound");
                     flightDetails.GliderFlightDetailsData.NrOfLdgs = 1;
 
-                    flightDetails.TowFlightDetailsData.AircraftId = localStorageService.get("lastTowAircraftId");
-                    flightDetails.TowFlightDetailsData.PilotPersonId = localStorageService.get("towPilotByAircraftId")[flightDetails.TowFlightDetailsData.AircraftId];
-                    flightDetails.TowFlightDetailsData.OutboundRoute = localStorageService.get("lastTowOutbound");
-                    flightDetails.TowFlightDetailsData.InboundRoute = localStorageService.get("lastTowInbound");
+                    // flightDetails.TowFlightDetailsData.OutboundRoute = localStorageService.get("lastTowOutbound");
+                    // flightDetails.TowFlightDetailsData.InboundRoute = localStorageService.get("lastTowInbound");
                     flightDetails.TowFlightDetailsData.StartLocationId = localStorageService.get("lastStartLocation");
                     flightDetails.TowFlightDetailsData.LdgLocationId = localStorageService.get("lastStartLocation");
 

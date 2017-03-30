@@ -11,20 +11,30 @@
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <label><span translate="TOWING_PLANE">Aircraft</span>:</label>
 
-        <selectize name="TowAircraftId"
-                   options="towerAircrafts"
-                   config="{
-                                inputClass: 'form-control selectize-input',
-                                maxItems: 1,
-                                valueField: 'AircraftId',
-                                labelField: 'Immatriculation',
-                                searchField: ['Immatriculation', 'CompetitionSign', 'AircraftModel'],
-                                render: renderAircraft,
-                                onChange: towingAircraftSelectionChanged
-                            }"
-                   ng-disabled="!flightDetails.CanUpdateRecord"
-                   ng-model="flightDetails.TowFlightDetailsData.AircraftId">
-        </selectize>
+        <div class="input-group col-md-12 col-sm-12 col-xs-12">
+            <selectize name="TowAircraftId"
+                       options="towerAircrafts"
+                       config="{
+                                    inputClass: 'form-control selectize-input',
+                                    maxItems: 1,
+                                    valueField: 'AircraftId',
+                                    labelField: 'Immatriculation',
+                                    searchField: ['Immatriculation', 'CompetitionSign', 'AircraftModel'],
+                                    render: renderAircraft,
+                                    onChange: towingAircraftSelectionChanged
+                                }"
+                       ng-disabled="!flightDetails.CanUpdateRecord"
+                       ng-model="flightDetails.TowFlightDetailsData.AircraftId">
+            </selectize>
+
+            <span class="input-group-btn">
+                <button type="button"
+                        class="btn btn-default"
+                        ng-click="copyTowingFromLast()"
+                        title="{{'COPY_FROM_LAST_FLIGHT' | translate}}"
+                        ng-disabled="!flightDetails.CanUpdateRecord"><span class="fa fa-history"></span></button>
+            </span>
+        </div>
     </div>
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <label><span translate="TOWING_PILOT"></span>:</label>
