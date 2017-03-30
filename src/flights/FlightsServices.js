@@ -167,7 +167,7 @@ export class FlightStateMapper {
             let newSorting = Object.assign({}, sorting, {_flightState: undefined});
             newSorting.AirState = direction;
             newSorting.ValidationState = direction;
-            newSorting.ProcessingState = direction;
+            newSorting.ProcessState = direction;
 
             return newSorting;
         }
