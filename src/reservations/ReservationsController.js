@@ -14,7 +14,7 @@ export default class ReservationsController {
                 }
             },
             sorting: {
-                Start: 'desc'
+                Start: 'asc'
             },
             count: 100
         });
