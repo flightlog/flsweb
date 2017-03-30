@@ -293,7 +293,6 @@ input.ng-invalid {
 }
 
 .fls-table-with-details tr {
-    cursor: pointer;
     min-height: 40px;
 }
 
