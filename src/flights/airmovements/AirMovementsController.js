@@ -38,12 +38,12 @@ export default class AirMovementsController {
         $scope.filterDates.fromDate = today;
         $scope.filterDates.toDate = today;
 
-        function calcDuration(from, to) {
+        function calcDuration(from, to, useEngineCounterUnit) {
             let toMoment = moment(to, format);
             let fromMoment = moment(from, format);
             if (toMoment.isValid() && fromMoment.isValid()) {
                 let duration = moment.duration(toMoment.diff(fromMoment));
-                if ($scope.operatingCounters && $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName == "Min") {
+                if (!useEngineCounterUnit || ($scope.operatingCounters && $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName == "Min")) {
                     return moment.utc(duration.asMilliseconds()).format(format);
                 } else {
                     return Math.round(duration.asMilliseconds() / 36000.0) / 100;
@@ -52,18 +52,10 @@ export default class AirMovementsController {
         }
 
         function addDuration(from, duration) {
-            let durationMoment;
-            if ($scope.operatingCounters && $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName === "Min") {
-                durationMoment = moment(duration, format);
-            } else {
-                if (isNaN(duration)) {
-                    return from.format(format);
-                }
-                durationMoment = moment.utc(parseFloat(duration) * 3600 * 1000);
-            }
+            let durationMoment = moment.utc(duration, format);
             let fromMoment = moment(from, format);
             if (durationMoment.isValid() && fromMoment.isValid()) {
-                return fromMoment.add(durationMoment).format(format);
+                return fromMoment.add(durationMoment.valueOf(), "milliseconds").format(format);
             }
         }
 
@@ -186,7 +178,7 @@ export default class AirMovementsController {
                                         $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName
                                     );
                                     $scope.times.motorDuration = calcDuration($scope.times.motorStart, $scope.times.motorLanding);
-                                    $scope.times.blockDuration = calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd);
+                                    $scope.times.blockDuration = calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd, true);
 
                                     $scope.engineSecondsCountersChanged();
                                 }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
@@ -204,7 +196,7 @@ export default class AirMovementsController {
                 flightDetails.MotorFlightDetailsData.LdgLocationId = flightDetails.MotorFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
                 flightDetails.MotorFlightDetailsData.FlightTypeId = flightDetails.MotorFlightDetailsData.FlightTypeId || $scope.myClub.DefaultMotorFlightTypeId;
                 flightDetails.StartType = flightDetails.StartType || $scope.myClub.DefaultStartType || 5;
-                
+
                 $scope.recalcRouteRequirements();
             });
             flightDetails.CanUpdateRecord = true;
@@ -443,9 +435,7 @@ export default class AirMovementsController {
 
         $scope.formatMotorDuration = () => {
             let times = $scope.times;
-            if ($scope.times.engineCounterFormat === "Min") {
-                times.motorDuration = TimeService.formatTime(times.motorDuration);
-            }
+            times.motorDuration = TimeService.formatTime(times.motorDuration);
             times.motorLanding = addDuration(times.motorStart, times.motorDuration);
         };
 
@@ -464,37 +454,37 @@ export default class AirMovementsController {
         $scope.setBlockTimeStart = () => {
             let times = $scope.times;
             times.blockTimeStart = times.motorStart;
-            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
+            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd, true);
         };
 
         $scope.suggestBlockTimeStart = () => {
             let times = $scope.times;
             times.blockTimeStart = moment(times.motorStart, format).subtract(5, "minutes").format(format);
-            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
+            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd, true);
         };
 
         $scope.setBlockTimeEnd = () => {
             let times = $scope.times;
             times.blockTimeEnd = times.motorLanding;
-            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
+            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd, true);
         };
 
         $scope.suggestBlockTimeEnd = () => {
             let times = $scope.times;
             times.blockTimeEnd = moment(times.motorLanding, format).add(5, "minutes").format(format);
-            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
+            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd, true);
         };
 
         $scope.formatBlockTimeStart = () => {
             let times = $scope.times;
             times.blockTimeStart = TimeService.formatTime(times.blockTimeStart);
-            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
+            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd, true);
         };
 
         $scope.formatBlockTimeEnd = () => {
             let times = $scope.times;
             times.blockTimeEnd = TimeService.formatTime(times.blockTimeEnd);
-            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
+            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd, true);
         };
 
         $scope.engineSecondsCountersChanged = () => {
