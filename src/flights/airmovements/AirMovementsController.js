@@ -1,6 +1,7 @@
 import moment from "moment";
 import * as _ from "lodash";
 import AddPersonController from "../../masterdata/persons/modal/AddPersonController";
+import {FlightStateMapper} from "../FlightsServices";
 
 export default class AirMovementsController {
 
@@ -115,7 +116,12 @@ export default class AirMovementsController {
                         let pageStart = (params.page() - 1) * pageSize;
                         tableSettingsCache.update($scope.tableParams.filter(), $scope.tableParams.sorting());
 
-                        return PagedFlights.getMotorFlights($scope.tableParams.filter(), $scope.tableParams.sorting(), pageStart, pageSize)
+                        let filterWithStates = Object.assign({}, FlightStateMapper.mapFlightState($scope.tableParams.filter()));
+                        delete filterWithStates._flightState;
+
+                        let sortingWithStates = FlightStateMapper.flightStateSorting($scope.tableParams.sorting());
+
+                        return PagedFlights.getMotorFlights(filterWithStates, sortingWithStates, pageStart, pageSize)
                             .then((result) => {
                                 $scope.busy = false;
                                 params.total(result.TotalRows);

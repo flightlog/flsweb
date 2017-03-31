@@ -20,7 +20,9 @@
                       'fls-flight-row-warning': flight.ValidationState == 28 || flight.ProcessState > 0
                     }"
                     title="{{'EDIT' | translate}}">
-                    <td data-title="'STATUS' | translate">
+                    <td data-title="'STATUS' | translate"
+                        filter="{_flightState: 'air-movement-state'}"
+                        sortable="'_flightState'">
                         <fls-flight-status flight="flight" mode="'MOTOR'"></fls-flight-status>
                     </td>
                     <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'"

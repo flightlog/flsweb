@@ -4,6 +4,7 @@ import * as AirMovementsServices from './AirMovementsServices';
 import AirMovementsController from './AirMovementsController';
 import personsModule from '../../masterdata/persons/PersonsModule';
 import AirMovementStatusDirective from './AirMovementStatusDirective';
+import {AirMovementStateFilterDropdownDirective} from './AirMovementStateFilterDropdownDirective';
 import AirMovementEditFormDirective from './AirMovementEditFormDirective';
 import {userAuth} from '../../core/AuthService';
 import uiBootstrap from 'angular-ui-bootstrap';
@@ -22,6 +23,7 @@ export default angular.module('fls.airMovements.airmovements', [
     .controller('AirMovementsController', AirMovementsController)
     .directive('flsAirMovementEditForm', AirMovementEditFormDirective.factory)
     .directive('flsAirMovementStatus', AirMovementStatusDirective.factory)
+    .directive('flsAirMovementStatusFilter', AirMovementStateFilterDropdownDirective.factory)
     .service('AirMovements', AirMovementsServices.AirMovements)
     .service('AirMovementsDateRange', AirMovementsServices.AirMovementsDateRange)
     .service('AircraftOperatingCounters', AirMovementsServices.AircraftOperatingCounters)
@@ -57,4 +59,14 @@ export default angular.module('fls.airMovements.airmovements', [
                         titleKey: () => "MOTOR_MOVEMENTS"
                     }
                 });
+    })
+    .config((ngTableFilterConfigProvider) => {
+        ngTableFilterConfigProvider.setConfig({
+            aliasUrls: {
+                "air-movement-state": "./tableFilters/air-movement-state-filter.html"
+            }
+        });
+    })
+    .run(($templateCache) => {
+        $templateCache.put("./tableFilters/air-movement-state-filter.html", require("./tableFilters/air-movement-state-filter.html"));
     });
