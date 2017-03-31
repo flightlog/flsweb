@@ -184,7 +184,7 @@ export default class AirMovementsController {
                                         $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName
                                     );
                                     $scope.times.motorDuration = calcDuration($scope.times.motorStart, $scope.times.motorLanding);
-                                    $scope.times.blockDuration = calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd, true);
+                                    $scope.times.blockDuration = calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd);
 
                                     $scope.engineSecondsCountersChanged();
                                 }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
@@ -460,37 +460,37 @@ export default class AirMovementsController {
         $scope.setBlockTimeStart = () => {
             let times = $scope.times;
             times.blockTimeStart = times.motorStart;
-            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd, true);
+            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
         };
 
         $scope.suggestBlockTimeStart = () => {
             let times = $scope.times;
             times.blockTimeStart = moment(times.motorStart, format).subtract(5, "minutes").format(format);
-            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd, true);
+            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
         };
 
         $scope.setBlockTimeEnd = () => {
             let times = $scope.times;
             times.blockTimeEnd = times.motorLanding;
-            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd, true);
+            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
         };
 
         $scope.suggestBlockTimeEnd = () => {
             let times = $scope.times;
             times.blockTimeEnd = moment(times.motorLanding, format).add(5, "minutes").format(format);
-            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd, true);
+            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
         };
 
         $scope.formatBlockTimeStart = () => {
             let times = $scope.times;
             times.blockTimeStart = TimeService.formatTime(times.blockTimeStart);
-            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd, true);
+            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
         };
 
         $scope.formatBlockTimeEnd = () => {
             let times = $scope.times;
             times.blockTimeEnd = TimeService.formatTime(times.blockTimeEnd);
-            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd, true);
+            times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
         };
 
         $scope.engineSecondsCountersChanged = () => {
