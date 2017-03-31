@@ -111,10 +111,10 @@ export class FlightStateMapper {
             const NEW = 0;
             const STARTED = 10;
             const LANDED = 20;
-            const NOT_VALIDATED = 0;
+
+            const NOT_PROCESSED = 0;
             const INVALID = 28;
             const VALID = 30;
-            const NOT_PROCESSED = 0;
             const LOCKED = 40;
             const DELIVERED = 50;
 
