@@ -22,8 +22,12 @@ class NavigationBarController {
         });
 
         $rootScope.$on('$routeChangeError',
-            function (/*event, current, previous, rejection*/) {
+            function () {
                 $location.path('/main');
+            });
+        $rootScope.$on('$routeChangeSuccess',
+            function () {
+                extractUsername();
             });
 
         $scope.getEnabledFeatures = AuthService.getEnabledFeatures;
