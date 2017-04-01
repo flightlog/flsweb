@@ -38,9 +38,8 @@
                 Login
             </button>
         </div>
-        <div class="col-md-12"
-             ng-show="loginError"
-             style="text-align:left;margin-top:20px;">
+        <div ng-show="loginError"
+             style="text-align:left;margin-top:50px;">
             <pre ng-bind="loginError | json"
                  ng-show="debug"></pre>
             <div class="alert alert-danger"
