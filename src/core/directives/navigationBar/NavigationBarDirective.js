@@ -31,7 +31,7 @@ class NavigationBarController {
         $scope.user = {};
 
         function extractUsername() {
-            var user = AuthService.getUser();
+            let user = AuthService.getUser();
             $scope.user = {
                 username: user && user.UserName
             };
@@ -43,23 +43,6 @@ class NavigationBarController {
 
         $scope.isPath = function (path) {
             return $location.path().indexOf(path) !== -1;
-        };
-
-        $scope.login = function () {
-            $scope.loginBusy = true;
-            $scope.loginError = undefined;
-            AuthService.login($scope.user.username, $scope.user.password)
-                .then(() => {
-                    $location.path('/dashboard');
-                })
-                .catch((reason) => {
-                    console.log(JSON.stringify(reason));
-                    $scope.loginError = reason.data;
-                    $scope.user = {};
-                })
-                .finally(() => {
-                    $scope.loginBusy = false;
-                });
         };
 
         $scope.logout = function () {
@@ -75,16 +58,8 @@ class NavigationBarController {
         $scope.showLoginForm = function () {
             AuthService.promptLogin();
         };
-
-        $scope.hideLoginForm = function () {
-            AuthService.hideLogin();
-        };
         $scope.isLoginFormVisible = function () {
             return AuthService.isLoginFormVisible();
-        };
-        $scope.lostPassword = () => {
-            $scope.hideLoginForm();
-            $location.path('/lostpassword');
         };
 
     }

@@ -15,6 +15,7 @@ import MessageBarDirective from "./directives/messageBar/MessageBarDirective";
 import SearchBarDirective from "./directives/searchBar/SearchBarDirective";
 import SimpleSearchBarDirective from "./directives/simpleSearchBar/SimpleSearchBarDirective";
 import NavigationBarDirective from "./directives/navigationBar/NavigationBarDirective";
+import LoginFormDirective from "./directives/loginForm/LoginFormDirective";
 import DataTableDirective from "./directives/dataTable/DataTableDirective";
 import CheckBoxDirective from "./directives/checkBox/CheckBoxDirective";
 import LabelledCheckBoxDirective from "./directives/checkBox/LabelledCheckBoxDirective";
@@ -52,6 +53,7 @@ export default angular.module("fls.core", [
     .directive('flsSimpleSearchBar', SimpleSearchBarDirective.factory)
     .directive('flsMessageBar', MessageBarDirective.factory)
     .directive('flsNavigationBar', NavigationBarDirective.factory)
+    .directive('flsLoginForm', LoginFormDirective.factory)
     .directive('flsDataTable', DataTableDirective.factory)
     .directive('flsBusyIndicator', BusyIndicatorDirective.factory)
     .directive('flsCheckbox', CheckBoxDirective.factory)

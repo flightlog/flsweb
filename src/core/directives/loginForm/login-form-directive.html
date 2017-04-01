@@ -1,0 +1,50 @@
+<form ng-submit="login()"
+      style="text-align:left;">
+    <fls-busy-indicator busy="loginBusy"
+                        class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="form-group"
+             ng-show="!loginBusy">
+            <label for="username"
+                   translate="USERNAME"></label>
+            <input type="text"
+                   id="username"
+                   name="username"
+                   ng-model="user.username"
+                   class="form-control">
+        </div>
+        <div class="form-group"
+             ng-show="!loginBusy">
+            <label for="password"
+                   translate="PASSWORD"></label>
+            <input type="password"
+                   id="password"
+                   name="password"
+                   ng-model="user.password"
+                   class="form-control">
+        </div>
+        <div>
+            <a href
+               ng-click="lostPassword()"
+               translate="LOST_PASSWORD"></a>
+        </div>
+        <div class="form-group"
+             ng-show="!loginBusy">
+            <a class="btn btn-default pull-right"
+               ng-if="showCancelButton"
+               ng-click="hideLoginForm()"
+               style="margin-left:10px;">Cancel</a>
+            <button class="btn btn-default pull-right"
+                    type="submit">
+                Login
+            </button>
+        </div>
+        <div class="col-md-12"
+             ng-show="loginError"
+             style="text-align:left;margin-top:20px;">
+            <pre ng-bind="loginError | json"
+                 ng-show="debug"></pre>
+            <div class="alert alert-danger"
+                 ng-bind="loginError.error_description || loginError.Message"></div>
+        </div>
+    </fls-busy-indicator>
+</form>
