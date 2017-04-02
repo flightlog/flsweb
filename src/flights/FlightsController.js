@@ -395,10 +395,11 @@ export default class FlightsController {
             if (window.confirm('Do you really want to delete this flight?')) {
                 Flights.deleteFlight({id: flight.FlightId}).$promise
                     .then(() => {
-                        if ($scope.selectedFlight === flight) {
+                        if ($scope.flightDetails === flight) {
                             $scope.cancel();
+                        } else if($scope.tableParams) {
+                            $scope.tableParams.reload();
                         }
-                        $scope.tableParams.reload();
                     })
                     .catch(_.partial(MessageManager.raiseError, 'delete', 'flight'));
             }

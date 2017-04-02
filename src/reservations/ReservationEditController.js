@@ -1,9 +1,9 @@
 import moment from "moment";
 
 export default class ReservationEditController {
-    constructor($scope, GLOBALS, $q, $timeout, $routeParams, $location,
+    constructor($scope, GLOBALS, $q, $routeParams, $location,
                 AuthService, Reservations, ReservationTypes,
-                ReservationUpdater, ReservationInserter, Locations, Persons,
+                ReservationUpdater, ReservationInserter, Locations, Persons, ReservationService,
                 AircraftsOverviews, ReservationValidator, NavigationCache, MessageManager, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
@@ -122,13 +122,20 @@ export default class ReservationEditController {
         $scope.calculateInstructorRequired = () => {
             setTimeout(() => {
                 $scope.instructorRequired = ReservationValidator.calculateInstructorRequired($scope.md.reservationTypes, $scope.reservation);
-                
+
                 $scope.$apply();
             }, 0);
         };
 
         $scope.edit = function (reservation) {
             $location.path('/reservations/' + reservation.AircraftReservationId + '/edit');
+        };
+
+        $scope.delete = (reservation) => {
+            let deletedPromise = ReservationService.delete(reservation, $scope);
+            if (deletedPromise) {
+                deletedPromise.then($scope.cancel);
+            }
         };
     }
 }

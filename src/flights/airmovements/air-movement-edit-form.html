@@ -384,19 +384,13 @@
                             Save
                         </button>
                         <button type="button"
-                                ng-click="delete(selectedFlight)"
-                                ng-show="selectedFlight.FlightId"
+                                ng-click="delete(flightDetails)"
+                                ng-show="flightDetails.FlightId"
                                 class="btn btn-danger pull-right"
                                 style="margin-right:10px;"
                                 ng-disabled="!flightDetails.CanDeleteRecord">
                             Delete
                         </button>
-
-                        <div ng-show="loadingMasterdata"
-                             style="margin-right:10px;margin-top:0.5em;"
-                             class="pull-right">
-                            loading...
-                        </div>
                     </div>
                 </div>
             </div>

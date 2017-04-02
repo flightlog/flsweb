@@ -4,7 +4,7 @@ export default class PlanningDayEditController {
     constructor($scope, GLOBALS, $q, $routeParams, $location, PlanningDayReader,
                 PlanningDaysUpdater, Locations, Persons,
                 ReservationsByPlanningDay, ReservationService, NavigationCache,
-                MessageManager, DropdownItemsRenderService) {
+                MessageManager, DropdownItemsRenderService, PlanningDaysDeleter) {
 
         $scope.debug = GLOBALS.DEBUG;
         NavigationCache.setCancellingLocationHere();
@@ -36,7 +36,7 @@ export default class PlanningDayEditController {
         }
 
         function loadPlanningDay() {
-            var deferred = $q.defer();
+            let deferred = $q.defer();
             if ($routeParams.id === 'new') {
                 deferred.resolve({
                     CanUpdateRecord: true
@@ -62,7 +62,7 @@ export default class PlanningDayEditController {
         function mapReservations(result) {
             $scope.reservations = result;
             // TODO clarify if we can get the server to send the timezone so we dont have to hardcode this to UTC
-            for (var i = 0; i < result.length; i++) {
+            for (let i = 0; i < result.length; i++) {
                 $scope.reservations[i].Start = moment.utc(result[i].Start).toDate();
                 $scope.reservations[i].End = moment.utc(result[i].End).toDate();
             }
@@ -87,10 +87,10 @@ export default class PlanningDayEditController {
         $scope.save = function (planningDay) {
             $scope.busy = true;
             // 'undo' the timezone offset from ui-datepicker again (so we end up on the original date again)
-            var dt = new Date(planningDay.Day);
+            let dt = new Date(planningDay.Day);
             dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
             planningDay.Day = dt;
-            var d = new PlanningDaysUpdater(planningDay);
+            let d = new PlanningDaysUpdater(planningDay);
             if (planningDay.PlanningDayId) {
                 d.$saveDay({id: planningDay.PlanningDayId})
                     .then($scope.cancel)
@@ -99,6 +99,16 @@ export default class PlanningDayEditController {
                 d.$save()
                     .then($scope.cancel)
                     .catch(_.partial(MessageManager.raiseError, 'insert', 'planned day'));
+            }
+        };
+
+        $scope.delete = (planningDay) => {
+            if (window.confirm('Do you really want to delete this planningday?')) {
+                PlanningDaysDeleter.deleteDay({id: planningDay.PlanningDayId}).$promise
+                    .then(() => {
+                        $scope.cancel();
+                    })
+                    .catch(_.partial(MessageManager.raiseError, 'delete', 'planned day'));
             }
         };
 

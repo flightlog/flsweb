@@ -167,6 +167,13 @@
                         ng-show="editAllowed && !reservation.CanUpdateRecord"
                         style="margin-right:10px;"><span class="fa fa-pencil"></span> Edit
                 </button>
+                <button type="button"
+                        ng-click="delete(reservation)"
+                        ng-show="reservation.AircraftReservationId"
+                        class="btn btn-danger pull-right"
+                        ng-disabled="!reservation.CanDeleteRecord"
+                        style="margin-right:10px;"> Delete
+                </button>
             </div>
         </form>
     </fls-busy-indicator>

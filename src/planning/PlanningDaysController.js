@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from "moment";
 
 export default class PlanningDaysController {
     constructor(GLOBALS, $scope, $location, PagedPlanningDays, NgTableParams, PlanningDaysDeleter, MessageManager, TableSettingsCacheFactory) {
@@ -59,7 +59,9 @@ export default class PlanningDaysController {
             if (window.confirm('Do you really want to delete this planningday?')) {
                 PlanningDaysDeleter.deleteDay({id: planningDay.PlanningDayId}).$promise
                     .then(() => {
-                        $scope.tableParams.reload();
+                        if ($scope.tableParams) {
+                            $scope.tableParams.reload();
+                        }
                     })
                     .catch(_.partial(MessageManager.raiseError, 'delete', 'planned day'));
             }

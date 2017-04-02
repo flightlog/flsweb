@@ -139,6 +139,14 @@
                     <span class="fa fa-pencil"></span>
                     Edit
                 </button>
+                <button type="button"
+                        ng-click="delete(planningDay)"
+                        ng-show="planningDay.PlanningDayId"
+                        class="btn btn-danger pull-right"
+                        style="margin-right:10px;"
+                        ng-disabled="!planningDay.CanDeleteRecord">
+                    Delete
+                </button>
             </div>
         </form>
         <div class="col-xs-12">
