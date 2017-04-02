@@ -303,7 +303,7 @@
                                id="times.blockDuration"
                                ng-disabled="!flightDetails.CanUpdateRecord"
                                ng-model="times.blockDuration"
-                               readonly>
+                               ng-blur="formatBlockDuration();">
                     </div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">

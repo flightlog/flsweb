@@ -2,6 +2,7 @@ import moment from "moment";
 import * as _ from "lodash";
 import AddPersonController from "../../masterdata/persons/modal/AddPersonController";
 import {FlightStateMapper} from "../FlightsServices";
+import {TimerSet} from "../../core/TimerSet";
 
 export default class AirMovementsController {
 
@@ -331,7 +332,7 @@ export default class AirMovementsController {
                     .then(() => {
                         if ($scope.flightDetails === flight) {
                             $scope.cancel();
-                        } else if($scope.tableParams) {
+                        } else if ($scope.tableParams) {
                             $scope.tableParams.reload();
                         }
                     })
@@ -492,6 +493,12 @@ export default class AirMovementsController {
             let times = $scope.times;
             times.blockTimeEnd = TimeService.formatTime(times.blockTimeEnd);
             times.blockDuration = calcDuration(times.blockTimeStart, times.blockTimeEnd);
+        };
+
+        $scope.formatBlockDuration = () => {
+            let times = $scope.times;
+            times.blockDuration = TimeService.formatTime(times.blockDuration);
+            times.blockTimeEnd = addDuration(times.blockTimeStart, times.blockDuration);
         };
 
         $scope.engineSecondsCountersChanged = () => {
