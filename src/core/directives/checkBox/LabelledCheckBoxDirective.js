@@ -5,6 +5,7 @@ export default class LabelledCheckBoxDirective {
             template: require('./labelled-check-box-directive.html'),
             scope: {
                 entity: '=',
+                ngDisabled: '=',
                 attribute: '@',
                 translationKey: '@'
             }
