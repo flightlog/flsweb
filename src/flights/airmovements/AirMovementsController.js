@@ -26,19 +26,15 @@ export default class AirMovementsController {
         $scope.motorPilots = [];
         $scope.observers = [];
         $scope.instructors = [];
-        $scope.filterDates = {};
+        
         $scope.routeRequirements = {};
+        $scope.timeSets = {};
 
         $scope.renderStarttype = DropdownItemsRenderService.starttypeRenderer();
         $scope.renderFlighttype = DropdownItemsRenderService.flighttypeRenderer();
         $scope.renderPerson = DropdownItemsRenderService.personRenderer();
         $scope.renderAircraft = DropdownItemsRenderService.aircraftRenderer();
         $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
-
-        let today = moment();
-
-        $scope.filterDates.fromDate = today;
-        $scope.filterDates.toDate = today;
 
         function calcDuration(from, to, useEngineCounterUnit) {
             let toMoment = moment(to, format);
@@ -60,32 +56,6 @@ export default class AirMovementsController {
                 return fromMoment.add(durationMoment.valueOf(), "milliseconds").format(format);
             }
         }
-
-        $scope.loadAllTime = () => {
-            $scope.filterDates.fromDate = '';
-            $scope.filterDates.toDate = today;
-            reloadFlights();
-        };
-        $scope.loadMonths = (num) => {
-            $scope.filterDates.fromDate = moment().subtract(num, 'months');
-            $scope.filterDates.toDate = today;
-            reloadFlights();
-        };
-        $scope.loadMonth = (num) => {
-            $scope.filterDates.fromDate = moment().startOf('month').subtract(num, 'months');
-            $scope.filterDates.toDate = moment().startOf('month').subtract(num - 1, 'months');
-            reloadFlights();
-        };
-        $scope.loadToday = () => {
-            $scope.filterDates.fromDate = today;
-            $scope.filterDates.toDate = today;
-            reloadFlights();
-        };
-        $scope.loadYesterday = () => {
-            $scope.filterDates.fromDate = moment().subtract(1, 'days');
-            $scope.filterDates.toDate = $scope.filterDates.fromDate;
-            reloadFlights();
-        };
 
         $scope.reloadList = () => {
             reloadFlights();
@@ -186,6 +156,10 @@ export default class AirMovementsController {
                                     );
                                     $scope.times.motorDuration = calcDuration($scope.times.motorStart, $scope.times.motorLanding);
                                     $scope.times.blockDuration = calcDuration($scope.times.blockTimeStart, $scope.times.blockTimeEnd);
+
+                                    $scope.timeSets.engine = new TimerSet("engine", $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName);
+                                    $scope.timeSets.engine.setStartSeconds($scope.flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds);
+                                    $scope.timeSets.engine.setEndSeconds($scope.flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds);
 
                                     $scope.engineSecondsCountersChanged();
                                 }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
@@ -501,12 +475,18 @@ export default class AirMovementsController {
             times.blockTimeEnd = addDuration(times.blockTimeStart, times.blockDuration);
         };
 
+        $scope.formatEngineCounterDuration = () => {
+            let durationSeconds = $scope.times.engineSecondsCounterDuration;
+            if (!isNaN($scope.flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds)
+                && !isNaN(durationSeconds)) {
+                $scope.flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds = $scope.flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds + durationSeconds;
+            }
+        };
+
         $scope.engineSecondsCountersChanged = () => {
-            $scope.times.engineSecondsCounterDuration = Math.max(
-                0,
-                $scope.flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds
-                - $scope.flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds
-            );
+            $scope.timeSets.engine.setStartSeconds($scope.flightDetails.MotorFlightDetailsData.EngineStartOperatingCounterInSeconds);
+            $scope.timeSets.engine.setEndSeconds($scope.flightDetails.MotorFlightDetailsData.EngineEndOperatingCounterInSeconds);
+            $scope.times.engineSecondsCounterDuration = $scope.timeSets.engine.durationSeconds;
         };
 
         $scope.copyLastCounterToStartOperatingCounter = () => {

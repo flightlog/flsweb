@@ -32,7 +32,11 @@ export class TimerSet {
     }
 
     setStartSeconds(startSeconds) {
-        this.start = moment.utc(startSeconds * 1000);
+        if(startSeconds !== undefined) {
+            this.start = moment.utc(startSeconds * 1000);
+        } else {
+            this.start = undefined;
+        }
         this.calcDuration();
     }
 
@@ -76,7 +80,11 @@ export class TimerSet {
     }
 
     setEndSeconds(endSeconds) {
-        this.end = moment.utc(endSeconds * 1000);
+        if(endSeconds !== undefined) {
+            this.end = moment.utc(endSeconds * 1000);
+        } else {
+            this.end = undefined;
+        }
         this.calcDuration();
     }
 
@@ -86,8 +94,6 @@ export class TimerSet {
         } else {
             this.durationSeconds = this.TimeService.longDurationFormatToSeconds(duration, this.durationFormat);
         }
-        console.log("duration", duration);
-        console.log("this.durationSeconds", this.durationSeconds);
         this.calcEnd();
     }
 
@@ -112,14 +118,12 @@ export class TimerSet {
         } else {
             this.durationSeconds = undefined;
         }
-        console.log("calcDuration", this.toString());
     }
 
     calcEnd() {
         if (this.start !== undefined && this.durationSeconds !== undefined) {
             this.end = moment(this.start).add(this.durationSeconds, "seconds");
         }
-        console.log("calcEnd", this.toString());
     }
 
     toString() {

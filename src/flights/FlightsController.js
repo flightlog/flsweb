@@ -37,7 +37,6 @@ export default class FlightsController {
         $scope.winchOperators = [];
         $scope.instructors = [];
         $scope.flightCostBalanceTypes = [];
-        $scope.filterDates = {};
 
         $scope.renderStarttype = DropdownItemsRenderService.starttypeRenderer();
         $scope.renderFlighttype = DropdownItemsRenderService.flighttypeRenderer();

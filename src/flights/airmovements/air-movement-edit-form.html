@@ -352,7 +352,7 @@
                                id="times.engineSecondsCounterDuration"
                                ng-disabled="!flightDetails.CanUpdateRecord"
                                ng-model="times.engineSecondsCounterDuration"
-                               readonly>
+                               ng-blur="formatEngineCounterDuration();">
                     </div>
                 </div>
                 <div class="col-xs-12">
