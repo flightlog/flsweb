@@ -31,7 +31,7 @@ export default class TimeService {
 
     formatSecondsToLongHoursFormat(totalSeconds, format1) {
         let format = format1 || "Min";
-        if (totalSeconds) {
+        if (totalSeconds !== undefined) {
             let hours = Math.floor(totalSeconds / 3600);
             if (format === "Min") {
                 let minutes = Math.floor((totalSeconds - (hours * 3600)) / 60);
@@ -74,7 +74,7 @@ export default class TimeService {
         if (!time) {
             return;
         }
-        if (time.length === 3) {
+        if ((time.length === 3 && time.indexOf(':') === -1) || (time.length === 4 && time.indexOf(':') > -1)) {
             time = '0' + time;
         }
         if (time.length > 2 && time.indexOf(':') === -1) {
