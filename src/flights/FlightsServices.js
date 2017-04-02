@@ -97,7 +97,18 @@ export class SoloFlightCheckboxEnablementCalculator {
     }
 }
 
+export const NEW = 0;
+export const STARTED = 10;
+export const LANDED = 20;
+
+export const NOT_PROCESSED = 0;
+export const INVALID = 28;
+export const VALID = 30;
+export const LOCKED = 40;
+export const DELIVERED = 50;
+
 export class FlightStateMapper {
+
     static mapFlightState(filter) {
         let filterWithStates = Object.assign({}, filter);
         let flightState = filterWithStates._flightState || Object.assign({}, FlightStateMapper.allFlightStates());
@@ -108,15 +119,6 @@ export class FlightStateMapper {
             filterWithStates.TowFlightAirStates = [];
             filterWithStates.TowFlightProcessStates = [];
 
-            const NEW = 0;
-            const STARTED = 10;
-            const LANDED = 20;
-
-            const NOT_PROCESSED = 0;
-            const INVALID = 28;
-            const VALID = 30;
-            const LOCKED = 40;
-            const DELIVERED = 50;
 
             if (flightState.glider.ready) {
                 filterWithStates.AirStates.push(NEW);
@@ -152,7 +154,7 @@ export class FlightStateMapper {
             if (flightState.tow.landed) {
                 filterWithStates.TowFlightAirStates.push(LANDED);
             }
-			if (flightState.tow.invalid) {
+            if (flightState.tow.invalid) {
                 filterWithStates.TowFlightProcessStates.push(INVALID);
             }
             if (flightState.tow.valid) {
@@ -182,8 +184,8 @@ export class FlightStateMapper {
 
     static allFlightStates() {
         return {
-            glider: {ready: true, inAir: true, landed: true, invalid: true, locked: true, delivered: true},
-            tow: {ready: true, inAir: true, landed: true, invalid: true, locked: true, delivered: true}
+            glider: {ready: true, inAir: true, landed: true, valid: true, invalid: true, locked: true, delivered: true},
+            tow: {ready: true, inAir: true, landed: true, valid: true, invalid: true, locked: true, delivered: true}
         };
     }
 
@@ -198,6 +200,37 @@ export class FlightStateMapper {
         }
 
         return sorting;
+    }
+
+
+    static processedState(processState) {
+        switch (processState) {
+            case NOT_PROCESSED:
+                return;
+            case VALID:
+                return "VALIDATION_OK";
+            case INVALID:
+                return "VALIDATION_FAILED";
+            case LOCKED:
+                return "LOCKED";
+            case DELIVERED:
+                return "DELIVERED";
+            default:
+                return;
+        }
+    }
+
+    static statusOfFlight(airState) {
+        switch (airState) {
+            case NEW:
+                return "WAITING";
+            case STARTED:
+                return "AIRBORN";
+            case LANDED:
+                return "LANDED";
+            default:
+                return;
+        }
     }
 
 }

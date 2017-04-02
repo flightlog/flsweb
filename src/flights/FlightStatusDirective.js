@@ -1,3 +1,5 @@
+import {FlightStateMapper} from "./FlightsServices";
+
 export default class FlightStatusDirective {
     static factory() {
         return {
@@ -9,36 +11,11 @@ export default class FlightStatusDirective {
             controller: ($scope) => {
                 let flight = $scope.flight;
 
-                function processedState(processState) {
-                    if (processState == 28) {
-                        return "VALIDATION_FAILED";
-                    }
-					if (processState == 30) {
-                        return "VALIDATION_OK";
-                    }
-					if (processState == 40) {
-                        return "LOCKED";
-                    }
-                    if (processState == 50) {
-                        return "DELIVERED";
-                    }
-                }
-
-                function statusOfFlight(start, landing) {
-                    if (start && landing) {
-                        return "LANDED";
-                    } else if (start) {
-                        return "AIRBORN";
-                    } else {
-                        return "WAITING";
-                    }
-                }
-
                 $scope.status = {
-                    glider: processedState(flight.ProcessState) || statusOfFlight(flight.StartDateTime, flight.LdgDateTime)
+                    glider: FlightStateMapper.processedState(flight.ProcessState) || FlightStateMapper.statusOfFlight(flight.AirState)
                 };
-                if($scope.mode !== "MOTOR") {
-                    $scope.status.tow = processedState(flight.ProcessState) || flight.TowFlightId && statusOfFlight(flight.StartDateTime, flight.TowFlightLdgDateTime);
+                if ($scope.mode !== "MOTOR") {
+                    $scope.status.tow = FlightStateMapper.processedState(flight.ProcessState) || flight.TowFlightId && FlightStateMapper.statusOfFlight(flight.TowFlightAirState);
                 }
             }
         }

@@ -546,6 +546,7 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
 .flight-state-choice-list .tow-state-icon,
 .flight-state-choice-list .glider-state-icon {
     margin-right: 10px;
+    width: 14px;
 }
 
 .glider-state-icon {

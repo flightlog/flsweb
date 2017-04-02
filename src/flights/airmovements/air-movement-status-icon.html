@@ -1,8 +1,12 @@
 <div>
 <span ng-class="{
                              'fa fa-cloud': status.motor === 'AIRBORN',
+                             'fa fa-check-circle': status.motor === 'VALIDATION_OK',
+                             'lnr lnr-warning': status.motor === 'VALIDATION_FAILED',
+                             'lnr lnr-lock': status.motor === 'LOCKED',
+                             'lnr lnr-link': status.motor === 'DELIVERED',
                              'lnr lnr-checkmark-circle': status.motor === 'LANDED',
-                             'lnr lnr-hand': status.motor === 'WAITING',
+                             'lnr lnr-hand': status.motor === 'WAITING'
                            }" style="color:#a9b0c6;" title="{{'MOTOR_PLANE' | translate}} {{status.motor | translate}}">
 </span>
 </div>
