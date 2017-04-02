@@ -98,8 +98,10 @@ export class SoloFlightCheckboxEnablementCalculator {
 }
 
 export const NEW = 0;
+export const OPENED = 5;
 export const STARTED = 10;
 export const LANDED = 20;
+export const CLOSED = 25;
 
 export const NOT_PROCESSED = 0;
 export const INVALID = 28;
@@ -119,7 +121,8 @@ export class FlightStateMapper {
             filterWithStates.TowFlightAirStates = [];
             filterWithStates.TowFlightProcessStates = [];
 
-
+            filterWithStates.AirStates.push(OPENED);
+            filterWithStates.AirStates.push(CLOSED);
             if (flightState.glider.ready) {
                 filterWithStates.AirStates.push(NEW);
             }
@@ -143,6 +146,9 @@ export class FlightStateMapper {
             if (flightState.glider.delivered) {
                 filterWithStates.ProcessStates.push(DELIVERED);
             }
+
+            filterWithStates.TowFlightAirStates.push(OPENED);
+            filterWithStates.TowFlightAirStates.push(CLOSED);
             if (flightState.tow.ready) {
                 filterWithStates.TowFlightAirStates.push(NEW);
             }
