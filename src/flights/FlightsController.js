@@ -81,7 +81,7 @@ export default class FlightsController {
 
                     let filterWithStates = Object.assign({}, FlightStateMapper.mapFlightState($scope.tableParams.filter()));
                     delete filterWithStates._flightState;
-                    
+
                     let sortingWithStates = FlightStateMapper.flightStateSorting($scope.tableParams.sorting());
 
                     return PagedFlights.getGliderFlights(filterWithStates, sortingWithStates, pageStart, pageSize)
@@ -396,7 +396,7 @@ export default class FlightsController {
                     .then(() => {
                         if ($scope.flightDetails === flight) {
                             $scope.cancel();
-                        } else if($scope.tableParams) {
+                        } else if ($scope.tableParams) {
                             $scope.tableParams.reload();
                         }
                     })
@@ -480,22 +480,43 @@ export default class FlightsController {
             });
         };
 
-        $scope.newPassenger = () => {
-            let modalInstance = $modal.open(createModalConfig({
-                GliderPilot: false,
-                Passenger: true
-            }));
+        function newPerson(dialogConfig, callback) {
+            let modalInstance = $modal.open(createModalConfig(dialogConfig));
 
             modalInstance.result.then(function (passenger) {
                 $log.info(JSON.stringify(passenger));
                 new PassengerPersister(passenger).$save()
-                    .then(function (savedPassenger) {
-                        console.log('successfully saved ' + JSON.stringify(savedPassenger));
-                        $scope.allPersons.push(savedPassenger);
-                        $scope.flightDetails.GliderFlightDetailsData.PassengerPersonId = savedPassenger.PersonId;
-                    })
-                    .catch(_.partial(MessageManager.raiseError, 'save', 'passenger'));
+                    .then(callback)
+                    .catch(_.partial(MessageManager.raiseError, 'save', 'person'));
             });
+        }
+
+        $scope.newPassenger = () => {
+            newPerson(
+                {
+                    GliderPilot: false,
+                    Passenger: true
+                },
+                (savedPassenger) => {
+                    console.log('successfully saved ' + JSON.stringify(savedPassenger));
+                    $scope.allPersons.push(savedPassenger);
+                    $scope.flightDetails.GliderFlightDetailsData.PassengerPersonId = savedPassenger.PersonId;
+                }
+            );
+        };
+
+        $scope.newInvoiceRecipient = () => {
+            newPerson(
+                {
+                    GliderPilot: false,
+                    Passenger: true
+                },
+                (savedPassenger) => {
+                    console.log('successfully saved ' + JSON.stringify(savedPassenger));
+                    $scope.allPersons.push(savedPassenger);
+                    $scope.flightDetails.GliderFlightDetailsData.InvoiceRecipientPersonId = savedPassenger.PersonId;
+                }
+            );
         };
 
         $scope.flightCostBalanceTypeChanged = () => {
