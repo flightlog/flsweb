@@ -446,75 +446,67 @@ export default class FlightsController {
             };
         }
 
-        $scope.newGliderPilot = () => {
-            let modalInstance = $modal.open(createModalConfig({
-                GliderPilot: true
-            }));
-
-            modalInstance.result.then(function (person) {
-                $log.info(JSON.stringify(person));
-                new PersonPersister(person).$save()
-                    .then(function (res) {
-                        console.log('successfully saved ' + JSON.stringify(res));
-                        $scope.gliderPilots.push(res);
-                        $scope.flightDetails.GliderFlightDetailsData.PilotPersonId = res.PersonId;
-                    })
-                    .catch(_.partial(MessageManager.raiseError, 'save', 'person'));
-            });
-        };
-
-        $scope.newTowingPilot = () => {
-            let modalInstance = $modal.open(createModalConfig({
-                TowingPilot: true
-            }));
-
-            modalInstance.result.then(function (person) {
-                $log.info(JSON.stringify(person));
-                new PersonPersister(person).$save()
-                    .then(function (res) {
-                        console.log('successfully saved ' + JSON.stringify(res));
-                        $scope.towingPilots.push(res);
-                        $scope.flightDetails.TowFlightDetailsData.PilotPersonId = res.PersonId;
-                    })
-                    .catch(_.partial(MessageManager.raiseError, 'save', 'person'));
-            });
-        };
-
-        function newPerson(dialogConfig, callback) {
+        function newPerson(persisterConstructor, dialogConfig, callback) {
             let modalInstance = $modal.open(createModalConfig(dialogConfig));
 
-            modalInstance.result.then(function (passenger) {
-                $log.info(JSON.stringify(passenger));
-                new PassengerPersister(passenger).$save()
+            modalInstance.result.then((passenger) => {
+                new persisterConstructor(passenger).$save()
                     .then(callback)
+                    .then(PassengerPersister.invalidate)
                     .catch(_.partial(MessageManager.raiseError, 'save', 'person'));
             });
         }
 
+        $scope.newGliderPilot = () => {
+            newPerson(
+                PersonPersister,
+                {
+                    GliderPilot: true
+                },
+                (person) => {
+                    $scope.gliderPilots.push(person);
+                    $scope.flightDetails.GliderFlightDetailsData.PilotPersonId = person.PersonId;
+                }
+            );
+        };
+
+        $scope.newTowingPilot = () => {
+            newPerson(
+                PersonPersister,
+                {
+                    TowingPilot: true
+                },
+                (person) => {
+                    $scope.towingPilots.push(person);
+                    $scope.flightDetails.TowFlightDetailsData.PilotPersonId = person.PersonId;
+                }
+            );
+        };
+
         $scope.newPassenger = () => {
             newPerson(
+                PassengerPersister,
                 {
                     GliderPilot: false,
                     Passenger: true
                 },
-                (savedPassenger) => {
-                    console.log('successfully saved ' + JSON.stringify(savedPassenger));
-                    $scope.allPersons.push(savedPassenger);
-                    $scope.flightDetails.GliderFlightDetailsData.PassengerPersonId = savedPassenger.PersonId;
+                (person) => {
+                    $scope.allPersons.push(person);
+                    $scope.flightDetails.GliderFlightDetailsData.PassengerPersonId = person.PersonId;
                 }
             );
         };
 
         $scope.newInvoiceRecipient = () => {
             newPerson(
+                PassengerPersister,
                 {
                     GliderPilot: false,
                     Passenger: true
                 },
-                (savedPassenger) => {
-                    console.log('successfully saved ' + JSON.stringify(savedPassenger));
-                    $scope.allPersons.push(savedPassenger);
-                    $scope.flightDetails.GliderFlightDetailsData.InvoiceRecipientPersonId = savedPassenger.PersonId;
+                (person) => {
+                    $scope.allPersons.push(person);
+                    $scope.flightDetails.GliderFlightDetailsData.InvoiceRecipientPersonId = person.PersonId;
                 }
             );
         };

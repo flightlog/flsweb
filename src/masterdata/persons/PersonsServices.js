@@ -141,6 +141,7 @@ function invalidate(GLOBALS, $cacheFactory, result) {
     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/gliderobserverpilots/listitems/true');
     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/winchoperators/listitems/true');
     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/passengers/listitems/true');
+    $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/passengers/true');
     $httpDefaultCache.remove(GLOBALS.BASE_URL + '/api/v1/persons/passengers/my/');
 
     return Promise.resolve(result && result.data);
@@ -148,7 +149,7 @@ function invalidate(GLOBALS, $cacheFactory, result) {
 
 export class PersonPersister {
     constructor($resource, GLOBALS, $cacheFactory) {
-        return $resource(GLOBALS.BASE_URL + '/api/v1/persons/:id', null, {
+        let personResource = $resource(GLOBALS.BASE_URL + '/api/v1/persons/:id', null, {
             savePerson: {
                 method: 'POST',
                 headers: {
@@ -181,12 +182,15 @@ export class PersonPersister {
                 }
             }
         });
+        personResource.invalidate = () => invalidate(GLOBALS, $cacheFactory);
+
+        return personResource;
     }
 }
 
 export class PassengerPersister {
     constructor($resource, GLOBALS, $cacheFactory) {
-        return $resource(GLOBALS.BASE_URL + '/api/v1/persons/passengers/:id', null, {
+        let passengerResource = $resource(GLOBALS.BASE_URL + '/api/v1/persons/passengers/:id', null, {
             savePerson: {
                 method: 'POST',
                 headers: {
@@ -199,7 +203,7 @@ export class PassengerPersister {
             $save: {
                 method: 'POST',
                 interceptor: {
-                    response: () => invalidate(GLOBALS, $cacheFactory)
+                    response: (result) => invalidate(GLOBALS, $cacheFactory, result)
                 }
             },
             get: {
@@ -218,6 +222,9 @@ export class PassengerPersister {
                 }
             }
         });
+        passengerResource.invalidate = () => invalidate(GLOBALS, $cacheFactory);
+
+        return passengerResource;
     }
 }
 
