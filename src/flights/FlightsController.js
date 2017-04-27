@@ -198,15 +198,13 @@ export default class FlightsController {
                     $scope.myClub = result;
                     flightDetails.StartType = flightDetails.StartType || $scope.myClub.DefaultStartType || "1";
 
-                    flightDetails.GliderFlightDetailsData.StartLocationId = flightDetails.GliderFlightDetailsData.StartLocationId || $scope.myClub.HomebaseId;
-                    flightDetails.GliderFlightDetailsData.LdgLocationId = flightDetails.GliderFlightDetailsData.LdgLocationId || $scope.myClub.HomebaseId;
+                    flightDetails.GliderFlightDetailsData.StartLocationId = flightDetails.GliderFlightDetailsData.StartLocationId || localStorageService.get("lastStartLocation") || $scope.myClub.HomebaseId;
+                    flightDetails.GliderFlightDetailsData.LdgLocationId = flightDetails.GliderFlightDetailsData.LdgLocationId || localStorageService.get("lastStartLocation") || $scope.myClub.HomebaseId;
                     flightDetails.GliderFlightDetailsData.FlightTypeId = flightDetails.GliderFlightDetailsData.FlightTypeId || $scope.myClub.DefaultGliderFlightTypeId;
-                    flightDetails.GliderFlightDetailsData.StartLocationId = localStorageService.get("lastStartLocation");
-                    flightDetails.GliderFlightDetailsData.LdgLocationId = localStorageService.get("lastStartLocation");
                     flightDetails.GliderFlightDetailsData.NrOfLdgs = 1;
 
-                    flightDetails.TowFlightDetailsData.StartLocationId = localStorageService.get("lastStartLocation");
-                    flightDetails.TowFlightDetailsData.LdgLocationId = localStorageService.get("lastStartLocation");
+                    flightDetails.TowFlightDetailsData.StartLocationId = flightDetails.TowFlightDetailsData.StartLocationId || localStorageService.get("lastStartLocation") || $scope.myClub.HomebaseId;
+                    flightDetails.TowFlightDetailsData.LdgLocationId = flightDetails.TowFlightDetailsData.LdgLocationId || localStorageService.get("lastStartLocation") || $scope.myClub.HomebaseId;
 
                     deferred.resolve(flightDetails);
                 })
@@ -696,7 +694,7 @@ export default class FlightsController {
         };
 
         $scope.engineSecondsCountersChanged = () => {
-            if($scope.flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds && $scope.flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds) {
+            if ($scope.flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds && $scope.flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds) {
                 $scope.times.engineSecondsCounterDuration = Math.max(
                     0,
                     $scope.flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds
