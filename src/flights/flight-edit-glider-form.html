@@ -385,7 +385,7 @@
                id="times.engineSecondsCounterDuration"
                ng-disabled="!flightDetails.CanUpdateRecord"
                ng-model="times.engineSecondsCounterDuration"
-               readonly>
+               ng-blur="formatEngineCounterDuration()">
     </div>
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <label for="Comment"><span translate="COMMENT">Comment</span>:</label>
