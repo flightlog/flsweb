@@ -696,11 +696,15 @@ export default class FlightsController {
         };
 
         $scope.engineSecondsCountersChanged = () => {
-            $scope.times.engineSecondsCounterDuration = Math.max(
-                0,
-                $scope.flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds
-                - $scope.flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds
-            );
+            if($scope.flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds && $scope.flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds) {
+                $scope.times.engineSecondsCounterDuration = Math.max(
+                    0,
+                    $scope.flightDetails.GliderFlightDetailsData.EngineEndOperatingCounterInSeconds
+                    - $scope.flightDetails.GliderFlightDetailsData.EngineStartOperatingCounterInSeconds
+                );
+            } else {
+                $scope.times.engineSecondsCounterDuration = undefined;
+            }
         };
 
         $scope.copyLastCounterToStartOperatingCounter = () => {
