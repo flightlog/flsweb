@@ -55,10 +55,6 @@
                     <div class="col-md-4">
 
                         <fls-labelled-checkbox entity="accountingRuleFilter"
-                                               attribute="IsRuleForSelfstartedGliderFlights"
-                                               translation-key="FOR_SELF_STARTER_GLIDER_FLIGHTS"></fls-labelled-checkbox>
-
-                        <fls-labelled-checkbox entity="accountingRuleFilter"
                                                attribute="IsRuleForGliderFlights"
                                                translation-key="FOR_GLIDER_FLIGHTS"></fls-labelled-checkbox>
 
@@ -141,15 +137,15 @@
                                                attribute="flightDurationUnlimited"
                                                translation-key="FLIGHT_DURATION_UNLIMITED"></fls-labelled-checkbox>
                         <div ng-if="!md.flightDurationUnlimited">
-                            <span translate="OR_FLIGHT_DIRATION_BETWEEN"></span>
+                            <span translate="OR_FLIGHT_DURATION_BETWEEN"></span>
                             <input class="form-control fls-inline-form-control"
                                    type="number"
-                                   ng-model="accountingRuleFilter.MinFlightTimeMatchingValue">
+                                   ng-model="accountingRuleFilter.MinFlightTimeInSecondsMatchingValue">
                             <span translate="AND_MAXIMUM_INCL"></span>
                             <input class="form-control fls-inline-form-control"
                                    type="number"
-                                   ng-model="accountingRuleFilter.MaxFlightTimeMatchingValue">
-                            <span translate="MINUTES"></span>
+                                   ng-model="accountingRuleFilter.MaxFlightTimeInSecondsMatchingValue">
+                            <span translate="SECONDS"></span>
                         </div>
                     </div>
 

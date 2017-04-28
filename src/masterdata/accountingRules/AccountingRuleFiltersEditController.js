@@ -98,8 +98,8 @@ export default class AccountingRuleFiltersEditController {
                 accountingRuleFilter.ThresholdText = undefined;
             }
             if ($scope.md.flightDurationUnlimited) {
-                accountingRuleFilter.MinFlightTimeMatchingValue = undefined;
-                accountingRuleFilter.MaxFlightTimeMatchingValue = undefined;
+                accountingRuleFilter.MinFlightTimeInSecondsMatchingValue = undefined;
+                accountingRuleFilter.MaxFlightTimeInSecondsMatchingValue = undefined;
             }
             if ($scope.targetTypeRecipientVisible()) {
                 accountingRuleFilter.ArticleTarget = {};
