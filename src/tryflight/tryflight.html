@@ -111,6 +111,17 @@
                                            ng-model="ctrl.TrialFlightRegistrationDetails.PrivateEmail">
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Remarks"><span translate="REMARKS"></span>:</label>
+                                    <textarea type="text"
+                                              rows="6"
+                                           class="form-control"
+                                           id="Remarks"
+                                           ng-model="ctrl.TrialFlightRegistrationDetails.Remarks">
+                                    </textarea>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row try-flight-section">
@@ -124,6 +135,25 @@
                             </div>
                         </div>
                         <div ng-if="!ctrl.TrialFlightRegistrationDetails.InvoiceAddressIsSame">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="SendCouponToInvoiceAddress"><span translate="SEND_COUPON_TO"></span>:</label><br>
+                                        <div class="col-md-offset-1">
+                                            <input type="radio"
+                                                   ng-value="false"
+                                                   ng-model="ctrl.TrialFlightRegistrationDetails.SendCouponToInvoiceAddress">
+                                            <span translate="SEND_COUPON_TO_CANDIDATE"></span>:
+                                            <i>{{ctrl.TrialFlightRegistrationDetails.Firstname + " " + ctrl.TrialFlightRegistrationDetails.Lastname}}</i><br>
+                                            <input type="radio"
+                                                   ng-value="true"
+                                                   ng-model="ctrl.TrialFlightRegistrationDetails.SendCouponToInvoiceAddress">
+                                            <span translate="SEND_COUPON_TO_INVOICE_RECIPIENT"></span>:
+                                            <i>{{ctrl.TrialFlightRegistrationDetails.InvoiceToFirstname + " " + ctrl.TrialFlightRegistrationDetails.InvoiceToLastname}}</i><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -180,6 +210,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="NotificationEmail"><span translate="EMAIL"></span>:</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-required="!ctrl.TrialFlightRegistrationDetails.InvoiceAddressIsSame"
+                                               id="NotificationEmail"
+                                               ng-model="ctrl.TrialFlightRegistrationDetails.NotificationEmail">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row try-flight-section">
@@ -218,7 +260,7 @@
                                  on-create="ctrl.recaptcha.setWidgetId(widgetId)"
                                  on-success="ctrl.recaptcha.setResponse(response)"
                                  on-expire="ctrl.recaptcha.cbExpiration()"></div> -->
-                            
+
                             <button type="submit"
                                     class="btn btn-default"
                                     translate="APPLY_FOR_TRY_FLIGHT"
@@ -228,7 +270,8 @@
                     </form>
                 </div>
 
-				<div ng-show="!ctrl.success" class="try-flight-section">
+                <div ng-show="!ctrl.success"
+                     class="try-flight-section">
                     <div class="col-md-12 try-flight-section">
                         <p>Der Schnupperflugtag kostet CHF 200.- und wird vom Sekretariat nach der Anmeldung in Rechnung gestellt. Wird
                            mit der fliegerischen Ausbildung begonnen, werden CHF 100.- bei der ersten
@@ -236,11 +279,11 @@
                         <p>Weitere Informationen über die Durchführung werden bis Donnerstagabend vor dem
                            Schnupperflugtag bekannt gegeben. Wird ein Schnupperflugtag wetterbedingt
                            abgesagt, kann an einem anderen Schnupperflugtag teilgenommen werden.</p>
-						<p>Bei Verhinderung bitte dies bis Mittwochabend vor dem Schnupperflugtag dem Sekretariat
+                        <p>Bei Verhinderung bitte dies bis Mittwochabend vor dem Schnupperflugtag dem Sekretariat
                            melden. </p>
                     </div>
                 </div>
-				
+
                 <div ng-show="ctrl.success"
                      class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <p translate="APPLICATION_FOR_TRY_FLIGHT_WAS_SUCCESSFUL"></p>

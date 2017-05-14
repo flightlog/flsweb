@@ -16,7 +16,8 @@ export default class TryflightController {
 
         this.TrialFlightRegistrationDetails = {
             ClubKey: clubKey,
-            InvoiceAddressIsSame: true
+            InvoiceAddressIsSame: true,
+            SendCouponToInvoiceAddress: true
         };
 
         this.recaptcha = {
