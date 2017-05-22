@@ -60,7 +60,7 @@ export default class DeliveryCreationTestsEditController {
         };
         $scope.save = function (deliveryCreationTest) {
             $scope.busy = true;
-            ParseUtil.parseDetails($scope.expectedDeliveryDetailsFormatted);
+            ParseUtil.parseDetails(deliveryCreationTest);
 
             let p = new DeliveryCreationTest(deliveryCreationTest);
             if (deliveryCreationTest.DeliveryCreationTestId) {
