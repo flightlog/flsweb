@@ -80,6 +80,7 @@ export class DeliveryCreationTestService {
                     return deferred.promise;
                 }
                 deferred.resolve(deliveryCreationTests);
+
                 return deferred.promise;
             }
         };
