@@ -1,7 +1,7 @@
 <div class="col-xs-12">
     <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true">
         <tr ng-repeat="accountingRuleFilter in $data" ng-click="editAccountingRuleFilter(accountingRuleFilter)" title="{{'EDIT' | translate}}">
-            <td data-title="'ACCOUNTING_RULE_FILTER_ACTIVE' | translate">
+            <td data-title="'ACTIVE' | translate">
                 <fls-checkbox is-checked="accountingRuleFilter.IsActive">
             </td>
             <td ng-bind="accountingRuleFilter.RuleFilterName" data-title="'ACCOUNTING_RULE_FILTER_NAME' | translate" filter="{ RuleFilterName: 'text'}" sortable="'RuleFilterName'"></td>
