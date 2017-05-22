@@ -53,7 +53,7 @@ export default class AccountingRuleFiltersEditController {
                             $scope.selection.PersonClubMemberNumber = $scope.accountingRuleFilter.RecipientTarget.PersonClubMemberNumber;
                             $scope.text.RecipientName = $scope.accountingRuleFilter.RecipientTarget.RecipientName;
                         }
-                        $scope.md.flightDurationUnlimited = !($scope.accountingRuleFilter.MinFlightTimeMatchingValue > 0 || $scope.accountingRuleFilter.MaxFlightTimeMatchingValue < 2147483647);
+                        $scope.md.flightDurationUnlimited = !($scope.accountingRuleFilter.MinFlightTimeInSecondsMatchingValue > 0 || $scope.accountingRuleFilter.MaxFlightTimeInSecondsMatchingValue < 2147483647);
                         $scope.md.showThreadsholdText = !!$scope.accountingRuleFilter.ThresholdText;
                     })
                     .finally(() => {
