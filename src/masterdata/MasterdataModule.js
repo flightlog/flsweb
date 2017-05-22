@@ -7,6 +7,7 @@ import flightTypesModule from './flightTypes/FlightTypesModule';
 import usersModule from './users/UsersModule';
 import memberStatesModule from './memberStates/MemberStatesModule';
 import accountingRuleFiltersModule from './accountingRules/AccountingRuleFiltersModule';
+import deliveryCreationTestsModule from './deliveryCreationTests/DeliveryCreationTestsModule';
 import 'ng-table';
 
 export default angular.module('fls.masterdata', [
@@ -18,5 +19,6 @@ export default angular.module('fls.masterdata', [
     aircraftsModule.name,
     flightTypesModule.name,
     memberStatesModule.name,
-    accountingRuleFiltersModule.name
+    accountingRuleFiltersModule.name,
+    deliveryCreationTestsModule.name
 ]);
