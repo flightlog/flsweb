@@ -25,6 +25,15 @@ export class PagedDeliveryCreationTests {
             })
             .catch(_.partial(this.MessageManager.raiseError, 'load', 'deliveryCreationTest'));
     }
+
+    generateExampleDelivery(flightId) {
+        return this.$http
+            .get(`${this.GLOBALS.BASE_URL}/api/v1/deliverycreationtests/testdeliveryforflight/${flightId}`)
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'generate', 'testdeliveryforflight'));
+    }
 }
 
 export class DeliveryCreationTest {

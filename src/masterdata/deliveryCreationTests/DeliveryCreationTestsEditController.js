@@ -105,6 +105,14 @@ export default class DeliveryCreationTestsEditController {
             $location.path('/masterdata/deliveryCreationTests/' + deliveryCreationTest.DeliveryCreationTestId);
         };
 
+        $scope.createTestDelivery = () => {
+            PagedDeliveryCreationTests.generateExampleDelivery($scope.deliveryCreationTest.FlightId)
+                .then((deliveryExample) => {
+                    $scope.deliveryCreationTest.ExpectedDeliveryDetails = deliveryExample;
+                });
+        }
+
+
     }
 }
 
