@@ -1,4 +1,5 @@
 import angular from 'angular';
+import coreModule from '../core/CoreModule';
 import personsModule from './persons/PersonsModule';
 import clubsModule from './clubs/ClubsModule';
 import locationsModule from './locations/LocationsModule';
@@ -12,6 +13,7 @@ import 'ng-table';
 
 export default angular.module('fls.masterdata', [
     'ngTable',
+    coreModule.name,
     personsModule.name,
     clubsModule.name,
     locationsModule.name,

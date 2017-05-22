@@ -20,16 +20,7 @@ export default class DeliveryCreationTestsEditController {
                 PagedDeliveryCreationTests.getDeliveryCreationTest($routeParams.id)
                     .then((result) => {
                         $scope.deliveryCreationTest = result;
-                        if ($scope.deliveryCreationTest.ArticleTarget) {
-                            $scope.selection.ArticleNumber = $scope.deliveryCreationTest.ArticleTarget.ArticleNumber;
-                            $scope.text.DeliveryLineText = $scope.deliveryCreationTest.ArticleTarget.DeliveryLineText;
-                        }
-                        if ($scope.deliveryCreationTest.RecipientTarget) {
-                            $scope.selection.PersonClubMemberNumber = $scope.deliveryCreationTest.RecipientTarget.PersonClubMemberNumber;
-                            $scope.text.RecipientName = $scope.deliveryCreationTest.RecipientTarget.RecipientName;
-                        }
-                        $scope.md.flightDurationUnlimited = !($scope.deliveryCreationTest.MinFlightTimeInSecondsMatchingValue > 0 || $scope.deliveryCreationTest.MaxFlightTimeInSecondsMatchingValue < 2147483647);
-                        $scope.md.showThreadsholdText = !!$scope.deliveryCreationTest.ThresholdText;
+                        $scope.deliveryCreationTest.expectedDeliveryDetailsFormatted = $scope.ExpectedDeliveryDetails && JSON.stringify($scope.ExpectedDeliveryDetails, undefined, 2);
                     })
                     .finally(() => {
                         $scope.busy = false;
@@ -69,6 +60,7 @@ export default class DeliveryCreationTestsEditController {
         };
         $scope.save = function (deliveryCreationTest) {
             $scope.busy = true;
+            ParseUtil.parseDetails($scope.expectedDeliveryDetailsFormatted);
 
             let p = new DeliveryCreationTest(deliveryCreationTest);
             if (deliveryCreationTest.DeliveryCreationTestId) {
@@ -108,11 +100,25 @@ export default class DeliveryCreationTestsEditController {
         $scope.createTestDelivery = () => {
             PagedDeliveryCreationTests.generateExampleDelivery($scope.deliveryCreationTest.FlightId)
                 .then((deliveryExample) => {
-                    $scope.deliveryCreationTest.ExpectedDeliveryDetails = JSON.stringify(deliveryExample, undefined, 2);
+                    $scope.deliveryCreationTest.expectedDeliveryDetailsFormatted = ParseUtil.formatDetails(deliveryExample);
                 });
         }
 
 
     }
+
+
 }
 
+export class ParseUtil {
+
+    static parseDetails(deliveryCreationTest) {
+        deliveryCreationTest.ExpectedDeliveryDetails = deliveryCreationTest.expectedDeliveryDetailsFormatted && JSON.parse(deliveryCreationTest.expectedDeliveryDetailsFormatted);
+        delete deliveryCreationTest.expectedDeliveryDetailsFormatted;
+    }
+
+    static formatDetails(deliveryExample) {
+        return JSON.stringify(deliveryExample, undefined, 2);
+    }
+
+}

@@ -1,11 +1,12 @@
 import angular from 'angular';
+import coreModule from '../../core/CoreModule';
 import DeliveryCreationTestsEditController from './DeliveryCreationTestsEditController';
 import DeliveryCreationTestsEditDirective from './DeliveryCreationTestsEditDirective';
 import * as DeliveryCreationTestsServices from './DeliveryCreationTestsServices';
 import 'ng-table';
 import {userAuth} from '../../core/AuthService';
 
-export default angular.module('fls.masterdata.deliveryCreationTests', ['ngTable'])
+export default angular.module('fls.masterdata.deliveryCreationTests', ['ngTable', coreModule.name])
     .directive('flsDeliveryCreationTests', DeliveryCreationTestsEditDirective.factory)
     .controller('DeliveryCreationTestsEditController', DeliveryCreationTestsEditController)
     .service('PagedDeliveryCreationTests', DeliveryCreationTestsServices.PagedDeliveryCreationTests)
