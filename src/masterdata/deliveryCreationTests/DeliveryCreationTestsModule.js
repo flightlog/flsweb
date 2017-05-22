@@ -11,8 +11,6 @@ export default angular.module('fls.masterdata.deliveryCreationTests', ['ngTable'
     .service('PagedDeliveryCreationTests', DeliveryCreationTestsServices.PagedDeliveryCreationTests)
     .service('DeliveryCreationTest', DeliveryCreationTestsServices.DeliveryCreationTest)
     .service('DeliveryCreationTestService', DeliveryCreationTestsServices.DeliveryCreationTestService)
-    .service('DeliveryCreationTestTypesService', DeliveryCreationTestsServices.DeliveryCreationTestTypesService)
-    .service('FlightCrewTypesService', DeliveryCreationTestsServices.FlightCrewTypesService)
     .config(function ($routeProvider) {
         $routeProvider
             .when('/masterdata/deliveryCreationTests',
