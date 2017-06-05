@@ -100,7 +100,7 @@ export default class DeliveryCreationTestsEditController {
         $scope.createTestDelivery = () => {
             PagedDeliveryCreationTests.generateExampleDelivery($scope.deliveryCreationTest.FlightId)
                 .then((deliveryExample) => {
-                    $scope.deliveryCreationTest.expectedDeliveryDetailsFormatted = ParseUtil.formatDetails(deliveryExample);
+                    $scope.deliveryCreationTest.expectedDeliveryDetailsFormatted = ParseUtil.formatDetails(deliveryExample.CreatedDeliveryDetails);
                 });
         }
 
