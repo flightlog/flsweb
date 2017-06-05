@@ -37,7 +37,7 @@ export class PagedDeliveryCreationTests {
 
     runTest(deliveryCreationTestId) {
         return this.$http
-            .get(`${this.GLOBALS.BASE_URL}/api/v1/deliverycreationtests/rundeliverycreationtest/${deliveryCreationTestId}`)
+            .get(`${this.GLOBALS.BASE_URL}/api/v1/deliverycreationtests/run/${deliveryCreationTestId}`)
             .then((response) => {
                 return response.data;
             })
