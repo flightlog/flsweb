@@ -57,7 +57,7 @@ export class RoutesPerLocation {
             .then((response) => {
                 return response.data;
             })
-            .catch(_.partial(this.MessageManager.raiseError, 'add', 'locations list'));
+            .catch(_.partial(this.MessageManager.raiseError, 'add', 'route for location'));
     }
 
     removeRoute(location, route) {
