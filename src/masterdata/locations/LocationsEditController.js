@@ -48,11 +48,11 @@ export default class LocationsEditController {
                     $scope.location = location;
                     $scope.routesBusy = true;
                     $q.all([
-                        RoutesPerLocation.getRoutes(location)
+                        RoutesPerLocation.getRoutes(location, true)
                             .then((result) => {
                                 $scope.inboundRoutes = result;
                             }),
-                        RoutesPerLocation.getRoutes(location)
+                        RoutesPerLocation.getRoutes(location, false)
                             .then((result) => {
                                 $scope.outboundRoutes = result;
                             })
