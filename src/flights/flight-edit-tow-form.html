@@ -183,11 +183,18 @@
         <label for="TowFlightDetailsData.InboundRoute"><span translate="INBOUND_ROUTE"></span>:</label>
 
         <div class="input-group col-md-12 col-sm-12 col-xs-12">
-            <input type="text"
-                   class="form-control"
-                   id="TowFlightDetailsData.InboundRoute"
-                   ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
-                   ng-model="flightDetails.TowFlightDetailsData.InboundRoute">
+            <selectize id="TowFlightDetailsData.InboundRoute"
+                       name="TowFlightDetailsData.InboundRoute"
+                       options="md.towLandingLocationInboundRoutes"
+                       ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+                       config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'label',
+                                labelField: 'label',
+                                searchField: ['label']
+                            }"
+                       ng-model="flightDetails.TowFlightDetailsData.InboundRoute"></selectize>
 
             <div class="input-group-btn">
                 <button type="button"

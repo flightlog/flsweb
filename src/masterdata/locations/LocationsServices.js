@@ -28,10 +28,10 @@ export class RoutesPerLocation {
         let deferred = this.$q.defer();
         setTimeout(() => {
             deferred.resolve([
-                {label: "30 W"},
-                {label: "30 E"},
-                {label: "12 W"},
-                {label: "12 E"}
+                {id: 1, label: "30 W"},
+                {id: 2, label: "30 E"},
+                {id: 3, label: "12 W"},
+                {id: 4, label: "12 E"}
             ]);
         }, 1000);
         return deferred.promise;
@@ -41,10 +41,10 @@ export class RoutesPerLocation {
         let deferred = this.$q.defer();
         setTimeout(() => {
             deferred.resolve([
-                {label: "30 W"},
-                {label: "30 E"},
-                {label: "12 W"},
-                {label: "12 E"}
+                {id: 5, label: "30 W"},
+                {id: 6, label: "30 E"},
+                {id: 7, label: "12 W"},
+                {id: 8, label: "12 E"}
             ]);
         }, 1000);
         return deferred.promise;

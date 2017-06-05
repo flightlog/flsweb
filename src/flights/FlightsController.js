@@ -9,7 +9,7 @@ export default class FlightsController {
                 FlightTypes, Locations, Persons, PersonsV2, PersonPersister, PassengerPersister,
                 Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes, TableSettingsCacheFactory,
                 SoloFlightCheckboxEnablementCalculator, Clubs, AircraftOperatingCounters, DropdownItemsRenderService,
-                localStorageService) {
+                localStorageService, RoutesPerLocation) {
         $scope.busy = true;
         this.TimeService = TimeService;
 
@@ -37,6 +37,7 @@ export default class FlightsController {
         $scope.winchOperators = [];
         $scope.instructors = [];
         $scope.flightCostBalanceTypes = [];
+        $scope.md = {};
 
         $scope.renderStarttype = DropdownItemsRenderService.starttypeRenderer();
         $scope.renderFlighttype = DropdownItemsRenderService.flighttypeRenderer();
@@ -629,9 +630,26 @@ export default class FlightsController {
 
         function recalcRouteRequirements() {
             $timeout(() => {
-                $scope.isOutboundRouteRequired = findSelectedStartLocation().IsOutboundRouteRequired;
-                $scope.isInboundRouteRequired = findSelectedLandingLocation().IsInboundRouteRequired;
-                $scope.isInboundRouteForTowFlightRequired = findSelectedTowFlightLandingLocation().IsInboundRouteRequired;
+                let selectedStartLocation = findSelectedStartLocation();
+                let selectedLandingLocation = findSelectedLandingLocation();
+                let selectedTowFlightLandingLocation = findSelectedTowFlightLandingLocation();
+
+                RoutesPerLocation.getOutboundRoutes(selectedStartLocation)
+                    .then((result) => {
+                        $scope.md.startLocationOutboundRoutes = result;
+                    });
+                RoutesPerLocation.getInboundRoutes(selectedLandingLocation)
+                    .then((result) => {
+                        $scope.md.landingLocationInboundRoutes = result;
+                    });
+                RoutesPerLocation.getInboundRoutes(selectedTowFlightLandingLocation)
+                    .then((result) => {
+                        $scope.md.towLandingLocationInboundRoutes = result;
+                    });
+
+                $scope.isOutboundRouteRequired = selectedStartLocation.IsOutboundRouteRequired;
+                $scope.isInboundRouteRequired = selectedLandingLocation.IsInboundRouteRequired;
+                $scope.isInboundRouteForTowFlightRequired = selectedTowFlightLandingLocation.IsInboundRouteRequired;
             }, 0);
         }
 

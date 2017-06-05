@@ -303,11 +303,18 @@
         <label for="GliderFlightDetailsData.OutboundRoute"><span translate="OUTBOUND_ROUTE"></span>:</label>
 
         <div class="input-group col-md-12 col-sm-12 col-xs-12">
-            <input type="text"
-                   class="form-control"
-                   id="GliderFlightDetailsData.OutboundRoute"
-                   ng-disabled="!flightDetails.CanUpdateRecord"
-                   ng-model="flightDetails.GliderFlightDetailsData.OutboundRoute">
+            <selectize id="GliderFlightDetailsData.OutboundRoute"
+                       name="GliderFlightDetailsData.OutboundRoute"
+                       options="md.startLocationOutboundRoutes"
+                       ng-disabled="!flightDetails.CanUpdateRecord"
+                       config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'label',
+                                labelField: 'label',
+                                searchField: ['label']
+                            }"
+                       ng-model="flightDetails.GliderFlightDetailsData.OutboundRoute"></selectize>
 
             <div class="input-group-btn">
                 <button type="button"
@@ -323,11 +330,18 @@
         <label for="GliderFlightDetailsData.InboundRoute"><span translate="INBOUND_ROUTE"></span>:</label>
 
         <div class="input-group col-md-12 col-sm-12 col-xs-12">
-            <input type="text"
-                   class="form-control"
-                   id="GliderFlightDetailsData.InboundRoute"
-                   ng-disabled="!flightDetails.CanUpdateRecord"
-                   ng-model="flightDetails.GliderFlightDetailsData.InboundRoute">
+            <selectize id="GliderFlightDetailsData.InboundRoute"
+                       name="GliderFlightDetailsData.InboundRoute"
+                       options="md.landingLocationInboundRoutes"
+                       ng-disabled="!flightDetails.CanUpdateRecord"
+                       config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'label',
+                                labelField: 'label',
+                                searchField: ['label']
+                            }"
+                       ng-model="flightDetails.GliderFlightDetailsData.InboundRoute"></selectize>
 
             <div class="input-group-btn">
                 <button type="button"
