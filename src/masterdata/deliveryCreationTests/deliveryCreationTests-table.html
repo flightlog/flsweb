@@ -1,4 +1,11 @@
 <div class="col-xs-12">
+    <section class="hidden-print row col-xs-12" style="margin-bottom: 10px;">
+        <div class="btn-group">
+            <button class="btn btn-default"
+                    translate="RUN_ALL_TESTS"
+                    ng-click="runAllTests()"></button>
+        </div>
+    </section>
     <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true">
         <tr ng-repeat="deliveryCreationTest in $data" ng-click="editDeliveryCreationTest(deliveryCreationTest)" title="{{'EDIT' | translate}}">
             <td data-title="'ACTIVE' | translate">
@@ -6,6 +13,7 @@
             </td>
             <td ng-bind="deliveryCreationTest.DeliveryCreationTestName" data-title="'DELIVERY_CREATION_TEST_NAME' | translate" filter="{ DeliveryCreationTestName: 'text'}" sortable="'DeliveryCreationTestName'"></td>
             <td ng-bind="deliveryCreationTest.Description" data-title="'DESCRIPTION' | translate" filter="{ Description: 'text'}" sortable="'Description'"></td>
+            <td ng-bind="deliveryCreationTest.status" data-title="'STATUS' | translate"></td>
             <td class="hidden-print controls-column">
                 <a ng-show="flight.CanDeleteRecord"
                    title="{{'DELETE' | translate}}"

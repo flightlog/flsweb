@@ -20,7 +20,7 @@ export default class DeliveryCreationTestsEditController {
                 PagedDeliveryCreationTests.getDeliveryCreationTest($routeParams.id)
                     .then((result) => {
                         $scope.deliveryCreationTest = result;
-                        if($scope.deliveryCreationTest.ExpectedDeliveryDetails) {
+                        if ($scope.deliveryCreationTest.ExpectedDeliveryDetails) {
                             $scope.deliveryCreationTest.expectedDeliveryDetailsFormatted = JSON.stringify($scope.deliveryCreationTest.ExpectedDeliveryDetails, undefined, 2);
                             $scope.deliveryItems = $scope.deliveryCreationTest.ExpectedDeliveryDetails.DeliveryItems;
                         }
@@ -48,6 +48,7 @@ export default class DeliveryCreationTestsEditController {
                         .then((result) => {
                             $scope.busy = false;
                             params.total(result.TotalRows);
+                            $scope.itemsOnCurrentPage = result.Items;
 
                             return result.Items;
                         })
@@ -128,6 +129,29 @@ export default class DeliveryCreationTestsEditController {
         $scope.openRuleFilter = (id) => {
             $location.path('/masterdata/accountingRuleFilters/' + id);
         };
+
+        $scope.runAllTests = () => {
+            if ($scope.itemsOnCurrentPage) {
+                $scope.busy = true;
+                let i = 0;
+                for (; i < $scope.itemsOnCurrentPage.length; i++) {
+                    let test = $scope.itemsOnCurrentPage[i];
+                    if (test.IsActive) {
+                        test.status = "executing...";
+                        PagedDeliveryCreationTests.runTest(test.DeliveryCreationTestId)
+                            .then(() => {
+                                test.status = "Success!";
+                            })
+                            .catch(() => {
+                                test.status = "Failure.";
+                            });
+                    } else {
+                        test.status = "(skipped)";
+                    }
+                }
+                $scope.busy = false;
+            }
+        }
 
     }
 
