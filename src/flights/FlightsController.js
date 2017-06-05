@@ -634,15 +634,15 @@ export default class FlightsController {
                 let selectedLandingLocation = findSelectedLandingLocation();
                 let selectedTowFlightLandingLocation = findSelectedTowFlightLandingLocation();
 
-                RoutesPerLocation.getOutboundRoutes(selectedStartLocation)
+                RoutesPerLocation.getRoutes(selectedStartLocation)
                     .then((result) => {
                         $scope.md.startLocationOutboundRoutes = result;
                     });
-                RoutesPerLocation.getInboundRoutes(selectedLandingLocation)
+                RoutesPerLocation.getRoutes(selectedLandingLocation)
                     .then((result) => {
                         $scope.md.landingLocationInboundRoutes = result;
                     });
-                RoutesPerLocation.getInboundRoutes(selectedTowFlightLandingLocation)
+                RoutesPerLocation.getRoutes(selectedTowFlightLandingLocation)
                     .then((result) => {
                         $scope.md.towLandingLocationInboundRoutes = result;
                     });

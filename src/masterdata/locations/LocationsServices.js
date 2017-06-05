@@ -1,3 +1,5 @@
+import * as _ from "lodash";
+
 export class PagedLocations {
     constructor($http, GLOBALS, MessageManager) {
         this.$http = $http;
@@ -20,57 +22,51 @@ export class PagedLocations {
 
 export class RoutesPerLocation {
 
-    constructor($q) {
-        this.$q = $q;
+    constructor(GLOBALS, $http, MessageManager) {
+        this.GLOBALS = GLOBALS;
+        this.$http = $http;
+        this.MessageManager = MessageManager;
     }
 
-    getInboundRoutes(location) {
-        let deferred = this.$q.defer();
-        setTimeout(() => {
-            deferred.resolve([
-                {id: 1, label: "30 W"},
-                {id: 2, label: "30 E"},
-                {id: 3, label: "12 W"},
-                {id: 4, label: "12 E"}
-            ]);
-        }, 1000);
-        return deferred.promise;
+    getRoutes(location, inbound) {
+        return this.$http
+            .get(`${this.GLOBALS.BASE_URL}/api/v1/inoutboundpoints/location/${location.LocationId}`)
+            .then((response) => {
+                return response.data
+                    .filter((routeFromServer) => {
+                        return routeFromServer.IsInboundPoint === inbound;
+                    })
+                    .map((routeFromServer) => {
+                        return {
+                            id: routeFromServer.InOutboundPointId,
+                            label: routeFromServer.InOutboundPointName
+                        }
+                    });
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'routes for location ' + location.LocationId));
     }
 
-    getOutboundRoutes(location) {
-        let deferred = this.$q.defer();
-        setTimeout(() => {
-            deferred.resolve([
-                {id: 5, label: "30 W"},
-                {id: 6, label: "30 E"},
-                {id: 7, label: "12 W"},
-                {id: 8, label: "12 E"}
-            ]);
-        }, 1000);
-        return deferred.promise;
-    }
-
-    addInboundRoute(location, label) {
-        let deferred = this.$q.defer();
-        setTimeout(() => {
-            deferred.resolve({label});
-        }, 1000);
-        return deferred.promise;
-    }
-    addOutboundRoute(location, label) {
-        let deferred = this.$q.defer();
-        setTimeout(() => {
-            deferred.resolve({label});
-        }, 1000);
-        return deferred.promise;
+    addRoute(location, label, inbound) {
+        return this.$http
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/inoutboundpoints`, {
+                IsInboundPoint: inbound,
+                IsOutboundPoint: !inbound,
+                LocationId: location.LocationId,
+                InOutboundPointName: label
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'add', 'locations list'));
     }
 
     removeRoute(location, route) {
-        let deferred = this.$q.defer();
-        setTimeout(() => {
-            deferred.resolve();
-        }, 1000);
-        return deferred.promise;
+        return this.$http
+            .delete(`${this.GLOBALS.BASE_URL}/api/v1/inoutboundpoints/${route.InOutboundPointId}`)
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'delete', 'route'));
     }
 }
 
