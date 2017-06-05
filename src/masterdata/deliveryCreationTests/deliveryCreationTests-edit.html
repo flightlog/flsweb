@@ -111,6 +111,19 @@
                     </button>
                 </div>
                 <div class="col-md-12"
+                     ng-if="lastMatchedRuleFilters">
+                    <label for="lastMatchedRuleFilters"><span translate="LAST_MATCHED_RULE_FILTERS"></span></label>
+                    <table id="lastMatchedRuleFilters"
+                           width="100%">
+                        <tr>
+                            <th>Accounting Rule Filter ID</th>
+                        </tr>
+                        <tr ng-repeat="lastMatchedRuleFilterId in lastMatchedRuleFilters">
+                            <td><a ng-href="{{'#/masterdata/accountingRuleFilters/' + lastMatchedRuleFilterId}}" ng-bind="lastMatchedRuleFilterId"></a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-12"
                      ng-if="lastDeliveryItems">
                     <label for="LastDeliveryDetails"><span translate="LAST_DELIVERY_DETAILS"></span></label>
                     <table id="LastDeliveryDetails"

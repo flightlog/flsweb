@@ -118,11 +118,16 @@ export default class DeliveryCreationTestsEditController {
                 .then((result) => {
                     MessageManager.showMessage("Test Result: " + (result.LastDeliveryCreationTestResult.LastTestSuccessful ? "Success" : "Failure"));
                     $scope.lastDeliveryItems = result.LastDeliveryCreationTestResult.LastTestCreatedDeliveryDetails && result.LastDeliveryCreationTestResult.LastTestCreatedDeliveryDetails.DeliveryItems;
+                    $scope.lastMatchedRuleFilters = result.LastDeliveryCreationTestResult.LastTestMatchedAccountingRuleFilterIds;
                 })
                 .finally(() => {
                     $scope.busy = false;
                 });
-        }
+        };
+
+        $scope.openRuleFilter = (id) => {
+            $location.path('/masterdata/accountingRuleFilters/' + id);
+        };
 
     }
 
