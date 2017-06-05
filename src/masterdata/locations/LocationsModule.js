@@ -14,6 +14,19 @@ export default angular.module('fls.masterdata.locations', ['ngTable'])
     .service('PagedLocations', LocationsServices.PagedLocations)
     .service('LocationService', LocationsServices.LocationService)
     .service('LocationPersister', LocationsServices.LocationPersister)
+    .directive('ngEnter', function() {
+        return function(scope, element, attrs) {
+            element.bind("keydown keypress", function(event) {
+                if(event.which === 13) {
+                    scope.$apply(function(){
+                        scope.$eval(attrs.ngEnter, {'event': event});
+                    });
+
+                    event.preventDefault();
+                }
+            });
+        };
+    })
     .config(($routeProvider, ngTableFilterConfigProvider) => {
         ngTableFilterConfigProvider.setConfig({
             aliasUrls: {

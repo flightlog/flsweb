@@ -30,6 +30,13 @@ export default class LocationsEditController {
         }
 
         if ($routeParams.id !== undefined) {
+            $scope.inboundRoutes = [
+                {label: "30 W"},
+                {label: "30 E"},
+                {label: "12 W"},
+                {label: "12 E"}
+            ];
+            $scope.outboundRoutes = $scope.inboundRoutes;
             $q.all([
                 Countries.query().$promise.then(function (result) {
                     $scope.md.countries = result;
@@ -125,6 +132,22 @@ export default class LocationsEditController {
 
         $scope.toggleSorting = (attribute) => {
             $scope.sorting[attribute] = $scope.sorting[attribute] === 'asc' ? 'desc' : 'asc';
+        };
+
+        $scope.addInboundRoute = (label) => {
+            $scope.inboundRoutes.push({label});
+        };
+
+        $scope.addOutboundRoute = (label) => {
+            $scope.outboundRoutes.push({label});
+        };
+
+        $scope.removeInboundRoute = (route) => {
+            $scope.inboundRoutes = $scope.inboundRoutes.filter((inboundRoute) => inboundRoute !== route);
+        };
+
+        $scope.removeOutboundRoute = (route) => {
+            $scope.outboundRoutes = $scope.outboundRoutes.filter((outboundRoute) => outboundRoute !== route);
         };
     }
 

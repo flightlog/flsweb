@@ -528,6 +528,7 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
 .flight-state-choice-list:first-child {
     margin-right: 10px;
 }
+
 .flight-state-choice-list {
     flex: 1;
     border: 1px solid #ededed;
@@ -569,4 +570,21 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.list-remove-icon{
+    color: #856f6f;
+    cursor: pointer;
+}
+.list-remove-icon:hover {
+    color: #bf0000;
+}
+
+.list-add-icon {
+    color: #444165;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.list-add-icon:hover {
+    color: #0000a1;
 }

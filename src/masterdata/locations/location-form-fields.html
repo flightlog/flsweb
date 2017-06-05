@@ -107,6 +107,26 @@
                    ng-model="location.IsInboundRouteRequired">
             <span translate="IS_INBOUND_ROUTE_REQUIRED"></span>
         </label>
+
+        <div class="form-group col-md-11 col-md-offset-1">
+            <ul id="InboundRoutes">
+                <li ng-repeat="inboundRoute in inboundRoutes"
+                    style="width: 180px;">
+                    <span ng-bind="inboundRoute.label"></span>
+                    <span class="fa fa-times pull-right list-remove-icon"
+                          ng-click="removeInboundRoute(inboundRoute)"></span>
+                </li>
+                <li>
+                    <input id="InboundRouteLabel"
+                           style="width: 160px;"
+                           ng-enter="addInboundRoute(newInboundRouteLabel); newInboundRouteLabel = ''"
+                           ng-model="newInboundRouteLabel">
+                    <span class="fa fa-plus-circle list-add-icon"
+                          ng-click="addInboundRoute(newInboundRouteLabel); newInboundRouteLabel = ''"></span>
+                </li>
+            </ul>
+        </div>
+
         <label class="checkbox col-md-11 col-md-offset-1"
                for="IsOutboundRouteRequired">
             <input type="checkbox"
@@ -114,6 +134,26 @@
                    ng-model="location.IsOutboundRouteRequired">
             <span translate="IS_OUTBOUND_ROUTE_REQUIRED"></span>
         </label>
+
+        <div class="form-group col-md-11 col-md-offset-1">
+            <ul id="OutboundRoutes">
+                <li ng-repeat="outboundRoute in outboundRoutes"
+                    style="width: 180px;">
+                    <span ng-bind="outboundRoute.label"></span>
+                    <span class="fa fa-times pull-right list-remove-icon"
+                          ng-click="removeOutboundRoute(outboundRoute)"></span>
+                </li>
+                <li>
+                    <input id="outboundRouteLabel"
+                           style="width: 160px;"
+                           ng-enter="addOutboundRoute(newOutboundRouteLabel); newOutboundRouteLabel = ''"
+                           ng-model="newOutboundRouteLabel">
+                    <span class="fa fa-plus-circle list-add-icon"
+                          ng-click="addOutboundRoute(newOutboundRouteLabel); newOutboundRouteLabel = ''"></span>
+                </li>
+            </ul>
+        </div>
+
     </div>
     <div class="col-md-12">
         <div class="form-group col-md-6">
