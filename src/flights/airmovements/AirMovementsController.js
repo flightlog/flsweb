@@ -51,7 +51,7 @@ export default class AirMovementsController {
 
         function addDuration(from, duration) {
             let durationMoment = moment.utc(duration, format);
-            let fromMoment = moment(from, format);
+            let fromMoment = moment.utc(from, format);
             if (durationMoment.isValid() && fromMoment.isValid()) {
                 return fromMoment.add(durationMoment.valueOf(), "milliseconds").format(format);
             }
