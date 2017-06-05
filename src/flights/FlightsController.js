@@ -556,7 +556,7 @@ export default class FlightsController {
         }
 
         function calcLanding(start, duration) {
-            let startMoment = moment(start, format);
+            let startMoment = moment.utc(start, format);
             let durationMoment = moment.utc(duration, format);
             if (startMoment.isValid() && durationMoment.isValid()) {
                 return startMoment.add(durationMoment.unix(), "seconds").format(format);
