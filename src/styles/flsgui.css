@@ -588,3 +588,8 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
 .list-add-icon:hover {
     color: #0000a1;
 }
+
+.form-control,
+button.btn {
+    height: 35px;
+}
