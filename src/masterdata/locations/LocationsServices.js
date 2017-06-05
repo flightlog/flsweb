@@ -28,6 +28,14 @@ export class RoutesPerLocation {
         this.MessageManager = MessageManager;
     }
 
+    getInboundRoutes(location) {
+        return this.getRoutes(location, true)
+    }
+
+    getOutboundRoutes(location) {
+        return this.getRoutes(location, true)
+    }
+
     getRoutes(location, inbound) {
         return this.$http
             .get(`${this.GLOBALS.BASE_URL}/api/v1/inoutboundpoints/location/${location.LocationId}`)
@@ -44,6 +52,14 @@ export class RoutesPerLocation {
                     });
             })
             .catch(_.partial(this.MessageManager.raiseError, 'load', 'routes for location ' + location.LocationId));
+    }
+
+    addInboundRoute(location, label) {
+        return this.addRoute(location, label, true);
+    }
+
+    addOutboundRoute(location, label) {
+        return this.addRoute(location, label, false);
     }
 
     addRoute(location, label, inbound) {

@@ -401,11 +401,11 @@ export default class AirMovementsController {
                 let selectedStartLocation = findSelectedStartLocation();
                 let selectedLandingLocation = findSelectedLandingLocation();
 
-                RoutesPerLocation.getRoutes(selectedStartLocation)
+                RoutesPerLocation.getOutboundRoutes(selectedStartLocation)
                     .then((result) => {
                         $scope.md.startLocationOutboundRoutes = result;
                     });
-                RoutesPerLocation.getRoutes(selectedLandingLocation)
+                RoutesPerLocation.getInboundRoutes(selectedLandingLocation)
                     .then((result) => {
                         $scope.md.landingLocationInboundRoutes = result;
                     });

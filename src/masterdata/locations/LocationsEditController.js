@@ -48,11 +48,11 @@ export default class LocationsEditController {
                     $scope.location = location;
                     $scope.routesBusy = true;
                     $q.all([
-                        RoutesPerLocation.getRoutes(location, true)
+                        RoutesPerLocation.getInboundRoutes(location)
                             .then((result) => {
                                 $scope.inboundRoutes = result;
                             }),
-                        RoutesPerLocation.getRoutes(location, false)
+                        RoutesPerLocation.getOutboundRoutes(location)
                             .then((result) => {
                                 $scope.outboundRoutes = result;
                             })
@@ -144,7 +144,7 @@ export default class LocationsEditController {
 
         $scope.addInboundRoute = (label) => {
             $scope.routesBusy = true;
-            RoutesPerLocation.addRoute($scope.location, label, true)
+            RoutesPerLocation.addInboundRoute($scope.location, label)
                 .then((result) => {
                     $scope.inboundRoutes.push(result);
                 })
@@ -155,7 +155,7 @@ export default class LocationsEditController {
 
         $scope.addOutboundRoute = (label) => {
             $scope.routesBusy = true;
-            RoutesPerLocation.addRoute($scope.location, label, false)
+            RoutesPerLocation.addOutboundRoute($scope.location, label)
                 .then((result) => {
                     $scope.outboundRoutes.push(result);
                 })
