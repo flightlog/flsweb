@@ -40,11 +40,21 @@
                 data-title="'DESCRIPTION' | translate"
                 filter="{ Description: 'text'}"
                 sortable="'Description'"></td>
-            <td data-title="'STATUS' | translate">
-                <div ng-bind="deliveryCreationTest.status"
-                     class="data-cell-eclipsed"></div>
-            </td>
             
+            <td data-title="'STATUS' | translate">
+                <span class="fa fa-spinner fa-pulse"
+                      ng-if="deliveryCreationTest.executing"></span>
+
+                <span class="fa"
+                      style="color: #00a144; margin-right: 10px;"
+                      ng-class="{'fa-check': deliveryCreationTest.success, 'fa-square-o': deliveryCreationTest.skipped}"
+                      ng-show="!deliveryCreationTest.executing"></span>
+
+                <span ng-bind="deliveryCreationTest.status"
+                      ng-if="!deliveryCreationTest.executing"
+                      class="data-cell-eclipsed"></span>
+            </td>
+
             <td class="hidden-print controls-column">
                 <a ng-show="flight.CanDeleteRecord"
                    title="{{'DELETE' | translate}}"

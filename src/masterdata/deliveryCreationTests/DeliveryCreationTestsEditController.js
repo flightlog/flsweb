@@ -154,6 +154,7 @@ export default class DeliveryCreationTestsEditController {
                     let test = $scope.itemsOnCurrentPage[i];
                     if (test.IsActive) {
                         test.status = "executing...";
+                        test.executing = true;
                         PagedDeliveryCreationTests.runTest(test.DeliveryCreationTestId)
                             .then((result) => {
                                 success++;
@@ -163,12 +164,14 @@ export default class DeliveryCreationTestsEditController {
                                         + result.LastDeliveryCreationTestResult.LastTestResultMessage);
                                 }
                                 test.status = "Success!";
+                                test.success = true;
                             })
                             .catch((error) => {
                                 failure++;
                                 test.status = "Failure: " + JSON.stringify(error);
                             })
                             .finally(() => {
+                                test.executing = false;
                                 executing--;
                                 updateExecutionBar(executing, success, failure);
                             });
@@ -176,6 +179,7 @@ export default class DeliveryCreationTestsEditController {
                         success++;
                         executing--;
                         test.status = "(skipped)";
+                        test.skipped = true;
                         updateExecutionBar(executing, success, failure);
                     }
                 }
