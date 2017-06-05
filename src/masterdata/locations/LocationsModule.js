@@ -14,6 +14,7 @@ export default angular.module('fls.masterdata.locations', ['ngTable'])
     .service('PagedLocations', LocationsServices.PagedLocations)
     .service('LocationService', LocationsServices.LocationService)
     .service('LocationPersister', LocationsServices.LocationPersister)
+    .service('RoutesPerLocation', LocationsServices.RoutesPerLocation)
     .directive('ngEnter', function() {
         return function(scope, element, attrs) {
             element.bind("keydown keypress", function(event) {

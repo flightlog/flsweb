@@ -18,6 +18,62 @@ export class PagedLocations {
     }
 }
 
+export class RoutesPerLocation {
+
+    constructor($q) {
+        this.$q = $q;
+    }
+
+    getInboundRoutes(location) {
+        let deferred = this.$q.defer();
+        setTimeout(() => {
+            deferred.resolve([
+                {label: "30 W"},
+                {label: "30 E"},
+                {label: "12 W"},
+                {label: "12 E"}
+            ]);
+        }, 1000);
+        return deferred.promise;
+    }
+
+    getOutboundRoutes(location) {
+        let deferred = this.$q.defer();
+        setTimeout(() => {
+            deferred.resolve([
+                {label: "30 W"},
+                {label: "30 E"},
+                {label: "12 W"},
+                {label: "12 E"}
+            ]);
+        }, 1000);
+        return deferred.promise;
+    }
+
+    addInboundRoute(location, label) {
+        let deferred = this.$q.defer();
+        setTimeout(() => {
+            deferred.resolve({label});
+        }, 1000);
+        return deferred.promise;
+    }
+    addOutboundRoute(location, label) {
+        let deferred = this.$q.defer();
+        setTimeout(() => {
+            deferred.resolve({label});
+        }, 1000);
+        return deferred.promise;
+    }
+
+    removeRoute(location, route) {
+        let deferred = this.$q.defer();
+        setTimeout(() => {
+            deferred.resolve();
+        }, 1000);
+        return deferred.promise;
+    }
+}
+
 function invalidate(GLOBALS, $cacheFactory, result) {
     let $httpDefaultCache = $cacheFactory.get('$http');
 

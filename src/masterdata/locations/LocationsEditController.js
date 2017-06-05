@@ -1,11 +1,12 @@
 export default class LocationsEditController {
     constructor($scope, $q, $sce, $routeParams, $location, GLOBALS, AuthService, MessageManager, Locations,
-                LocationService, LocationPersister, PagedLocations, Countries, DropdownItemsRenderService, NgTableParams) {
+                LocationService, LocationPersister, PagedLocations, Countries, DropdownItemsRenderService, NgTableParams,
+                RoutesPerLocation) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
         $scope.md = {};
-        
+
         $scope.isClubAdmin = AuthService.isClubAdmin();
 
         $scope.positionChanged = () => {
@@ -30,13 +31,6 @@ export default class LocationsEditController {
         }
 
         if ($routeParams.id !== undefined) {
-            $scope.inboundRoutes = [
-                {label: "30 W"},
-                {label: "30 E"},
-                {label: "12 W"},
-                {label: "12 E"}
-            ];
-            $scope.outboundRoutes = $scope.inboundRoutes;
             $q.all([
                 Countries.query().$promise.then(function (result) {
                     $scope.md.countries = result;
@@ -52,6 +46,20 @@ export default class LocationsEditController {
                 }),
                 loadLocation().then(function (location) {
                     $scope.location = location;
+                    $scope.routesBusy = true;
+                    $q.all([
+                        RoutesPerLocation.getInboundRoutes(location)
+                            .then((result) => {
+                                $scope.inboundRoutes = result;
+                            }),
+                        RoutesPerLocation.getOutboundRoutes(location)
+                            .then((result) => {
+                                $scope.outboundRoutes = result;
+                            })
+                    ])
+                        .finally(() => {
+                            $scope.routesBusy = false;
+                        });
                     $scope.positionChanged();
                 })
             ])
@@ -135,19 +143,47 @@ export default class LocationsEditController {
         };
 
         $scope.addInboundRoute = (label) => {
-            $scope.inboundRoutes.push({label});
+            $scope.routesBusy = true;
+            RoutesPerLocation.addInboundRoute($scope.location, label)
+                .then((result) => {
+                    $scope.inboundRoutes.push(result);
+                })
+                .finally(() => {
+                    $scope.routesBusy = false;
+                });
         };
 
         $scope.addOutboundRoute = (label) => {
-            $scope.outboundRoutes.push({label});
+            $scope.routesBusy = true;
+            RoutesPerLocation.addOutboundRoute($scope.location, label)
+                .then((result) => {
+                    $scope.outboundRoutes.push(result);
+                })
+                .finally(() => {
+                    $scope.routesBusy = false;
+                });
         };
 
         $scope.removeInboundRoute = (route) => {
-            $scope.inboundRoutes = $scope.inboundRoutes.filter((inboundRoute) => inboundRoute !== route);
+            $scope.routesBusy = true;
+            RoutesPerLocation.removeRoute($scope.location, route)
+                .then(() => {
+                    $scope.inboundRoutes = $scope.inboundRoutes.filter((inboundRoute) => inboundRoute !== route);
+                })
+                .finally(() => {
+                    $scope.routesBusy = false;
+                });
         };
 
         $scope.removeOutboundRoute = (route) => {
-            $scope.outboundRoutes = $scope.outboundRoutes.filter((outboundRoute) => outboundRoute !== route);
+            $scope.routesBusy = true;
+            RoutesPerLocation.removeRoute($scope.location, route)
+                .then(() => {
+                    $scope.outboundRoutes = $scope.outboundRoutes.filter((inboundRoute) => inboundRoute !== route);
+                })
+                .finally(() => {
+                    $scope.routesBusy = false;
+                });
         };
     }
 
