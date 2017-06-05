@@ -101,13 +101,28 @@ export default class DeliveryCreationTestsEditController {
         };
 
         $scope.createTestDelivery = () => {
+            $scope.busy = true;
             PagedDeliveryCreationTests.generateExampleDelivery($scope.deliveryCreationTest.FlightId)
                 .then((deliveryExample) => {
                     $scope.deliveryCreationTest.expectedDeliveryDetailsFormatted = ParseUtil.formatDetails(deliveryExample.CreatedDeliveryDetails);
                     $scope.deliveryItems = deliveryExample.CreatedDeliveryDetails.DeliveryItems;
+                })
+                .finally(() => {
+                    $scope.busy = false;
+                });
+        };
+
+        $scope.runTest = (testId) => {
+            $scope.busy = true;
+            PagedDeliveryCreationTests.runTest(testId)
+                .then((result) => {
+                    MessageManager.showMessage("Test Result: " + (result.LastDeliveryCreationTestResult.LastTestSuccessful ? "Success" : "Failure"));
+                    $scope.lastDeliveryItems = result.LastDeliveryCreationTestResult.LastTestCreatedDeliveryDetails && result.LastDeliveryCreationTestResult.LastTestCreatedDeliveryDetails.DeliveryItems;
+                })
+                .finally(() => {
+                    $scope.busy = false;
                 });
         }
-
 
     }
 

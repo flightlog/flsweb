@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <div class="form-group"
-                     style="margin-bottom:200px;">
+                     style="margin-bottom:20px;">
                     <button type="button"
                             ng-click="cancel()"
                             class="btn btn-default pull-right"
@@ -103,6 +103,31 @@
                             translate="SAVE"
                             style="margin-right:10px;">Save
                     </button>
+                    <button type="button"
+                            ng-click="runTest(deliveryCreationTest.DeliveryCreationTestId)"
+                            class="btn btn-info pull-right"
+                            translate="RUN"
+                            style="margin-right:10px;">
+                    </button>
+                </div>
+                <div class="col-md-12"
+                     ng-if="lastDeliveryItems">
+                    <label for="LastDeliveryDetails"><span translate="LAST_DELIVERY_DETAILS"></span></label>
+                    <table id="LastDeliveryDetails"
+                           width="100%">
+                        <tr>
+                            <th>ArticleNumber</th>
+                            <th>ItemText</th>
+                            <th>Quantity</th>
+                            <th>UnitType</th>
+                        </tr>
+                        <tr ng-repeat="deliveryItem in lastDeliveryItems">
+                            <td ng-bind="deliveryItem.ArticleNumber"></td>
+                            <td ng-bind="deliveryItem.ItemText"></td>
+                            <td ng-bind="deliveryItem.Quantity"></td>
+                            <td ng-bind="deliveryItem.UnitType"></td>
+                        </tr>
+                    </table>
                 </div>
             </form>
         </fls-busy-indicator>
