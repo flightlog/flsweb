@@ -566,7 +566,7 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
 
 .data-cell-eclipsed {
     display: inline-block;
-    width: 200px;
+    width: 350px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

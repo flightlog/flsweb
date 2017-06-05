@@ -1,6 +1,6 @@
 export default class DeliveryCreationTestsEditController {
     constructor($scope, $routeParams, $location, NgTableParams, GLOBALS, AuthService, DeliveryCreationTestService,
-                PagedDeliveryCreationTests, DeliveryCreationTest, MessageManager) {
+                PagedDeliveryCreationTests, DeliveryCreationTest, MessageManager, $q) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
@@ -134,56 +134,70 @@ export default class DeliveryCreationTestsEditController {
             $location.path('/masterdata/accountingRuleFilters/' + id);
         };
 
-        let updateExecutionBar = (executing, success, failure) => {
-            let total = executing + success + failure;
-            $scope.executingPercent = 100 * executing / total;
-            $scope.successPercent = 100 * success / total;
-            $scope.errorPercent = 100 * failure / total;
+        let updateExecutionBar = (status) => {
+            let total = status.executing + status.success + status.failure;
+            $scope.executingPercent = 100 * status.executing / total;
+            $scope.successPercent = 100 * status.success / total;
+            $scope.errorPercent = 100 * status.failure / total;
+        };
+
+        let scheduleTest = (tests, index, status) => {
+            let deferred = $q.defer();
+            let test = tests[index];
+
+            if (test.IsActive) {
+                test.status = "executing...";
+                test.executing = true;
+                PagedDeliveryCreationTests.runTest(test.DeliveryCreationTestId)
+                    .then((result) => {
+                        if (!result.LastDeliveryCreationTestResult.LastTestSuccessful) {
+                            return Promise.reject(result.LastDeliveryCreationTestResult.LastTestResultMessage
+                                + "(Test Error at '"
+                                + result.LastDeliveryCreationTestResult.LastTestRunOn + "')");
+                        }
+                        status.success++;
+                        test.status = "Success!";
+                        test.success = true;
+                    })
+                    .catch((error) => {
+                        status.failure++;
+                        test.status = "Failure: " + JSON.stringify(error);
+                    })
+                    .finally(() => {
+                        test.executing = false;
+                        status.executing--;
+                        updateExecutionBar(status);
+                        deferred.resolve();
+                    });
+            } else {
+                status.success++;
+                status.executing--;
+                test.status = "(skipped)";
+                test.skipped = true;
+                updateExecutionBar(status);
+                deferred.resolve();
+            }
+
+            return deferred.promise;
         };
 
         $scope.runAllTests = () => {
             if ($scope.itemsOnCurrentPage) {
-                $scope.busy = true;
-
-                let executing = $scope.itemsOnCurrentPage.length;
-                let success = 0;
-                let failure = 0;
-                updateExecutionBar(executing, success, failure);
-                let i = 0;
-                for (; i < $scope.itemsOnCurrentPage.length; i++) {
-                    let test = $scope.itemsOnCurrentPage[i];
-                    if (test.IsActive) {
-                        test.status = "executing...";
-                        test.executing = true;
-                        PagedDeliveryCreationTests.runTest(test.DeliveryCreationTestId)
-                            .then((result) => {
-                                success++;
-                                if (!result.LastDeliveryCreationTestResult.LastTestSuccessful) {
-                                    return Promise.reject("Test Error at '"
-                                        + result.LastDeliveryCreationTestResult.LastTestRunOn + "': "
-                                        + result.LastDeliveryCreationTestResult.LastTestResultMessage);
-                                }
-                                test.status = "Success!";
-                                test.success = true;
-                            })
-                            .catch((error) => {
-                                failure++;
-                                test.status = "Failure: " + JSON.stringify(error);
-                            })
-                            .finally(() => {
-                                test.executing = false;
-                                executing--;
-                                updateExecutionBar(executing, success, failure);
-                            });
-                    } else {
-                        success++;
-                        executing--;
-                        test.status = "(skipped)";
-                        test.skipped = true;
-                        updateExecutionBar(executing, success, failure);
-                    }
+                $scope.executingTests = true;
+                let status = {
+                    executing: $scope.itemsOnCurrentPage.length,
+                    success: 0,
+                    failure: 0
+                };
+                updateExecutionBar(status);
+                let promises = [];
+                for (let i = 0; i < $scope.itemsOnCurrentPage.length; i++) {
+                    promises.push(scheduleTest($scope.itemsOnCurrentPage, i, status));
                 }
-                $scope.busy = false;
+                $q.all(promises)
+                    .finally(() => {
+                        $scope.executingTests = false;
+                    });
             }
         }
 
