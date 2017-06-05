@@ -10,7 +10,7 @@ export default class AirMovementsController {
                 $log, $modal, MessageManager,
                 AirMovements, CounterUnitTypes, PagedFlights, $location,
                 Locations, Persons, PersonsV2, PersonPersister, PassengerPersister, Aircrafts, FlightTypes,
-                SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters) {
+                SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters, RoutesPerLocation) {
         const format = 'HH:mm';
         $scope.towPlaneImg = require('../../images/towplane.png');
         $scope.busy = true;
@@ -29,6 +29,7 @@ export default class AirMovementsController {
         
         $scope.routeRequirements = {};
         $scope.timeSets = {};
+        $scope.md = {};
 
         $scope.renderStarttype = DropdownItemsRenderService.starttypeRenderer();
         $scope.renderFlighttype = DropdownItemsRenderService.flighttypeRenderer();
@@ -397,8 +398,20 @@ export default class AirMovementsController {
 
         $scope.recalcRouteRequirements = () => {
             $timeout(() => {
-                $scope.routeRequirements.isOutboundRouteRequired = findSelectedStartLocation().IsOutboundRouteRequired;
-                $scope.routeRequirements.isInboundRouteRequired = findSelectedLandingLocation().IsInboundRouteRequired;
+                let selectedStartLocation = findSelectedStartLocation();
+                let selectedLandingLocation = findSelectedLandingLocation();
+
+                RoutesPerLocation.getOutboundRoutes(selectedStartLocation)
+                    .then((result) => {
+                        $scope.md.startLocationOutboundRoutes = result;
+                    });
+                RoutesPerLocation.getInboundRoutes(selectedLandingLocation)
+                    .then((result) => {
+                        $scope.md.landingLocationInboundRoutes = result;
+                    });
+
+                $scope.routeRequirements.isOutboundRouteRequired = selectedStartLocation.IsOutboundRouteRequired;
+                $scope.routeRequirements.isInboundRouteRequired = selectedLandingLocation.IsInboundRouteRequired;
             }, 0);
         };
 

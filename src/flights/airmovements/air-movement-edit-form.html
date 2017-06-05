@@ -207,20 +207,36 @@
                     <div class="form-group col-md-3 col-sm-6 col-xs-12 fls-secondary-field"
                          ng-show="routeRequirements.isOutboundRouteRequired">
                         <label for="MotorFlightDetailsData.OutboundRoute"><span translate="OUTBOUND_ROUTE"></span>:</label>
-                        <input type="text"
-                               class="form-control"
-                               id="MotorFlightDetailsData.OutboundRoute"
-                               ng-disabled="!flightDetails.CanUpdateRecord"
-                               ng-model="flightDetails.MotorFlightDetailsData.OutboundRoute">
+
+                        <selectize id="MotorFlightDetailsData.OutboundRoute"
+                                   name="MotorFlightDetailsData.OutboundRoute"
+                                   options="md.startLocationOutboundRoutes"
+                                   ng-disabled="!flightDetails.CanUpdateRecord"
+                                   config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'label',
+                                labelField: 'label',
+                                searchField: ['label']
+                            }"
+                                   ng-model="flightDetails.MotorFlightDetailsData.OutboundRoute"></selectize>
                     </div>
                     <div class="form-group col-md-3 col-sm-6 col-xs-12 fls-secondary-field"
                          ng-show="routeRequirements.isInboundRouteRequired">
                         <label for="MotorFlightDetailsData.InboundRoute"><span translate="INBOUND_ROUTE"></span>:</label>
-                        <input type="text"
-                               class="form-control"
-                               id="MotorFlightDetailsData.InboundRoute"
-                               ng-disabled="!flightDetails.CanUpdateRecord"
-                               ng-model="flightDetails.MotorFlightDetailsData.InboundRoute">
+
+                        <selectize id="MotorFlightDetailsData.InboundRoute"
+                                   name="MotorFlightDetailsData.InboundRoute"
+                                   options="md.landingLocationInboundRoutes"
+                                   ng-disabled="!flightDetails.CanUpdateRecord"
+                                   config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'label',
+                                labelField: 'label',
+                                searchField: ['label']
+                            }"
+                                   ng-model="flightDetails.MotorFlightDetailsData.InboundRoute"></selectize>
                     </div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
