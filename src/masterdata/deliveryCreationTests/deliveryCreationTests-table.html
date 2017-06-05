@@ -1,31 +1,50 @@
 <div class="col-xs-12">
     <div class="progress">
-        <div class="progress-bar progress-bar-success" ng-style="{width: successPercent + '%'}">
+        <div class="progress-bar progress-bar-success"
+             ng-style="{width: successPercent + '%'}">
             <span class="sr-only">success</span>
         </div>
-        <div class="progress-bar progress-bar-danger" ng-style="{width: errorPercent + '%'}">
+        <div class="progress-bar progress-bar-danger"
+             ng-style="{width: errorPercent + '%'}">
             <span class="sr-only">error</span>
         </div>
-        <div class="progress-bar progress-bar-info progress-bar-striped active" ng-style="{width: executingPercent + '%'}">
+        <div class="progress-bar progress-bar-info progress-bar-striped active"
+             ng-style="{width: executingPercent + '%'}">
             <span class="sr-only">executing</span>
         </div>
     </div>
-    <section class="hidden-print" style="min-height: 40px; margin-bottom: 10px;">
-            <div class="btn-group pull-right">
-                <button class="btn btn-info"
-                        translate="RUN_ALL_TESTS"
-                        ng-click="runAllTests()"></button>
-            </div>
+    <section class="hidden-print"
+             style="min-height: 40px; margin-bottom: 10px;">
+        <div class="btn-group pull-right">
+            <button class="btn btn-info"
+                    translate="RUN_ALL_TESTS"
+                    ng-click="runAllTests()"></button>
+        </div>
     </section>
-    
-    <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true">
-        <tr ng-repeat="deliveryCreationTest in $data" ng-click="editDeliveryCreationTest(deliveryCreationTest)" title="{{'EDIT' | translate}}">
+
+    <table ng-table="tableParams"
+           class="fls fls-table-with-details"
+           show-filter="true">
+        <tr ng-repeat="deliveryCreationTest in $data"
+            ng-click="editDeliveryCreationTest(deliveryCreationTest)"
+            ng-attr-title="{{deliveryCreationTest.status}}">
+
             <td data-title="'ACTIVE' | translate">
                 <fls-checkbox is-checked="deliveryCreationTest.IsActive">
             </td>
-            <td ng-bind="deliveryCreationTest.DeliveryCreationTestName" data-title="'DELIVERY_CREATION_TEST_NAME' | translate" filter="{ DeliveryCreationTestName: 'text'}" sortable="'DeliveryCreationTestName'"></td>
-            <td ng-bind="deliveryCreationTest.Description" data-title="'DESCRIPTION' | translate" filter="{ Description: 'text'}" sortable="'Description'"></td>
-            <td ng-bind="deliveryCreationTest.status" data-title="'STATUS' | translate"></td>
+            <td ng-bind="deliveryCreationTest.DeliveryCreationTestName"
+                data-title="'DELIVERY_CREATION_TEST_NAME' | translate"
+                filter="{ DeliveryCreationTestName: 'text'}"
+                sortable="'DeliveryCreationTestName'"></td>
+            <td ng-bind="deliveryCreationTest.Description"
+                data-title="'DESCRIPTION' | translate"
+                filter="{ Description: 'text'}"
+                sortable="'Description'"></td>
+            <td data-title="'STATUS' | translate">
+                <div ng-bind="deliveryCreationTest.status"
+                     class="data-cell-eclipsed"></div>
+            </td>
+            
             <td class="hidden-print controls-column">
                 <a ng-show="flight.CanDeleteRecord"
                    title="{{'DELETE' | translate}}"
@@ -33,7 +52,9 @@
                    class="col-xs-4 delete-link">
                     <span class="fa fa-trash-o"></span>
                 </a>
-                <fls-history entity-name="DeliveryCreationTest" entity-id="deliveryCreationTest.DeliveryCreationTestId" class="col-xs-4"></fls-history>
+                <fls-history entity-name="DeliveryCreationTest"
+                             entity-id="deliveryCreationTest.DeliveryCreationTestId"
+                             class="col-xs-4"></fls-history>
             </td>
         </tr>
     </table>

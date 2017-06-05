@@ -117,7 +117,11 @@ export default class DeliveryCreationTestsEditController {
             $scope.busy = true;
             PagedDeliveryCreationTests.runTest(testId)
                 .then((result) => {
-                    MessageManager.showMessage("Test Result: " + (result.LastDeliveryCreationTestResult.LastTestSuccessful ? "Success" : "Failure"));
+                    if (result.LastDeliveryCreationTestResult.LastTestSuccessful) {
+                        MessageManager.showMessage("Test Result: Success!");
+                    } else {
+                        MessageManager.displayError("Test Result: Failure. " + result.LastDeliveryCreationTestResult.LastTestResultMessage);
+                    }
                     $scope.lastDeliveryItems = result.LastDeliveryCreationTestResult.LastTestCreatedDeliveryDetails && result.LastDeliveryCreationTestResult.LastTestCreatedDeliveryDetails.DeliveryItems;
                     $scope.lastMatchedRuleFilters = result.LastDeliveryCreationTestResult.LastTestMatchedAccountingRuleFilterIds;
                 })
@@ -151,13 +155,18 @@ export default class DeliveryCreationTestsEditController {
                     if (test.IsActive) {
                         test.status = "executing...";
                         PagedDeliveryCreationTests.runTest(test.DeliveryCreationTestId)
-                            .then(() => {
+                            .then((result) => {
                                 success++;
+                                if (!result.LastDeliveryCreationTestResult.LastTestSuccessful) {
+                                    return Promise.reject("Test Error at '"
+                                        + result.LastDeliveryCreationTestResult.LastTestRunOn + "': "
+                                        + result.LastDeliveryCreationTestResult.LastTestResultMessage);
+                                }
                                 test.status = "Success!";
                             })
-                            .catch(() => {
+                            .catch((error) => {
                                 failure++;
-                                test.status = "Failure.";
+                                test.status = "Failure: " + JSON.stringify(error);
                             })
                             .finally(() => {
                                 executing--;

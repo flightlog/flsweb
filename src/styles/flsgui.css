@@ -562,3 +562,11 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
     font-weight: 500;
     font-size: 11px;
 }
+
+.data-cell-eclipsed {
+    display: block;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
