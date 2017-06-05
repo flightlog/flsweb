@@ -20,7 +20,10 @@ export default class DeliveryCreationTestsEditController {
                 PagedDeliveryCreationTests.getDeliveryCreationTest($routeParams.id)
                     .then((result) => {
                         $scope.deliveryCreationTest = result;
-                        $scope.deliveryCreationTest.expectedDeliveryDetailsFormatted = $scope.ExpectedDeliveryDetails && JSON.stringify($scope.ExpectedDeliveryDetails, undefined, 2);
+                        if($scope.deliveryCreationTest.ExpectedDeliveryDetails) {
+                            $scope.deliveryCreationTest.expectedDeliveryDetailsFormatted = JSON.stringify($scope.deliveryCreationTest.ExpectedDeliveryDetails, undefined, 2);
+                            $scope.deliveryItems = $scope.deliveryCreationTest.ExpectedDeliveryDetails.DeliveryItems;
+                        }
                     })
                     .finally(() => {
                         $scope.busy = false;
@@ -101,6 +104,7 @@ export default class DeliveryCreationTestsEditController {
             PagedDeliveryCreationTests.generateExampleDelivery($scope.deliveryCreationTest.FlightId)
                 .then((deliveryExample) => {
                     $scope.deliveryCreationTest.expectedDeliveryDetailsFormatted = ParseUtil.formatDetails(deliveryExample.CreatedDeliveryDetails);
+                    $scope.deliveryItems = deliveryExample.CreatedDeliveryDetails.DeliveryItems;
                 });
         }
 

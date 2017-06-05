@@ -49,6 +49,20 @@
 
                         <div class="form-group">
                             <label for="ExpectedDeliveryDetails"><span translate="EXPECTED_DELIVERY_DETAILS"></span></label>
+                            <table width="100%">
+                                <tr>
+                                    <th>ArticleNumber</th>
+                                    <th>ItemText</th>
+                                    <th>Quantity</th>
+                                    <th>UnitType</th>
+                                </tr>
+                                <tr ng-repeat="deliveryItem in deliveryItems">
+                                    <td ng-bind="deliveryItem.ArticleNumber"></td>
+                                    <td ng-bind="deliveryItem.ItemText"></td>
+                                    <td ng-bind="deliveryItem.Quantity"></td>
+                                    <td ng-bind="deliveryItem.UnitType"></td>
+                                </tr>
+                            </table>
                             <textarea class="form-control json-text"
                                       rows="10"
                                       id="ExpectedDeliveryDetails"
