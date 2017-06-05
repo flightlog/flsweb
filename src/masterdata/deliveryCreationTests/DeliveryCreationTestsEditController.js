@@ -130,9 +130,21 @@ export default class DeliveryCreationTestsEditController {
             $location.path('/masterdata/accountingRuleFilters/' + id);
         };
 
+        let updateExecutionBar = (executing, success, failure) => {
+            let total = executing + success + failure;
+            $scope.executingPercent = 100 * executing / total;
+            $scope.successPercent = 100 * success / total;
+            $scope.errorPercent = 100 * failure / total;
+        };
+
         $scope.runAllTests = () => {
             if ($scope.itemsOnCurrentPage) {
                 $scope.busy = true;
+
+                let executing = $scope.itemsOnCurrentPage.length;
+                let success = 0;
+                let failure = 0;
+                updateExecutionBar(executing, success, failure);
                 let i = 0;
                 for (; i < $scope.itemsOnCurrentPage.length; i++) {
                     let test = $scope.itemsOnCurrentPage[i];
@@ -140,13 +152,22 @@ export default class DeliveryCreationTestsEditController {
                         test.status = "executing...";
                         PagedDeliveryCreationTests.runTest(test.DeliveryCreationTestId)
                             .then(() => {
+                                success++;
                                 test.status = "Success!";
                             })
                             .catch(() => {
+                                failure++;
                                 test.status = "Failure.";
+                            })
+                            .finally(() => {
+                                executing--;
+                                updateExecutionBar(executing, success, failure);
                             });
                     } else {
+                        success++;
+                        executing--;
                         test.status = "(skipped)";
+                        updateExecutionBar(executing, success, failure);
                     }
                 }
                 $scope.busy = false;
