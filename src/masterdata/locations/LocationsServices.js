@@ -33,17 +33,19 @@ export class RoutesPerLocation {
     }
 
     getOutboundRoutes(location) {
-        return this.getRoutes(location, true)
+        return this.getRoutes(location, false)
     }
 
     getRoutes(location, inbound) {
         return this.$http
             .get(`${this.GLOBALS.BASE_URL}/api/v1/inoutboundpoints/location/${location.LocationId}`)
             .then((response) => {
-                return response.data
+                let filtered = response.data
                     .filter((routeFromServer) => {
-                        return routeFromServer.IsInboundPoint === inbound;
-                    })
+                        return routeFromServer.IsInboundPoint == inbound;
+                    });
+                
+                return filtered
                     .map((routeFromServer) => {
                         return {
                             id: routeFromServer.InOutboundPointId,
@@ -78,7 +80,7 @@ export class RoutesPerLocation {
 
     removeRoute(location, route) {
         return this.$http
-            .delete(`${this.GLOBALS.BASE_URL}/api/v1/inoutboundpoints/${route.InOutboundPointId}`)
+            .delete(`${this.GLOBALS.BASE_URL}/api/v1/inoutboundpoints/${route.id}`)
             .then((response) => {
                 return response.data;
             })
