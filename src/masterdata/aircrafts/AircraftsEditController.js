@@ -3,7 +3,7 @@ import * as _ from "lodash";
 
 export default class AircraftsEditController {
     constructor($scope, $q, $routeParams, $location, NgTableParams, $window, GLOBALS, AuthService, PagedAircrafts, AircraftService,
-                Aircraft, AircraftTypes, CounterUnitTypes, Clubs, Persons, MessageManager, DropdownItemsRenderService) {
+                Aircraft, AircraftTypes, CounterUnitTypes, Clubs, Persons, MessageManager, DropdownItemsRenderService, Locations) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = false;
@@ -55,6 +55,7 @@ export default class AircraftsEditController {
                 .all([
                     Clubs.query().$promise.then(clubs => $scope.md.clubs = clubs),
                     Persons.query().$promise.then(persons => $scope.md.persons = persons),
+                    Locations.getLocations().$promise.then(locations => $scope.md.locations = locations),
                     AircraftTypes.query().$promise.then(aircraftTypes => $scope.md.aircraftTypes = aircraftTypes),
                     CounterUnitTypes.query().$promise.then(counterUnitTypes => $scope.md.counterUnitTypes = counterUnitTypes)
                 ])

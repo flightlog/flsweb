@@ -38,17 +38,23 @@
                             }"
                                ng-model="aircraft.AircraftType"></selectize>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="ManufacturerName"><span translate="MANUFACTURER_NAME"></span></label>
                     <input class="form-control"
                            id="ManufacturerName"
                            ng-model="aircraft.ManufacturerName">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="AircraftModel"><span translate="AIRCRAFT_MODEL"></span></label>
                     <input class="form-control"
                            id="AircraftModel"
                            ng-model="aircraft.AircraftModel">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="NrOfSeats"><span translate="NUMBER_OF_SEATS"></span></label>
+                    <input class="form-control"
+                           id="NrOfSeats"
+                           ng-model="aircraft.NrOfSeats">
                 </div>
             </div>
         </accordion-group>
@@ -81,7 +87,7 @@
                         <span translate="IS_PRIVATELY_OWNED"></span>
                     </label>
                 </div>
-                <div class="form-group col-md-6"
+                <div class="form-group col-md-4"
                      ng-show="ownerType === 'club'">
                     <label for="AircraftOwnerClubId"><span translate="AIRCRAFT_OWNER_CLUB"></span></label>
 
@@ -98,7 +104,7 @@
                             }"
                                ng-model="aircraft.AircraftOwnerClubId"></selectize>
                 </div>
-                <div class="form-group col-md-6"
+                <div class="form-group col-md-4"
                      ng-show="ownerType === 'private'">
                     <label for="AircraftOwnerPersonId"><span translate="AIRCRAFT_OWNER_PERSON"></span></label>
 
@@ -115,11 +121,21 @@
                             }"
                                ng-model="aircraft.AircraftOwnerPersonId"></selectize>
                 </div>
-                <div class="form-group col-md-2">
-                    <label for="NrOfSeats"><span translate="NUMBER_OF_SEATS"></span></label>
-                    <input class="form-control"
-                           id="NrOfSeats"
-                           ng-model="aircraft.NrOfSeats">
+                <div class="form-group col-md-4">
+                    <label for="HomebaseId"><span translate="HOME_BASE"></span></label>
+
+                    <selectize id="HomebaseId"
+                               name="HomebaseId"
+                               options="md.locations"
+                               ng-disabled="!aircraft.CanUpdateRecord"
+                               config="{
+                                        inputClass: 'form-control selectize-input',
+                                        maxItems: 1,
+                                        valueField: 'LocationId',
+                                        searchField: ['LocationName'],
+                                        labelField: 'LocationName'
+                                    }"
+                               ng-model="aircraft.HomebaseId"></selectize>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="SpotLink"><span translate="SPOT_LINK"></span></label>
@@ -218,7 +234,8 @@
                            id="NoiseLevel"
                            ng-model="aircraft.NoiseLevel">
                 </div>
-                <div class="form-group col-md-3" ng-if="selectedAircraftType.HasEngine">
+                <div class="form-group col-md-3"
+                     ng-if="selectedAircraftType.HasEngine">
                     <label for="EngineOperatingCounterUnitTypeId"><span translate="ENGINE_COUNTER_UNIT_TYPE"></span></label>
 
                     <selectize id="EngineOperatingCounterUnitTypeId"
@@ -234,7 +251,8 @@
                             }"
                                ng-model="aircraft.EngineOperatingCounterUnitTypeId"></selectize>
                 </div>
-                <div class="form-group" ng-class="{'col-md-9': selectedAircraftType.HasEngine, 'col-md-12': !selectedAircraftType.HasEngine}">
+                <div class="form-group"
+                     ng-class="{'col-md-9': selectedAircraftType.HasEngine, 'col-md-12': !selectedAircraftType.HasEngine}">
                     <label for="Comment"><span translate="COMMENT"></span></label>
                     <input class="form-control"
                            id="Comment"
