@@ -166,7 +166,7 @@ export default class LocationsEditController {
 
         $scope.removeInboundRoute = (route) => {
             $scope.routesBusy = true;
-            RoutesPerLocation.removeRoute($scope.location, route)
+            RoutesPerLocation.removeRoute(route)
                 .then(() => {
                     $scope.inboundRoutes = $scope.inboundRoutes.filter((inboundRoute) => inboundRoute !== route);
                 })
@@ -177,7 +177,7 @@ export default class LocationsEditController {
 
         $scope.removeOutboundRoute = (route) => {
             $scope.routesBusy = true;
-            RoutesPerLocation.removeRoute($scope.location, route)
+            RoutesPerLocation.removeRoute(route)
                 .then(() => {
                     $scope.outboundRoutes = $scope.outboundRoutes.filter((inboundRoute) => inboundRoute !== route);
                 })

@@ -28,6 +28,13 @@ export class RoutesPerLocation {
         this.MessageManager = MessageManager;
     }
 
+    mapRoute(routeFromServer) {
+        return {
+            id: routeFromServer.InOutboundPointId,
+            label: routeFromServer.InOutboundPointName
+        }
+    }
+
     getInboundRoutes(location) {
         return this.getRoutes(location, true)
     }
@@ -44,14 +51,8 @@ export class RoutesPerLocation {
                     .filter((routeFromServer) => {
                         return routeFromServer.IsInboundPoint == inbound;
                     });
-                
-                return filtered
-                    .map((routeFromServer) => {
-                        return {
-                            id: routeFromServer.InOutboundPointId,
-                            label: routeFromServer.InOutboundPointName
-                        }
-                    });
+
+                return filtered.map(this.mapRoute);
             })
             .catch(_.partial(this.MessageManager.raiseError, 'load', 'routes for location ' + location.LocationId));
     }
@@ -73,12 +74,12 @@ export class RoutesPerLocation {
                 InOutboundPointName: label
             })
             .then((response) => {
-                return response.data;
+                return this.mapRoute(response.data);
             })
             .catch(_.partial(this.MessageManager.raiseError, 'add', 'route for location'));
     }
 
-    removeRoute(location, route) {
+    removeRoute(route) {
         return this.$http
             .delete(`${this.GLOBALS.BASE_URL}/api/v1/inoutboundpoints/${route.id}`)
             .then((response) => {
