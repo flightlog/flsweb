@@ -11,6 +11,9 @@
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <label><span translate="TOWING_PLANE">Aircraft</span>:</label>
 
+        <fls-masterdata-link
+                id-value="flightDetails.TowFlightDetailsData.AircraftId"
+                masterdata-sub-path="aircrafts"></fls-masterdata-link>
         <div class="input-group col-md-12 col-sm-12 col-xs-12">
             <selectize name="TowAircraftId"
                        options="towerAircrafts"
@@ -39,6 +42,9 @@
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <label><span translate="TOWING_PILOT"></span>:</label>
 
+        <fls-masterdata-link
+                id-value="flightDetails.TowFlightDetailsData.PilotPersonId"
+                masterdata-sub-path="persons"></fls-masterdata-link>
         <div class="input-group col-md-12 col-sm-12 col-xs-12">
             <selectize name="towingPilot"
                        options="towingPilots"
@@ -128,6 +134,9 @@
     <div class="form-group col-md-5 col-sm-6 col-xs-6">
         <label><span translate="START_LOCATION"></span>:</label>
 
+        <fls-masterdata-link
+                id-value="flightDetails.TowFlightDetailsData.StartLocationId"
+                masterdata-sub-path="locations"></fls-masterdata-link>
         <selectize name="TowStartLocationId"
                    options="locations"
                    config="{
@@ -139,12 +148,15 @@
                                 onChange: startLocationChanged
                             }"
                    ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
-                   ng-model="flightDetails.GliderFlightDetailsData.StartLocationId">
+                   ng-model="flightDetails.TowFlightDetailsData.StartLocationId">
         </selectize>
     </div>
     <div class="form-group col-md-4 col-sm-6 col-xs-6">
         <label><span translate="LANDING_LOCATION"></span>:</label>
 
+        <fls-masterdata-link
+                id-value="flightDetails.TowFlightDetailsData.LdgLocationId"
+                masterdata-sub-path="locations"></fls-masterdata-link>
         <selectize name="TowLdgLocationId"
                    options="locations"
                    config="{
@@ -176,7 +188,7 @@
                class="form-control"
                id="TowFlightDetailsData.OutboundRoute"
                disabled
-               ng-model="flightDetails.GliderFlightDetailsData.OutboundRoute">
+               ng-model="flightDetails.TowFlightDetailsData.OutboundRoute">
     </div>
     <div class="form-group col-md-4 col-sm-6 col-xs-6"
          ng-show="isInboundRouteForTowFlightRequired">

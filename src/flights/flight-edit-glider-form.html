@@ -8,7 +8,11 @@
              style="max-width:100%;height:60px;margin-top:15px;margin-bottom: 12px;">
     </div>
     <div class="form-group col-xs-6">
-        <label><span translate="GLIDER_PLANE"></span>: </label>
+        <label><span translate="GLIDER_PLANE"></span>:</label>
+
+        <fls-masterdata-link
+                id-value="flightDetails.GliderFlightDetailsData.AircraftId"
+                masterdata-sub-path="aircrafts"></fls-masterdata-link>
         <selectize name="gliderAircraft"
                    options="gliderAircrafts"
                    ng-disabled="!flightDetails.CanUpdateRecord"
@@ -42,6 +46,9 @@
     <div class="form-group col-md-12 col-sm-12 col-xs-12">
         <label><span translate="GLIDER_PILOT"></span>:</label>
 
+        <fls-masterdata-link
+                id-value="flightDetails.GliderFlightDetailsData.PilotPersonId"
+                masterdata-sub-path="persons"></fls-masterdata-link>
         <div class="input-group col-md-12 col-sm-12 col-xs-12">
             <selectize name="gliderPilot"
                        options="gliderPilots"
@@ -56,12 +63,12 @@
                        ng-model="flightDetails.GliderFlightDetailsData.PilotPersonId"></selectize>
 
             <div class="input-group-btn">
-                    <button type="button"
-                            class="btn btn-default"
-                            ng-click="newGliderPilot()"
-                            translate="NEW"
-                            ng-show="flightDetails.CanUpdateRecord"></button>
-                </div>
+                <button type="button"
+                        class="btn btn-default"
+                        ng-click="newGliderPilot()"
+                        translate="NEW"
+                        ng-show="flightDetails.CanUpdateRecord"></button>
+            </div>
         </div>
     </div>
     <div class="row col-xs-12">
@@ -107,6 +114,9 @@
          ng-show="selectedFlightType.ObserverPilotOrInstructorRequired">
         <label><span translate="OBSERVER"></span>:</label>
 
+        <fls-masterdata-link
+                id-value="flightDetails.GliderFlightDetailsData.ObserverPersonId"
+                masterdata-sub-path="persons"></fls-masterdata-link>
         <div class="input-group col-md-12 col-sm-12 col-xs-12">
             <selectize name="observer"
                        options="observers"
@@ -126,6 +136,9 @@
          ng-show="selectedFlightType.IsPassengerFlight">
         <label><span translate="PASSENGER"></span>:</label>
 
+        <fls-masterdata-link
+                id-value="flightDetails.GliderFlightDetailsData.PassengerPersonId"
+                masterdata-sub-path="persons"></fls-masterdata-link>
         <div class="input-group col-md-12 col-sm-12 col-xs-12">
             <selectize name="PassengerPersonId"
                        options="allPersons"
@@ -139,18 +152,21 @@
                             }"
                        ng-model="flightDetails.GliderFlightDetailsData.PassengerPersonId"></selectize>
             <div class="input-group-btn">
-                    <button type="button"
-                            class="btn btn-default"
-                            ng-click="newPassenger()"
-                            translate="NEW"
-                            ng-show="flightDetails.CanUpdateRecord"></button>
-                </div>
+                <button type="button"
+                        class="btn btn-default"
+                        ng-click="newPassenger()"
+                        translate="NEW"
+                        ng-show="flightDetails.CanUpdateRecord"></button>
+            </div>
         </div>
     </div>
     <div class="form-group col-md-12 col-sm-12 col-xs-12"
          ng-show="!flightDetails.GliderFlightDetailsData.IsSoloFlight && !selectedFlightType.IsPassengerFlight && !selectedFlightType.InstructorRequired">
         <label><span translate="CO_PILOT"></span>:</label>
 
+        <fls-masterdata-link
+                id-value="flightDetails.GliderFlightDetailsData.CoPilotPersonId"
+                masterdata-sub-path="persons"></fls-masterdata-link>
         <selectize name="CoPilotPersonId"
                    options="gliderPilots"
                    ng-disabled="!flightDetails.CanUpdateRecord"
@@ -167,6 +183,9 @@
          ng-show="selectedFlightType.InstructorRequired">
         <label><span translate="INSTRUCTOR"></span>:</label>
 
+        <fls-masterdata-link
+                id-value="flightDetails.GliderFlightDetailsData.InstructorPersonId"
+                masterdata-sub-path="persons"></fls-masterdata-link>
         <selectize name="InstructorPersonId"
                    options="instructors"
                    ng-disabled="!flightDetails.CanUpdateRecord"
@@ -183,6 +202,9 @@
          ng-show="selectedStartType.IsWinchStart">
         <label><span translate="WINCH_OPERATOR"></span>:</label>
 
+        <fls-masterdata-link
+                id-value="flightDetails.GliderFlightDetailsData.WinchOperatorPersonId"
+                masterdata-sub-path="persons"></fls-masterdata-link>
         <selectize name="WinchOperatorPersonId"
                    options="winchOperators"
                    ng-disabled="!flightDetails.CanUpdateRecord"
@@ -260,6 +282,9 @@
     <div class="form-group col-md-5 col-sm-6 col-xs-6">
         <label><span translate="START_LOCATION"></span>:</label>
 
+        <fls-masterdata-link
+                id-value="flightDetails.GliderFlightDetailsData.StartLocationId"
+                masterdata-sub-path="locations"></fls-masterdata-link>
         <selectize name="GliderStartLocationId"
                    options="locations"
                    ng-disabled="!flightDetails.CanUpdateRecord"
@@ -276,6 +301,9 @@
     <div class="form-group col-md-4 col-sm-6 col-xs-6">
         <label><span translate="LANDING_LOCATION"></span>:</label>
 
+        <fls-masterdata-link
+                id-value="flightDetails.GliderFlightDetailsData.LdgLocationId"
+                masterdata-sub-path="locations"></fls-masterdata-link>
         <selectize name="GliderLdgLocationId"
                    options="locations"
                    ng-disabled="!flightDetails.CanUpdateRecord"
@@ -370,11 +398,11 @@
                         class="btn btn-default"
                         type="button"
                         ng-click="copyLastCounterToStartOperatingCounter()"><span class="fa fa-history"></span></button>
-              </div>
             </div>
-            <span ng-show="times.lastOperatingCounterFormatted"
-                  style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
-                    translate="LAST_ENGINE_TIME"></span>:
+        </div>
+        <span ng-show="times.lastOperatingCounterFormatted"
+              style="color:#000052;font-weight: 500;font-size:0.8em;font-style:italic;">(<span
+                translate="LAST_ENGINE_TIME"></span>:
                                 <span ng-bind="times.lastOperatingCounterFormatted"></span>)</span>
     </div>
     <div class="form-group col-md-6 col-sm-6 col-xs-12"

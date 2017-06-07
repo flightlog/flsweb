@@ -7,6 +7,7 @@ import NavigationCache from "./NavigationCache";
 import Countries from "./Countries";
 import {StartTypes, SpecificStartTypes} from "./StartTypes";
 import {CounterUnitTypes} from "./CounterUnitTypes";
+import {MasterDataLinkDirective} from "./directives/masterdataLink/MasterDataLinkDirective";
 import DatePickerInputDirective from "./directives/datePicker/DatePickerInputDirective";
 import DateRangePickerInputDirective from "./directives/dateRangePicker/DateRangePickerInputDirective";
 import TimeInputDirective from "./directives/timePicker/TimeInputDirective";
@@ -60,6 +61,7 @@ export default angular.module("fls.core", [
     .directive('flsLabelledCheckbox', LabelledCheckBoxDirective.factory)
     .directive('selectize', SelectizeDirective.factory)
     .directive('flsHistory', HistoryDirective.factory)
+    .directive('flsMasterdataLink', MasterDataLinkDirective.factory)
     .service('StringUtils', StringUtils)
     .service('TableSettingsCacheFactory', TableSettingsCacheFactory)
     .service('AuthService', AuthService)
