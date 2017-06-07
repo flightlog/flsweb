@@ -44,6 +44,10 @@ export class RoutesPerLocation {
     }
 
     getRoutes(location, inbound) {
+        if(!location || !location.LocationId) {
+            return Promise.resolve([]);
+        }
+
         return this.$http
             .get(`${this.GLOBALS.BASE_URL}/api/v1/inoutboundpoints/location/${location.LocationId}`)
             .then((response) => {
