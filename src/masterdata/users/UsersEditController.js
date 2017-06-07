@@ -165,6 +165,14 @@ export default class UsersEditController {
                     .catch(_.partial(MessageManager.raiseError, 'save', 'person'));
             });
         };
+
+        $scope.resendEmailToken = (user) => {
+            $scope.busy = true;
+            PagedUsers.resendEmailToken(user)
+                .finally(() => {
+                    $scope.busy = false;
+                })
+        };
     }
 
 }

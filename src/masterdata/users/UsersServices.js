@@ -1,8 +1,9 @@
  export class PagedUsers {
-    constructor($http, GLOBALS, MessageManager) {
+    constructor($http, GLOBALS, MessageManager, AuthService) {
         this.$http = $http;
         this.GLOBALS = GLOBALS;
         this.MessageManager = MessageManager;
+        this.AuthService = AuthService;
     }
 
     getUsers(filter, sorting, pageStart, pageSize) {
@@ -10,6 +11,19 @@
             .post(`${this.GLOBALS.BASE_URL}/api/v1/users/page/${pageStart}/${pageSize}`, {
                 Sorting: sorting,
                 SearchFilter: filter
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'users list'));
+    }
+
+    resendEmailToken(user) {
+        return this.$http
+            .post(`${this.GLOBALS.BASE_URL}/api/v1/users/resendemailtoken`, {
+                UserId: user.UserId,
+                UserName: user.UserName,
+                EmailConfirmationLink: this.AuthService.confirmationLink()
             })
             .then((response) => {
                 return response.data;
