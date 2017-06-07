@@ -23,7 +23,8 @@ export default class UsersEditController {
                 deferred.resolve({
                     ClubId: user.ClubId,
                     AccountState: DEFAULT_USER_STATE_ID,
-                    CanUpdateRecord: true
+                    CanUpdateRecord: true,
+                    EmailConfirmed: true
                 });
                 return deferred.promise;
             }
@@ -80,7 +81,6 @@ export default class UsersEditController {
 
                     return PagedUsers.getUsers(filter, $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
-                            $scope.busy = false;
                             params.total(result.TotalRows);
 
                             return result.Items;
