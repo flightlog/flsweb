@@ -344,6 +344,9 @@ input.ng-invalid {
     .ng-table-filters {
         display: none;
     }
+    .no-print {
+        display: none;
+    }
 }
 
 .busy-indicator-backdrop {
