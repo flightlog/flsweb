@@ -24,6 +24,9 @@
             <div class="form-group">
                 <label for="LocationId"><span translate="LOCATION">Location</span>:</label>
 
+                <fls-masterdata-link
+                        id-value="planningDay.LocationId"
+                        masterdata-sub-path="locations"></fls-masterdata-link>
                 <selectize id="LocationId"
                            name="LocationId"
                            options="md.locations"
@@ -49,6 +52,9 @@
             <div class="form-group">
                 <label for="TowingPilotPersonId"><span translate="TOWING_PILOT">Towing Pilot</span>:</label>
 
+                <fls-masterdata-link
+                        id-value="planningDay.TowingPilotPersonId"
+                        masterdata-sub-path="persons"></fls-masterdata-link>
                 <div class="input-group col-md-12">
                     <selectize name="TowingPilotPersonId"
                                options="md.towingPilots"
@@ -73,6 +79,9 @@
             <div class="form-group">
                 <label for="FlightOperatorPersonId"><span translate="FLIGHT_OPERATOR"></span>:</label>
 
+                <fls-masterdata-link
+                        id-value="planningDay.FlightOperatorPersonId"
+                        masterdata-sub-path="persons"></fls-masterdata-link>
                 <div class="input-group col-md-12">
                     <selectize name="FlightOperatorPersonId"
                                options="md.gliderPilots"
@@ -97,6 +106,9 @@
             <div class="form-group">
                 <label for="InstructorPersonId"><span translate="INSTRUCTOR"></span>:</label>
 
+                <fls-masterdata-link
+                        id-value="planningDay.InstructorPersonId"
+                        masterdata-sub-path="persons"></fls-masterdata-link>
                 <div class="input-group col-md-12">
                     <selectize name="InstructorPersonId"
                                options="md.instructors"

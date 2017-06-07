@@ -72,6 +72,9 @@
             <div class="form-group col-md-12">
                 <label for="Pilot"><span translate="PILOT">Pilot</span>:*</label>
 
+                <fls-masterdata-link
+                        id-value="reservation.PilotPersonId"
+                        masterdata-sub-path="persons"></fls-masterdata-link>
                 <selectize id="Pilot"
                            name="Pilot"
                            options="md.gliderPilots"
@@ -90,6 +93,9 @@
                  ng-if="instructorRequired">
                 <label for="Instructor"><span translate="INSTRUCTOR">Instructor</span>:*</label>
 
+                <fls-masterdata-link
+                        id-value="reservation.InstructorPersonId"
+                        masterdata-sub-path="persons"></fls-masterdata-link>
                 <selectize id="Instructor"
                            name="Instructor"
                            options="md.instructors"
@@ -107,6 +113,9 @@
             <div class="form-group col-md-12">
                 <label for="Aircraft"><span translate="AIRCRAFT">Aircraft</span>:*</label>
 
+                <fls-masterdata-link
+                        id-value="reservation.AircraftId"
+                        masterdata-sub-path="aircrafts"></fls-masterdata-link>
                 <selectize id="Aircraft"
                            name="Aircraft"
                            options="md.aircrafts"
@@ -125,6 +134,9 @@
             <div class="form-group col-md-12">
                 <label for="Location"><span translate="LOCATION"></span>:*</label>
 
+                <fls-masterdata-link
+                        id-value="reservation.LocationId"
+                        masterdata-sub-path="locations"></fls-masterdata-link>
                 <selectize id="Location"
                            name="Location"
                            options="md.locations"
