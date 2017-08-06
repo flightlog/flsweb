@@ -147,7 +147,7 @@
                                 render: renderLocation,
                                 onChange: startLocationChanged
                             }"
-                   ng-disabled="!flightDetails.CanUpdateRecord || !flightDetails.TowFlightDetailsData.AircraftId"
+                   ng-disabled="true"
                    ng-model="flightDetails.TowFlightDetailsData.StartLocationId">
         </selectize>
     </div>
@@ -188,7 +188,7 @@
                class="form-control"
                id="TowFlightDetailsData.OutboundRoute"
                disabled
-               ng-model="flightDetails.TowFlightDetailsData.OutboundRoute">
+               ng-model="flightDetails.GliderFlightDetailsData.OutboundRoute">
     </div>
     <div class="form-group col-md-4 col-sm-6 col-xs-6"
          ng-show="isInboundRouteForTowFlightRequired">

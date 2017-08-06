@@ -597,6 +597,7 @@ export default class FlightsController {
         $scope.startLocationChanged = () => {
             $scope.flightDetails.GliderFlightDetailsData.LdgLocationId = $scope.flightDetails.GliderFlightDetailsData.StartLocationId;
             if ($scope.flightDetails.TowFlightDetailsData) {
+                $scope.flightDetails.TowFlightDetailsData.StartLocationId = $scope.flightDetails.GliderFlightDetailsData.StartLocationId;
                 $scope.flightDetails.TowFlightDetailsData.LdgLocationId = $scope.flightDetails.GliderFlightDetailsData.StartLocationId;
             }
             recalcRouteRequirements();
