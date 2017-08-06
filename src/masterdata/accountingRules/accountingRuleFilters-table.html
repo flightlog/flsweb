@@ -9,7 +9,7 @@
             <td ng-bind="accountingRuleFilter.Target" data-title="'ACCOUNTING_RULE_FILTER_TARGET' | translate" filter="{ Target: 'text'}" sortable="'Target'"></td>
             <td ng-bind="accountingRuleFilter.AccountingRuleFilterTypeName" data-title="'ACCOUNTING_RULE_FILTER_TYPE' | translate" filter="{ AccountingRuleFilterTypeName: 'text'}" sortable="'AccountingRuleFilterTypeName'"></td>
             <td class="hidden-print controls-column">
-                <a ng-show="flight.CanDeleteRecord"
+                <a ng-show="accountingRuleFilter.CanDeleteRecord"
                    title="{{'DELETE' | translate}}"
                    ng-click="deleteAccountingRuleFilter(accountingRuleFilter); $event.stopPropagation();"
                    class="col-xs-4 delete-link">

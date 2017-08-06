@@ -4,7 +4,7 @@
             <td ng-bind="club.ClubName" data-title="'NAME' | translate" filter="{ ClubName: 'text'}" sortable="'ClubName'"></td>
             <td ng-bind="club.CountryName" data-title="'COUNTRY' | translate" filter="{ CountryName: 'text'}" sortable="'CountryName'"></td>
             <td class="hidden-print controls-column">
-                <a ng-show="flight.CanDeleteRecord"
+                <a ng-show="club.CanDeleteRecord"
                    title="{{'DELETE' | translate}}"
                    ng-click="deleteClub(club); $event.stopPropagation();"
                    class="col-xs-4 delete-link">
