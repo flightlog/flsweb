@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 
 export default class AuthService {
-    constructor($http, $location, $window, GLOBALS, $sessionStorage) {
+    constructor($http, $location, $window, GLOBALS, $sessionStorage, $cacheFactory) {
         let storage = $sessionStorage.$default({loginResult: {}});
 
         function confirmationLink() {
@@ -52,6 +52,9 @@ export default class AuthService {
                 return srv.loginformvisible;
             },
             login: function (username, password) {
+                let $httpDefaultCache = $cacheFactory.get('$http');
+                $httpDefaultCache.removeAll();
+
                 return $http({
                     method: 'POST',
                     url: GLOBALS.BASE_URL + '/Token',
