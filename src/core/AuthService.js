@@ -91,6 +91,9 @@ export default class AuthService {
                     });
             },
             logout: function () {
+                let $httpDefaultCache = $cacheFactory.get('$http');
+                $httpDefaultCache.removeAll();
+
                 delete $sessionStorage.loginResult;
                 delete $sessionStorage.user;
                 delete $sessionStorage.userRoles;
