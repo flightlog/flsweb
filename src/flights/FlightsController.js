@@ -347,7 +347,7 @@ export default class FlightsController {
             recalcRouteRequirements();
         }
 
-        $scope.save = function (flightDetails) {
+        function prepareForSaving(flightDetails) {
             if (flightDetails.TowFlightDetailsData && flightDetails.TowFlightDetailsData.AircraftId) {
                 let towPilotByAircraftId = localStorageService.get("towPilotByAircraftId");
                 towPilotByAircraftId[flightDetails.TowFlightDetailsData.AircraftId] = flightDetails.TowFlightDetailsData.PilotPersonId;
@@ -377,16 +377,30 @@ export default class FlightsController {
             if (!$scope.needsTowplane(flightDetails.StartType) || !flightDetails.TowFlightDetailsData.AircraftId) {
                 flightDetails.TowFlightDetailsData = undefined;
             }
+        }
 
+        function doSave(flightDetails, callback) {
             if (flightDetails.FlightId) {
                 new Flights(flightDetails).$saveFlight({id: flightDetails.FlightId})
-                    .then($scope.cancel)
+                    .then(callback)
                     .catch(_.partial(MessageManager.raiseError, 'save', 'flight'));
             } else {
                 new Flights(flightDetails).$save()
-                    .then($scope.cancel)
+                    .then(callback)
                     .catch(_.partial(MessageManager.raiseError, 'insert', 'flight'));
             }
+        }
+
+        $scope.save = (flightDetails) => {
+            prepareForSaving(flightDetails);
+            doSave(flightDetails, $scope.cancel);
+        };
+
+        $scope.saveAndCopy = (flightDetails) => {
+            prepareForSaving(flightDetails);
+            doSave(flightDetails, savedFlight => {
+                $scope.copyFlight(savedFlight);
+            });
         };
 
         $scope.delete = function (flight) {
@@ -515,7 +529,7 @@ export default class FlightsController {
                 for (let i = 0; i < $scope.flightCostBalanceTypes.length; i++) {
                     if (hasDetails() && $scope.flightCostBalanceTypes[i].FlightCostBalanceTypeId == $scope.flightDetails.GliderFlightDetailsData.FlightCostBalanceType) {
                         $scope.PersonForInvoiceRequired = $scope.flightCostBalanceTypes[i].PersonForInvoiceRequired;
-                        if(!$scope.PersonForInvoiceRequired) {
+                        if (!$scope.PersonForInvoiceRequired) {
                             $scope.flightDetails.GliderFlightDetailsData.InvoiceRecipientPersonId = undefined;
                         }
                     }

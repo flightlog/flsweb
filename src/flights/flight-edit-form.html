@@ -47,6 +47,14 @@
                         Save
                     </button>
                     <button type="button"
+                            ng-click="saveAndCopy(flightDetails)"
+                            class="btn btn-default pull-right"
+                            style="margin-right:10px;"
+                            translate="SAVE_AND_COPY"
+                            ng-disabled="flightDetailsForm.$invalid || !flightDetails.CanUpdateRecord">
+                        Save
+                    </button>
+                    <button type="button"
                             ng-click="delete(flightDetails)"
                             ng-show="flightDetails.FlightId"
                             class="btn btn-danger pull-right"
