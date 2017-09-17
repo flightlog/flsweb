@@ -4,7 +4,7 @@ import AddPersonController from "../masterdata/persons/modal/AddPersonController
 import {FlightStateMapper} from "./FlightsServices";
 
 export default class FlightsController {
-    constructor($scope, $q, $log, $modal, $timeout, MessageManager, $location, $routeParams,
+    constructor($scope, $q, $log, $http, $modal, $translate, $timeout, MessageManager, $location, $routeParams,
                 TimeService, Flights, NgTableParams, PagedFlights, AuthService,
                 FlightTypes, Locations, Persons, PersonsV2, PersonPersister, PassengerPersister,
                 Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes, TableSettingsCacheFactory,
@@ -784,7 +784,25 @@ export default class FlightsController {
         $scope.toggleTowLandingTimeInformation = () => {
             $scope.flightDetails.TowFlightDetailsData.NoLdgTimeInformation = !$scope.flightDetails.TowFlightDetailsData.NoLdgTimeInformation;
             $scope.times.towingLanding = undefined;
-        }
+        };
+
+        $scope.validateFlights = () => {
+            if(confirm($translate.instant("CONFIRM_VALIDATE"))) {
+                $scope.busy = true;
+                $http.post(`${GLOBALS.BASE_URL}/api/v1/flights/validate`, {})
+                    .then(() => {
+                        if ($scope.tableParams) {
+                            $scope.tableParams.reload();
+                        } else {
+                            $scope.cancel();
+                        }
+                    })
+                    .catch(_.partial(MessageManager.raiseError, 'validate', 'flights'))
+                    .finally(() => {
+                        $scope.busy = false;
+                    });
+            }
+        };
 
     }
 }

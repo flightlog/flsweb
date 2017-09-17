@@ -479,6 +479,16 @@ td.flight--time {
     margin-bottom: 15px;
 }
 
+.fls-new-button button.fls-validate-button {
+    background-color: rgba(240, 181, 191, 0.77);
+    border: 1px dashed rgba(104, 0, 0, 0.4);
+}
+
+.fls-new-button button.fls-validate-button:hover,
+.fls-new-button button.fls-validate-button:focus {
+    background-color: rgba(128, 32, 32, 1);
+}
+
 .fls-new-button {
     position: fixed;
     right: 8vw;

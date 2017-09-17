@@ -1,6 +1,13 @@
 <div class="container-fluid flscontainer">
     <div class="hidden-print fls-new-button">
         <button type="button"
+                class="fls-validate-button"
+                title="{{'VALIDATION'|translate}}"
+                ng-click="validateFlights()">
+            <span class="fa fa-calendar-check-o fa-2x"></span>
+        </button>
+
+        <button type="button"
                 ng-click="newFlight()">
             <span class="fa fa-plus fa-2x"></span>
         </button>
