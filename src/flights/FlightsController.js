@@ -515,6 +515,9 @@ export default class FlightsController {
                 for (let i = 0; i < $scope.flightCostBalanceTypes.length; i++) {
                     if (hasDetails() && $scope.flightCostBalanceTypes[i].FlightCostBalanceTypeId == $scope.flightDetails.GliderFlightDetailsData.FlightCostBalanceType) {
                         $scope.PersonForInvoiceRequired = $scope.flightCostBalanceTypes[i].PersonForInvoiceRequired;
+                        if(!$scope.PersonForInvoiceRequired) {
+                            $scope.flightDetails.GliderFlightDetailsData.InvoiceRecipientPersonId = undefined;
+                        }
                     }
                 }
             });
