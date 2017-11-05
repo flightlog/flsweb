@@ -5,4 +5,5 @@ require('selectize/dist/css/selectize.bootstrap3.css');
 require('pikaday/css/pikaday.css');
 require('./pikaday-theme.css');
 require('./linearicons.css');
+require('angular-bootstrap-grid-tree/src/treeGrid.css');
 require('./flsgui.css');

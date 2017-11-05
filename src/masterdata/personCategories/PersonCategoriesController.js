@@ -4,56 +4,45 @@ export default class PersonCategoriesController {
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = false;
 
-
-        $scope.expand_collapse = function (data) {
-            data.show = !data.show;
+        $scope.toggleSelection = function (branch) {
+            branch.Selected = !branch.Selected;
         };
 
-        // below is an array of size 1 - it does not have to be that way
-        $scope.tree = [{
-            name: "Root",
-            show: true,
-            nodes: []
-        }];
-
-        var nodeChild1 = {
-            name: "Child 1",
-            show: false,
-            nodes: []
-        };
-        var nodeChild2 = {
-            name: "Child 2",
-            show: false,
-            nodes: []
-        };
-        // Add the children
-        $scope.tree[0].nodes.push(nodeChild1);
-        $scope.tree[0].nodes.push(nodeChild2);
-
-        var nodeGrandChild1 = {
-            name: "Grand Child 1",
-            show: false,
-            nodes: []
-        };
-        var nodeGrandChild11 = {
-            name: "Grand Child 11",
-            show: false,
-            nodes: []
-        };
-        nodeChild1.nodes.push(nodeGrandChild1);
-        nodeChild1.nodes.push(nodeGrandChild11);
-
-        var nodeGrandChild2 = {
-            name: "Grand Child 2",
-            show: false,
-            nodes: []
-        };
-        var nodeGrandChild21 = {
-            name: "Grand Child 21",
-            show: false,
-            nodes: []
-        };
-        nodeChild2.nodes.push(nodeGrandChild2);
-        nodeChild2.nodes.push(nodeGrandChild21);
+        $scope.tree_data = [
+            {
+                Name: "USA", Selected: true,
+                children: [
+                    {
+                        Name: "California", Selected: true,
+                        children: [
+                            {Name: "San Francisco", Selected: false},
+                            {Name: "Los Angeles", Selected: false}
+                        ]
+                    },
+                    {
+                        Name: "Illinois", Selected: false,
+                        children: [
+                            {Name: "Chicago", Selected: false}
+                        ]
+                    }
+                ]
+            },
+            {Name: "Texas", Selected: false}
+        ];
+        $scope.col_defs = [
+            {
+                field: "Selected",
+                displayName: "Selected",
+                cellTemplate: "<span ng-click='cellTemplateScope.click(row.branch)' ng-class='cellTemplateScope.classObj(row, col)' class='clickable'></span>",
+                cellTemplateScope: {
+                    click: function (branch) {
+                        $scope.toggleSelection(branch);
+                    },
+                    classObj: function (row, col) {
+                        return {'fa fa-square-o': row.branch[col.field], 'fa fa-check-square-o': !row.branch[col.field]}
+                    }
+                }
+            }
+        ];
     }
 }

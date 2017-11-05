@@ -49,6 +49,10 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular-bootstrap-grid-tree@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/angular-bootstrap-grid-tree/-/angular-bootstrap-grid-tree-0.4.0.tgz#e8a14c83d117233aad3d1921326562817566469b"
+
 angular-cookies@1.4.6:
   version "1.4.6"
   resolved "https://registry.yarnpkg.com/angular-cookies/-/angular-cookies-1.4.6.tgz#42ace7f66bdd93c2a45139eefd5bb88a9ae21dfe"
@@ -2496,11 +2500,11 @@ mkdirp@0.5.0:
   dependencies:
     minimist "0.0.8"
 
-moment@2.18.1:
+moment@2.18.1, moment@2.x:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
-moment@2.x, "moment@>=2.8.0 <2.11.0":
+"moment@>=2.8.0 <2.11.0":
   version "2.10.6"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.10.6.tgz#6cb21967c79cba7b0ca5e66644f173662b3efa77"
 

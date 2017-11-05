@@ -1,10 +1,12 @@
 import angular from 'angular';
 import coreModule from '../../core/CoreModule';
 import {userAuth} from '../../core/AuthService';
-import PersonCategoriesController from "./PersonCategoriesController"
+import PersonCategoriesController from "./PersonCategoriesController";
+import "angular-bootstrap-grid-tree";
 
 export default angular.module('fls.masterdata.personCategories', [
-    coreModule.name
+    coreModule.name,
+    'treeGrid'
 ])
     .controller('PersonCategoryController', PersonCategoriesController)
     .config(function ($routeProvider) {
