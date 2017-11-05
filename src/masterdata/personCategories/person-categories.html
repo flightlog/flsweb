@@ -1,0 +1,43 @@
+<div class="container-fluid flscontainer">
+    <div>
+        <fls-message-bar ng-show="!busy"></fls-message-bar>
+    </div>
+    <h1 translate="PERSON_CATEGORIES"></h1>
+    <fls-busy-indicator busy="busy"
+                        error="error" class="fls-tree">
+        <script type="text/ng-template" id="tree_item_renderer.html">
+            <button ng-click="expand_collapse(data)" ng-show="data.show && data.nodes.length > 0">-</button>
+            <button ng-click="expand_collapse(data)" ng-show="!data.show && data.nodes.length > 0">+</button>
+            <fls-edit-in-place value="data"></fls-edit-in-place>
+            <ol ng-show="data.show">
+                <li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
+            </ol>
+        </script>
+
+        <div id="tree">
+            <ol>
+                <li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
+            </ol>
+        </div>
+
+        <br/>
+        <p>Here we repeat the contacts to ensure bindings work
+        </p>
+
+        <script type="text/ng-template" id="tree_item_renderer2.html">
+            <button ng-click="expand_collapse(data)" ng-show="data.show && data.nodes.length > 0">-</button>
+            <button ng-click="expand_collapse(data)" ng-show="!data.show && data.nodes.length > 0">+</button>
+            {{data.name}}
+            <ol ng-show="data.show">
+                <li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer2.html'"></li>
+            </ol>
+        </script>
+
+        <div id="tree2">
+            <ol>
+                <li ng-repeat="data in tree" ng-include="'tree_item_renderer2.html'"></li>
+            </ol>
+        </div>
+
+    </fls-busy-indicator>
+</div>
