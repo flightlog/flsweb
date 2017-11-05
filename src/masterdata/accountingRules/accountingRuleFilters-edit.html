@@ -360,7 +360,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="MatchedClubMembers"
+                            <label for="FlightCrewTypes"
                                    class="fls-list-selection-label">
                                 <div translate="FLIGHT_CREW_TYPES"
                                      class="fls-list-selection-label-text"></div>
@@ -389,6 +389,105 @@
                                                 labelField: 'FlightCrewTypeName'
                                             }"
                                        ng-model="accountingRuleFilter.MatchedFlightCrewTypes"></selectize>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="MatchedHomeBases"
+                                   class="fls-list-selection-label">
+                                <div translate="HOME_BASE"
+                                     class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="homeBasesIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllHomeBasesExceptListed"
+                                           ng-value="false"> nur folgende
+                                </div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="homeBasesIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllHomeBasesExceptListed"
+                                           ng-value="true"> alle ausser
+                                </div>
+                            </label>
+
+                            <selectize id="MatchedHomeBases"
+                                       name="MatchedHomeBases"
+                                       options="md.locations"
+                                       ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                                       config="{
+                                                inputClass: 'form-control selectize-input multiline-selectize',
+                                                valueField: 'IcaoCode',
+                                                searchField: ['LocationName', 'IcaoCode'] ,
+                                                labelField: 'LocationName'
+                                            }"
+                                       ng-model="accountingRuleFilter.MatchedHomeBases"></selectize>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="MatchedMemberStates"
+                                   class="fls-list-selection-label">
+                                <div translate="MEMBER_STATE"
+                                     class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="memberStatesIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllMemberStatesExceptListed"
+                                           ng-value="false"> nur folgende
+                                </div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="memberStatesIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllMemberStatesExceptListed"
+                                           ng-value="true"> alle ausser
+                                </div>
+                            </label>
+
+                            <selectize id="MatchedMemberStates"
+                                       name="MatchedMemberStates"
+                                       options="md.memberStates"
+                                       ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                                       config="{
+                                                inputClass: 'form-control selectize-input multiline-selectize',
+                                                valueField: 'MemberStateId',
+                                                searchField: ['MemberStateName'] ,
+                                                labelField: 'MemberStateName'
+                                            }"
+                                       ng-model="accountingRuleFilter.MatchedMemberStates"></selectize>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="MatchedPersonCategories"
+                                   class="fls-list-selection-label">
+                                <div translate="PERSON_CATEGORY"
+                                     class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="personCategoriesIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllPersonCategoriesExceptListed"
+                                           ng-value="false"> nur folgende
+                                </div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="personCategoriesIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllPersonCategoriesExceptListed"
+                                           ng-value="true"> alle ausser
+                                </div>
+                            </label>
+
+                            <selectize id="MatchedPersonCategories"
+                                       name="MatchedPersonCategories"
+                                       options="md.personCategories"
+                                       ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                                       config="{
+                                                inputClass: 'form-control selectize-input multiline-selectize',
+                                                valueField: 'PersonCategoryId',
+                                                searchField: ['PersonCategoryName'] ,
+                                                labelField: 'PersonCategoryName'
+                                            }"
+                                       ng-model="accountingRuleFilter.MatchedPersonCategories"></selectize>
                         </div>
 
                     </div>

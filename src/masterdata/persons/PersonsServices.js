@@ -25,6 +25,15 @@ export class PagedPersons {
             })
             .catch(_.partial(this.MessageManager.raiseError, 'load', 'persons list'));
     }
+
+    getAllPersonCategories() {
+        return this.$http
+            .get(`${this.GLOBALS.BASE_URL}/api/v1/personcategories`)
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'person categories list'));
+    }
 }
 
 export class PersonsV2 {
