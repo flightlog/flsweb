@@ -393,26 +393,26 @@
 
 
                         <div class="form-group">
-                            <label for="MatchedHomeBases"
+                            <label for="MatchedAircraftsHomebase"
                                    class="fls-list-selection-label">
                                 <div translate="HOME_BASE"
                                      class="fls-list-selection-label-text"></div>
                                 <div class="fls-include-exclude-radio-choice">
                                     <input type="radio"
                                            name="homeBasesIncl"
-                                           ng-model="accountingRuleFilter.UseRuleForAllHomeBasesExceptListed"
+                                           ng-model="accountingRuleFilter.UseRuleForAllAircraftsOnHomebaseExceptListed"
                                            ng-value="false"> nur folgende
                                 </div>
                                 <div class="fls-include-exclude-radio-choice">
                                     <input type="radio"
                                            name="homeBasesIncl"
-                                           ng-model="accountingRuleFilter.UseRuleForAllHomeBasesExceptListed"
+                                           ng-model="accountingRuleFilter.UseRuleForAllAircraftsOnHomebaseExceptListed"
                                            ng-value="true"> alle ausser
                                 </div>
                             </label>
 
-                            <selectize id="MatchedHomeBases"
-                                       name="MatchedHomeBases"
+                            <selectize id="MatchedAircraftsHomebase"
+                                       name="MatchedAircraftsHomebase"
                                        options="md.locations"
                                        ng-disabled="!accountingRuleFilter.CanUpdateRecord"
                                        config="{
@@ -421,7 +421,7 @@
                                                 searchField: ['LocationName', 'IcaoCode'] ,
                                                 labelField: 'LocationName'
                                             }"
-                                       ng-model="accountingRuleFilter.MatchedHomeBases"></selectize>
+                                       ng-model="accountingRuleFilter.MatchedAircraftsHomebase"></selectize>
                         </div>
 
 
