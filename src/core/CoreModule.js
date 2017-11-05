@@ -25,6 +25,7 @@ import HistoryDirective from "./directives/history/HistoryDirective";
 import AuditLogService from "./directives/history/AuditLogService";
 import DropdownItemsRenderService from "./DropdownItemsRenderService";
 import SelectizeDirective from "./directives/Selectize";
+import EditInPlace from "./directives/tree/EditInPlace";
 import StringUtils from "./StringUtils";
 import {TableSettingsCacheFactory} from "./TableSettingsCache";
 import angularCookies from "angular-cookies";
@@ -62,6 +63,7 @@ export default angular.module("fls.core", [
     .directive('selectize', SelectizeDirective.factory)
     .directive('flsHistory', HistoryDirective.factory)
     .directive('flsMasterdataLink', MasterDataLinkDirective.factory)
+    .directive('flsEditInPlace', EditInPlace.factory)
     .service('StringUtils', StringUtils)
     .service('TableSettingsCacheFactory', TableSettingsCacheFactory)
     .service('AuthService', AuthService)

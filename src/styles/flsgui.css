@@ -606,3 +606,39 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
 button.btn {
     height: 35px;
 }
+
+
+
+.fls-tree ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.fls-tree li {
+    margin-left: 35px;
+}
+
+.fls-tree button {
+    background:transparent;
+    border:none;
+    outline:none;
+    cursor:pointer;
+    min-width: 30px;
+}
+
+.edit-in-place span {
+    cursor: pointer;
+}
+
+.edit-in-place input {
+    display: none;
+}
+
+.edit-in-place.active span {
+    display: none;
+}
+
+.edit-in-place.active input {
+    display: inline-block;
+}
