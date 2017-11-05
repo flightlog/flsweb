@@ -1,59 +1,93 @@
+import * as _ from "lodash";
+
 export default class PersonCategoriesController {
-    constructor($scope, $q, $location, $routeParams, GLOBALS, MessageManager) {
+    constructor($scope, $q, $route, $http, GLOBALS, MessageManager) {
 
         $scope.debug = GLOBALS.DEBUG;
-        $scope.busy = false;
+        $scope.busy = true;
+        $scope.nodes = [];
 
 
-        $scope.expand_collapse = function (data) {
-            data.show = !data.show;
+        function collectNodes(nodeArray) {
+            for (let i = 0; nodeArray && i < nodeArray.length; i++) {
+                let node = nodeArray[i];
+                $scope.nodes.push(node);
+                collectNodes(node.children);
+            }
+        }
+
+        $http.get(GLOBALS.BASE_URL + '/api/v1/personCategories')
+            .then(function (result) {
+                let treeData = result.data;
+                let idToNodeMap = {};
+                let nodes = [];
+                let rootNodes = [];
+
+                treeData.forEach(function (node) {
+                    node.children = [];
+                    nodes.push(node);
+                    idToNodeMap[node.PersonCategoryId] = node;
+                });
+
+                nodes.forEach(function (node) {
+                    if (typeof node.ParentPersonCategoryId === "undefined") {
+                        node.level = 0;
+                        rootNodes.push(node);
+                    } else {
+                        let parentNode = idToNodeMap[node.ParentPersonCategoryId];
+                        node.level = parentNode.level + 1;
+                        parentNode.children.push(node);
+                    }
+                });
+
+                collectNodes(rootNodes);
+            })
+            .catch(_.partial(MessageManager.raiseError, 'load', 'person categories list'))
+            .finally(function () {
+                $scope.busy = false;
+            });
+
+        $scope.addNode = function (parent) {
+            let newName = window.prompt("Person-Category Name:");
+
+            let newNode = {
+                CategoryName: newName,
+                ParentPersonCategoryId: parent.PersonCategoryId,
+                level: parent.level + 1
+            };
+
+            $http.post(GLOBALS.BASE_URL + '/api/v1/personCategories', newNode)
+                .then(function () {
+                    $route.reload();
+                })
+                .catch(_.partial(MessageManager.raiseError, 'add', 'person category'));
         };
 
-        // below is an array of size 1 - it does not have to be that way
-        $scope.tree = [{
-            name: "Root",
-            show: true,
-            nodes: []
-        }];
+        $scope.editNode = function (node) {
+            node.CategoryName = window.prompt("Person-Category Name:", node.CategoryName);
 
-        var nodeChild1 = {
-            name: "Child 1",
-            show: false,
-            nodes: []
+            $http.post(GLOBALS.BASE_URL + '/api/v1/personCategories', Object.assign({}, node, {
+                children: undefined,
+                level: undefined
+            }))
+                .then(function () {
+                    $route.reload();
+                })
+                .catch(_.partial(MessageManager.raiseError, 'update', 'person category'));
         };
-        var nodeChild2 = {
-            name: "Child 2",
-            show: false,
-            nodes: []
-        };
-        // Add the children
-        $scope.tree[0].nodes.push(nodeChild1);
-        $scope.tree[0].nodes.push(nodeChild2);
 
-        var nodeGrandChild1 = {
-            name: "Grand Child 1",
-            show: false,
-            nodes: []
+        $scope.removeNode = function (node) {
+            if (window.confirm("Really delete '" + node.CategoryName + "'?")) {
+                $http.post(GLOBALS.BASE_URL + '/api/v1/personCategories/' + node.PersonCategoryId, {}, {
+                    headers: {
+                        'X-HTTP-Method-Override': 'DELETE'
+                    }
+                })
+                    .then(function () {
+                        $route.reload();
+                    })
+                    .catch(_.partial(MessageManager.raiseError, 'delete', 'person category'));
+            }
         };
-        var nodeGrandChild11 = {
-            name: "Grand Child 11",
-            show: false,
-            nodes: []
-        };
-        nodeChild1.nodes.push(nodeGrandChild1);
-        nodeChild1.nodes.push(nodeGrandChild11);
-
-        var nodeGrandChild2 = {
-            name: "Grand Child 2",
-            show: false,
-            nodes: []
-        };
-        var nodeGrandChild21 = {
-            name: "Grand Child 21",
-            show: false,
-            nodes: []
-        };
-        nodeChild2.nodes.push(nodeGrandChild2);
-        nodeChild2.nodes.push(nodeGrandChild21);
     }
 }
