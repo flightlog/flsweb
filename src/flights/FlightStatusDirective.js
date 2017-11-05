@@ -15,7 +15,7 @@ export default class FlightStatusDirective {
                     glider: FlightStateMapper.processedState(flight.ProcessState) || FlightStateMapper.statusOfFlight(flight.AirState)
                 };
                 if ($scope.mode !== "MOTOR") {
-                    $scope.status.tow = FlightStateMapper.processedState(flight.ProcessState) || flight.TowFlightId && FlightStateMapper.statusOfFlight(flight.TowFlightAirState);
+                    $scope.status.tow = FlightStateMapper.processedState(flight.TowFlightProcessState) || flight.TowFlightId && FlightStateMapper.statusOfFlight(flight.TowFlightAirState);
                 }
             }
         }
