@@ -6,6 +6,7 @@ export default class PersonCategoriesController {
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
         $scope.nodes = [];
+        $scope.editMode = false;
 
 
         function collectNodes(nodeArray) {
@@ -15,6 +16,12 @@ export default class PersonCategoriesController {
                 collectNodes(node.children);
             }
         }
+
+        $scope.toggleChildren = function (node) {
+            node.children.forEach(function(child) {
+                child.selected = node.selected;
+            });
+        };
 
         $http.get(GLOBALS.BASE_URL + '/api/v1/personCategories')
             .then(function (result) {

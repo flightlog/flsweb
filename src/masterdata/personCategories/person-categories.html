@@ -8,10 +8,11 @@
 
         <div class="col-md-12">
             <div ng-repeat="node in nodes" ng-style="{'margin-left': node.level * 30 + 'px'}">
-                <input type="checkbox" style="margin: 5px;" ng-model="node.selected" />
+                <input ng-if="!editMode" type="checkbox" style="margin: 5px;" ng-model="node.selected" ng-change="toggleChildren(node)" />
+                <span ng-if="editMode" class="fa fa-square" style="color:lightgrey;"></span>
                 <span ng-bind="node.CategoryName" ng-click="editNode(node)" class="clickable"></span>
-                <a href ng-click="addNode(node)"><span class="fa fa-plus-circle"></span></a>
-                <a href ng-click="removeNode(node)"><span class="fa fa-trash"></span></a>
+                <a ng-if="editMode" href ng-click="addNode(node)"><span class="fa fa-plus-circle"></span></a>
+                <a ng-if="editMode" href ng-click="removeNode(node)"><span class="fa fa-trash"></span></a>
             </div>
         </div>
 
