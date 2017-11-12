@@ -21,7 +21,6 @@ export default class EditableTreeDirective {
 class EditableTreeController {
 
     constructor($scope) {
-        console.log("scope", $scope);
         this.ctrlScope = $scope.ctrl;
     }
 

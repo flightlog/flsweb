@@ -27,7 +27,7 @@ export class PersonCategoryService {
             let allNodes = [];
 
             allNodes.push(node);
-            if(node.children) {
+            if (node.children) {
                 node.children.forEach(node => flatNodeList(node));
             }
 
@@ -55,26 +55,32 @@ export class PersonCategoryService {
             }
         }
 
+        function calculateLevelsFor(node, lastLevel) {
+            node.level = lastLevel;
+
+            node.children.forEach((child) => calculateLevelsFor(child, lastLevel + 1));
+        }
+
         treeData.forEach(function (node) {
             node.children = [];
             nodes.push(node);
             idToNodeMap[node.PersonCategoryId] = node;
         });
 
-        nodes.forEach(function (node) {
+        nodes.forEach((node) => {
             if (typeof node.ParentPersonCategoryId === "undefined") {
-                node.level = 0;
                 rootNodes.push(node);
             } else {
                 let parentNode = idToNodeMap[node.ParentPersonCategoryId];
                 if (parentNode) {
-                    node.level = parentNode.level + 1;
                     parentNode.children.push(node);
                 } else {
                     rootNodes.push(node);
                 }
             }
         });
+
+        rootNodes.forEach((child) => calculateLevelsFor(child, 0));
 
         collectNodes(rootNodes);
 
