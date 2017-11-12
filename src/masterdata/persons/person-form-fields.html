@@ -306,7 +306,7 @@
                    ng-class="{'glyphicon-chevron-down': status4, 'glyphicon-chevron-right': !status4}"
                    style="margin-right: 0.8em;"></i> <span translate="CLUB_SETTINGS"></span>
             </accordion-heading>
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <label class="form-group col-md-12"><span translate="FLIGHT_PERMISSION"></span></label>
                 <label class="checkbox col-md-11 col-md-offset-1"
                        for="IsGliderInstructor">
@@ -365,13 +365,6 @@
                     <span translate="IS_WINCH_OPERATOR"></span>
                 </label>
             </div>
-            <div class="col-md-3">
-                <label for="personCategories"
-                       translate="PERSON_CATEGORY"></label>
-                <fls-editable-tree id="personCategories"
-                                   data="{nodes: masterdata.personCategories}"
-                                   edit-mode="false"></fls-editable-tree>
-            </div>
             <div class="col-md-6">
                 <label class="form-group col-md-12"><span translate="NOTIFICATION_SETTINGS"></span></label>
                 <label class="checkbox col-md-11 col-md-offset-1"
@@ -418,6 +411,20 @@
                             }"
                                ng-model="person.ClubRelatedPersonDetails.MemberStateId"></selectize>
                 </div>
+            </div>
+        </accordion-group>
+        <accordion-group is-open="status5">
+            <accordion-heading>
+                <i class="pull-left glyphicon"
+                   ng-class="{'glyphicon-chevron-down': status5, 'glyphicon-chevron-right': !status5}"
+                   style="margin-right: 0.8em;"></i> <span translate="PERSON_CATEGORIES"></span>
+            </accordion-heading>
+            <div class="col-md-12">
+                <label for="personCategories"
+                       translate="PERSON_CATEGORY"></label>
+                <fls-editable-tree id="personCategories"
+                                   data="{nodes: masterdata.personCategories}"
+                                   edit-mode="false"></fls-editable-tree>
             </div>
         </accordion-group>
     </accordion>

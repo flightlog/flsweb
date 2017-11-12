@@ -37,9 +37,12 @@ class EditableTreeController {
     }
 
     toggleChildren(node) {
-        node.children.forEach((child) => {
-            child.selected = node.selected;
-        });
+        if (node.children) {
+            node.children.forEach((child) => {
+                child.selected = node.selected;
+                this.toggleChildren(child);
+            });
+        }
     }
 
 }
