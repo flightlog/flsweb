@@ -1,6 +1,7 @@
 <div>
     <div ng-repeat="node in ctrl.data.nodes"
-         ng-style="{'margin-left': node.level * 30 + 'px'}">
+         ng-style="{'margin-left': node.level * 30 + 'px'}"
+         class="editable-tree-row">
         <input ng-if="!ctrl.editMode"
                type="checkbox"
                style="margin: 5px;"
@@ -25,7 +26,7 @@
     </div>
     <a ng-if="ctrl.editMode" href
        ng-click="ctrl.addNode()"
-       class="tree-node-manipulation-link btn btn-default">
+       class="tree-node-manipulation-link btn btn-default" style="display:inline-block;">
         <span class="fa fa-plus-circle"></span>
     </a>
 </div>

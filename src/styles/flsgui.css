@@ -614,8 +614,15 @@ button.btn {
     border-radius: 50%;
     width: 30px;
     color: lightgray;
+    display: none;
 }
 .tree-node-manipulation-link:hover,
 .tree-node-manipulation-link:active {
     color: #0000a1;
+}
+.editable-tree-row {
+    line-height: 32px;
+}
+.editable-tree-row:hover .tree-node-manipulation-link {
+    display: inline-block;
 }
