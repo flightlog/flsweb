@@ -4,16 +4,16 @@
     </div>
     <h1 translate="PERSON_CATEGORIES"></h1>
     <fls-busy-indicator busy="busy"
-                        error="error" class="fls-tree">
+                        error="error"
+                        class="fls-tree">
 
         <div class="col-md-12">
-            <div ng-repeat="node in nodes" ng-style="{'margin-left': node.level * 30 + 'px'}">
-                <input ng-if="!editMode" type="checkbox" style="margin: 5px;" ng-model="node.selected" ng-change="toggleChildren(node)" />
-                <span ng-if="editMode" class="fa fa-square" style="color:lightgrey;"></span>
-                <span ng-bind="node.CategoryName" ng-click="editNode(node)" class="clickable"></span>
-                <a ng-if="editMode" href ng-click="addNode(node)"><span class="fa fa-plus-circle"></span></a>
-                <a ng-if="editMode" href ng-click="removeNode(node)"><span class="fa fa-trash"></span></a>
-            </div>
+            <fls-editable-tree data="data"
+                               node-name-attribute="CategoryName"
+                               edit-mode="true"
+                               on-add-node="addNode"
+                               on-edit-node="editNode"
+                               on-delete-node="deleteNode"></fls-editable-tree>
         </div>
 
     </fls-busy-indicator>

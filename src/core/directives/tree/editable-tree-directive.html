@@ -1,0 +1,25 @@
+<div>
+    <div ng-repeat="node in ctrl.data.nodes"
+         ng-style="{'margin-left': node.level * 30 + 'px'}">
+        <input ng-if="!ctrl.editMode"
+               type="checkbox"
+               style="margin: 5px;"
+               ng-model="node.selected"
+               ng-change="ctrl.toggleChildren(node)"/>
+        <span ng-if="ctrl.editMode"
+              class="fa fa-square"
+              style="color:lightgrey;"></span>
+        <span ng-bind="node.CategoryName"
+              ng-click="ctrl.editNode(node)"
+              class="clickable"></span>
+        <a ng-if="ctrl.editMode"
+           href
+           ng-click="ctrl.addNode(node)"><span class="fa fa-plus-circle"></span></a>
+        <a ng-if="ctrl.editMode"
+           href
+           ng-click="ctrl.deleteNode(node)"><span class="fa fa-trash"></span></a>
+    </div>
+    <a href ng-click="ctrl.addNode()">
+        <span class="fa fa-plus-circle"></span>
+    </a>
+</div>

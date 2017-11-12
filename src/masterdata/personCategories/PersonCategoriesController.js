@@ -1,18 +1,17 @@
 import * as _ from "lodash";
 
 export default class PersonCategoriesController {
-    constructor($scope, $q, $route, $http, GLOBALS, MessageManager) {
+    constructor($scope, $route, $http, GLOBALS, MessageManager) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = true;
-        $scope.nodes = [];
         $scope.editMode = false;
-
+        $scope.data = {nodes: []};
 
         function collectNodes(nodeArray) {
             for (let i = 0; nodeArray && i < nodeArray.length; i++) {
                 let node = nodeArray[i];
-                $scope.nodes.push(node);
+                $scope.data.nodes.push(node);
                 collectNodes(node.children);
             }
         }
@@ -25,6 +24,7 @@ export default class PersonCategoriesController {
 
         $http.get(GLOBALS.BASE_URL + '/api/v1/personCategories')
             .then(function (result) {
+                $scope.data.nodes.length = 0;
                 let treeData = result.data;
                 let idToNodeMap = {};
                 let nodes = [];
@@ -42,8 +42,12 @@ export default class PersonCategoriesController {
                         rootNodes.push(node);
                     } else {
                         let parentNode = idToNodeMap[node.ParentPersonCategoryId];
-                        node.level = parentNode.level + 1;
-                        parentNode.children.push(node);
+                        if(parentNode) {
+                            node.level = parentNode.level + 1;
+                            parentNode.children.push(node);
+                        } else {
+                            rootNodes.push(node);
+                        }
                     }
                 });
 
@@ -59,8 +63,7 @@ export default class PersonCategoriesController {
 
             let newNode = {
                 CategoryName: newName,
-                ParentPersonCategoryId: parent.PersonCategoryId,
-                level: parent.level + 1
+                ParentPersonCategoryId: parent && parent.PersonCategoryId
             };
 
             $http.post(GLOBALS.BASE_URL + '/api/v1/personCategories', newNode)
@@ -73,17 +76,21 @@ export default class PersonCategoriesController {
         $scope.editNode = function (node) {
             node.CategoryName = window.prompt("Person-Category Name:", node.CategoryName);
 
-            $http.post(GLOBALS.BASE_URL + '/api/v1/personCategories', Object.assign({}, node, {
+            $http.post(GLOBALS.BASE_URL + '/api/v1/personCategories/' + node.PersonCategoryId, Object.assign({}, node, {
                 children: undefined,
                 level: undefined
-            }))
+            }), {
+                headers: {
+                    'X-HTTP-Method-Override': 'PUT'
+                }
+            })
                 .then(function () {
                     $route.reload();
                 })
                 .catch(_.partial(MessageManager.raiseError, 'update', 'person category'));
         };
 
-        $scope.removeNode = function (node) {
+        $scope.deleteNode = function (node) {
             if (window.confirm("Really delete '" + node.CategoryName + "'?")) {
                 $http.post(GLOBALS.BASE_URL + '/api/v1/personCategories/' + node.PersonCategoryId, {}, {
                     headers: {

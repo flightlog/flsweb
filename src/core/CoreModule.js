@@ -22,6 +22,7 @@ import CheckBoxDirective from "./directives/checkBox/CheckBoxDirective";
 import LabelledCheckBoxDirective from "./directives/checkBox/LabelledCheckBoxDirective";
 import BusyIndicatorDirective from "./directives/busyIndicator/BusyIndicatorDirective";
 import HistoryDirective from "./directives/history/HistoryDirective";
+import EditableTreeDirective from "./directives/tree/EditableTreeDirective";
 import AuditLogService from "./directives/history/AuditLogService";
 import DropdownItemsRenderService from "./DropdownItemsRenderService";
 import SelectizeDirective from "./directives/Selectize";
@@ -54,6 +55,7 @@ export default angular.module("fls.core", [
     .directive('flsSimpleSearchBar', SimpleSearchBarDirective.factory)
     .directive('flsMessageBar', MessageBarDirective.factory)
     .directive('flsNavigationBar', NavigationBarDirective.factory)
+    .directive('flsEditableTree', EditableTreeDirective.factory)
     .directive('flsLoginForm', LoginFormDirective.factory)
     .directive('flsDataTable', DataTableDirective.factory)
     .directive('flsBusyIndicator', BusyIndicatorDirective.factory)
