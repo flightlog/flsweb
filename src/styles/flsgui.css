@@ -344,6 +344,7 @@ input.ng-invalid {
     .ng-table-filters {
         display: none;
     }
+
     .no-print {
         display: none;
     }
@@ -585,10 +586,11 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
     white-space: nowrap;
 }
 
-.list-remove-icon{
+.list-remove-icon {
     color: #856f6f;
     cursor: pointer;
 }
+
 .list-remove-icon:hover {
     color: #bf0000;
 }
@@ -598,6 +600,7 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
     margin-left: 5px;
     cursor: pointer;
 }
+
 .list-add-icon:hover {
     color: #0000a1;
 }
@@ -614,15 +617,23 @@ button.btn {
     border-radius: 50%;
     width: 30px;
     color: lightgray;
-    display: none;
 }
+
+@media (min-width: 870px) {
+    .tree-node-manipulation-link {
+        display: none;
+    }
+}
+
 .tree-node-manipulation-link:hover,
 .tree-node-manipulation-link:active {
     color: #0000a1;
 }
+
 .editable-tree-row {
     line-height: 32px;
 }
+
 .editable-tree-row:hover .tree-node-manipulation-link {
     display: inline-block;
 }
