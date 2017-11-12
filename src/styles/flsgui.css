@@ -608,7 +608,11 @@ button.btn {
 }
 
 .tree-node-manipulation-link {
-    margin-left: 5px;
+    padding: 3px;
+    margin: 1px;
+    background-color: #eeeeee;
+    border-radius: 50%;
+    width: 30px;
     color: lightgray;
 }
 .tree-node-manipulation-link:hover,

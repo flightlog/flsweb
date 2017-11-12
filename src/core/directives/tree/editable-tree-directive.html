@@ -11,21 +11,21 @@
               style="color:lightgrey;"></span>
         <span ng-bind="node.CategoryName"></span>
         <a ng-if="ctrl.editMode"
-           class="tree-node-manipulation-link"
+           class="tree-node-manipulation-link btn btn-default"
            href
            ng-click="ctrl.editNode(node)"><span class="fa fa-pencil"></span></a>
         <a ng-if="ctrl.editMode"
-           class="tree-node-manipulation-link"
+           class="tree-node-manipulation-link btn btn-default"
            href
            ng-click="ctrl.addNode(node)"><span class="fa fa-plus-circle"></span></a>
         <a ng-if="ctrl.editMode"
-           class="tree-node-manipulation-link"
+           class="tree-node-manipulation-link btn btn-default"
            href
            ng-click="ctrl.deleteNode(node)"><span class="fa fa-trash"></span></a>
     </div>
     <a ng-if="ctrl.editMode" href
        ng-click="ctrl.addNode()"
-       class="tree-node-manipulation-link">
+       class="tree-node-manipulation-link btn btn-default">
         <span class="fa fa-plus-circle"></span>
     </a>
 </div>
