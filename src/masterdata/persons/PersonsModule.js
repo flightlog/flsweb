@@ -6,12 +6,14 @@ import PersonFormDirective from './PersonFormDirective';
 import * as PersonsServices from './PersonsServices';
 import coreModule from '../../core/CoreModule';
 import memberStatesModule from '../memberStates/MemberStatesModule';
+import personCategoryModule from '../personCategories/PersonCategoryModule';
 import {userAuth} from '../../core/AuthService';
 
 export default angular.module('fls.masterdata.persons', [
-        coreModule.name,
-        memberStatesModule.name
-    ])
+    coreModule.name,
+    memberStatesModule.name,
+    personCategoryModule.name
+])
     .controller('PersonsEditController', PersonsEditController)
     .controller('AddPersonController', AddPersonController)
     .service('PassengerPersister', PersonsServices.PassengerPersister)

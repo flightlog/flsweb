@@ -21,6 +21,7 @@ export default class EditableTreeDirective {
 class EditableTreeController {
 
     constructor($scope) {
+        console.log("scope", $scope);
         this.ctrlScope = $scope.ctrl;
     }
 
@@ -35,5 +36,11 @@ class EditableTreeController {
     deleteNode(parent) {
         this.ctrlScope.onDeleteNode(parent);
     }
-    
+
+    toggleChildren(node) {
+        node.children.forEach((child) => {
+            child.selected = node.selected;
+        });
+    }
+
 }

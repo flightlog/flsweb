@@ -1,6 +1,6 @@
 export default class PersonsEditController {
     constructor($scope, GLOBALS, $q, $location, $routeParams, NgTableParams, $window, AuthService, PagedPersons, PersonService,
-                PersonPersister, MessageManager, Countries, MemberStates) {
+                PersonPersister, MessageManager, Countries, MemberStates, PersonCategoryService) {
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.busy = false;
@@ -25,6 +25,7 @@ export default class PersonsEditController {
             $scope.requiredFlagsFilter = {};
             $scope.tableParams.reload();
         };
+
 
         function loadPerson() {
             let deferred = $q.defer();
@@ -53,6 +54,9 @@ export default class PersonsEditController {
                     }),
                     MemberStates.query().$promise.then(function (result) {
                         $scope.masterdata.memberStates = result;
+                    }),
+                    PersonCategoryService.loadPersonCategories().then((result) => {
+                        $scope.masterdata.personCategories = result;
                     })
                 ])
                 .then(loadPerson)
@@ -99,8 +103,9 @@ export default class PersonsEditController {
 
         $scope.save = (person) => {
             $scope.busy = true;
+            let ClubRelatedPersonDetails = Object.assign({}, person.ClubRelatedPersonDetails, {PersonCategoryIds: PersonCategoryService.collectSelectedIds($scope.masterdata.personCategories)});
 
-            let p = new PersonPersister(person);
+            let p = new PersonPersister(Object.assign({}, person, {ClubRelatedPersonDetails: ClubRelatedPersonDetails}));
             if (person.PersonId) {
                 p.$savePerson({id: person.PersonId})
                     .then($scope.cancel)
