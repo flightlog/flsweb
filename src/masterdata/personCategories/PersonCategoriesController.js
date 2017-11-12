@@ -20,16 +20,18 @@ export default class PersonCategoriesController {
         $scope.addNode = function (parent) {
             let newName = window.prompt("Person-Category Name:");
 
-            let newNode = {
-                CategoryName: newName,
-                ParentPersonCategoryId: parent && parent.PersonCategoryId
-            };
+            if(newName) {
+                let newNode = {
+                    CategoryName: newName,
+                    ParentPersonCategoryId: parent && parent.PersonCategoryId
+                };
 
-            $http.post(GLOBALS.BASE_URL + '/api/v1/personCategories', newNode)
-                .then(function () {
-                    $route.reload();
-                })
-                .catch(_.partial(MessageManager.raiseError, 'add', 'person category'));
+                $http.post(GLOBALS.BASE_URL + '/api/v1/personCategories', newNode)
+                    .then(function () {
+                        $route.reload();
+                    })
+                    .catch(_.partial(MessageManager.raiseError, 'add', 'person category'));
+            }
         };
 
         $scope.editNode = function (node) {
