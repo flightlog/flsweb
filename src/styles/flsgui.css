@@ -606,3 +606,12 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
 button.btn {
     height: 35px;
 }
+
+.tree-node-manipulation-link {
+    margin-left: 5px;
+    color: lightgray;
+}
+.tree-node-manipulation-link:hover,
+.tree-node-manipulation-link:active {
+    color: #0000a1;
+}

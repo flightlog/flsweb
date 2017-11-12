@@ -13,13 +13,21 @@
               ng-click="ctrl.editNode(node)"
               class="clickable"></span>
         <a ng-if="ctrl.editMode"
+           class="tree-node-manipulation-link"
+           href
+           ng-click="ctrl.editNode(node)"><span class="fa fa-pencil"></span></a>
+        <a ng-if="ctrl.editMode"
+           class="tree-node-manipulation-link"
            href
            ng-click="ctrl.addNode(node)"><span class="fa fa-plus-circle"></span></a>
         <a ng-if="ctrl.editMode"
+           class="tree-node-manipulation-link"
            href
            ng-click="ctrl.deleteNode(node)"><span class="fa fa-trash"></span></a>
     </div>
-    <a href ng-click="ctrl.addNode()">
+    <a href
+       ng-click="ctrl.addNode()"
+       class="tree-node-manipulation-link">
         <span class="fa fa-plus-circle"></span>
     </a>
 </div>
