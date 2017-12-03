@@ -5,6 +5,9 @@ var api = "/api/v1";
 app.post(api + "/locations/page/:pageStart/:pageSize", function (req, res) {
     res.send(require("./mock-data/locations.json"));
 });
+app.post(api + "/aircraftreservations/page/:pageStart/:pageSize", function (req, res) {
+    res.send(require("./mock-data/reservations.json"));
+});
 
 app.post(api + "/accountingrulefilters/page/:pageStart/:pageSize", function (req, res) {
     let filters = require("./mock-data/accountingrulefilters.json");
