@@ -13,6 +13,7 @@ import planningModule from "./planning/PlanningModule";
 import profileModule from "./profile/ProfileModule";
 import systemModule from "./system/SystemModule";
 import confirmEmailModule from "./confirm/ConfirmEmailModule";
+import reservationSchedulerModule from "./reservation-scheduler/ReservationSchedulerModule";
 import angularTranslateModule from "angular-translate";
 import angularTranslateUrlModule from "angular-translate-loader-url";
 
@@ -29,7 +30,8 @@ angular.module('app.starter', [
     flightsModule.name,
     confirmEmailModule.name,
     airMovementFlightsModule.name,
-    systemModule.name
+    systemModule.name,
+    reservationSchedulerModule.name
 ])
     .controller('AppController', AppController)
     .config(($translateProvider, GLOBALS) => {
