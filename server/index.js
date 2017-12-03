@@ -17,6 +17,9 @@ app.post(api + "/accountingrulefilters/page/:pageStart/:pageSize", function (req
     }
     res.send(moreFilters);
 });
+app.get(api + "/aircrafts/overview", function (req, res) {
+    res.send(require("./mock-data/aircrafts.json"));
+});
 app.get(api + "/accountingrulefilters/:id", function (req, res) {
     res.send(require("./mock-data/accountingrulefilter-detail.json"));
 });

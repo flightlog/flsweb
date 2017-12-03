@@ -4,10 +4,12 @@ import {userAuth} from '../core/AuthService';
 import 'ng-table';
 import ReservationSchedulerController from './ReservationSchedulerController';
 import reservationsModule from '../reservations/ReservationsModule';
+import aircraftsModule from '../masterdata/aircrafts/AircraftsModule';
 
 export default angular.module('fls.reservations.scheduler', [
     'ngTable',
     coreModule.name,
+    aircraftsModule.name,
     reservationsModule.name
 ])
     .controller('ReservationSchedulerController', ReservationSchedulerController)

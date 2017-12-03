@@ -2,15 +2,11 @@ import moment from "moment";
 
 export default class ReservationSchedulerController {
 
-    constructor($scope, $location, AuthService, ReservationService, PagedReservations, NavigationCache) {
+    constructor($scope, $location, AuthService, ReservationService, AircraftsOverviews, PagedReservations, NavigationCache) {
         NavigationCache.setCancellingLocationHere();
         $scope.isReservationAdmin = AuthService.isClubAdmin();
-        $scope.busy = false;
-
-        PagedReservations.getReservations({}, {}, 0, 1000)
-            .then((res) => {
-                $scope.reservations = res;
-            });
+        $scope.busy = true;
+        $scope.md = {};
 
         $scope.rows = [];
         $scope.headers = [];
@@ -19,34 +15,72 @@ export default class ReservationSchedulerController {
         $scope.cellWidth = 10;
         $scope.hoursPerDay = 24;
 
-        $scope.now = moment(moment().format("YYYY-MM-DD"), "YYYY-MM-DD");
-        $scope.calendarStart = $scope.now.clone();
-        let headerIdx = 0;
-        for (let i = 0; i < 20; i++) {
-            $scope.rows[i] = [];
-            for (let j = 0; j < 365 * 24; j++) {
-                if (i === 0) {
-                    if (j % 24 === 0) {
-                        $scope.headers[headerIdx++] = {
-                            start: $scope.now.clone(),
-                            formatted: $scope.now.clone().format("DD.MM.YYYY")
-                        };
-                    }
-                    $scope.now = $scope.now.add(1, "hours");
+        function findResourceIndex(reservation) {
+            for(let i = 0; i < $scope.md.aircrafts.length; i++) {
+                if($scope.md.aircrafts[i].Immatriculation === reservation.Immatriculation) {
+                    return i;
                 }
-                let hour = {
-                    start: $scope.now.clone(),
-                    events: []
-                };
-                $scope.events.forEach(event => {
-                    if (hour.start.isAfter(event.start)
-                        && hour.start.isBefore(event.start.clone().add(event.durationHours, "hours"))) {
-                        hour.events.push(event);
-                    }
-                });
-                $scope.rows[i][j] = hour;
             }
+
+            return 0;
         }
+
+        function eventDurationFor(reservation) {
+            if (reservation.IsAllDayReservation) {
+                return 24;
+            }
+
+            let start = moment(reservation.Start);
+
+            return moment.duration(moment(reservation.End).diff(start)).asHours();
+        }
+
+        AircraftsOverviews.query().$promise
+            .then((result) => {
+                $scope.md.aircrafts = result;
+
+                PagedReservations.getReservations({}, {}, 0, 1000)
+                    .then((res) => {
+                        $scope.now = moment().utc().startOf("day");
+                        $scope.calendarStart = $scope.now.clone();
+
+                        $scope.reservations = res;
+                        res.Items.forEach(r => {
+                            let start = moment(r.Start);
+                            let e = {
+                                start: start,
+                                startCell: moment.duration(start.diff($scope.calendarStart)).asHours(),
+                                durationHours: eventDurationFor(r),
+                                resourceIndex: findResourceIndex(r),
+                                reservation: r
+                            };
+                            $scope.events.push(e);
+                        });
+
+                        let headerIdx = 0;
+                        for (let i = 0; i < $scope.md.aircrafts.length; i++) {
+                            $scope.rows[i] = [];
+                            for (let j = 0; j < 365 * 24; j++) {
+                                if (i === 0) {
+                                    if (j % 24 === 0) {
+                                        $scope.headers[headerIdx++] = {
+                                            start: $scope.now.clone(),
+                                            formatted: $scope.now.clone().format("DD.MM.YYYY")
+                                        };
+                                    }
+                                    $scope.now = $scope.now.add(1, "hours");
+                                }
+                                $scope.rows[i][j] = {
+                                    start: $scope.now.clone(),
+                                    events: []
+                                };
+                            }
+                        }
+                    })
+                    .finally(() => {
+                        $scope.busy = false;
+                    });
+            });
 
         $scope.eventAction = (event) => {
             if (event) event.preventDefault();
@@ -58,6 +92,8 @@ export default class ReservationSchedulerController {
                     $scope.events.push(e);
                 }
             } else if (event) {
+                // TODO implement adding new event
+                /*
                 const coordinates = {x: event.offsetX, y: event.offsetY};
                 let start = $scope.headers[0].start.clone().add(coordinates.x / $scope.cellWidth, "hours");
                 let resourceIndex = Math.floor(coordinates.y / $scope.rowHeight) - 1;
@@ -67,6 +103,7 @@ export default class ReservationSchedulerController {
                     durationHours: 1,
                     resourceIndex: resourceIndex
                 };
+                */
             }
         };
 
@@ -80,7 +117,8 @@ export default class ReservationSchedulerController {
 
         $scope.eventClicked = (event) => {
             console.log("event", event);
-            window.alert("clicked event " + JSON.stringify(event));
+            window.alert("'" + event.reservation.Immatriculation + "' wurde reserviert für '" + event.reservation.PilotName + "'");
+            $location.path("/reservations/" + event.reservation.AircraftReservationId);
         };
 
 
@@ -100,7 +138,6 @@ export default class ReservationSchedulerController {
         $scope.clearDrawingEvent = () => {
             const e = $scope.drawingEvent;
             if ($scope.drawingEvent) {
-                $scope.events.push($scope.drawingEvent);
                 delete $scope.drawingEvent;
             }
 
