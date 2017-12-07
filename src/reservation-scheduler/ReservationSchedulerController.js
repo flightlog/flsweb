@@ -12,7 +12,7 @@ export default class ReservationSchedulerController {
         $scope.headers = [];
         $scope.events = [];
         $scope.rowHeight = 30;
-        $scope.cellWidth = 10;
+        $scope.cellWidth = 8;
         $scope.hoursPerDay = 24;
 
         function findResourceIndex(reservation) {

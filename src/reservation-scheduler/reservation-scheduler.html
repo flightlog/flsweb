@@ -53,7 +53,7 @@
                 <g class="event-group" ng-repeat="event in events track by $index" ng-init="eventIdx = $index" ng-click="eventClicked(event)">
                     <rect ng-attr-x="{{event.startCell * cellWidth}}"
                           ng-attr-y="{{(event.resourceIndex * rowHeight) + rowHeight + 3}}"
-                          ng-attr-width="{{event.durationHours * cellWidth}}" ng-attr-height="{{rowHeight - 5}}"
+                          ng-attr-width="{{(event.durationHours * cellWidth) + 1}}" ng-attr-height="{{rowHeight - 5}}"
                           opacity="0.5" style="fill:#f4d5ff;stroke-width:1;stroke:blue;" rx="3" ry="3"></rect>
 
                     <text ng-attr-x="{{event.startCell * cellWidth + 3}}"
