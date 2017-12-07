@@ -61,14 +61,13 @@
                       ng-mousemove="drawing($event)"
                       opacity="0.5" style="fill:#ffccc6;stroke-width:1;stroke:#ff5270;" rx="3" ry="3"/>
 
-                <text class="event-label" ng-attr-x="{{event.startCell * cellWidth + 5}}"
+                <text ng-attr-x="{{event.startCell * cellWidth + 3}}"
                       ng-attr-y="{{(event.resourceIndex * rowHeight) + rowHeight + 13}}"
                       ng-repeat="event in events track by $index" ng-init="eventIdx = $index" fill="#666666">
-                    <tspan ng-attr-x="{{event.startCell * cellWidth + 5}}" dy="0">{{event.start.format("DD.MM. HH:mm")}}
+                    <tspan class="event-label" ng-attr-x="{{event.startCell * cellWidth + 3}}" dy="0">{{event.reservation.PilotName}}
                     </tspan>
-                    -
-                    <tspan ng-attr-x="{{event.startCell * cellWidth + 5}}" dy="12">
-                        {{event.start.clone().add(event.durationHours, 'hours').format("DD.MM. HH:mm")}}
+                    <tspan class="event-label event-subtitle" ng-attr-x="{{event.startCell * cellWidth + 3}}" dy="12">
+                        {{event.reservation.LocationName}}: {{event.reservation.ReservationTypeName}}
                     </tspan>
                 </text>
 

@@ -653,7 +653,12 @@ button.btn {
 }
 
 .event-label {
-    font-size: 0.6em;
+    font-size: 0.7em;
+    font-weight: 700;
+}
+
+.event-subtitle {
+    font-weight: 300;
 }
 
 .scroll-container div.container {
