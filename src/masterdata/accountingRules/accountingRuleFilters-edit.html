@@ -10,7 +10,7 @@
                   ng-class="{'readonly-form':!accountingRuleFilter.CanUpdateRecord}"
                   name="accountingRuleFilterForm">
                 <div class="row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         <label for="AccountingRuleFilterTypeId"><span
                                 translate="ACCOUNTING_RULE_FILTER_TYPE"></span></label>
 
@@ -31,6 +31,27 @@
                         <fls-labelled-checkbox entity="accountingRuleFilter"
                                                attribute="IsActive"
                                                translation-key="ACTIVE"></fls-labelled-checkbox>
+
+                        <fls-labelled-checkbox entity="accountingRuleFilter"
+                                               attribute="StopRuleEngineWhenRuleApplied"
+                                               translation-key="STOP_RULE_ENGINE_WHEN_RULE_APPLIED"></fls-labelled-checkbox>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="AccountingUnitTypeId"><span
+                                translate="ACCOUNTING_UNIT_TYPE"></span></label>
+
+                        <selectize id="AccountingUnitTypeId"
+                                   name="AccountingUnitTypeId"
+                                   options="md.accountingUnitTypes"
+                                   ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                                   config="{
+                                                inputClass: 'form-control selectize-input',
+                                                maxItems: 1,
+                                                valueField: 'AccountingUnitTypeId',
+                                                searchField: ['AccountingUnitTypeName'] ,
+                                                labelField: 'AccountingUnitTypeName'
+                                            }"
+                                   ng-model="accountingRuleFilter.AccountingUnitTypeId"></selectize>
                     </div>
                 </div>
                 <div class="row">

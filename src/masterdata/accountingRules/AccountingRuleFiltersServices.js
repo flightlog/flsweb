@@ -27,6 +27,22 @@ export class PagedAccountingRuleFilters {
     }
 }
 
+export class AccountingUnitTypesService {
+    constructor($http, GLOBALS, MessageManager) {
+        this.$http = $http;
+        this.GLOBALS = GLOBALS;
+        this.MessageManager = MessageManager;
+    }
+
+    getAccountingUnitTypes() {
+        return this.$http.get(`${this.GLOBALS.BASE_URL}/api/v1/accountingunittypes`)
+            .then((response) => {
+                return response.data;
+            })
+            .catch(_.partial(this.MessageManager.raiseError, 'load', 'accountingUnitTypes'));
+    }
+}
+
 export class AccountingRuleFilterTypesService {
     constructor($http, GLOBALS, MessageManager) {
         this.$http = $http;
