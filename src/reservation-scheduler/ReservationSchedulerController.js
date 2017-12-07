@@ -116,9 +116,7 @@ export default class ReservationSchedulerController {
         };
 
         $scope.eventClicked = (event) => {
-            console.log("event", event);
-            window.alert("'" + event.reservation.Immatriculation + "' wurde reserviert für '" + event.reservation.PilotName + "'");
-            $location.path("/reservations/" + event.reservation.AircraftReservationId);
+            $location.path("/reservations/" + event.reservation.AircraftReservationId + "/view");
         };
 
 
