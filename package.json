@@ -61,6 +61,7 @@
     "angular-translate-loader-url": "2.8.0",
     "angular-ui-bootstrap": "0.13.4",
     "bootstrap": "3.3.5",
+    "core-js": "^2.5.1",
     "font-awesome": "4.4.0",
     "font-awesome-webpack": "0.0.3",
     "highcharts": "0.0.11",

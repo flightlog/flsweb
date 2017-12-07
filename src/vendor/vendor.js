@@ -1,3 +1,4 @@
+require("core-js/es6/object");
 require("expose?$!jquery");
 require("expose?jQuery!jquery");
 require("bootstrap");

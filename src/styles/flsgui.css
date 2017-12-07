@@ -661,6 +661,10 @@ button.btn {
     font-weight: 300;
 }
 
+.event-group {
+    cursor: pointer;
+}
+
 .scheduler-legend-item {
     font-weight: 500;
 }
