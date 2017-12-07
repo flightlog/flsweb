@@ -661,6 +661,15 @@ button.btn {
     font-weight: 300;
 }
 
+.scheduler-legend-item {
+    font-weight: 500;
+}
+
+.legend-item-subtitle {
+    font-weight: 300;
+    font-size: 83%;
+}
+
 .scroll-container div.container {
     padding: 0;
     margin: 0;

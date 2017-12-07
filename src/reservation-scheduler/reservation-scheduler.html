@@ -16,8 +16,10 @@
                   ng-attr-height="{{rowHeight}}"
                   ng-repeat="row in rows track by $index;"
                   style="fill:url(#grayGradient);"/>
-            <text x="8" ng-attr-y="{{(rowHeight * $index) + rowHeight + 22}}"
-                  ng-repeat="aircraft in md.aircrafts track by $index;" fill="#666666">{{aircraft.Immatriculation + " " + aircraft.AircraftModel}}
+            <text class="scheduler-legend-item" x="8" ng-attr-y="{{(rowHeight * $index) + rowHeight + 22}}"
+                  ng-repeat="aircraft in md.aircrafts track by $index;" fill="#666666">
+                <tspan class="scheduler-legend-item">{{aircraft.Immatriculation}}</tspan>
+                <tspan class="scheduler-legend-item legend-item-subtitle">{{aircraft.AircraftModel}}</tspan>
             </text>
 
         </svg>
