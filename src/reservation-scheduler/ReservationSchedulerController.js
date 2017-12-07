@@ -25,36 +25,46 @@ export default class ReservationSchedulerController {
             return 0;
         }
 
-        function eventDurationFor(reservation) {
-            if (reservation.IsAllDayReservation) {
+        function eventDurationFor(startMoment, allDay, endMoment) {
+            if (allDay) {
                 return 24;
             }
 
-            let start = moment(reservation.Start);
+            return moment.duration(endMoment.diff(startMoment)).asHours();
+        }
 
-            return moment.duration(moment(reservation.End).diff(start)).asHours();
+        function stripTimeZone(date) {
+            let startWithoutTimeZone = moment(date).utc().format("YYYY-MM-DDTHH:mm:ss");
+
+            return moment(startWithoutTimeZone);
         }
 
         AircraftsOverviews.query().$promise
             .then((result) => {
                 $scope.md.aircrafts = result;
 
-                PagedReservations.getReservations({}, {}, 0, 1000)
-                    .then((res) => {
-                        $scope.now = moment().utc().startOf("day");
-                        $scope.calendarStart = $scope.now.clone();
+                PagedReservations.getReservations({
+                    Start: {
+                        From: moment().format("YYYY-MM-DD")
+                    }
+                }, {}, 0, 1000)
+                    .then((reservations) => {
+                        $scope.now = moment().startOf("day");
+                        $scope.calendarStartLocalTime = $scope.now.clone();
 
-                        $scope.reservations = res;
-                        res.Items.forEach(r => {
-                            let start = moment(r.Start);
-                            let e = {
-                                start: start,
-                                startCell: moment.duration(start.diff($scope.calendarStart)).asHours(),
-                                durationHours: eventDurationFor(r),
-                                resourceIndex: findResourceIndex(r),
-                                reservation: r
+                        $scope.reservations = reservations;
+                        reservations.Items.forEach(reservation => {
+                            let startLocalTime = stripTimeZone(reservation.Start);
+                            let startMoment = moment(reservation.Start);
+                            let event = {
+                                start: startMoment,
+                                startCell: moment.duration(startLocalTime.diff($scope.calendarStartLocalTime)).asHours(),
+                                durationHours: eventDurationFor(startMoment, reservation.IsAllDayReservation, moment(reservation.End)),
+                                resourceIndex: findResourceIndex(reservation),
+                                reservation: reservation
                             };
-                            $scope.events.push(e);
+                            
+                            $scope.events.push(event);
                         });
 
                         let headerIdx = 0;

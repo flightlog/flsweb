@@ -64,11 +64,11 @@
                 <text class="event-label" ng-attr-x="{{event.startCell * cellWidth + 5}}"
                       ng-attr-y="{{(event.resourceIndex * rowHeight) + rowHeight + 13}}"
                       ng-repeat="event in events track by $index" ng-init="eventIdx = $index" fill="#666666">
-                    <tspan ng-attr-x="{{event.startCell * cellWidth + 5}}" dy="0">{{event.start.utc().format("DD.MM. HH:mm")}}
+                    <tspan ng-attr-x="{{event.startCell * cellWidth + 5}}" dy="0">{{event.start.format("DD.MM. HH:mm")}}
                     </tspan>
                     -
                     <tspan ng-attr-x="{{event.startCell * cellWidth + 5}}" dy="12">
-                        {{event.start.clone().add(event.durationHours, 'hours').utc().format("DD.MM. HH:mm")}}
+                        {{event.start.clone().add(event.durationHours, 'hours').format("DD.MM. HH:mm")}}
                     </tspan>
                 </text>
 
