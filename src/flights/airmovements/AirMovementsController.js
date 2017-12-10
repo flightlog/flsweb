@@ -26,7 +26,7 @@ export default class AirMovementsController {
         $scope.motorPilots = [];
         $scope.observers = [];
         $scope.instructors = [];
-        
+
         $scope.routeRequirements = {};
         $scope.timeSets = {};
         $scope.md = {};
@@ -273,10 +273,7 @@ export default class AirMovementsController {
             };
             $scope.flightDetails.FlightDate = $scope.flightDetails.FlightDate || (motorFlight.StartDateTime || motorFlight.FlightDate) || (!result.FlightId && new Date());
 
-            Aircrafts.getTowingPlanes().$promise.then((result) => {
-                $scope.motorAircrafts = result;
-                $scope.motorAircraftSelectionChanged(false);
-            });
+            $scope.motorAircraftSelectionChanged(false);
             $scope.flightTypeChanged();
             $scope.recalcRouteRequirements();
             $scope.busy = false;
