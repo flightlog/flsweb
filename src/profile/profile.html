@@ -44,6 +44,28 @@
                         ng-disabled="profileForm.$pristine">Save
                 </button>
             </div>
+            <div class="form-group col-md-12">
+                <label for="LanguageId"><span translate="LANGUAGE"></span></label>
+
+                <selectize id="LanguageId"
+                           name="LanguageId"
+                           options="masterdata.languages"
+                           config="{
+                                inputClass: 'form-control selectize-input',
+                                maxItems: 1,
+                                valueField: 'LanguageId',
+                                searchField: ['LanguageName'],
+                                labelField: 'LanguageName'
+                            }"
+                           ng-model="myUser.LanguageId"
+                           required></selectize>
+            </div>
+            <div class="form-group col-md-12">
+                <button type="button"
+                        ng-click="saveUserSettings()"
+                        class="btn btn-default pull-right"
+                        translate="SAVE_USER_SETTINGS"></button>
+            </div>
         </form>
 
         <form role="form"
