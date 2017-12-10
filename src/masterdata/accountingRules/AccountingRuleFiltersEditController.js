@@ -48,7 +48,17 @@ export default class AccountingRuleFiltersEditController {
             if ($routeParams.id === 'new') {
                 $scope.accountingRuleFilter = {
                     IsActive: true,
-                    CanUpdateRecord: true
+                    CanUpdateRecord: true,
+                    UseRuleForAllStartLocationsExceptListed: true,
+                    UseRuleForAllLdgLocationsExceptListed: true,
+                    UseRuleForAllFlightCrewTypesExceptListed: true,
+                    UseRuleForAllAircraftsExceptListed: true,
+                    UseRuleForAllClubMemberNumbersExceptListed: true,
+                    UseRuleForAllFlightTypesExceptListed: true,
+                    UseRuleForAllStartTypesExceptListed: true,
+                    UseRuleForAllAircraftsOnHomebaseExceptListed: true,
+                    UseRuleForAllMemberStatesExceptListed: true,
+                    UseRuleForAllPersonCategoriesExceptListed: true
                 };
                 $scope.busy = false;
             } else {
