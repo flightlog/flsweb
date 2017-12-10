@@ -37,6 +37,16 @@ export default angular.module('fls.masterdata.accountingRuleFilters', ['ngTable'
                         user: userAuth,
                         titleKey: () => "ACCOUNTING_RULE_FILTERS"
                     }
+                })
+            .when('/masterdata/accountingRuleFilters/copy/:id',
+                {
+                    controller: AccountingRuleFiltersEditController,
+                    template: require('./accountingRuleFilters-edit.html'),
+                    publicAccess: true,
+                    resolve: {
+                        user: userAuth,
+                        titleKey: () => "ACCOUNTING_RULE_FILTERS"
+                    }
                 });
     });
 

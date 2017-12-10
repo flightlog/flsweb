@@ -1,5 +1,5 @@
 export default class AccountingRuleFiltersEditController {
-    constructor($scope, $http, $routeParams, $location, NgTableParams, GLOBALS, AuthService, AccountingRuleFilterService, AircraftsOverviews, FlightTypes, Locations, ArticlesService, PagedPersons,
+    constructor($scope, $q, $routeParams, $location, NgTableParams, GLOBALS, AuthService, AccountingRuleFilterService, AircraftsOverviews, FlightTypes, Locations, ArticlesService, PagedPersons,
                 PagedAccountingRuleFilters, AccountingRuleFilter, MessageManager, DropdownItemsRenderService, AccountingRuleFilterTypesService, FlightCrewTypesService,
                 MemberStates, AccountingUnitTypesService) {
 
@@ -13,73 +13,90 @@ export default class AccountingRuleFiltersEditController {
         $scope.renderArticle = DropdownItemsRenderService.articleRenderer();
         $scope.renderPerson = DropdownItemsRenderService.personRenderer();
 
-        if ($routeParams.id !== undefined) {
-            AccountingRuleFilterTypesService.getAccountingRuleFilterTypes().then((result) => {
-                $scope.md.accountingRuleFilterTypes = result;
-            });
-            AircraftsOverviews.query().$promise.then((result) => {
-                $scope.md.aircrafts = result;
-            });
-            FlightTypes.query().$promise.then((result) => {
-                $scope.md.flightTypes = result;
-            });
-            Locations.getLocations().$promise.then((result) => {
-                $scope.md.locations = result;
-            });
-            ArticlesService.getArticles().then((result) => {
-                $scope.md.articles = result;
-            });
-            PagedPersons.getAllPersons().then((result) => {
-                $scope.md.persons = result;
-            });
-            PagedPersons.getAllPersonCategories().then((result) => {
-                $scope.md.personCategories = result;
-            });
-            FlightCrewTypesService.getFlightCrewTypes().then((result) => {
-                $scope.md.flightCrewTypes = result;
-            });
-            MemberStates.query().$promise.then((result) => {
-                $scope.md.memberStates = result;
-            });
-            AccountingUnitTypesService.getAccountingUnitTypes().then((result) => {
-                $scope.md.accountingUnitTypes = result;
-            });
+        function loadMasterData() {
+            return $q.all([
+                AccountingRuleFilterTypesService.getAccountingRuleFilterTypes().then((result) => {
+                    $scope.md.accountingRuleFilterTypes = result;
+                }),
+                AircraftsOverviews.query().$promise.then((result) => {
+                    $scope.md.aircrafts = result;
+                }),
+                FlightTypes.query().$promise.then((result) => {
+                    $scope.md.flightTypes = result;
+                }),
+                Locations.getLocations().$promise.then((result) => {
+                    $scope.md.locations = result;
+                }),
+                ArticlesService.getArticles().then((result) => {
+                    $scope.md.articles = result;
+                }),
+                PagedPersons.getAllPersons().then((result) => {
+                    $scope.md.persons = result;
+                }),
+                PagedPersons.getAllPersonCategories().then((result) => {
+                    $scope.md.personCategories = result;
+                }),
+                FlightCrewTypesService.getFlightCrewTypes().then((result) => {
+                    $scope.md.flightCrewTypes = result;
+                }),
+                MemberStates.query().$promise.then((result) => {
+                    $scope.md.memberStates = result;
+                }),
+                AccountingUnitTypesService.getAccountingUnitTypes().then((result) => {
+                    $scope.md.accountingUnitTypes = result;
+                })
+            ]);
+        }
 
-            if ($routeParams.id === 'new') {
-                $scope.accountingRuleFilter = {
-                    IsActive: true,
-                    CanUpdateRecord: true,
-                    UseRuleForAllStartLocationsExceptListed: true,
-                    UseRuleForAllLdgLocationsExceptListed: true,
-                    UseRuleForAllFlightCrewTypesExceptListed: true,
-                    UseRuleForAllAircraftsExceptListed: true,
-                    UseRuleForAllClubMemberNumbersExceptListed: true,
-                    UseRuleForAllFlightTypesExceptListed: true,
-                    UseRuleForAllStartTypesExceptListed: true,
-                    UseRuleForAllAircraftsOnHomebaseExceptListed: true,
-                    UseRuleForAllMemberStatesExceptListed: true,
-                    UseRuleForAllPersonCategoriesExceptListed: true
-                };
-                $scope.busy = false;
-            } else {
-                PagedAccountingRuleFilters.getAccountingRuleFilter($routeParams.id)
-                    .then((result) => {
-                        $scope.accountingRuleFilter = result;
-                        if ($scope.accountingRuleFilter.ArticleTarget) {
-                            $scope.selection.ArticleNumber = $scope.accountingRuleFilter.ArticleTarget.ArticleNumber;
-                            $scope.text.DeliveryLineText = $scope.accountingRuleFilter.ArticleTarget.DeliveryLineText;
-                        }
-                        if ($scope.accountingRuleFilter.RecipientTarget) {
-                            $scope.selection.PersonClubMemberNumber = $scope.accountingRuleFilter.RecipientTarget.PersonClubMemberNumber;
-                            $scope.text.RecipientName = $scope.accountingRuleFilter.RecipientTarget.RecipientName;
-                        }
-                        $scope.md.flightDurationUnlimited = !($scope.accountingRuleFilter.MinFlightTimeInSecondsMatchingValue > 0 || $scope.accountingRuleFilter.MaxFlightTimeInSecondsMatchingValue < 2147483647);
-                        $scope.md.showThreadsholdText = !!$scope.accountingRuleFilter.ThresholdText;
-                    })
-                    .finally(() => {
-                        $scope.busy = false;
-                    });
+        function mapAccountingRule(result) {
+            $scope.accountingRuleFilter = result;
+            if ($scope.accountingRuleFilter.ArticleTarget) {
+                $scope.selection.ArticleNumber = $scope.accountingRuleFilter.ArticleTarget.ArticleNumber;
+                $scope.text.DeliveryLineText = $scope.accountingRuleFilter.ArticleTarget.DeliveryLineText;
             }
+            if ($scope.accountingRuleFilter.RecipientTarget) {
+                $scope.selection.PersonClubMemberNumber = $scope.accountingRuleFilter.RecipientTarget.PersonClubMemberNumber;
+                $scope.text.RecipientName = $scope.accountingRuleFilter.RecipientTarget.RecipientName;
+            }
+            $scope.md.flightDurationUnlimited = !($scope.accountingRuleFilter.MinFlightTimeInSecondsMatchingValue > 0 || $scope.accountingRuleFilter.MaxFlightTimeInSecondsMatchingValue < 2147483647);
+            $scope.md.showThreadsholdText = !!$scope.accountingRuleFilter.ThresholdText;
+
+            return $scope.accountingRuleFilter;
+        }
+
+        if ($routeParams.id !== undefined) {
+            $scope.busy = true;
+            loadMasterData()
+                .then(() => {
+                    if ($routeParams.id === 'new') {
+                        $scope.accountingRuleFilter = {
+                            IsActive: true,
+                            CanUpdateRecord: true,
+                            UseRuleForAllStartLocationsExceptListed: true,
+                            UseRuleForAllLdgLocationsExceptListed: true,
+                            UseRuleForAllFlightCrewTypesExceptListed: true,
+                            UseRuleForAllAircraftsExceptListed: true,
+                            UseRuleForAllClubMemberNumbersExceptListed: true,
+                            UseRuleForAllFlightTypesExceptListed: true,
+                            UseRuleForAllStartTypesExceptListed: true,
+                            UseRuleForAllAircraftsOnHomebaseExceptListed: true,
+                            UseRuleForAllMemberStatesExceptListed: true,
+                            UseRuleForAllPersonCategoriesExceptListed: true
+                        };
+                    } else if ($location.path().indexOf('/copy') > 0) {
+                        PagedAccountingRuleFilters.getAccountingRuleFilter($routeParams.id)
+                            .then(mapAccountingRule)
+                            .then((accountingRuleFilter) => {
+                                accountingRuleFilter.AccountingRuleFilterId = undefined;
+                            });
+                    } else {
+                        PagedAccountingRuleFilters.getAccountingRuleFilter($routeParams.id)
+                            .then(mapAccountingRule);
+                    }
+                })
+                .finally(() => {
+                    $scope.busy = false;
+                });
         } else {
             $scope.busy = false;
             $scope.tableParams = new NgTableParams({
@@ -168,6 +185,10 @@ export default class AccountingRuleFiltersEditController {
 
         $scope.editAccountingRuleFilter = function (accountingRuleFilter) {
             $location.path('/masterdata/accountingRuleFilters/' + accountingRuleFilter.AccountingRuleFilterId);
+        };
+
+        $scope.copyAccountingRuleFilter = function (accountingRuleFilter) {
+            $location.path('/masterdata/accountingRuleFilters/copy/' + accountingRuleFilter.AccountingRuleFilterId);
         };
 
         $scope.articleChanged = () => {

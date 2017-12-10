@@ -678,3 +678,8 @@ button.btn {
     padding: 0;
     margin: 0;
 }
+
+.controls-cell {
+    display: flex;
+    margin-right: 30px;
+}
