@@ -88,6 +88,7 @@ export default class AccountingRuleFiltersEditController {
                             .then(mapAccountingRule)
                             .then((accountingRuleFilter) => {
                                 accountingRuleFilter.AccountingRuleFilterId = undefined;
+                                accountingRuleFilter.RuleFilterName += ' (copy)';
                             });
                     } else {
                         PagedAccountingRuleFilters.getAccountingRuleFilter($routeParams.id)
