@@ -1,77 +1,163 @@
-<div width="100%" ng-if="!busy">
-    <a class="btn btn-default" href="/#/reservations" style="margin-left: 15px; margin-top: 20px;">&larr; Listen-Ansicht</a>
-    <div class="left-header-area" ng-style="{height: (rowHeight * (rows.length + 1) + 1) + 'px', width: '200px'}">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="grayGradient"
-                                x1="0%" y1="0%"
-                                x2="0%" y2="100%"
-                                spreadMethod="pad">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0"></stop>
-                    <stop offset="100%" stop-color="#cccccc" stop-opacity="0.6"></stop>
-                </linearGradient>
-            </defs>
-
-            <rect x="0" ng-attr-y="{{rowHeight + (rowHeight * $index) + 1}}" width="200"
-                  ng-attr-height="{{rowHeight}}"
-                  ng-repeat="row in rows track by $index;"
-                  style="fill:url(#grayGradient);"></rect>
-            <text class="scheduler-legend-item" x="8" ng-attr-y="{{(rowHeight * $index) + rowHeight + 22}}"
-                  ng-repeat="aircraft in md.aircrafts track by $index;" fill="#666666">
-                <tspan class="scheduler-legend-item">{{aircraft.Immatriculation}}</tspan>
-                <tspan class="scheduler-legend-item legend-item-subtitle">{{aircraft.AircraftModel}}</tspan>
-            </text>
-
-        </svg>
+<div width="100%">
+    
+    <div ng-if="busy" class="wrapper busy-indicator-backdrop">
+        <div class="cssload-loader"></div>
     </div>
 
-    <div class="scroll-container">
-        <div class="container"
-             ng-style="{height:(rowHeight * (rows.length + 1) + 1) + 'px', width:(headers.length * cellWidth * hoursPerDay) + 100 + 'px'}">
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+    <div width="100%">
+
+        <div style="margin: 15px;">
+            <fls-message-bar ng-show="!busy"></fls-message-bar>
+        </div>
+        <a class="btn btn-default"
+           href="/#/reservations"
+           style="margin-left: 15px; margin-top: 20px;">&larr; Listen-Ansicht</a>
+
+        <div class="left-header-area"
+             ng-style="{height: (rowHeight * (rows.length + 1) + 1) + 'px', width: '200px'}">
+            <svg width="100%"
+                 height="100%"
+                 xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                    <pattern id="smallGrid" ng-attr-width="{{cellWidth}}" ng-attr-height="{{rowHeight}}"
-                             patternUnits="userSpaceOnUse">
-                        <path ng-attr-d="{{'M ' + cellWidth + ' 0 L 0 0 0 ' + rowHeight}}" fill="none" stroke="lightgray"
-                              stroke-width="0.5"></path>
-                    </pattern>
-                    <pattern id="grid" ng-attr-width="{{cellWidth * hoursPerDay}}" height="30" patternUnits="userSpaceOnUse">
-                        <rect ng-attr-width="{{cellWidth * hoursPerDay}}" ng-attr-height="{{rowHeight}}" fill="url(#smallGrid)"></rect>
-                        <path ng-attr-d="{{'M ' + cellWidth * hoursPerDay + ' 0 L 0 0 0 ' + rowHeight}}" fill="none"
-                              stroke="gray"
-                              stroke-width="1"></path>
-                    </pattern>
+                    <linearGradient id="grayGradient"
+                                    x1="0%"
+                                    y1="0%"
+                                    x2="0%"
+                                    y2="100%"
+                                    spreadMethod="pad">
+                        <stop offset="0%"
+                              stop-color="#ffffff"
+                              stop-opacity="0"></stop>
+                        <stop offset="100%"
+                              stop-color="#cccccc"
+                              stop-opacity="0.6"></stop>
+                    </linearGradient>
                 </defs>
 
-                <rect y="30" width="100%" height="100%" fill="url(#grid)" ng-click="eventAction($event)"
-                      ng-mousemove="drawing($event)"></rect>
-
-                <text ng-attr-x="{{headerIdx * cellWidth * hoursPerDay + 2}}" y="20"
-                      ng-repeat="header in headers track by $index" ng-init="headerIdx = $index" fill="#666666">{{header.formatted}}
+                <rect x="0"
+                      ng-attr-y="{{rowHeight + (rowHeight * $index) + 1}}"
+                      width="200"
+                      ng-attr-height="{{rowHeight}}"
+                      ng-repeat="row in rows track by $index;"
+                      style="fill:url(#grayGradient);"></rect>
+                <text class="scheduler-legend-item"
+                      x="8"
+                      ng-attr-y="{{(rowHeight * $index) + rowHeight + 22}}"
+                      ng-repeat="aircraft in md.aircrafts track by $index;"
+                      fill="#666666">
+                    <tspan class="scheduler-legend-item">{{aircraft.Immatriculation}}</tspan>
+                    <tspan class="scheduler-legend-item legend-item-subtitle">{{aircraft.AircraftModel}}</tspan>
                 </text>
 
-                <g class="event-group" ng-repeat="event in events track by $index" ng-init="eventIdx = $index" ng-click="eventClicked(event)">
-                    <rect ng-attr-x="{{event.startCell * cellWidth}}"
-                          ng-attr-y="{{(event.resourceIndex * rowHeight) + rowHeight + 3}}"
-                          ng-attr-width="{{(event.durationHours * cellWidth) + 1}}" ng-attr-height="{{rowHeight - 5}}"
-                          opacity="0.5" style="fill:#f4d5ff;stroke-width:1;stroke:blue;" rx="3" ry="3"></rect>
-
-                    <text ng-attr-x="{{event.startCell * cellWidth + 3}}"
-                          ng-attr-y="{{(event.resourceIndex * rowHeight) + rowHeight + 13}}"
-                          ng-repeat="event in events track by $index" ng-init="eventIdx = $index" fill="#666666">
-                        <tspan class="event-label" ng-attr-x="{{event.startCell * cellWidth + 3}}" dy="0">{{event.reservation.PilotName}}</tspan>
-                        <tspan class="event-label event-subtitle" ng-attr-x="{{event.startCell * cellWidth + 3}}" dy="12">{{event.reservation.LocationName}}: {{event.reservation.ReservationTypeName}}</tspan>
-                    </text>
-                </g>
-
-                <rect ng-attr-x="{{drawingEvent.startCell * cellWidth}}"
-                      ng-attr-y="{{(drawingEvent.resourceIndex * rowHeight) + rowHeight + 3}}"
-                      ng-attr-width="{{drawingEvent.durationHours * cellWidth}}" ng-attr-height="{{rowHeight - 5}}"
-                      ng-if="drawingEvent" ng-mouseup="eventAction($event)" ng-click="eventAction($event)"
-                      ng-mousemove="drawing($event)"
-                      opacity="0.5" style="fill:#ffccc6;stroke-width:1;stroke:#ff5270;" rx="3" ry="3"></rect>
-
             </svg>
+        </div>
+
+        <div class="scroll-container">
+            <div class="container"
+                 ng-style="{height:(rowHeight * (rows.length + 1) + 1) + 'px', width:(headers.length * cellWidth * hoursPerDay) + 100 + 'px'}">
+                <svg width="100%"
+                     height="100%"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="smallGrid"
+                                 ng-attr-width="{{cellWidth}}"
+                                 ng-attr-height="{{rowHeight}}"
+                                 patternUnits="userSpaceOnUse">
+                            <path ng-attr-d="{{'M ' + cellWidth + ' 0 L 0 0 0 ' + rowHeight}}"
+                                  fill="none"
+                                  stroke="lightgray"
+                                  stroke-width="0.5"></path>
+                        </pattern>
+                        <pattern id="grid"
+                                 ng-attr-width="{{cellWidth * hoursPerDay}}"
+                                 height="30"
+                                 patternUnits="userSpaceOnUse">
+                            <rect ng-attr-width="{{cellWidth * hoursPerDay}}"
+                                  ng-attr-height="{{rowHeight}}"
+                                  fill="url(#smallGrid)"></rect>
+                            <path ng-attr-d="{{'M ' + cellWidth * hoursPerDay + ' 0 L 0 0 0 ' + rowHeight}}"
+                                  fill="none"
+                                  stroke="gray"
+                                  stroke-width="1"></path>
+                        </pattern>
+                    </defs>
+
+                    <rect y="30"
+                          width="100%"
+                          height="100%"
+                          fill="url(#grid)"
+                          ng-click="eventAction($event)"
+                          ng-mousemove="drawing($event)"></rect>
+
+                    <text ng-attr-x="{{headerIdx * cellWidth * hoursPerDay + 2}}"
+                          y="20"
+                          ng-repeat="header in headers track by $index"
+                          ng-init="headerIdx = $index"
+                          fill="#666666">{{header.formatted}}
+                    </text>
+
+                    <g class="event-group"
+                       ng-repeat="event in events track by $index"
+                       ng-click="eventClicked(event)">
+                        <rect ng-attr-x="{{event.startCell * cellWidth}}"
+                              ng-attr-y="{{(event.resourceIndex * rowHeight) + rowHeight + 3}}"
+                              ng-attr-width="{{(event.durationHours * cellWidth) + 1}}"
+                              ng-attr-height="{{rowHeight - 5}}"
+                              opacity="0.5"
+                              style="fill:#f4d5ff;stroke-width:1;stroke:blue;"
+                              rx="3"
+                              ry="3"></rect>
+
+                        <text ng-attr-x="{{event.startCell * cellWidth + 3}}"
+                              ng-attr-y="{{(event.resourceIndex * rowHeight) + rowHeight + 13}}"
+                              fill="#666666">
+                            <tspan class="event-label"
+                                   ng-attr-x="{{event.startCell * cellWidth + 3}}"
+                                   dy="0">{{event.reservation.PilotName}}
+                            </tspan>
+                            <tspan class="event-label event-subtitle"
+                                   ng-attr-x="{{event.startCell * cellWidth + 3}}"
+                                   dy="12">{{event.reservation.LocationName}}: {{event.reservation.ReservationTypeName}}
+                            </tspan>
+                        </text>
+                    </g>
+
+                    <rect ng-attr-x="{{drawingEvent.startCell * cellWidth}}"
+                          ng-attr-y="{{(drawingEvent.resourceIndex * rowHeight) + rowHeight + 3}}"
+                          ng-attr-width="{{drawingEvent.durationHours * cellWidth}}"
+                          ng-attr-height="{{rowHeight - 5}}"
+                          ng-if="drawingEvent"
+                          ng-mouseup="eventAction($event)"
+                          ng-click="eventAction($event)"
+                          ng-mousemove="drawing($event)"
+                          opacity="0.5"
+                          style="fill:#ffccc6;stroke-width:1;stroke:#ff5270;"
+                          rx="3"
+                          ry="3">
+                    </rect>
+
+                    <text ng-if="drawingEvent"
+                          ng-attr-x="{{drawingEvent.startCell * cellWidth + 3}}"
+                          ng-attr-y="{{(drawingEvent.resourceIndex * rowHeight) + rowHeight + 13}}"
+                          fill="#666666"
+                          ng-mouseup="eventAction($event)"
+                          ng-click="eventAction($event)"
+                          ng-mousemove="drawing($event)">
+
+                        <tspan class="event-label event-subtitle"
+                               ng-attr-x="{{drawingEvent.startCell * cellWidth + 3}}"
+                               dy="0">{{drawingEvent.reservation.Start.toDate() | date: 'dd.MM.yyyy HH:mm:ss'}}
+                        </tspan>
+                        -
+                        <tspan class="event-label event-subtitle"
+                               ng-attr-x="{{drawingEvent.startCell * cellWidth + 3}}"
+                               dy="12">{{drawingEvent.reservation.End.toDate() | date: 'dd.MM.yyyy HH:mm:ss'}}
+                        </tspan>
+
+                    </text>
+
+                </svg>
+            </div>
         </div>
     </div>
 </div>

@@ -98,8 +98,11 @@ export default class ReservationEditController {
                 reservation.End = filteredDate;
             } else {
                 let startMoment = moment(reservation._start);
+                let endMoment = moment(reservation.End);
                 reservation.Start = moment(reservation.Start).hours(startMoment.hours()).minutes(startMoment.minutes());
+                reservation.End = moment(reservation.Start).hours(endMoment.hours()).minutes(endMoment.minutes());
             }
+            reservation = Object.assign({}, reservation);
             reservation._start = undefined;
             if (reservation.AircraftReservationId) {
                 let r = new ReservationUpdater(reservation);
