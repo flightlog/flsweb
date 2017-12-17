@@ -33,7 +33,7 @@ describe('AuthService', () => {
         let enabledFeatures = AuthService.getEnabledFeatures();
 
         // assert
-        expect(enabledFeatures.masterdata).toEqual({ persons: true, clubs: true, aircrafts: true, locations: true, users: true, flightTypes: true, memberStates: true, accountingRuleFilters: true, deliveryCreationTests: true });
+        expect(enabledFeatures.masterdata).toEqual({ persons: true, clubs: true, aircrafts: true, locations: true, users: true, flightTypes: true, memberStates: true, personCategories: true, accountingRuleFilters: true, deliveryCreationTests: true });
         expect(enabledFeatures.system).toEqual(false);
     });
 
@@ -47,7 +47,7 @@ describe('AuthService', () => {
         let enabledFeatures = AuthService.getEnabledFeatures();
 
         // assert
-        expect(enabledFeatures.masterdata).toEqual({ persons: true, clubs: true, aircrafts: true, locations: true, users: false, flightTypes: false, memberStates: false, accountingRuleFilters: false, deliveryCreationTests: false });
+        expect(enabledFeatures.masterdata).toEqual({ persons: true, clubs: true, aircrafts: true, locations: true, users: false, flightTypes: false, memberStates: false, personCategories: false, accountingRuleFilters: false, deliveryCreationTests: false });
         expect(enabledFeatures.system).toEqual(true);
     });
 
