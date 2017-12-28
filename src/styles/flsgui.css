@@ -697,3 +697,10 @@ button.btn {
     display: flex;
     color: white;
 }
+
+@media (min-width: 800px) {
+    .modal-dialog {
+        width: 80%;
+        max-width: 1200px;
+    }
+}
