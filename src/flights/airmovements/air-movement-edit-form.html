@@ -24,18 +24,28 @@
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label><span translate="MOTOR_PLANE"></span>:</label>
 
-                        <selectize options="motorAircrafts"
-                                   config="{
-                                inputClass: 'form-control selectize-input',
-                                maxItems: 1,
-                                valueField: 'AircraftId',
-                                labelField: 'Immatriculation',
-                                searchField: ['Immatriculation'],
-                                render: renderAircraft,
-                                onChange: motorAircraftSelectionChanged
-                            }"
-                                   ng-model="flightDetails.MotorFlightDetailsData.AircraftId"
-                                   required></selectize>
+                        <div class="input-group col-md-12 col-sm-12 col-xs-12">
+                            <selectize options="motorAircrafts"
+                                       config="{
+                                    inputClass: 'form-control selectize-input',
+                                    maxItems: 1,
+                                    valueField: 'AircraftId',
+                                    labelField: 'Immatriculation',
+                                    searchField: ['Immatriculation'],
+                                    render: renderAircraft,
+                                    onChange: motorAircraftSelectionChanged
+                                }"
+                                       ng-model="flightDetails.MotorFlightDetailsData.AircraftId"
+                                       required></selectize>
+
+                            <div class="input-group-btn">
+                                <button type="button"
+                                        class="btn btn-default"
+                                        ng-click="newAircraft()"
+                                        translate="NEW"
+                                        ng-show="flightDetails.CanUpdateRecord"></button>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label><span translate="PILOT"></span>:</label>

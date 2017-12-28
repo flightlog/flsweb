@@ -1,0 +1,12 @@
+<form role="form" ng-submit="ok(aircraft)" name="aircraftForm" class="css-form" style="max-height: 80vh; overflow: auto;">
+    <div class="modal-header">
+        <h3 class="modal-title" translate="DLG_ADD_NEW_AIRCRAFT"></h3>
+    </div>
+    <div class="modal-body">
+        <fls-aircraft-form></fls-aircraft-form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-default" ng-disabled="aircraftForm.$invalid">OK</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

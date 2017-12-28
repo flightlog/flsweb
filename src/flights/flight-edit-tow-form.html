@@ -36,6 +36,11 @@
                         ng-click="copyTowingFromLast()"
                         title="{{'COPY_FROM_LAST_FLIGHT' | translate}}"
                         ng-disabled="!flightDetails.CanUpdateRecord"><span class="fa fa-history"></span></button>
+                <button type="button"
+                        class="btn btn-default"
+                        ng-click="newTowAircraft()"
+                        translate="NEW"
+                        ng-show="flightDetails.CanUpdateRecord"></button>
             </div>
         </div>
     </div>

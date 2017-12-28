@@ -31,9 +31,10 @@ export default class AircraftsEditController {
         $scope.save = function (aircraft) {
             $scope.busy = true;
             aircraft.YearOfManufacture = moment($scope.times.manufacturingYear + "-01-01T00:00:00+0000");
-            var p = new Aircraft(aircraft);
+            let p = new Aircraft(aircraft);
             if (aircraft.AircraftId) {
                 p.$saveAircraft({id: aircraft.AircraftId})
+                    .then(p.invalidate)
                     .then($scope.cancel)
                     .catch(_.partial(MessageManager.raiseError, 'update', 'aircraft'))
                     .finally(function () {
@@ -41,6 +42,7 @@ export default class AircraftsEditController {
                     });
             } else {
                 p.$save()
+                    .then(p.invalidate)
                     .then($scope.cancel)
                     .catch(_.partial(MessageManager.raiseError, 'insert', 'aircraft'))
                     .finally(function () {

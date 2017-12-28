@@ -74,7 +74,7 @@ function invalidate(GLOBALS, $cacheFactory, result) {
 
 export class Aircraft {
     constructor($resource, GLOBALS, $cacheFactory) {
-        return $resource(GLOBALS.BASE_URL + '/api/v1/aircrafts/:id', null, {
+        let aircraftResource = $resource(GLOBALS.BASE_URL + '/api/v1/aircrafts/:id', null, {
             get: {
                 method: 'GET',
                 isArray: false,
@@ -108,6 +108,9 @@ export class Aircraft {
                 }
             }
         });
+        aircraftResource.invalidate = () => invalidate(GLOBALS, $cacheFactory);
+
+        return aircraftResource;
     }
 }
 

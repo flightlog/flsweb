@@ -3,11 +3,12 @@ import * as _ from "lodash";
 import AddPersonController from "../../masterdata/persons/modal/AddPersonController";
 import {FlightStateMapper} from "../FlightsServices";
 import {TimerSet} from "../../core/TimerSet";
+import AddAircraftController from "../../masterdata/aircrafts/modal/AddAircraftController";
 
 export default class AirMovementsController {
 
     constructor($scope, $q, $timeout, TimeService, DropdownItemsRenderService, AuthService, $routeParams, NgTableParams, TableSettingsCacheFactory,
-                $log, $modal, MessageManager,
+                $log, $modal, MessageManager, Aircraft,
                 AirMovements, CounterUnitTypes, PagedFlights, $location,
                 Locations, Persons, PersonsV2, PersonPersister, PassengerPersister, Aircrafts, FlightTypes,
                 SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters, RoutesPerLocation) {
@@ -325,8 +326,8 @@ export default class AirMovementsController {
 
         function createModalConfig(flags) {
             let flagsOrDefaults = flags || {
-                    MotorPilot: true
-                };
+                MotorPilot: true
+            };
             return {
                 template: require('../../masterdata/persons/modal/add-person.html'),
                 controller: AddPersonController,
@@ -352,6 +353,27 @@ export default class AirMovementsController {
                         $scope.flightDetails.MotorFlightDetailsData.PilotPersonId = res.PersonId;
                     })
                     .catch(_.partial(MessageManager.raiseError, 'save', 'person'));
+            });
+        };
+
+
+        $scope.newAircraft = () => {
+            let modalInstance = $modal.open({
+                template: require('../../masterdata/aircrafts/modal/add-aircraft.html'),
+                controller: AddAircraftController,
+                resolve: {
+                    aircraftTypeIds: () => [4, 8, 16, 32]
+                }
+            });
+
+            modalInstance.result.then((aircraft) => {
+                new Aircraft(aircraft).$save()
+                    .then((savedAircraft) => {
+                        $scope.motorAircrafts.push(savedAircraft);
+                        $scope.flightDetails.MotorFlightDetailsData.AircraftId = savedAircraft.AircraftId;
+                    })
+                    .then(Aircraft.invalidate)
+                    .catch(_.partial(MessageManager.raiseError, 'save', 'aircraft'));
             });
         };
 

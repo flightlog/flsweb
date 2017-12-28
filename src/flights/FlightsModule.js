@@ -8,6 +8,7 @@ import TowFormDirective from './TowFormDirective';
 import FlightStatusDirective from './FlightStatusDirective';
 import FlightStateFilterDropdownDirective from './FlightStateFilterDropdownDirective';
 import flightTypesModule from '../masterdata/flightTypes/FlightTypesModule';
+import aircraftsModule from '../masterdata/aircrafts/AircraftsModule';
 import {userAuth} from '../core/AuthService';
 import uiBootstrap from 'angular-ui-bootstrap';
 import ngStorage from 'ngstorage';
@@ -22,6 +23,7 @@ export default angular.module('fls.flights', [
     personsModule.name,
     ngStorage.name,
     flightTypesModule.name,
+    aircraftsModule.name,
     uiBootstrap,
     highChartsNgModule
 ])

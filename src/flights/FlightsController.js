@@ -2,6 +2,7 @@ import moment from "moment";
 import * as _ from "lodash";
 import AddPersonController from "../masterdata/persons/modal/AddPersonController";
 import {FlightStateMapper} from "./FlightsServices";
+import AddAircraftController from "../masterdata/aircrafts/modal/AddAircraftController";
 
 export default class FlightsController {
     constructor($scope, $q, $log, $http, $modal, $translate, $timeout, MessageManager, $location, $routeParams,
@@ -9,7 +10,7 @@ export default class FlightsController {
                 FlightTypes, Locations, Persons, PersonsV2, PersonPersister, PassengerPersister,
                 Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes, TableSettingsCacheFactory,
                 SoloFlightCheckboxEnablementCalculator, Clubs, AircraftOperatingCounters, DropdownItemsRenderService,
-                localStorageService, RoutesPerLocation) {
+                localStorageService, RoutesPerLocation, Aircraft) {
         $scope.busy = true;
         this.TimeService = TimeService;
 
@@ -444,10 +445,10 @@ export default class FlightsController {
 
         function createModalConfig(flags) {
             let flagsOrDefaults = flags || {
-                    GliderPilot: true,
-                    TowingPilot: false,
-                    Passenger: false
-                };
+                GliderPilot: true,
+                TowingPilot: false,
+                Passenger: false
+            };
             return {
                 template: require('../masterdata/persons/modal/add-person.html'),
                 controller: AddPersonController,
@@ -458,6 +459,41 @@ export default class FlightsController {
                 }
             };
         }
+
+        function newAircraft(allowedAircraftTypeIds, callback) {
+            let modalInstance = $modal.open({
+                template: require('../masterdata/aircrafts/modal/add-aircraft.html'),
+                controller: AddAircraftController,
+                resolve: {
+                    aircraftTypeIds: () => allowedAircraftTypeIds
+                }
+            });
+
+            modalInstance.result.then((aircraft) => {
+                new Aircraft(aircraft).$save()
+                    .then(callback)
+                    .then(Aircraft.invalidate)
+                    .catch(_.partial(MessageManager.raiseError, 'save', 'aircraft'));
+            });
+        }
+
+        $scope.newGliderAircraft = () => {
+            newAircraft(
+                [1, 2, 4],
+                (savedAircraft) => {
+                    $scope.gliderAircrafts.push(savedAircraft);
+                    $scope.flightDetails.GliderFlightDetailsData.AircraftId = savedAircraft.AircraftId;
+                });
+        };
+
+        $scope.newTowAircraft = () => {
+            newAircraft(
+                [4, 8, 16, 32],
+                (savedAircraft) => {
+                    $scope.towerAircrafts.push(savedAircraft);
+                    $scope.flightDetails.TowFlightDetailsData.AircraftId = savedAircraft.AircraftId;
+                });
+        };
 
         function newPerson(persisterConstructor, dialogConfig, callback) {
             let modalInstance = $modal.open(createModalConfig(dialogConfig));
@@ -787,7 +823,7 @@ export default class FlightsController {
         };
 
         $scope.validateFlights = () => {
-            if(confirm($translate.instant("CONFIRM_VALIDATE"))) {
+            if (confirm($translate.instant("CONFIRM_VALIDATE"))) {
                 $scope.busy = true;
                 $http.post(`${GLOBALS.BASE_URL}/api/v1/flights/validate`, {})
                     .then(() => {

@@ -5,6 +5,7 @@ import personsModule from '../persons/PersonsModule';
 import AircraftsEditController from './AircraftsEditController';
 import AircraftsEditDirective from './AircraftsEditDirective';
 import AircraftFormDirective from './AircraftFormDirective';
+import AddAircraftController from './modal/AddAircraftController';
 import AircraftTypes from './AircraftTypes';
 import * as AircraftsServices from './AircraftsServices';
 import {userAuth} from '../../core/AuthService';
@@ -23,6 +24,7 @@ export default angular.module('fls.masterdata.aircrafts', [
     .service('AircraftService', AircraftsServices.AircraftService)
     .service('AircraftTypes', AircraftTypes)
     .controller('AircraftsEditController', AircraftsEditController)
+    .controller('AddAircraftController', AddAircraftController)
     .config(function ($routeProvider) {
         $routeProvider
             .when('/masterdata/aircrafts',
