@@ -115,62 +115,34 @@ export class FlightStateMapper {
         let filterWithStates = Object.assign({}, filter);
         let flightState = filterWithStates._flightState || Object.assign({}, FlightStateMapper.allFlightStates());
 
-        if (FlightStateMapper.anyStateDisabled(flightState.glider) || FlightStateMapper.anyStateDisabled(flightState.tow)) {
+        if (FlightStateMapper.anyStateDisabled(flightState.flight)) {
             filterWithStates.AirStates = [];
             filterWithStates.ProcessStates = [];
-            filterWithStates.TowFlightAirStates = [];
-            filterWithStates.TowFlightProcessStates = [];
 
             filterWithStates.AirStates.push(OPENED);
             filterWithStates.AirStates.push(CLOSED);
-            if (flightState.glider.ready) {
+            if (flightState.flight.ready) {
                 filterWithStates.AirStates.push(NEW);
             }
 
             filterWithStates.ProcessStates.push(NOT_PROCESSED);
-            if (flightState.glider.inAir) {
+            if (flightState.flight.inAir) {
                 filterWithStates.AirStates.push(STARTED);
             }
-            if (flightState.glider.landed) {
+            if (flightState.flight.landed) {
                 filterWithStates.AirStates.push(LANDED);
             }
-            if (flightState.glider.invalid) {
+            if (flightState.flight.invalid) {
                 filterWithStates.ProcessStates.push(INVALID);
             }
-            if (flightState.glider.valid) {
+            if (flightState.flight.valid) {
                 filterWithStates.ProcessStates.push(VALID);
             }
-            if (flightState.glider.locked) {
+            if (flightState.flight.locked) {
                 filterWithStates.ProcessStates.push(LOCKED);
             }
-            if (flightState.glider.delivered) {
+            if (flightState.flight.delivered) {
                 filterWithStates.ProcessStates.push(DELIVERED);
-            }
-
-            filterWithStates.TowFlightAirStates.push(OPENED);
-            filterWithStates.TowFlightAirStates.push(CLOSED);
-            if (flightState.tow.ready) {
-                filterWithStates.TowFlightAirStates.push(NEW);
-            }
-
-            filterWithStates.TowFlightProcessStates.push(NOT_PROCESSED);
-            if (flightState.tow.inAir) {
-                filterWithStates.TowFlightAirStates.push(STARTED);
-            }
-            if (flightState.tow.landed) {
-                filterWithStates.TowFlightAirStates.push(LANDED);
-            }
-            if (flightState.tow.invalid) {
-                filterWithStates.TowFlightProcessStates.push(INVALID);
-            }
-            if (flightState.tow.valid) {
-                filterWithStates.TowFlightProcessStates.push(VALID);
-            }
-            if (flightState.tow.locked) {
-                filterWithStates.TowFlightProcessStates.push(LOCKED);
-            }
-            if (flightState.tow.delivered) {
-                filterWithStates.TowFlightProcessStates.push(DELIVERED);
             }
 
             return filterWithStates;
@@ -190,8 +162,7 @@ export class FlightStateMapper {
 
     static allFlightStates() {
         return {
-            glider: {ready: true, inAir: true, landed: true, valid: true, invalid: true, locked: true, delivered: true},
-            tow: {ready: true, inAir: true, landed: true, valid: true, invalid: true, locked: true, delivered: true}
+            flight: {ready: true, inAir: true, landed: true, valid: true, invalid: true, locked: true, delivered: true}
         };
     }
 

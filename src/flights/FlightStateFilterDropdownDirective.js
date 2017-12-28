@@ -13,27 +13,15 @@ export default class FlightStateFilterDropdownDirective {
                          class="flight-state-choice-dropdown">
                         <div class="flight-state-choices">
                             <div class="flight-state-choice-list">
-                                <label translate="GLIDER_STATES"></label>
+                                <label translate="FLIGHT_STATES"></label>
                                 <ul>
-                                   <li><span class="lnr lnr-hand glider-state-icon"></span> <input type="checkbox" ng-model="states.glider.ready" ng-click="updateIndicator()"> <span translate="GLIDER_READY"></span></li>
-                                   <li><span class="fa fa-cloud glider-state-icon"></span> <input type="checkbox" ng-model="states.glider.inAir" ng-click="updateIndicator()"> <span translate="GLIDER_IN_AIR"></span></li>
-                                   <li><span class="lnr lnr-checkmark-circle glider-state-icon"></span> <input type="checkbox" ng-model="states.glider.landed" ng-click="updateIndicator()"> <span translate="GLIDER_LANDED"></span></li>
-                                   <li><span class="fa fa-check-circle glider-state-icon"></span> <input type="checkbox" ng-model="states.glider.valid" ng-click="updateIndicator()"> <span translate="GLIDER_VALID"></span></li>
-                                   <li><span class="lnr lnr-warning glider-state-icon"></span> <input type="checkbox" ng-model="states.glider.invalid" ng-click="updateIndicator()"> <span translate="GLIDER_INVALID"></span></li>
-                                   <li><span class="lnr lnr-lock glider-state-icon"></span> <input type="checkbox" ng-model="states.glider.locked" ng-click="updateIndicator()"> <span translate="GLIDER_LOCKED"></span></li>
-                                   <li><span class="lnr lnr-link glider-state-icon"></span> <input type="checkbox" ng-model="states.glider.delivered" ng-click="updateIndicator()"> <span translate="GLIDER_DELIVERED"></span></li>
-                                </ul>
-                            </div>
-                            <div class="flight-state-choice-list">
-                                <label translate="TOW_STATES"></label>
-                                <ul>
-                                   <li><span class="lnr lnr-hand tow-state-icon"></span> <input type="checkbox" ng-model="states.tow.ready" ng-click="updateIndicator()"> <span translate="TOW_READY"></span></li>
-                                   <li><span class="fa fa-cloud tow-state-icon"></span> <input type="checkbox" ng-model="states.tow.inAir" ng-click="updateIndicator()"> <span translate="TOW_IN_AIR"></span></li>
-                                   <li><span class="lnr lnr-checkmark-circle tow-state-icon"></span> <input type="checkbox" ng-model="states.tow.landed" ng-click="updateIndicator()"> <span translate="TOW_LANDED"></span></li>
-                                   <li><span class="fa fa-check-circle tow-state-icon"></span> <input type="checkbox" ng-model="states.tow.valid" ng-click="updateIndicator()"> <span translate="TOW_VALID"></span></li>
-                                   <li><span class="lnr lnr-warning tow-state-icon"></span> <input type="checkbox" ng-model="states.tow.invalid" ng-click="updateIndicator()"> <span translate="TOW_INVALID"></span></li>
-                                   <li><span class="lnr lnr-lock tow-state-icon"></span> <input type="checkbox" ng-model="states.tow.locked" ng-click="updateIndicator()"> <span translate="TOW_LOCKED"></span></li>
-                                   <li><span class="lnr lnr-link tow-state-icon"></span> <input type="checkbox" ng-model="states.tow.delivered" ng-click="updateIndicator()"> <span translate="TOW_DELIVERED"></span></li>
+                                   <li><span class="lnr lnr-hand glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.ready" ng-click="updateIndicator()"> <span translate="FLIGHT_READY"></span></li>
+                                   <li><span class="fa fa-cloud glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.inAir" ng-click="updateIndicator()"> <span translate="FLIGHT_IN_AIR"></span></li>
+                                   <li><span class="lnr lnr-checkmark-circle glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.landed" ng-click="updateIndicator()"> <span translate="FLIGHT_LANDED"></span></li>
+                                   <li><span class="fa fa-check-circle glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.valid" ng-click="updateIndicator()"> <span translate="FLIGHT_VALID"></span></li>
+                                   <li><span class="lnr lnr-warning glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.invalid" ng-click="updateIndicator()"> <span translate="FLIGHT_INVALID"></span></li>
+                                   <li><span class="lnr lnr-lock glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.locked" ng-click="updateIndicator()"> <span translate="FLIGHT_LOCKED"></span></li>
+                                   <li><span class="lnr lnr-link glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.delivered" ng-click="updateIndicator()"> <span translate="FLIGHT_DELIVERED"></span></li>
                                 </ul>
                             </div>
                         </div>
@@ -49,7 +37,7 @@ export default class FlightStateFilterDropdownDirective {
                 scope.states = scope.ngModel || Object.assign({}, FlightStateMapper.allFlightStates());
 
                 scope.updateIndicator = () => {
-                    if(FlightStateMapper.anyStateDisabled(scope.states.glider) || FlightStateMapper.anyStateDisabled(scope.states.tow)) {
+                    if(FlightStateMapper.anyStateDisabled(scope.states.flight)) {
                         scope.filterIndicator = "*";
                     } else {
                         scope.filterIndicator = "";
