@@ -479,6 +479,7 @@ export default class FlightsController {
                 (savedAircraft) => {
                     $scope.gliderAircrafts.push(savedAircraft);
                     $scope.flightDetails.GliderFlightDetailsData.AircraftId = savedAircraft.AircraftId;
+                    $scope.gliderAircraftSelectionChanged(true);
                 });
         };
 
@@ -488,6 +489,7 @@ export default class FlightsController {
                 (savedAircraft) => {
                     $scope.towerAircrafts.push(savedAircraft);
                     $scope.flightDetails.TowFlightDetailsData.AircraftId = savedAircraft.AircraftId;
+                    $scope.towingAircraftSelectionChanged();
                 });
         };
 

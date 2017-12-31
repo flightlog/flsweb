@@ -369,6 +369,7 @@ export default class AirMovementsController {
                     .then((savedAircraft) => {
                         $scope.motorAircrafts.push(savedAircraft);
                         $scope.flightDetails.MotorFlightDetailsData.AircraftId = savedAircraft.AircraftId;
+                        $scope.motorAircraftSelectionChanged(true);
                     })
                     .then(Aircraft.invalidate)
                     .catch(_.partial(MessageManager.raiseError, 'save', 'aircraft'));
