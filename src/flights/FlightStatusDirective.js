@@ -1,4 +1,4 @@
-import {FlightStateMapper} from "./FlightsServices";
+import {FlightStateMapper, PROCESS_FIELD} from "./FlightsServices";
 
 export default class FlightStatusDirective {
     static factory() {
@@ -6,17 +6,24 @@ export default class FlightStatusDirective {
             template: require("./flight-status-icon.html"),
             scope: {
                 flight: "=",
-                mode: "="
+                field: "@"
             },
             controller: ($scope) => {
                 let flight = $scope.flight;
+                let field = $scope.field;
 
-                $scope.status = {
-                    glider: FlightStateMapper.processedState(flight.ProcessState) || FlightStateMapper.statusOfFlight(flight.AirState)
-                };
-                if ($scope.mode !== "MOTOR") {
-                    $scope.status.tow = FlightStateMapper.processedState(flight.TowFlightProcessState) || flight.TowFlightId && FlightStateMapper.statusOfFlight(flight.TowFlightAirState);
+                if (field === PROCESS_FIELD) {
+                    $scope.status = {
+                        glider: FlightStateMapper.processedState(flight.ProcessState),
+                        tow: FlightStateMapper.processedState(flight.TowFlightProcessState)
+                    };
+                } else {
+                    $scope.status = {
+                        glider: FlightStateMapper.statusOfFlight(flight.AirState),
+                        tow: flight.TowFlightId && FlightStateMapper.statusOfFlight(flight.TowFlightAirState)
+                    };
                 }
+                $scope.status.validationErrors = flight.ValidationErrors;
             }
         }
     }

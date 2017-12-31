@@ -76,7 +76,7 @@ export class SoloFlightCheckboxEnablementCalculator {
     constructor() {
         return {
             getSoloFlightCheckbox: function (flightType, gliderFlightDetails) {
-                var state = 'UNDEFINED';
+                let state = 'UNDEFINED';
                 if (flightType && flightType.IsSoloFlight) {
                     state = 'CHECKED';
                     gliderFlightDetails.IsSoloFlight = true;
@@ -109,29 +109,42 @@ export const VALID = 30;
 export const LOCKED = 40;
 export const DELIVERED = 50;
 
+export const PROCESS_FIELD = "Process";
+
 export class FlightStateMapper {
 
-    static mapFlightState(filter) {
+    static mapAirState(filter) {
         let filterWithStates = Object.assign({}, filter);
-        let flightState = filterWithStates._flightState || Object.assign({}, FlightStateMapper.allFlightStates());
+        let flightState = filterWithStates._flightState || Object.assign({}, FlightStateMapper.allAirStates());
 
         if (FlightStateMapper.anyStateDisabled(flightState.flight)) {
             filterWithStates.AirStates = [];
-            filterWithStates.ProcessStates = [];
 
             filterWithStates.AirStates.push(OPENED);
             filterWithStates.AirStates.push(CLOSED);
             if (flightState.flight.ready) {
                 filterWithStates.AirStates.push(NEW);
             }
-
-            filterWithStates.ProcessStates.push(NOT_PROCESSED);
             if (flightState.flight.inAir) {
                 filterWithStates.AirStates.push(STARTED);
             }
             if (flightState.flight.landed) {
                 filterWithStates.AirStates.push(LANDED);
             }
+
+            return filterWithStates;
+        } else {
+            return filter;
+        }
+    }
+
+    static mapProcessState(filter) {
+        let filterWithStates = Object.assign({}, filter);
+        let flightState = filterWithStates._flightState || Object.assign({}, FlightStateMapper.allProcessStates());
+
+        if (FlightStateMapper.anyStateDisabled(flightState.flight)) {
+            filterWithStates.ProcessStates = [];
+            filterWithStates.ProcessStates.push(NOT_PROCESSED);
             if (flightState.flight.invalid) {
                 filterWithStates.ProcessStates.push(INVALID);
             }
@@ -160,9 +173,23 @@ export class FlightStateMapper {
         return false;
     }
 
-    static allFlightStates() {
+    static allStates(field) {
+        if(field === PROCESS_FIELD) {
+            return this.allProcessStates();
+        } else {
+            return this.allAirStates();
+        }
+    }
+
+    static allAirStates() {
         return {
-            flight: {ready: true, inAir: true, landed: true, valid: true, invalid: true, locked: true, delivered: true}
+            flight: {ready: true, inAir: true, landed: true}
+        };
+    }
+
+    static allProcessStates() {
+        return {
+            flight: {valid: true, invalid: true, locked: true, delivered: true}
         };
     }
 

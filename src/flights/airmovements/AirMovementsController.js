@@ -89,7 +89,7 @@ export default class AirMovementsController {
                         let pageStart = (params.page() - 1) * pageSize;
                         tableSettingsCache.update($scope.tableParams.filter(), $scope.tableParams.sorting());
 
-                        let filterWithStates = Object.assign({}, FlightStateMapper.mapFlightState($scope.tableParams.filter()));
+                        let filterWithStates = Object.assign({}, FlightStateMapper.mapAirState($scope.tableParams.filter()));
                         delete filterWithStates._flightState;
 
                         let sortingWithStates = FlightStateMapper.flightStateSorting($scope.tableParams.sorting());

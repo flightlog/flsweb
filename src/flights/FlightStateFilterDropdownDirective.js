@@ -32,9 +32,12 @@ export default class FlightStateFilterDropdownDirective {
             `,
             scope: {
                 ngModel: '=',
+                field: '@'
             },
             link: function (scope, element, attrs, modelCtrl) {
-                scope.states = scope.ngModel || Object.assign({}, FlightStateMapper.allFlightStates());
+                let field = attrs.field;
+                console.log("attrs", attrs);
+                scope.states = scope.ngModel || Object.assign({}, FlightStateMapper.allStates(field));
 
                 scope.updateIndicator = () => {
                     if(FlightStateMapper.anyStateDisabled(scope.states.flight)) {
@@ -46,7 +49,7 @@ export default class FlightStateFilterDropdownDirective {
                 };
 
                 scope.reset = () => {
-                    scope.states = Object.assign({}, FlightStateMapper.allFlightStates());
+                    scope.states = Object.assign({}, FlightStateMapper.allStates(field));
                     scope.updateIndicator();
                 };
 
