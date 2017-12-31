@@ -127,12 +127,10 @@ export default class FlightsController {
                                 if (glider.HasEngine) {
                                     AircraftOperatingCounters.query({AircraftId: glider.AircraftId}).$promise.then((result) => {
                                         $scope.operatingCounters = result;
-                                        console.log("$scope.operatingCounters", $scope.operatingCounters);
                                         $scope.times.lastOperatingCounterFormatted = TimeService.formatSecondsToLongHoursFormat(
                                             $scope.operatingCounters.EngineOperatingCounterInSeconds,
                                             $scope.operatingCounters.EngineOperatingCounterUnitTypeKeyName
                                         );
-                                        console.log("$scope.times", $scope.times);
                                         $scope.engineSecondsCountersChanged();
                                     }).catch(_.partial(MessageManager.raiseError, 'load', 'operating counters'));
                                 }

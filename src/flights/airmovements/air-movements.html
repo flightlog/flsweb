@@ -26,12 +26,14 @@
                         <fls-air-movement-status flight="flight" field="AirState"></fls-air-movement-status>
                     </td> <td data-title="'PROCESS_STATUS' | translate"
                         filter="{_processState: 'air-movement-process-state'}"
-                        sortable="'_processState'">
+                        sortable="'_processState'"
+                        class="'hidden-xs hidden-sm hidden-md'"
+                        header-class="'hidden-xs hidden-sm hidden-md'">
                         <fls-air-movement-status flight="flight" field="Process"></fls-air-movement-status>
                     </td>
                     <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'"
                         data-title="'DATE' | translate"
-                        filter="{ FlightDate: 'date'}" 
+                        filter="{ FlightDate: 'date'}"
                         sortable="'FlightDate'"></td>
                     <td ng-bind="flight.Immatriculation"
                         data-title="'MOTOR_PLANE' | translate"

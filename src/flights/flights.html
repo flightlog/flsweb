@@ -30,12 +30,16 @@
                         <td data-title="'FLIGHT_STATUS' | translate"
                             filter="{_airState: 'air-state'}"
                             sortable="'_airState'">
-                            <fls-flight-status flight="flight" field="AirState"></fls-flight-status>
+                            <fls-flight-status flight="flight"
+                                               field="AirState"></fls-flight-status>
                         </td>
                         <td data-title="'PROCESS_STATUS' | translate"
                             filter="{_processState: 'process-state'}"
-                            sortable="'_processState'">
-                            <fls-flight-status flight="flight" field="Process"></fls-flight-status>
+                            sortable="'_processState'"
+                            class="'hidden-xs hidden-sm hidden-md'"
+                            header-class="'hidden-xs hidden-sm hidden-md'">
+                            <fls-flight-status flight="flight"
+                                               field="Process"></fls-flight-status>
                         </td>
                         <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'"
                             data-title="'DATE' | translate"
@@ -114,19 +118,21 @@
                             sortable="'FlightComment'"></td>
                         <td class="hidden-print controls-column hidden-xs"
                             header-class="'hidden-print hidden-xs'">
-                            <a ng-show="flight.CanDeleteRecord"
-                               title="{{'DELETE' | translate}}"
-                               ng-click="delete(flight); $event.stopPropagation();"
-                               class="col-xs-4 control-icon delete-link">
-                                <span class="fa fa-trash-o"></span>
-                            </a>
-                            <a title="{{'COPY' | translate}}"
-                               ng-click="copyFlight(flight); $event.stopPropagation();"
-                               class="col-md-4 control-icon">
-                                <span class="fa fa-files-o"></span>
-                            </a>
-                            <fls-history entity-name="Flight"
-                                         entity-id="flight.FlightId"></fls-history>
+                            <div style="display: flex; min-width: 80px; margin-right: 20px;">
+                                <a ng-show="flight.CanDeleteRecord"
+                                   title="{{'DELETE' | translate}}"
+                                   ng-click="delete(flight); $event.stopPropagation();"
+                                   class="col-xs-4 control-icon delete-link">
+                                    <span class="fa fa-trash-o"></span>
+                                </a>
+                                <a title="{{'COPY' | translate}}"
+                                   ng-click="copyFlight(flight); $event.stopPropagation();"
+                                   class="col-md-4 control-icon">
+                                    <span class="fa fa-files-o"></span>
+                                </a>
+                                <fls-history entity-name="Flight"
+                                             entity-id="flight.FlightId"></fls-history>
+                            </div>
                         </td>
                     </tr>
                 </table>
