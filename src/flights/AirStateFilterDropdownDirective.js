@@ -1,7 +1,7 @@
 import * as angular from "angular";
 import {FlightStateMapper} from "./FlightsServices";
 
-export default class FlightStateFilterDropdownDirective {
+export default class AirStateFilterDropdownDirective {
     static factory() {
         return {
             restrict: 'E',
@@ -18,10 +18,6 @@ export default class FlightStateFilterDropdownDirective {
                                    <li><span class="lnr lnr-hand glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.ready" ng-click="updateIndicator()"> <span translate="FLIGHT_READY"></span></li>
                                    <li><span class="fa fa-cloud glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.inAir" ng-click="updateIndicator()"> <span translate="FLIGHT_IN_AIR"></span></li>
                                    <li><span class="lnr lnr-checkmark-circle glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.landed" ng-click="updateIndicator()"> <span translate="FLIGHT_LANDED"></span></li>
-                                   <li><span class="fa fa-check-circle glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.valid" ng-click="updateIndicator()"> <span translate="FLIGHT_VALID"></span></li>
-                                   <li><span class="lnr lnr-warning glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.invalid" ng-click="updateIndicator()"> <span translate="FLIGHT_INVALID"></span></li>
-                                   <li><span class="lnr lnr-lock glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.locked" ng-click="updateIndicator()"> <span translate="FLIGHT_LOCKED"></span></li>
-                                   <li><span class="lnr lnr-link glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.delivered" ng-click="updateIndicator()"> <span translate="FLIGHT_DELIVERED"></span></li>
                                 </ul>
                             </div>
                         </div>
@@ -35,9 +31,7 @@ export default class FlightStateFilterDropdownDirective {
                 field: '@'
             },
             link: function (scope, element, attrs, modelCtrl) {
-                let field = attrs.field;
-                console.log("attrs", attrs);
-                scope.states = scope.ngModel || Object.assign({}, FlightStateMapper.allStates(field));
+                scope.states = scope.ngModel || Object.assign({}, FlightStateMapper.allAirStates());
 
                 scope.updateIndicator = () => {
                     if(FlightStateMapper.anyStateDisabled(scope.states.flight)) {
@@ -49,7 +43,7 @@ export default class FlightStateFilterDropdownDirective {
                 };
 
                 scope.reset = () => {
-                    scope.states = Object.assign({}, FlightStateMapper.allStates(field));
+                    scope.states = Object.assign({}, FlightStateMapper.allAirStates());
                     scope.updateIndicator();
                 };
 

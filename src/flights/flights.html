@@ -28,13 +28,13 @@
                         }"
                         title="{{'EDIT' | translate}}">
                         <td data-title="'FLIGHT_STATUS' | translate"
-                            filter="{_flightState: 'flight-state'}"
-                            sortable="'_flightState'">
+                            filter="{_airState: 'air-state'}"
+                            sortable="'_airState'">
                             <fls-flight-status flight="flight" field="AirState"></fls-flight-status>
                         </td>
                         <td data-title="'PROCESS_STATUS' | translate"
-                            filter="{_flightState: 'flight-state'}"
-                            sortable="'_flightState'">
+                            filter="{_processState: 'process-state'}"
+                            sortable="'_processState'">
                             <fls-flight-status flight="flight" field="Process"></fls-flight-status>
                         </td>
                         <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'"

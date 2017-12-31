@@ -115,7 +115,7 @@ export class FlightStateMapper {
 
     static mapAirState(filter) {
         let filterWithStates = Object.assign({}, filter);
-        let flightState = filterWithStates._flightState || Object.assign({}, FlightStateMapper.allAirStates());
+        let flightState = filterWithStates._airState || Object.assign({}, FlightStateMapper.allAirStates());
 
         if (FlightStateMapper.anyStateDisabled(flightState.flight)) {
             filterWithStates.AirStates = [];
@@ -140,7 +140,7 @@ export class FlightStateMapper {
 
     static mapProcessState(filter) {
         let filterWithStates = Object.assign({}, filter);
-        let flightState = filterWithStates._flightState || Object.assign({}, FlightStateMapper.allProcessStates());
+        let flightState = filterWithStates._processState || Object.assign({}, FlightStateMapper.allProcessStates());
 
         if (FlightStateMapper.anyStateDisabled(flightState.flight)) {
             filterWithStates.ProcessStates = [];
@@ -193,17 +193,44 @@ export class FlightStateMapper {
         };
     }
 
-    static flightStateSorting(sorting) {
-        if (sorting["_flightState"]) {
-            let direction = sorting["_flightState"];
-            let newSorting = Object.assign({}, sorting, {_flightState: undefined});
+    static flightAirStateSorting(sorting) {
+        if (sorting["_airState"]) {
+            let direction = sorting["_airState"];
+            let newSorting = Object.assign({}, sorting, {_airState: undefined});
             newSorting.AirState = direction;
+
+            return newSorting;
+        }
+
+        return sorting;
+    }
+
+    static flightProcessStateSorting(sorting) {
+        if (sorting["_processState"]) {
+            let direction = sorting["_processState"];
+            let newSorting = Object.assign({}, sorting, {_processState: undefined});
             newSorting.ProcessState = direction;
 
             return newSorting;
         }
 
         return sorting;
+    }
+
+    static sortingWithState(sorting) {
+        let sortingWithStates = FlightStateMapper.flightAirStateSorting(sorting);
+        sortingWithStates = FlightStateMapper.flightProcessStateSorting(sortingWithStates);
+
+        return sortingWithStates;
+    }
+
+    static filterWithState(filter) {
+        let filterWithStates = Object.assign({}, FlightStateMapper.mapAirState(filter));
+        filterWithStates = Object.assign(filterWithStates, FlightStateMapper.mapProcessState(filter));
+        delete filterWithStates._airState;
+        delete filterWithStates._processState;
+
+        return filterWithStates;
     }
 
 

@@ -6,7 +6,8 @@ import personsModule from '../masterdata/persons/PersonsModule';
 import GliderFormDirective from './GliderFormDirective';
 import TowFormDirective from './TowFormDirective';
 import FlightStatusDirective from './FlightStatusDirective';
-import FlightStateFilterDropdownDirective from './FlightStateFilterDropdownDirective';
+import AirStateFilterDropdownDirective from './AirStateFilterDropdownDirective';
+import ProcessStateFilterDropdownDirective from './ProcessStateFilterDropdownDirective';
 import flightTypesModule from '../masterdata/flightTypes/FlightTypesModule';
 import aircraftsModule from '../masterdata/aircrafts/AircraftsModule';
 import {userAuth} from '../core/AuthService';
@@ -31,7 +32,8 @@ export default angular.module('fls.flights', [
     .directive('flsFlightEditGliderForm', GliderFormDirective.factory)
     .directive('flsFlightEditTowForm', TowFormDirective.factory)
     .directive('flsFlightStatus', FlightStatusDirective.factory)
-    .directive('flsFlightStatusFilter', FlightStateFilterDropdownDirective.factory)
+    .directive('flsAirStatusFilter', AirStateFilterDropdownDirective.factory)
+    .directive('flsProcessStatusFilter', ProcessStateFilterDropdownDirective.factory)
     .service('FlightCostBalanceTypes', FlightsServices.FlightCostBalanceTypes)
     .service('Flights', FlightsServices.Flights)
     .service('PagedFlights', FlightsServices.PagedFlights)
@@ -73,10 +75,12 @@ export default angular.module('fls.flights', [
     .config((ngTableFilterConfigProvider) => {
         ngTableFilterConfigProvider.setConfig({
             aliasUrls: {
-                "flight-state": "./tableFilters/flight-state-filter.html"
+                "air-state": "./tableFilters/air-state-filter.html",
+                "process-state": "./tableFilters/process-state-filter.html"
             }
         });
     })
     .run(($templateCache) => {
-        $templateCache.put("./tableFilters/flight-state-filter.html", require("./tableFilters/flight-state-filter.html"));
+        $templateCache.put("./tableFilters/air-state-filter.html", require("./tableFilters/air-state-filter.html"));
+        $templateCache.put("./tableFilters/process-state-filter.html", require("./tableFilters/process-state-filter.html"));
     });
