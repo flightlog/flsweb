@@ -704,3 +704,10 @@ button.btn {
         max-width: 1200px;
     }
 }
+
+.non-matching,
+.non-matching:focus,
+.selectize-dropdown .non-matching .selected,
+.non-matching:hover {
+    color: #9d9d9d;
+}

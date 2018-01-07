@@ -8,9 +8,15 @@ function renderWithId(idName, labelName) {
 
 export default class DropdownItemsRenderService {
 
-    personRenderer() {
+    personRenderer(highlightFilter) {
+        let highlightFilterFunction = highlightFilter || function () {
+            return true;
+        };
+
         function renderPerson(person, escape) {
-            return '<div class="option">' + escape(person.Firstname) + ' ' +
+            let additionalClass = !highlightFilterFunction(person) ? ' non-matching' : '';
+
+            return '<div class="option' + additionalClass + '">' + escape(person.Firstname) + ' ' +
                 escape(person.Lastname) +
                 (person.City ? ' (' + escape(person.City) + ')' : '') +
                 '</div>';
@@ -120,9 +126,9 @@ export default class DropdownItemsRenderService {
     lengthUnitRenderer() {
         function renderLengthUnit(lengthUnitType, escape) {
             return '<div class="option">' +
-                    escape(lengthUnitType.LengthUnitTypeName) + ' (' +
-                    escape(lengthUnitType.LengthUnitTypeShortName) + ')' +
-                    '</div>';
+                escape(lengthUnitType.LengthUnitTypeName) + ' (' +
+                escape(lengthUnitType.LengthUnitTypeShortName) + ')' +
+                '</div>';
         }
 
         return {
@@ -134,9 +140,9 @@ export default class DropdownItemsRenderService {
     renderElevetionUnit() {
         function render(lengthUnitType, escape) {
             return '<div class="option">' +
-                    escape(lengthUnitType.ElevationUnitTypeName) + ' (' +
-                    escape(lengthUnitType.ElevationUnitTypeShortName) + ')' +
-                    '</div>';
+                escape(lengthUnitType.ElevationUnitTypeName) + ' (' +
+                escape(lengthUnitType.ElevationUnitTypeShortName) + ')' +
+                '</div>';
         }
 
         return {
@@ -148,9 +154,9 @@ export default class DropdownItemsRenderService {
     aircrafttypeRenderer() {
         function render(aircraftType, escape) {
             return '<div class="option">' +
-                    escape(aircraftType.AircraftTypeId) + ' - ' +
-                    escape(aircraftType.AircraftTypeName) +
-                    '</div>';
+                escape(aircraftType.AircraftTypeId) + ' - ' +
+                escape(aircraftType.AircraftTypeName) +
+                '</div>';
         }
 
         return {
