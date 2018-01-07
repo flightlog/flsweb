@@ -3,7 +3,7 @@ import moment from "moment";
 export default class ReservationEditController {
     constructor($scope, GLOBALS, $q, $routeParams, $location,
                 AuthService, Reservations, ReservationTypes,
-                ReservationUpdater, ReservationInserter, Locations, Persons, ReservationService,
+                ReservationUpdater, ReservationInserter, Locations, Persons, PagedPersons, ReservationService,
                 AircraftsOverviews, ReservationValidator, NavigationCache, MessageManager, DropdownItemsRenderService) {
 
         $scope.debug = GLOBALS.DEBUG;
@@ -11,38 +11,38 @@ export default class ReservationEditController {
         let prefillMoment = moment($routeParams['date']) || moment();
         let prefillLocationId = $routeParams['locationId'];
 
-        $scope.renderPerson = DropdownItemsRenderService.personRenderer();
+        $scope.renderGliderPilot = DropdownItemsRenderService.personRenderer((person) => {
+            return person.HasGliderInstructorLicence
+                || person.HasGliderPilotLicence
+                || person.HasMotorPilotLicence
+                || person.HasMotorInstructorLicence
+                || person.HasTowPilotLicence
+                || person.HasTMGLicence
+                || person.HasGliderTraineeLicense;
+        });
+        $scope.renderSecondCrewPerson = DropdownItemsRenderService.personRenderer();
+
         $scope.renderAircraft = DropdownItemsRenderService.aircraftRenderer();
         $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
         let suggestedStart = prefillMoment.clone().hour(10).minute(0).second(0).toDate();
         let suggestedStop = prefillMoment.clone().hour(18).minute(0).second(0).toDate();
         $scope.busy = true;
-        $scope.md = {
-            instructorRequired: false
-        };
+        $scope.md = {};
 
         function loadMasterData() {
             return $q.all([
-                AircraftsOverviews.query().$promise
-                    .then((result) => {
-                        $scope.md.aircrafts = result;
-                    }),
-                ReservationTypes.query().$promise
-                    .then((result) => {
-                        $scope.md.reservationTypes = result;
-                    }),
-                Persons.getGliderPilots().$promise
-                    .then((result) => {
-                        $scope.md.gliderPilots = result;
-                    }),
-                Persons.getGliderInstructors().$promise
-                    .then((result) => {
-                        $scope.md.instructors = result;
-                    }),
-                Locations.getLocations().$promise
-                    .then((result) => {
-                        $scope.md.locations = result;
-                    })
+                AircraftsOverviews.query().$promise.then((result) => {
+                    $scope.md.aircrafts = result;
+                }),
+                ReservationTypes.query().$promise.then((result) => {
+                    $scope.md.reservationTypes = result;
+                }),
+                PagedPersons.getAllPersons().then((result) => {
+                    $scope.md.persons = result;
+                }),
+                Locations.getLocations().$promise.then((result) => {
+                    $scope.md.locations = result;
+                })
             ]);
         }
 
@@ -81,7 +81,8 @@ export default class ReservationEditController {
             .then(mapReservationEditMode)
             .catch(_.partial(MessageManager.raiseError, 'load', 'reservation'))
             .finally(() => {
-                $scope.calculateInstructorRequired();
+                $scope.selectedReservationTypeChanged();
+                $scope.selectedAircraftChanged();
                 $scope.form.reservationForm.ReservationTypeId.$validate();
                 $scope.busy = false;
             });
@@ -122,9 +123,56 @@ export default class ReservationEditController {
             }
         };
 
-        $scope.calculateInstructorRequired = () => {
+        let showSecondCrew = () => {
+            return $scope.selectedReservationType
+                && ($scope.selectedReservationType.IsInstructorRequired
+                    || $scope.selectedReservationType.IsObserverPilotOrInstructorRequired
+                    || $scope.selectedReservationType.IsPassengerRequired)
+                || ($scope.selectedAircraft && $scope.selectedAircraft.NrOfSeats > 1);
+        };
+
+        let secondCrewMandatory = () => {
+            return $scope.selectedReservationType
+                && ($scope.selectedReservationType.IsInstructorRequired
+                    || $scope.selectedReservationType.IsObserverPilotOrInstructorRequired
+                    || $scope.selectedReservationType.IsPassengerRequired);
+        };
+
+        let secondCrewLabel = () => {
+            if ($scope.selectedReservationType) {
+                if ($scope.selectedReservationType.IsInstructorRequired) {
+                    return "INSTRUCTOR";
+                }
+                if ($scope.selectedReservationType.IsObserverPilotOrInstructorRequired) {
+                    return "OBSERVER";
+                }
+                if ($scope.selectedReservationType.IsPassengerRequired) {
+                    return "PASSENGER";
+                }
+            }
+
+            return "SECOND_CREW_MEMBER";
+        };
+
+        $scope.selectedReservationTypeChanged = () => {
             setTimeout(() => {
-                $scope.instructorRequired = ReservationValidator.calculateInstructorRequired($scope.md.reservationTypes, $scope.reservation);
+                $scope.selectedReservationType = $scope.md.reservationTypes
+                    .find(reservationType => reservationType.AircraftReservationTypeId === $scope.reservation.ReservationTypeId);
+                $scope.showSecondCrew = showSecondCrew();
+                $scope.isSecondCrewMandatory = secondCrewMandatory();
+                $scope.secondCrewLabel = secondCrewLabel();
+
+                $scope.$apply();
+            }, 0);
+        };
+
+        $scope.selectedAircraftChanged = () => {
+            setTimeout(() => {
+                $scope.selectedAircraft = $scope.md.aircrafts
+                    .find(aircraft => aircraft.AircraftId === $scope.reservation.AircraftId);
+                $scope.showSecondCrew = showSecondCrew();
+                $scope.isSecondCrewMandatory = secondCrewMandatory();
+                $scope.secondCrewLabel = secondCrewLabel();
 
                 $scope.$apply();
             }, 0);

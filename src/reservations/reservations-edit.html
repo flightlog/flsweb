@@ -64,7 +64,7 @@
                                 valueField: 'AircraftReservationTypeId',
                                 labelField: 'AircraftReservationTypeName',
                                 searchField: ['AircraftReservationTypeName'],
-                                onChange: calculateInstructorRequired
+                                onChange: selectedReservationTypeChanged
                             }"
                            ng-model="reservation.ReservationTypeId"
                            required></selectize>
@@ -77,38 +77,38 @@
                         masterdata-sub-path="persons"></fls-masterdata-link>
                 <selectize id="Pilot"
                            name="Pilot"
-                           options="md.gliderPilots"
+                           options="md.persons"
                            ng-disabled="!reservation.CanUpdateRecord"
                            config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
-                                render: renderPerson
+                                render: renderGliderPilot
                             }"
                            ng-model="reservation.PilotPersonId"
                            required></selectize>
             </div>
             <div class="form-group col-md-12"
-                 ng-if="instructorRequired">
-                <label for="Instructor"><span translate="INSTRUCTOR">Instructor</span>:*</label>
+                 ng-if="showSecondCrew">
+                <label for="SecondCrew"><span translate="{{secondCrewLabel}}"></span>:<span ng-if="isSecondCrewMandatory">*</span></label>
 
                 <fls-masterdata-link
-                        id-value="reservation.InstructorPersonId"
+                        id-value="reservation.SecondCrewPersonId"
                         masterdata-sub-path="persons"></fls-masterdata-link>
-                <selectize id="Instructor"
-                           name="Instructor"
-                           options="md.instructors"
+                <selectize id="SecondCrew"
+                           name="SecondCrew"
+                           options="md.persons"
                            ng-disabled="!reservation.CanUpdateRecord"
                            config="{
                                 inputClass: 'form-control selectize-input',
                                 maxItems: 1,
                                 valueField: 'PersonId',
                                 searchField: ['Firstname', 'Lastname', 'City'],
-                                render: renderPerson
+                                render: renderSecondCrewPerson
                             }"
                            ng-model="reservation.SecondCrewPersonId"
-                           required></selectize>
+                           ng-required="isSecondCrewMandatory"></selectize>
             </div>
             <div class="form-group col-md-12">
                 <label for="Aircraft"><span translate="AIRCRAFT">Aircraft</span>:*</label>
@@ -126,7 +126,8 @@
                                 valueField: 'AircraftId',
                                 labelField: 'Immatriculation',
                                 searchField: ['Immatriculation', 'CompetitionSign', 'AircraftModel'],
-                                render: renderAircraft
+                                render: renderAircraft,
+                                onChange: selectedAircraftChanged
                             }"
                            ng-model="reservation.AircraftId"
                            required></selectize>
