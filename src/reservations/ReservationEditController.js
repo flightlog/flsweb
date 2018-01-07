@@ -127,12 +127,12 @@ export default class ReservationEditController {
             return $scope.selectedReservationType
                 && ($scope.selectedReservationType.IsInstructorRequired
                     || $scope.selectedReservationType.IsObserverPilotOrInstructorRequired
-                    || $scope.selectedReservationType.IsPassengerRequired)
+                    || $scope.selectedReservationType.IsPassengerRequired && ($scope.selectedAircraft && $scope.selectedAircraft.NrOfSeats > 1))
                 || ($scope.selectedAircraft && $scope.selectedAircraft.NrOfSeats > 1);
         };
 
         let secondCrewMandatory = () => {
-            return $scope.selectedReservationType
+            return showSecondCrew() && $scope.selectedReservationType
                 && ($scope.selectedReservationType.IsInstructorRequired
                     || $scope.selectedReservationType.IsObserverPilotOrInstructorRequired
                     || $scope.selectedReservationType.IsPassengerRequired);
