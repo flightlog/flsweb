@@ -59,6 +59,16 @@
                         <div style="font-size: 1.5em;"><span ng-bind="ctrl.myDashboardConfig.person.MedicalLaplExpireDate | date: 'dd.MM.yyyy'"></span></div>
                     </div>
                 </section>
+                <section>
+                    <h4 translate="MY_NEXT_RESERVATIONS" style="margin-bottom: 40px;"></h4>
+                    <ul style="text-align: left; margin-bottom: 30px;">
+                        <li ng-repeat="aircraftReservation in ctrl.dashboardData.MyNextAircraftReservations">
+                            <a href="#/reservations/{{aircraftReservation.AircraftReservationId}}/view">
+                                {{aircraftReservation.Start | date: 'dd.MM.yyyy'}}: [{{aircraftReservation.Immatriculation || '?'}}] @{{aircraftReservation.LocationName || '?'}}
+                            </a>
+                        </li>
+                    </ul>
+                </section>
                 <section ng-show="!(ctrl.myDashboardConfig.person.MedicalClass1ExpireDate
                                 || ctrl.myDashboardConfig.person.MedicalClass2ExpireDate
                                 || ctrl.myDashboardConfig.person.MedicalLaplExpireDate)">
