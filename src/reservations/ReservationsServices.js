@@ -30,6 +30,7 @@ export class Reservations {
             },
             get: {
                 method: 'GET',
+                cache: false,
                 isArray: false
             }
         });
@@ -113,8 +114,8 @@ export class ReservationValidator {
     constructor() {
         return {
             calculateInstructorRequired: function (reservationTypes, reservation) {
-                var selectedReservationType;
-                for (var i = 0; i < reservationTypes.length; i++) {
+                let selectedReservationType;
+                for (let i = 0; i < reservationTypes.length; i++) {
                     if (reservationTypes[i].AircraftReservationTypeId === parseInt(reservation.ReservationTypeId)) {
                         selectedReservationType = reservationTypes[i];
                     }

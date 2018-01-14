@@ -711,3 +711,26 @@ button.btn {
 .non-matching:hover {
     color: #9d9d9d;
 }
+
+.reservation-form-overlay {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    background: white;
+}
+
+@media (min-width: 800px) {
+    .reservation-form-overlay {
+        overflow: auto;
+        top: 100px;
+        right: 5px;
+        width: 30%;
+        min-width: 400px;
+        height: 80%;
+        background: rgba(244, 213, 255, 0.88);
+        border: 1px solid rgba(0, 0, 25, 0.73);
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.63);
+        border-radius: 5px;
+    }
+}
