@@ -177,7 +177,6 @@ export default class ReservationSchedulerController {
                     $scope.updateDrawingEvent(e, event);
                     loadReservation('new', e.reservation)
                         .then((reservationDetails) => {
-                            console.log("new reservationDetails", reservationDetails);
                             $scope.reservation = reservationDetails;
                             $scope.busy = false;
                         });
@@ -255,7 +254,7 @@ export default class ReservationSchedulerController {
 
             if (durationHours > 0 && e.start.isSame(end, "d")) {
                 e.durationHours = durationHours;
-                e.reservation.End = end.clone()
+                e.reservation.End = end.clone().toDate()
             }
         };
 
