@@ -125,8 +125,9 @@ export default class ReservationSchedulerController {
 
                     $scope.reservations = reservations;
                     reservations.Items.forEach(reservation => {
-                        let startLocalTime = stripTimeZone(reservation.Start);
-                        let startMoment = moment(reservation.Start);
+                        reservation.startTime = moment(reservation.Start);
+                        let startLocalTime = reservation.startTime;
+                        let startMoment = reservation.startTime;
                         let event = {
                             start: startMoment,
                             startCell: moment.duration(startLocalTime.diff($scope.calendarStartLocalTime)).asHours(),
