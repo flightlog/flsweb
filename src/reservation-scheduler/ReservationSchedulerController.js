@@ -14,6 +14,7 @@ export default class ReservationSchedulerController {
                 ReservationInserter,
                 AircraftsOverviews,
                 PagedReservations,
+                ReservationTypes,
                 NavigationCache,
                 MessageManager) {
 
@@ -41,6 +42,11 @@ export default class ReservationSchedulerController {
             AircraftsOverviews.query().$promise
                 .then((result) => {
                     $scope.md.aircrafts = result;
+                }),
+            ReservationTypes.query().$promise
+                .then((result) => {
+                    $scope.md.reservationTypes = result;
+                    $scope.md.defaultReservationType = result[0];
                 })
         ];
 
@@ -58,9 +64,6 @@ export default class ReservationSchedulerController {
             if (allDay) {
                 return 24;
             }
-            console.log("startMoment", startMoment);
-            console.log("endMoment", endMoment);
-            console.log("moment.duration(endMoment.diff(startMoment)).asHours()", moment.duration(endMoment.diff(startMoment)).asHours());
 
             return moment.duration(endMoment.diff(startMoment)).asHours();
         }
@@ -163,7 +166,7 @@ export default class ReservationSchedulerController {
                         AircraftId: $scope.md.aircrafts[resourceIndex].AircraftId,
                         PilotPersonId: $scope.person.PersonId,
                         LocationId: $scope.club.HomebaseId,
-                        ReservationTypeId: 1
+                        ReservationTypeId: $scope.md.defaultReservationType.AircraftReservationTypeId
                     }
                 };
             }
