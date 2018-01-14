@@ -147,12 +147,12 @@
 
                         <tspan class="event-label event-subtitle"
                                ng-attr-x="{{drawingEvent.startCell * cellWidth + 3}}"
-                               dy="0">{{drawingEvent.reservation.Start.toDate() | date: 'dd.MM.yyyy HH:mm:ss'}}
+                               dy="0">{{drawingEvent.reservation.Start | date: 'dd.MM.yyyy HH:mm:ss'}}
                         </tspan>
                         -
                         <tspan class="event-label event-subtitle"
                                ng-attr-x="{{drawingEvent.startCell * cellWidth + 3}}"
-                               dy="12">{{drawingEvent.reservation.End.toDate() | date: 'dd.MM.yyyy HH:mm:ss'}}
+                               dy="12">{{drawingEvent.reservation.End | date: 'dd.MM.yyyy HH:mm:ss'}}
                         </tspan>
 
                     </text>
@@ -190,7 +190,7 @@
                             <div class="form-group input-append col-md-6 flsdatepicker">
                                 <label for="start"
                                        translate="DATE">Date:</label>
-                                <fls-date-picker ng-model="reservation.Start"
+                                <fls-date-picker ng-model="reservation.startDate"
                                                  ng-disabled="!reservation.CanUpdateRecord"
                                                  required></fls-date-picker>
                             </div>
@@ -212,7 +212,7 @@
                                        type="text"
                                        class="form-control"
                                        id="start"
-                                       ng-model="reservation.Start"
+                                       ng-model="reservation.startTime"
                                        ng-disabled="!reservation.CanUpdateRecord">
                             </div>
                             <div class="control-group input-append col-md-6"

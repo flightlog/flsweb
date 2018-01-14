@@ -176,6 +176,7 @@ export default class ReservationSchedulerController {
                     $scope.updateDrawingEvent(e, event);
                     loadReservation('new', e.reservation)
                         .then((reservationDetails) => {
+                            console.log("new reservationDetails", reservationDetails);
                             $scope.reservation = reservationDetails;
                             $scope.busy = false;
                         });
@@ -195,8 +196,10 @@ export default class ReservationSchedulerController {
                     durationHours: 1,
                     resourceIndex: resourceIndex,
                     reservation: {
-                        Start: eventStart,
-                        End: eventStart.clone().add(1, "hours"),
+                        startDate: eventStart,
+                        startTime: eventStart,
+                        Start: eventStart.toDate(),
+                        End: eventStart.clone().add(1, "hours").toDate(),
                         IsAllDayReservation: false,
                         AircraftId: $scope.md.aircrafts[resourceIndex].AircraftId,
                         PilotPersonId: $scope.person.PersonId,
@@ -218,7 +221,10 @@ export default class ReservationSchedulerController {
 
             loadReservation(event.reservation.AircraftReservationId)
                 .then((reservationDetails) => {
-                    $scope.reservation = reservationDetails;
+                    $scope.reservation = Object.assign({}, reservationDetails, {
+                        startDate: moment(reservationDetails.Start).clone(),
+                        startTime: moment(reservationDetails.Start).clone()
+                    });
                 })
                 .finally(() => {
                     $scope.loadingDetails = false;
@@ -229,6 +235,7 @@ export default class ReservationSchedulerController {
         $window.addEventListener("keydown", (keyEvent) => {
             if (keyEvent.keyCode === ESCAPE_CODE) {
                 $scope.clearDrawingEvent();
+                $scope.reservation = undefined;
                 $scope.$apply();
             }
         });
@@ -265,8 +272,18 @@ export default class ReservationSchedulerController {
             $scope.reservation = undefined;
         };
 
-        $scope.save = function (reservation) {
+        $scope.save = function (reservationToSafe) {
             $scope.busy = true;
+            let startDateString = moment(reservationToSafe.startDate).format("YYYY-MM-DD");
+            let startTimeString = reservationToSafe.startTime.format("HH:mm:ss");
+            let endTimeString = moment(reservationToSafe.End).format("HH:mm:ss");
+            console.log(startDateString + " " + startTimeString + " ; " + endTimeString);
+            let reservation = Object.assign({}, reservationToSafe, {
+                Start: moment(startDateString + " " + startTimeString),
+                End: moment(startDateString + " " + endTimeString),
+                startDate: null,
+                startTime: null
+            });
 
             if (reservation.AircraftReservationId) {
                 let r = new ReservationUpdater(reservation);
