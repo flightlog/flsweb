@@ -34,7 +34,7 @@ export default class ReservationsController {
 
                         let result = res.Items;
                         let formattedResult = [];
-                        for (var i = 0; i < result.length; i++) {
+                        for (let i = 0; i < result.length; i++) {
                             formattedResult[i] = Object.assign(result[i], {
                                 _formattedDate: result[i].Start && moment(result[i].Start).format('DD.MM.YYYY dddd'),
                                 Start: moment(result[i].Start).toDate(),

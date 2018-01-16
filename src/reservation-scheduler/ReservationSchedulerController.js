@@ -105,36 +105,41 @@ export default class ReservationSchedulerController {
             return moment.duration(endMoment.diff(startMoment)).asHours();
         }
 
-        function stripTimeZone(date) {
-            let startWithoutTimeZone = moment(date).utc().format("YYYY-MM-DDTHH:mm:ss");
+        function stripTimeZone(momentInstance) {
+            let startWithoutTimeZone = momentInstance.format("YYYY-MM-DDTHH:mm:ss");
 
-            return moment(startWithoutTimeZone);
+            return moment.utc(startWithoutTimeZone);
         }
 
         function loadReservations() {
             $scope.busy = true;
             PagedReservations.getReservations({
                 Start: {
-                    From: moment().format("YYYY-MM-DD")
+                    From: moment().add(-1, "days").format("YYYY-MM-DD")
                 }
             }, {}, 0, 1000)
                 .then((reservations) => {
                     $scope.events = [];
                     $scope.now = moment().startOf("day");
                     $scope.calendarStartLocalTime = $scope.now.clone();
+                    $scope.calendarStartUtc = moment().utc().startOf("day");
 
                     $scope.reservations = reservations;
                     reservations.Items.forEach(reservation => {
                         reservation.startTime = moment(reservation.Start);
-                        let startLocalTime = reservation.startTime;
                         let startMoment = reservation.startTime;
                         let event = {
                             start: startMoment,
-                            startCell: moment.duration(startLocalTime.diff($scope.calendarStartLocalTime)).asHours(),
+                            startCell: moment.duration(startMoment.diff($scope.calendarStartLocalTime)).asHours(),
                             durationHours: eventDurationFor(startMoment, reservation.IsAllDayReservation, moment(reservation.End)),
                             resourceIndex: findResourceIndex(reservation),
                             reservation: reservation
                         };
+                        if (reservation.IsAllDayReservation) {
+                            event.start = moment.utc(event.start.format("YYYY-MM-DD"));
+                            event.startCell = moment.duration(event.start.diff($scope.calendarStartUtc)).asHours();
+                            event.durationHours = 24;
+                        }
 
                         $scope.events.push(event);
                     });
@@ -277,10 +282,20 @@ export default class ReservationSchedulerController {
             let startDateString = moment(reservationToSafe.startDate).format("YYYY-MM-DD");
             let startTimeString = reservationToSafe.startTime.format("HH:mm:ss");
             let endTimeString = moment(reservationToSafe.End).format("HH:mm:ss");
-            console.log(startDateString + " " + startTimeString + " ; " + endTimeString);
+
+            let filteredStart;
+            let filteredEnd;
+            if (reservationToSafe.IsAllDayReservation) {
+                filteredStart = stripTimeZone(moment(startDateString));
+                filteredEnd = filteredStart;
+            } else {
+                filteredStart = moment(startDateString + " " + startTimeString);
+                filteredEnd = moment(startDateString + " " + endTimeString);
+            }
+
             let reservation = Object.assign({}, reservationToSafe, {
-                Start: moment(startDateString + " " + startTimeString),
-                End: moment(startDateString + " " + endTimeString),
+                Start: filteredStart,
+                End: filteredEnd,
                 startDate: null,
                 startTime: null
             });
