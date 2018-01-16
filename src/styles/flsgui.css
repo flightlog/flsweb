@@ -718,6 +718,7 @@ button.btn {
     right: 0;
     width: 100%;
     background: white;
+    z-index: 9999;
 }
 
 @media (min-width: 800px) {

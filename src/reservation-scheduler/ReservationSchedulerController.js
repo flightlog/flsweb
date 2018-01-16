@@ -2,6 +2,7 @@ import moment from "moment";
 import * as _ from "lodash";
 
 const ESCAPE_CODE = 27;
+const SETTINGS_KEY = "AircraftIdsToDisplayInScheduler";
 
 export default class ReservationSchedulerController {
 
@@ -29,8 +30,6 @@ export default class ReservationSchedulerController {
         $scope.isReservationAdmin = AuthService.isClubAdmin();
         $scope.busy = true;
         $scope.md = {};
-        $scope.rows = [];
-        $scope.headers = [];
 
         $scope.rowHeight = 30;
         $scope.cellWidth = 8;
@@ -74,7 +73,8 @@ export default class ReservationSchedulerController {
                     $scope.club = person.data;
                 }),
             AircraftsOverviews.query().$promise.then((result) => {
-                $scope.md.aircrafts = result;
+                $scope.md.availableAircrafts = Object.assign([], result);
+                $scope.md.aircrafts = [];
             }),
             ReservationTypes.query().$promise.then((result) => {
                 $scope.md.reservationTypes = result;
@@ -94,7 +94,7 @@ export default class ReservationSchedulerController {
                 }
             }
 
-            return 0;
+            return -1;
         }
 
         function eventDurationFor(startMoment, allDay, endMoment) {
@@ -119,6 +119,8 @@ export default class ReservationSchedulerController {
                 }
             }, {}, 0, 1000)
                 .then((reservations) => {
+                    $scope.rows = [];
+                    $scope.headers = [];
                     $scope.events = [];
                     $scope.now = moment().startOf("day");
                     $scope.calendarStartLocalTime = $scope.now.clone();
@@ -128,20 +130,23 @@ export default class ReservationSchedulerController {
                     reservations.Items.forEach(reservation => {
                         reservation.startTime = moment(reservation.Start);
                         let startMoment = reservation.startTime;
-                        let event = {
-                            start: startMoment,
-                            startCell: moment.duration(startMoment.diff($scope.calendarStartLocalTime)).asHours(),
-                            durationHours: eventDurationFor(startMoment, reservation.IsAllDayReservation, moment(reservation.End)),
-                            resourceIndex: findResourceIndex(reservation),
-                            reservation: reservation
-                        };
-                        if (reservation.IsAllDayReservation) {
-                            event.start = moment.utc(event.start.format("YYYY-MM-DD"));
-                            event.startCell = moment.duration(event.start.diff($scope.calendarStartUtc)).asHours();
-                            event.durationHours = 24;
-                        }
+                        let resourceIndex = findResourceIndex(reservation);
+                        if (resourceIndex >= 0) {
+                            let event = {
+                                start: startMoment,
+                                startCell: moment.duration(startMoment.diff($scope.calendarStartLocalTime)).asHours(),
+                                durationHours: eventDurationFor(startMoment, reservation.IsAllDayReservation, moment(reservation.End)),
+                                resourceIndex: resourceIndex,
+                                reservation: reservation
+                            };
+                            if (reservation.IsAllDayReservation) {
+                                event.start = moment.utc(event.start.format("YYYY-MM-DD"));
+                                event.startCell = moment.duration(event.start.diff($scope.calendarStartUtc)).asHours();
+                                event.durationHours = 24;
+                            }
 
-                        $scope.events.push(event);
+                            $scope.events.push(event);
+                        }
                     });
 
                     let headerIdx = 0;
@@ -170,6 +175,8 @@ export default class ReservationSchedulerController {
         }
 
         $q.all(masterDataPromises)
+            .then(loadAircraftsToDisplay)
+            .then(aircrafts => $scope.md.aircrafts = aircrafts)
             .then(loadReservations);
 
         $scope.eventAction = (event) => {
@@ -382,6 +389,47 @@ export default class ReservationSchedulerController {
                     .then(loadReservations);
             }
             $scope.reservation = undefined;
+        };
+
+        function loadAircraftsToDisplay() {
+            return $http
+                .post(GLOBALS.BASE_URL + '/api/v1/settings/key', {
+                    UserId: $scope.myUser.UserId,
+                    SettingKey: SETTINGS_KEY
+                })
+                .then((result) => {
+                    return $scope.md.availableAircrafts
+                        .filter(aircraft => JSON.parse(result.data).find(AircraftId => AircraftId === aircraft.AircraftId));
+                })
+                .catch(() => $q.when([]));
+        }
+
+        $scope.saveAircraftsToDisplay = () => {
+            let aircraftsToDisplay = $scope.md.aircrafts;
+            $http
+                .post(GLOBALS.BASE_URL + '/api/v1/settings', {
+                    UserId: $scope.myUser.UserId,
+                    SettingKey: SETTINGS_KEY,
+                    SettingValue: JSON.stringify(aircraftsToDisplay.map(aircraft => aircraft.AircraftId))
+                })
+                .catch(_.partial(MessageManager.raiseError, 'save', 'selected aircrafts'));
+        };
+
+        $scope.addAircraft = () => {
+            setTimeout(() => {
+                let aircraft = $scope.md.availableAircrafts.find(aircraft => aircraft.AircraftId === $scope.aircraftIdToAdd);
+                if ($scope.md.aircrafts.indexOf(aircraft) < 0) {
+                    $scope.md.aircrafts.push(aircraft);
+                    loadReservations();
+                }
+            }, 0);
+        };
+
+        $scope.removeAircraft = (aircraft) => {
+            setTimeout(() => {
+                $scope.md.aircrafts = $scope.md.aircrafts.filter(a => a !== aircraft);
+                loadReservations();
+            }, 0);
         };
     }
 
