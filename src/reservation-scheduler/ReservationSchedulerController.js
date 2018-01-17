@@ -404,31 +404,41 @@ export default class ReservationSchedulerController {
                 .catch(() => $q.when([]));
         }
 
-        $scope.saveAircraftsToDisplay = () => {
+        function saveAircraftsToDisplay() {
+            $scope.busy = true;
             let aircraftsToDisplay = $scope.md.aircrafts;
-            $http
+
+            return $http
                 .post(GLOBALS.BASE_URL + '/api/v1/settings', {
                     UserId: $scope.myUser.UserId,
                     SettingKey: SETTINGS_KEY,
                     SettingValue: JSON.stringify(aircraftsToDisplay.map(aircraft => aircraft.AircraftId))
                 })
-                .catch(_.partial(MessageManager.raiseError, 'save', 'selected aircrafts'));
-        };
+                .catch(_.partial(MessageManager.raiseError, 'save', 'selected aircrafts'))
+                .finally(() => {
+                    $scope.busy = false;
+                });
+        }
 
         $scope.addAircraft = () => {
-            setTimeout(() => {
-                let aircraft = $scope.md.availableAircrafts.find(aircraft => aircraft.AircraftId === $scope.aircraftIdToAdd);
-                if ($scope.md.aircrafts.indexOf(aircraft) < 0) {
-                    $scope.md.aircrafts.push(aircraft);
-                    loadReservations();
-                }
-            }, 0);
+            if ($scope.aircraftIdToAdd) {
+                setTimeout(() => {
+                    let aircraft = $scope.md.availableAircrafts.find(aircraft => aircraft.AircraftId === $scope.aircraftIdToAdd);
+                    if ($scope.md.aircrafts.indexOf(aircraft) < 0) {
+                        $scope.md.aircrafts.push(aircraft);
+                        saveAircraftsToDisplay()
+                            .then(loadReservations);
+                    }
+                    $scope.aircraftIdToAdd = undefined;
+                }, 0);
+            }
         };
 
         $scope.removeAircraft = (aircraft) => {
             setTimeout(() => {
                 $scope.md.aircrafts = $scope.md.aircrafts.filter(a => a !== aircraft);
-                loadReservations();
+                saveAircraftsToDisplay()
+                    .then(loadReservations);
             }, 0);
         };
     }
