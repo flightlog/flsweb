@@ -241,6 +241,13 @@
                            ng-model="person.HasWinchOperatorLicence">
                     <span translate="HAS_WINCH_OPERATOR_LICENCE"></span>
                 </label>
+				<label class="checkbox col-md-11 col-md-offset-1"
+                       for="HasPartMLicence">
+                    <input type="checkbox"
+                           id="HasPartMLicence"
+                           ng-model="person.HasPartMLicence">
+                    <span translate="HAS_PART_M_LICENCE"></span>
+                </label>
             </div>
             <div class="col-md-4"
                  ng-show="!flags.Passenger">
@@ -296,6 +303,20 @@
                     <label for="GliderInstructorLicenceExpireDate"><span translate="GLIDER_INSTRUCTOR_LICENCE_EXPIRE_DATE"></span></label>
                     <fls-date-picker id="GliderInstructorLicenceExpireDate"
                                      ng-model="person.GliderInstructorLicenceExpireDate"
+                                     hour-of-day="12"></fls-date-picker>
+                </div>
+				<div class="form-group col-md-12"
+                     ng-show="person.HasMotorInstructorLicence">
+                    <label for="MotorInstructorLicenceExpireDate"><span translate="MOTOR_INSTRUCTOR_LICENCE_EXPIRE_DATE"></span></label>
+                    <fls-date-picker id="MotorInstructorLicenceExpireDate"
+                                     ng-model="person.MotorInstructorLicenceExpireDate"
+                                     hour-of-day="12"></fls-date-picker>
+                </div>
+				<div class="form-group col-md-12"
+					 ng-show="person.HasPartMLicence">
+                    <label for="PartMLicenceExpireDate"><span translate="PART_M_LICENCE_EXPIRE_DATE"></span></label>
+                    <fls-date-picker id="PartMLicenceExpireDate"
+                                     ng-model="person.PartMLicenceExpireDate"
                                      hour-of-day="12"></fls-date-picker>
                 </div>
             </div>
