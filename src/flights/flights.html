@@ -50,19 +50,14 @@
                             filter="{ Immatriculation: 'text'}"
                             sortable="'Immatriculation'"
                             class="flight--glider-cell immatriculation"></td>
-                        <td ng-bind="flight.PilotName"
-                            data-title="'GLIDER_PILOT' | translate"
+                        <td data-title="'PILOT' | translate"
                             class="flight--glider-cell hidden-xs"
                             header-class="'hidden-xs'"
-                            filter="{ PilotName: 'text'}"
-                            sortable="'PilotName'"></td>
-                        <td ng-bind="flight.SecondCrewName"
-                            data-title="'SECOND_CREW_MEMBER' | translate"
-                            filter="{ SecondCrewName: 'text'}"
-                            sortable="'SecondCrewName'"
-                            class="flight--glider-cell hidden-xs hidden-sm hidden-md"
-                            header-class="'hidden-xs hidden-sm hidden-md'"
-                        ></td>
+                            filter="{ PilotNameOrSecondCrewName: 'text'}"
+                            sortable="'PilotName'">
+                            {{flight.PilotName}}<br/>
+                            {{flight.SecondCrewName}}
+                        </td>
                         <td ng-bind="flight.StartLocation"
                             data-title="'START_LOCATION' | translate"
                             class="hidden-xs hidden-sm hidden-md"

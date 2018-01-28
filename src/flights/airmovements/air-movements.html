@@ -40,18 +40,14 @@
                         class="flight--motor-cell immatriculation"
                         filter="{ Immatriculation: 'text'}"
                         sortable="'Immatriculation'"></td>
-                    <td ng-bind="flight.PilotName"
-                        data-title="'PILOT' | translate"
+                    <td data-title="'PILOT' | translate"
                         class="flight--motor-cell hidden-xs"
                         header-class="'hidden-xs'"
-                        filter="{ PilotName: 'text'}"
-                        sortable="'PilotName'"></td>
-                    <td ng-bind="flight.SecondCrewName"
-                        data-title="'SECOND_CREW_MEMBER' | translate"
-                        class="flight--motor-cell hidden-xs hidden-sm"
-                        header-class="'hidden-xs hidden-sm'"
-                        filter="{ SecondCrewName: 'text'}"
-                        sortable="'SecondCrewName'"></td>
+                        filter="{ PilotNameOrSecondCrewName: 'text'}"
+                        sortable="'PilotName'">
+                        {{flight.PilotName}}<br/>
+                        {{flight.SecondCrewName}}
+                    </td>
                     <td ng-bind="flight.StartLocation"
                         data-title="'START_LOCATION' | translate"
                         class="hidden-xs hidden-sm"
