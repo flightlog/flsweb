@@ -1,5 +1,12 @@
 <div class="container-fluid flscontainer"
      ng-init="reloadList();">
+    <script type="text/ng-template" id="pilotsHeader.html">
+        <div class="double-column hidden-xs">
+            <div class="double-column-cell" translate="PILOT"></div>
+            <div class="double-column-cell" translate="SECOND_CREW_MEMBER"></div>
+        </div>
+    </script>
+    
     <div class="hidden-print fls-new-button">
         <button type="button"
                 ng-click="newFlight()">
@@ -22,13 +29,14 @@
                     title="{{'EDIT' | translate}}">
                     <td data-title="'FLIGHT_STATUS' | translate"
                         filter="{_airState: 'air-movement-air-state'}"
+                        header-class="'tiny-column'"
                         sortable="'_airState'">
                         <fls-air-movement-status flight="flight" field="AirState"></fls-air-movement-status>
                     </td> <td data-title="'PROCESS_STATUS' | translate"
                         filter="{_processState: 'air-movement-process-state'}"
                         sortable="'_processState'"
                         class="'hidden-xs hidden-sm hidden-md'"
-                        header-class="'hidden-xs hidden-sm hidden-md'">
+                        header-class="'tiny-column hidden-xs hidden-sm hidden-md'">
                         <fls-air-movement-status flight="flight" field="Process"></fls-air-movement-status>
                     </td>
                     <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'"
@@ -42,11 +50,13 @@
                         sortable="'Immatriculation'"></td>
                     <td data-title="'PILOT' | translate"
                         class="flight--motor-cell hidden-xs"
+                        header="'pilotsHeader.html'"
                         header-class="'hidden-xs'"
-                        filter="{ PilotNameOrSecondCrewName: 'text'}"
-                        sortable="'PilotName'">
-                        {{flight.PilotName}}<br/>
-                        {{flight.SecondCrewName}}
+                        filter="{ PilotNameOrSecondCrewName: 'text'}">
+                        <div class="double-column">
+                            <div class="double-column-cell">{{flight.PilotName}}</div>
+                            <div class="double-column-cell">{{flight.SecondCrewName}}</div>
+                        </div>
                     </td>
                     <td ng-bind="flight.StartLocation"
                         data-title="'START_LOCATION' | translate"

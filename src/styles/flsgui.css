@@ -735,3 +735,17 @@ button.btn {
         border-radius: 5px;
     }
 }
+
+.double-column {
+    min-width: 250px;
+    display: flex;
+}
+
+.double-column-cell {
+    width: 50px;
+    flex: 1;
+}
+
+.tiny-column {
+    width: 90px;
+}
