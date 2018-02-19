@@ -4,7 +4,10 @@
                              'fa fa-check-circle': status.motor === 'VALIDATION_OK',
                              'lnr lnr-warning': status.motor === 'VALIDATION_FAILED',
                              'lnr lnr-lock': status.motor === 'LOCKED',
-                             'lnr lnr-link': status.motor === 'DELIVERED',
+                             'lnr lnr-alarm': status.motor === 'DELIVERY_PREPARATION_ERROR',
+							 'lnr lnr-link': status.motor === 'DELIVERY_PREPARED',
+							 'lnr lnr-sync': status.motor === 'DELIVERY_BOOKED',
+							 'lnr lnr-cross': status.motor === 'EXCLUDED_FROM_DELIVERY_PROCESS',
                              'lnr lnr-checkmark-circle': status.motor === 'LANDED',
                              'lnr lnr-hand': status.motor === 'WAITING'
                            }" style="color:#a9b0c6;" title="{{'MOTOR_PLANE' | translate}} {{status.motor | translate}} {{status.validationErrors}}">

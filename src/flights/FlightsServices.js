@@ -107,7 +107,10 @@ export const NOT_PROCESSED = 0;
 export const INVALID = 28;
 export const VALID = 30;
 export const LOCKED = 40;
-export const DELIVERED = 50;
+export const DELIVERYPREPARATIONERROR = 45;
+export const DELIVERYPREPARED = 50;
+export const DELIVERYBOOKED = 60;
+export const EXCLUDEDFROMDELIVERYPROCESS = 99;
 
 export const PROCESS_FIELD = "Process";
 
@@ -154,10 +157,18 @@ export class FlightStateMapper {
             if (flightState.flight.locked) {
                 filterWithStates.ProcessStates.push(LOCKED);
             }
-            if (flightState.flight.delivered) {
-                filterWithStates.ProcessStates.push(DELIVERED);
+            if (flightState.flight.deliverypreparationerror) {
+                filterWithStates.ProcessStates.push(DELIVERYPREPARATIONERROR);
             }
-
+			if (flightState.flight.deliveryprepared) {
+                filterWithStates.ProcessStates.push(DELIVERYPREPARED);
+            }
+			if (flightState.flight.deliverybooked) {
+                filterWithStates.ProcessStates.push(DELIVERYBOOKED);
+            }
+			if (flightState.flight.excludedfromdeliveryprocess) {
+                filterWithStates.ProcessStates.push(EXCLUDEDFROMDELIVERYPROCESS);
+            }
             return filterWithStates;
         } else {
             return filter;
@@ -189,7 +200,7 @@ export class FlightStateMapper {
 
     static allProcessStates() {
         return {
-            flight: {valid: true, invalid: true, locked: true, delivered: true}
+            flight: {valid: true, invalid: true, locked: true, deliverypreparationerror: true, deliveryprepared: true, deliverybooked: true, excludedfromdeliveryprocess: true}
         };
     }
 
@@ -244,8 +255,14 @@ export class FlightStateMapper {
                 return "VALIDATION_FAILED";
             case LOCKED:
                 return "LOCKED";
-            case DELIVERED:
-                return "DELIVERED";
+            case DELIVERYPREPARATIONERROR:
+                return "DELIVERY_PREPARATION_ERROR";
+			case DELIVERYPREPARED:
+                return "DELIVERY_PREPARED";
+			case DELIVERYBOOKED:
+                return "DELIVERY_BOOKED";
+			case EXCLUDEDFROMDELIVERYPROCESS:
+                return "EXCLUDED_FROM_DELIVERY_PROCESS";
             default:
                 return;
         }

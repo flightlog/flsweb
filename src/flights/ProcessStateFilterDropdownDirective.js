@@ -18,7 +18,10 @@ export default class ProcessStateFilterDropdownDirective {
                                    <li><span class="fa fa-check-circle glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.valid" ng-click="updateIndicator()"> <span translate="FLIGHT_VALID"></span></li>
                                    <li><span class="lnr lnr-warning glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.invalid" ng-click="updateIndicator()"> <span translate="FLIGHT_INVALID"></span></li>
                                    <li><span class="lnr lnr-lock glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.locked" ng-click="updateIndicator()"> <span translate="FLIGHT_LOCKED"></span></li>
-                                   <li><span class="lnr lnr-link glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.delivered" ng-click="updateIndicator()"> <span translate="FLIGHT_DELIVERED"></span></li>
+                                   <li><span class="lnr lnr-alarm glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.deliverypreparationerror" ng-click="updateIndicator()"> <span translate="FLIGHT_DELIVERYPREPARATIONERROR"></span></li>
+								   <li><span class="lnr lnr-link glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.deliveryprepared" ng-click="updateIndicator()"> <span translate="FLIGHT_DELIVERYPREPARED"></span></li>
+								   <li><span class="lnr lnr-sync glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.deliverybooked" ng-click="updateIndicator()"> <span translate="FLIGHT_DELIVERYBOOKED"></span></li>
+								   <li><span class="lnr lnr-cross glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.excludedfromdeliveryprocess" ng-click="updateIndicator()"> <span translate="FLIGHT_EXCLUDEDFROMDELIVERYPROCESS"></span></li>
                                 </ul>
                             </div>
                         </div>
