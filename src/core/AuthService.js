@@ -27,6 +27,7 @@ export default class AuthService {
                     planning: true,
                     reservations: true,
                     flights: true,
+                    flightreports: true,
                     masterdata: {
                         persons: true,
                         clubs: true,

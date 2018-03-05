@@ -42,6 +42,11 @@
                        ng-class="{'active':isPath('/flights')}"
                        translate="GLIDER_STARTLIST"></a>
                 </li>
+                <li ng-show="getEnabledFeatures().flightreports && isLoggedin()">
+                    <a href="#/flightreports"
+                       ng-class="{'active':isPath('/reporting')}"
+                       translate="FLIGHTREPORTS"></a>
+                </li>
                 <li ng-show="getEnabledFeatures().system && isLoggedin()"
                     class="hidden-sm">
                     <a ng-click=""
