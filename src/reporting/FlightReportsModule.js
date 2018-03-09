@@ -24,7 +24,7 @@ export default angular.module('fls.flightreports',
     .service('FilterCache', flightReportsServices.FilterCache)
     .config(function($routeProvider) {
         $routeProvider
-            .when('/flights',
+            .when('/flightreports',
                 {
                     controller: flightReportsController,
                     template: require('./flightreports.html'),
@@ -34,12 +34,4 @@ export default angular.module('fls.flightreports',
                         titleKey: () => "FLIGHTREPORTS"
                     }
                 });
-    })
-    .config((ngTableFilterConfigProvider) => {
-        ngTableFilterConfigProvider.setConfig({
-            aliasUrls: {
-                "air-state": "./tableFilters/air-state-filter.html",
-                "process-state": "./tableFilters/process-state-filter.html"
-            }
-        });
     });
