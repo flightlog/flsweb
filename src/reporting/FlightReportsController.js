@@ -1,59 +1,70 @@
 import moment from "moment";
-import * as _ from "lodash";
+import {FlightStateMapper} from "../flights/FlightsServices"
 
 export default class FlightReportsController {
     constructor($scope, $q, $log, $http, $modal, $translate, $timeout, MessageManager, $location, $routeParams,
                 TimeService, FlightReports, NgTableParams, PagedFlights, AuthService,
-                GLOBALS, TableSettingsCacheFactory,
-                Clubs, DropdownItemsRenderService,
-                localStorageService, RoutesPerLocation) {
+                GLOBALS, TableSettingsCacheFactory) {
         $scope.busy = true;
-        this.TimeService = TimeService;
-
-        if (!localStorageService.get("towPilotByAircraftId")) {
-            localStorageService.set("towPilotByAircraftId", {});
-        }
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.showChart = false;
-        let format = 'HH:mm';
 
-        $scope.starttypes = [];
-        $scope.locations = [];
-        $scope.gliderPilots = [];
-        $scope.towingPilots = [];
-        $scope.md = {};
+        let tableSettingsCache = {
+            filter: {},
+            sorting: {},
+            count: 1
+        };
 
-        $scope.renderPerson = DropdownItemsRenderService.personRenderer();
-        $scope.renderLocation = DropdownItemsRenderService.locationRenderer();
+        if($routeParams.type) {
+            switch ($routeParams.type) {
+                case 'my-flights-today':
+                    $scope.titleKey = 'MY_FLIGHTS_TODAY';
+                    tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
+                        filter: {
+                            FlightDate: {
+                                From: moment().format("YYYY-MM-DD"),
+                                To: moment().format("YYYY-MM-DD")
+                            }
+                        },
+                        sorting: {
+                            FlightDate: 'desc'
+                        },
+                        count: 100
+                    });
 
-        let tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController", {
-            filter: {
-                FlightDate: {
-                    From: moment().format("YYYY-MM-DD"),
-                    To: moment().format("YYYY-MM-DD")
-                }
-            },
-            sorting: {
-                FlightDate: 'desc'
-            },
-            count: 100
-        });
+                    break;
+                case 'my-flights-yesterday':
+                    $scope.titleKey = 'MY_FLIGHTS_YESTERDAY';
+                    tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
+                        filter: {
+                            FlightDate: {
+                                From: moment().add(-1, "days").format("YYYY-MM-DD"),
+                                To: moment().add(-1, "days").format("YYYY-MM-DD")
+                            }
+                        },
+                        sorting: {
+                            FlightDate: 'desc'
+                        },
+                        count: 100
+                    });
 
-        if ($routeParams.id !== undefined) {
-            loadMasterdata()
-                .then(() => {
-                    if ($routeParams.id === 'new') {
-                        return newFlight();
-                    } else if ($location.path().indexOf('/copy') > 0) {
-                        return copyFlight($routeParams.id);
-                    } else {
-                        return loadFlight($routeParams.id);
-                    }
-                })
-                .then(mapFlightToForm)
-                .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'));
-        } else {
+                    break;
+                case 'foo-bar':
+                    $scope.titleKey = 'FOO_BAR';
+                    tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
+                        filter: {},
+                        sorting: {
+                            FlightDate: 'desc'
+                        },
+                        count: 100
+                    });
+
+                    break;
+                default:
+                    $scope.titleKey = 'UNKNOWN';
+            }
+
             $scope.tableParams = new NgTableParams(tableSettingsCache.currentSettings(), {
                 counts: [],
                 getData: (params) => {
@@ -65,16 +76,18 @@ export default class FlightReportsController {
                     let filterWithStates = FlightStateMapper.filterWithState($scope.tableParams.filter());
                     let sortingWithStates = FlightStateMapper.sortingWithState($scope.tableParams.sorting());
 
-                    return PagedFlights.getGliderFlights(filterWithStates, sortingWithStates, pageStart, pageSize)
+                    return FlightReports.getFlightReports(filterWithStates, sortingWithStates, pageStart, pageSize)
                         .then((result) => {
                             $scope.busy = false;
-                            params.total(result.TotalRows);
-                            let flights = result.Items;
+                            $scope.FlightReportFilterCriteria = result.FlightReportFilterCriteria;
+                            $scope.FlightReportSummaries = result.FlightReportSummaries;
+                            params.total(result.Flights.TotalRows);
+                            let flights = result.Flights.Items;
                             for (let i = 0; i < result.length; i++) {
                                 flights[i]._formattedDate = result[i].StartDateTime && moment(result[i].StartDateTime).format('DD.MM.YYYY HH:mm dddd');
                             }
 
-                            return result.Items;
+                            return result.Flights.Items;
                         })
                         .finally(() => {
                             $scope.busy = false;
@@ -82,76 +95,5 @@ export default class FlightReportsController {
                 }
             });
         }
-        
-        
-
-        function loadFlight(flightId) {
-            return Flights.getFlight({id: flightId}).$promise;
-        }
-        
-        $scope.getTimeNow = () => {
-            return TimeService.time(new Date());
-        };
-
-        $scope.getDateToday = () => {
-            return new Date();
-        };
-
-        function loadMasterdata() {
-            $scope.busy = true;
-            let promises = [
-                PersonsV2.getAllPersons().$promise.then((result) => {
-                    angular.copy(result, $scope.allPersons);
-                }),
-                Locations.getLocations().$promise.then((result) => {
-                    angular.copy(result, $scope.locations);
-                })
-            ];
-            return $q.all(promises)
-                .finally(() => {
-                    $scope.busy = $scope.busyLoadingFlight;
-                });
-        }
-        
-        $scope.formatGliderStart = () => {
-            let times = $scope.times;
-            times.gliderStart = this.TimeService.formatTime(times.gliderStart);
-            times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
-            times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
-        };
-        
-        $scope.formatGliderLanding = () => {
-            let times = $scope.times;
-            times.gliderLanding = this.TimeService.formatTime(times.gliderLanding);
-            times.gliderDuration = calcDuration(times.gliderStart, times.gliderLanding);
-            $scope.flightDetails.GliderFlightDetailsData.NrOfLdgs = $scope.flightDetails.GliderFlightDetailsData.NrOfLdgs || 1;
-            calcDurationWarning();
-        };
-        
-        $scope.formatGliderDuration = () => {
-            let times = $scope.times;
-            times.gliderDuration = this.TimeService.formatTime(times.gliderDuration);
-            times.gliderLanding = calcLanding(times.gliderStart, times.gliderDuration);
-            calcDurationWarning();
-        };
-
-        $scope.formatTowLanding = () => {
-            let times = $scope.times;
-            times.towingLanding = this.TimeService.formatTime(times.towingLanding);
-            times.towingDuration = calcDuration(times.gliderStart, times.towingLanding);
-            $scope.flightDetails.TowFlightDetailsData.NrOfLdgs = $scope.flightDetails.TowFlightDetailsData.NrOfLdgs || 1
-            calcDurationWarning();
-        };
-        
-        $scope.formatTowDuration = () => {
-            let times = $scope.times;
-            times.towingDuration = this.TimeService.formatTime(times.towingDuration);
-            times.towingLanding = calcLanding(times.gliderStart, times.towingDuration);
-            calcDurationWarning();
-        };
-        
-        $scope.cancel = () => {
-            $location.path('/flights');
-        };
     }
 }

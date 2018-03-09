@@ -5,6 +5,14 @@
                                 error="error">
                 <fls-message-bar></fls-message-bar>
 
+                <h1 translate="{{titleKey}}"></h1>
+
+                <h4>DEBUG: FlightReportFilterCriteria</h4>
+                <pre ng-bind="FlightReportFilterCriteria | json"></pre>
+                
+                <h4>DEBUG: FlightReportSummaries</h4>
+                <pre ng-bind="FlightReportSummaries | json"></pre>
+
                 <table ng-table="tableParams"
                        class="fls fls-table-with-details"
                        show-filter="false">
