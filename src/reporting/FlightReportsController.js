@@ -4,11 +4,16 @@ import {FlightStateMapper} from "../flights/FlightsServices"
 export default class FlightReportsController {
     constructor($scope, $q, $log, $http, $modal, $translate, $timeout, MessageManager, $location, $routeParams,
                 TimeService, FlightReports, NgTableParams, PagedFlights, AuthService,
-                GLOBALS, TableSettingsCacheFactory) {
+                GLOBALS, TableSettingsCacheFactory, NavigationCache) {
+        NavigationCache.setCancellingLocationHere();
         $scope.busy = true;
 
         $scope.debug = GLOBALS.DEBUG;
         $scope.showChart = false;
+
+        $scope.editFlight = (flight) => {
+            $location.path('/flights/' + flight.FlightId);
+        };
 
         let tableSettingsCache = {
             filter: {},

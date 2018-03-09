@@ -16,7 +16,7 @@
                 <table ng-table="tableParams"
                        class="fls fls-table-with-details"
                        show-filter="false">
-                    <tr ng-repeat="flight in $data">
+                    <tr ng-repeat="flight in $data" ng-click="editFlight(flight)">
                         <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'"
                             data-title="'DATE' | translate"
                             filter="{ FlightDate: 'date'}"

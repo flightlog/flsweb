@@ -10,7 +10,7 @@ export default class FlightsController {
                 FlightTypes, Locations, Persons, PersonsV2, PersonPersister, PassengerPersister,
                 Aircrafts, StartTypes, GLOBALS, FlightCostBalanceTypes, TableSettingsCacheFactory,
                 SoloFlightCheckboxEnablementCalculator, Clubs, AircraftOperatingCounters, DropdownItemsRenderService,
-                localStorageService, RoutesPerLocation, Aircraft) {
+                localStorageService, RoutesPerLocation, Aircraft, NavigationCache) {
         $scope.busy = true;
         this.TimeService = TimeService;
 
@@ -73,6 +73,7 @@ export default class FlightsController {
                 .then(mapFlightToForm)
                 .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'));
         } else {
+            NavigationCache.setCancellingLocationHere();
             $scope.tableParams = new NgTableParams(tableSettingsCache.currentSettings(), {
                 counts: [],
                 getData: (params) => {
@@ -789,7 +790,7 @@ export default class FlightsController {
         };
 
         $scope.cancel = () => {
-            $location.path('/flights');
+            $location.path(NavigationCache.cancellingLocation || '/flights');
         };
 
         $scope.newFlight = () => {
