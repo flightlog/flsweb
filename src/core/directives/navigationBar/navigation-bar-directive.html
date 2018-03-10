@@ -108,8 +108,10 @@
                     <a ng-click=""
                        class="dropdown-toggle clickable"
                        data-toggle="dropdown"
-                       role="button"><span
-                            ng-bind="user.username"></span> <span class="fa fa-caret-down"></span></a>
+                       role="button">
+                        <span class="fa fa-user"></span>
+                        <span class="fa fa-caret-down"></span>
+                    </a>
                     <ul class="dropdown-menu"
                         role="menu">
                         <li ng-show="getEnabledFeatures().reservations && isLoggedin()"
@@ -125,8 +127,8 @@
                                translate="PLANNING"></a>
                         </li>
                         <li><a href="#/profile"
-                               translate="MY_PROFILE"
-                               class="clickable"></a></li>
+
+                               class="clickable"><span translate="MY_PROFILE"></span> (<span ng-bind="user.username"></span>)</a></li>
                         <li><a ng-click="logout()"
                                translate="LOGOUT"
                                class="clickable"></a></li>
