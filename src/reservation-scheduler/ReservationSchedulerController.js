@@ -190,6 +190,7 @@ export default class ReservationSchedulerController {
                     loadReservation('new', e.reservation)
                         .then((reservationDetails) => {
                             $scope.reservation = reservationDetails;
+                            $scope.selectedAircraftChanged();
                             $scope.busy = false;
                         });
                 }
