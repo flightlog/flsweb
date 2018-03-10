@@ -62,6 +62,12 @@ export default class PersonsEditController {
                 .then(loadPerson)
                 .then((person) => {
                     $scope.person = person;
+                    person.ClubRelatedPersonDetails.PersonCategoryIds.forEach(personCategoryId => {
+                        let categoryNode = $scope.masterdata.personCategories.find(category => category.PersonCategoryId === personCategoryId);
+                        if(!!categoryNode) {
+                            categoryNode.selected = true;
+                        }
+                    })
                 })
                 .finally(function () {
                     $scope.busy = false;
