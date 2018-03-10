@@ -749,3 +749,20 @@ button.btn {
 .tiny-column {
     width: 90px;
 }
+
+span.calendar-text {
+    font-size: 20px;
+    font-family: Helvetica, arial, sans-serif;
+    font-weight: 700;
+    padding-top: 8px;
+}
+
+a.report-link,
+a.report-link span,
+a.report-link span span {
+    color: #333333;
+    display: block;
+    text-align: center;
+    margin: auto;
+    word-wrap: break-word;
+}
