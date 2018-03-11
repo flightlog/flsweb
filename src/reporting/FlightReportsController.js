@@ -12,6 +12,7 @@ export default class FlightReportsController {
         $scope.showChart = false;
 
         $scope.PersonId = AuthService.getUser().PersonId;
+        $scope.LocationId = 'DAC23EBC-143E-4858-90AB-BB657B6B5DD6'; //AuthService.getUser().getMyClub().HomebaseId;
 
         $scope.editFlight = (flight) => {
             $location.path('/flights/' + flight.FlightId);
@@ -169,7 +170,7 @@ export default class FlightReportsController {
                                 From: moment().format("YYYY-MM-DD"),
                                 To: moment().format("YYYY-MM-DD")
                             },
-                            LocationId: $scope.club.HomebaseId
+                            LocationId: $scope.HomebaseId
                         },
                         sorting: {
                             FlightDate: 'desc'
@@ -186,7 +187,7 @@ export default class FlightReportsController {
                                 From: moment().add(-1, "days").format("YYYY-MM-DD"),
                                 To: moment().add(-1, "days").format("YYYY-MM-DD")
                             },
-                            LocationId: $scope.club.HomebaseId
+                            LocationId: $scope.HomebaseId
                         },
                         sorting: {
                             FlightDate: 'desc'
@@ -203,7 +204,7 @@ export default class FlightReportsController {
                                 From: moment().year().format("YYYY-MM-DD"),
                                 To: moment().format("YYYY-MM-DD")
                             },
-                            LocationId: $scope.club.HomebaseId
+                            LocationId: $scope.HomebaseId
                         },
                         sorting: {
                             FlightDate: 'desc'
@@ -220,7 +221,7 @@ export default class FlightReportsController {
                                 From: moment().add(-1, "years").year().month(1).days(1).format("YYYY-MM-DD"),
                                 To: moment().add(-1, "years").year().month(12).days(31).format("YYYY-MM-DD")
                             },
-                            LocationId: $scope.club.HomebaseId
+                            LocationId: $scope.HomebaseId
                         },
                         sorting: {
                             FlightDate: 'desc'
@@ -260,6 +261,15 @@ export default class FlightReportsController {
                         .finally(() => {
                             $scope.busy = false;
                         });
+                }
+            });
+
+            $scope.tableParamsSummary = new NgTableParams(tableSettingsCache.currentSettings(), {
+                counts: [],
+                getData: (params) => {
+                    tableSettingsCache.update($scope.tableParamsSummary.filter(), $scope.tableParamsSummary.sorting());
+
+                    return $scope.FlightReportSummaries;
                 }
             });
         }

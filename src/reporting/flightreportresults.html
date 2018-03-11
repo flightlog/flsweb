@@ -9,10 +9,28 @@
 
                 <h4>DEBUG: FlightReportFilterCriteria</h4>
                 <pre ng-bind="FlightReportFilterCriteria | json"></pre>
-                
-                <h4>DEBUG: FlightReportSummaries</h4>
-                <pre ng-bind="FlightReportSummaries | json"></pre>
 
+                <h4 title="'FLIGHT_REPORT_SUMMARY' | translate"></h4>
+                <table ng-table="tableParamsSummary"
+                       class="fls fls-table-with-details"
+                       show-filter="false">
+                    <tr ng-repeat="summary in $data">
+                        <td ng-bind="summary.GroupBy"
+                            data-title="'PILOT' | translate"
+                            class="flight--glider-cell hidden-xs"
+                            filter="{ PilotName: 'text'}"></td>
+                        <td ng-bind="summary.TotalStarts"
+                            data-title="'TotalStarts' | translate"
+                            class="flight--glider-cell hidden-xs"
+                            filter="{ TotalStarts: 'text'}"></td>
+                        <td ng-bind="summary.TotalFlightDuration"
+                            data-title="'TotalFlightDuration' | translate"
+                            class="flight--glider-cell hidden-xs"
+                            filter="{ TotalFlightDuration: 'text'}"></td>
+                    </tr>
+                </table>
+
+                <h4 title="'FLIGHTS' | translate"></h4>
                 <table ng-table="tableParams"
                        class="fls fls-table-with-details"
                        show-filter="false">
