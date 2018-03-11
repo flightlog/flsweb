@@ -48,7 +48,7 @@ export default angular.module('fls.flights', [
                     publicAccess: true,
                     resolve: {
                         user: userAuth,
-                        titleKey: () => "FLIGHTS"
+                        titleKey: () => "STARTLIST"
                     }
                 })
             .when('/flights/:id',
@@ -58,7 +58,7 @@ export default angular.module('fls.flights', [
                     publicAccess: true,
                     resolve: {
                         user: userAuth,
-                        titleKey: () => "FLIGHTS"
+                        titleKey: () => "STARTLIST"
                     }
                 })
             .when('/flights/copy/:id',
@@ -68,7 +68,7 @@ export default angular.module('fls.flights', [
                     publicAccess: true,
                     resolve: {
                         user: userAuth,
-                        titleKey: () => "FLIGHTS"
+                        titleKey: () => "STARTLIST"
                     }
                 });
     })
