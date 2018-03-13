@@ -7,34 +7,64 @@
 
                 <h1 translate="{{titleKey}}"></h1>
 
-                <h4>DEBUG: FlightReportFilterCriteria</h4>
-                <pre ng-bind="FlightReportFilterCriteria | json"></pre>
+                <h4 translate="FLIGHT_REPORT_FILTER_CRITERIA"></h4>
+                <div class="filter-criteria-panel"
+                     ng-show="!!FlightReportFilterCriteria">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <div translate="FROM_DATE"></div>
+                            <div class="filter-value"
+                                 ng-bind="FlightReportFilterCriteria.FlightDate.From | date:'dd.MM.yyyy'"></div>
+                        </div>
 
-                <h4 title="'FLIGHT_REPORT_SUMMARY' | translate"></h4>
-                <table ng-table="tableParamsSummary"
-                       class="fls fls-table-with-details"
-                       show-filter="false">
-                    <tr ng-repeat="summary in $data">
-                        <td ng-bind="summary.GroupBy"
-                            data-title="'PILOT' | translate"
-                            class="flight--glider-cell hidden-xs"
-                            filter="{ PilotName: 'text'}"></td>
-                        <td ng-bind="summary.TotalStarts"
-                            data-title="'TotalStarts' | translate"
-                            class="flight--glider-cell hidden-xs"
-                            filter="{ TotalStarts: 'text'}"></td>
-                        <td ng-bind="summary.TotalFlightDuration"
-                            data-title="'TotalFlightDuration' | translate"
-                            class="flight--glider-cell hidden-xs"
-                            filter="{ TotalFlightDuration: 'text'}"></td>
+                        <div class="col-md-2">
+                            <div translate="TO_DATE"></div>
+                            <div class="filter-value"
+                                 ng-bind="FlightReportFilterCriteria.FlightDate.To | date:'dd.MM.yyyy'"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div translate="LOCATION"></div>
+                            <div class="filter-value">
+                                <a target="_blank"
+                                   ng-href="{{'#/masterdata/locations/' + FlightReportFilterCriteria.LocationId}}">
+                                    <span ng-bind="myHomeLocation.IcaoCode"></span>
+                                    (<span ng-bind="myHomeLocation.LocationName"></span>)
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div translate="GLIDER_FLIGHTS"></div>
+                            <div class="filter-value" translate="{{FlightReportFilterCriteria.GliderFlights ? 'YES' : 'NO'}}"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div translate="GLIDER_FLIGHTS"></div>
+                            <div class="filter-value" translate="{{FlightReportFilterCriteria.MotorFlights ? 'YES' : 'NO'}}"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 translate="FLIGHT_REPORT_SUMMARY"
+                    style="margin-top: 20px;"></h4>
+                <table class="fls">
+                    <tr>
+                        <th translate="GroupBy"></th>
+                        <th translate="TotalStarts"></th>
+                        <th translate="TotalFlightDuration"></th>
+                    </tr>
+                    <tr ng-repeat="summary in FlightReportSummaries">
+                        <td ng-bind="summary.GroupBy"></td>
+                        <td ng-bind="summary.TotalStarts"></td>
+                        <td ng-bind="summary.TotalFlightDuration"></td>
                     </tr>
                 </table>
 
-                <h4 title="'FLIGHTS' | translate"></h4>
+                <h4 translate="FLIGHTS"
+                    style="margin-top: 50px;"></h4>
                 <table ng-table="tableParams"
                        class="fls fls-table-with-details"
                        show-filter="false">
-                    <tr ng-repeat="flight in $data" ng-click="editFlight(flight)">
+                    <tr ng-repeat="flight in $data"
+                        ng-click="editFlight(flight)">
                         <td ng-bind="flight.FlightDate | date:'dd.MM.yyyy'"
                             data-title="'DATE' | translate"
                             filter="{ FlightDate: 'date'}"

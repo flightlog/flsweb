@@ -3,7 +3,7 @@ import {FlightStateMapper} from "../flights/FlightsServices"
 
 export default class FlightReportsController {
     constructor($scope, $q, $log, $http, $modal, $translate, $timeout, MessageManager, $location, $routeParams,
-                TimeService, FlightReports, NgTableParams, PagedFlights, AuthService,
+                TimeService, FlightReports, NgTableParams, PagedFlights, AuthService, LocationPersister,
                 GLOBALS, TableSettingsCacheFactory, NavigationCache) {
         NavigationCache.setCancellingLocationHere();
         $scope.busy = true;
@@ -13,6 +13,10 @@ export default class FlightReportsController {
 
         $scope.PersonId = AuthService.getUser().PersonId;
         $scope.myClub = AuthService.getUser().myClub;
+        LocationPersister.get({id: $scope.myClub.HomebaseId}).$promise
+            .then(location => {
+                $scope.myHomeLocation = location;
+            });
 
         $scope.editFlight = (flight) => {
             $location.path('/flights/' + flight.FlightId);
@@ -163,7 +167,7 @@ export default class FlightReportsController {
 
                     break;
                 case 'location-flights-today':
-                    $scope.titleKey = 'LOCATION_FLIGHTS_TODAY';
+                    $scope.titleKey = 'REPORT_LOCATION_FLIGHTS_TODAY';
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
@@ -180,7 +184,7 @@ export default class FlightReportsController {
 
                     break;
                 case 'location-flights-yesterday':
-                    $scope.titleKey = 'LOCATION_FLIGHTS_YESTERDAY';
+                    $scope.titleKey = 'REPORT_LOCATION_FLIGHTS_YESTERDAY';
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
@@ -197,7 +201,7 @@ export default class FlightReportsController {
 
                     break;
                 case 'location-flights-this-year':
-                    $scope.titleKey = 'LOCATION_FLIGHTS_THIS_YEAR';
+                    $scope.titleKey = 'REPORT_LOCATION_FLIGHTS_THIS_YEAR';
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
@@ -214,7 +218,7 @@ export default class FlightReportsController {
 
                     break;
                 case 'location-flights-previous-year':
-                    $scope.titleKey = 'LOCATION_FLIGHTS_PREVIOUS_YEAR';
+                    $scope.titleKey = 'REPORT_LOCATION_FLIGHTS_PREVIOUS_YEAR';
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
@@ -261,15 +265,6 @@ export default class FlightReportsController {
                         .finally(() => {
                             $scope.busy = false;
                         });
-                }
-            });
-
-            $scope.tableParamsSummary = new NgTableParams(tableSettingsCache.currentSettings(), {
-                counts: [],
-                getData: (params) => {
-                    tableSettingsCache.update($scope.tableParamsSummary.filter(), $scope.tableParamsSummary.sorting());
-
-                    return $scope.FlightReportSummaries;
                 }
             });
         }

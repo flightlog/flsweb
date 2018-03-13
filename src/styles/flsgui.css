@@ -766,3 +766,17 @@ a.report-link span span {
     margin: auto;
     word-wrap: break-word;
 }
+
+.filter-criteria-panel {
+    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #d7d7d7;
+    color: gray;
+    font-size: 90%;
+}
+
+.filter-value {
+    font-size: 1.2em;
+    color: #434343;
+}
