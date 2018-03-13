@@ -78,16 +78,19 @@
                             data-title="'TAKEOFF' | translate"
                             class="flight--glider-cell flight--time"
                             header-class="'flight--time'"
+                            sortable="'StartDateTime'"
                         ></td>
                         <td ng-bind="flight.LdgDateTime | date:'HH:mm'"
                             data-title="'LANDING' | translate"
                             class="flight--glider-cell flight--time hidden-xs"
                             header-class="'flight--time hidden-xs'"
+                            sortable="'LdgDateTime'"
                         ></td>
                         <td ng-bind="flight.GliderFlightDuration && ('0001-01-01T' + flight.GliderFlightDuration) | date:'HH:mm'"
                             data-title="'GLIDER_FLIGHT_DURATION' | translate"
                             class="flight--glider-cell flight--time hidden-xs"
                             header-class="'flight--time hidden-xs'"
+                            sortable="'GliderFlightDuration'"
                         ></td>
                         <td ng-bind="flight.TowAircraftImmatriculation"
                             data-title="'TOWING_PLANE' | translate"
@@ -114,6 +117,7 @@
                             data-title="'TOW_DURATION' | translate"
                             class="flight--motor-cell flight--time hidden-xs hidden-sm"
                             header-class="'flight--time hidden-xs hidden-sm'"
+                            sortable="'TowFlightDuration'"
                         ></td>
                         <td ng-bind="flight.FlightComment"
                             data-title="'COMMENT' | translate"
