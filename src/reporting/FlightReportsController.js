@@ -3,7 +3,7 @@ import {FlightStateMapper} from "../flights/FlightsServices"
 
 export default class FlightReportsController {
     constructor($scope, $q, $log, $http, $modal, $translate, $timeout, MessageManager, $location, $routeParams,
-                TimeService, FlightReports, NgTableParams, PagedFlights, AuthService, LocationPersister,
+                TimeService, FlightReports, NgTableParams, PagedFlights, AuthService, LocationPersister, PersonPersister,
                 GLOBALS, TableSettingsCacheFactory, NavigationCache) {
         NavigationCache.setCancellingLocationHere();
         $scope.busy = true;
@@ -14,11 +14,17 @@ export default class FlightReportsController {
         $scope.PersonId = AuthService.getUser().PersonId;
         $scope.myUser = AuthService.getUser();
         $scope.myClub = AuthService.getUser().myClub;
+
         LocationPersister.get({id: $scope.myClub.HomebaseId}).$promise
             .then(location => {
                 $scope.myHomeLocation = location;
             });
 
+        PersonPersister.get({ id: $scope.PersonId }).$promise
+            .then(person => {
+                $scope.person = person;
+            });
+        
         $scope.editFlight = (flight) => {
             $location.path('/flights/' + flight.FlightId);
         };

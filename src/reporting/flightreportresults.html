@@ -27,7 +27,7 @@
                             <div class="filter-value" translate="{{FlightReportFilterCriteria.GliderFlights ? 'YES' : 'NO'}}"></div>
                         </div>
                         <div class="col-md-2">
-                            <div translate="GLIDER_FLIGHTS"></div>
+                            <div translate="MOTOR_FLIGHTS"></div>
                             <div class="filter-value" translate="{{FlightReportFilterCriteria.MotorFlights ? 'YES' : 'NO'}}"></div>
                         </div>
                         <div class="col-md-4" ng-if="!!FlightReportFilterCriteria.LocationId">
@@ -44,8 +44,8 @@
                             <div translate="PERSON"></div>
                             <div class="filter-value">
                                 <a target="_blank"
-                                   ng-href="{{'#/masterdata/persons/' + FlightReportFilterCriteria.FlightCrewPersonId}}"
-                                   ng-bind="FlightReportFilterCriteria.FlightCrewPersonId">
+                                   ng-href="{{'#/masterdata/persons/' + FlightReportFilterCriteria.FlightCrewPersonId}}">
+                                    <span ng-bind="person.Firstname"></span> <span ng-bind="person.Lastname"></span>
                                 </a>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                     <tr ng-repeat="summary in FlightReportSummaries">
                         <td ng-bind="summary.GroupBy"></td>
                         <td ng-bind="summary.TotalStarts"></td>
-                        <td ng-bind="summary.TotalFlightDuration"></td>
+                        <td ng-bind="summary.TotalFlightDuration && ('0001-01-01T' + summary.TotalFlightDuration) | date:'HH:mm'"></td>
                     </tr>
                 </table>
 
@@ -86,17 +86,21 @@
                         <td ng-bind="flight.PilotName"
                             data-title="'PILOT' | translate"
                             class="flight--glider-cell hidden-xs"
+                            sortable="'PilotName'"
                             filter="{ PilotName: 'text'}"></td>
                         <td ng-bind="flight.SecondCrewName"
                             data-title="'SECOND_CREW_MEMBER' | translate"
                             class="flight--glider-cell hidden-xs"
+                            sortable="'SecondCrewName'"
                             filter="{ SecondCrewName: 'text'}"></td>
-                        <td data-title="'IS_SOLO_FLIGHT' | translate">
+                        <td data-title="'IS_SOLO_FLIGHT' | translate"
+                            sortable="'IsSoloFlight'">
                             <fls-checkbox is-checked="flight.IsSoloFlight"></fls-checkbox>
                         </td>
                         <td ng-bind="flight.FlightTypeName"
                             data-title="'FLIGHT_TYPE' | translate"
                             class="flight--glider-cell hidden-xs"
+                            sortable="'FlightTypeName'"
                             header-class="'hidden-xs hidden-sm hidden-md'"></td>
                         <td ng-bind="flight.StartLocation"
                             data-title="'START_LOCATION' | translate"
@@ -113,14 +117,17 @@
                         <td ng-bind="flight.StartDateTime | date:'HH:mm'"
                             data-title="'TAKEOFF' | translate"
                             class="flight--glider-cell flight--time"
+                            sortable="'StartDateTime'"
                             header-class="'flight--time'"></td>
                         <td ng-bind="flight.LdgDateTime | date:'HH:mm'"
                             data-title="'LANDING' | translate"
                             class="flight--glider-cell flight--time hidden-xs"
+                            sortable="'LdgDateTime'"
                             header-class="'flight--time hidden-xs'"></td>
                         <td ng-bind="flight.FlightDuration && ('0001-01-01T' + flight.FlightDuration) | date:'HH:mm'"
                             data-title="'GLIDER_FLIGHT_DURATION' | translate"
                             class="flight--glider-cell flight--time hidden-xs"
+                            sortable="'FlightDuration'"
                             header-class="'flight--time hidden-xs'"></td>
                         <td ng-bind="flight.FlightComment"
                             data-title="'COMMENT' | translate"
@@ -149,6 +156,7 @@
                         <td ng-bind="flight.TowFlight.FlightDuration && ('0001-01-01T' + flight.TowFlight.FlightDuration) | date:'HH:mm'"
                             data-title="'TOW_DURATION' | translate"
                             class="flight--motor-cell flight--time hidden-xs hidden-sm"
+                            sortable="'TowFlightDuration'"
                             header-class="'flight--time hidden-xs hidden-sm'"></td>
                     </tr>
                 </table>
