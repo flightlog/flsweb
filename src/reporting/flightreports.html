@@ -60,8 +60,11 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12"
                  style="text-align:center;">
-                <h4 translate="LOCATION_REPORTS"
-                    style="margin-bottom: 40px;margin-top: 80px;"></h4>
+                <h4 style="margin-bottom: 40px;margin-top: 80px;">
+                    <span translate="LOCATION_REPORTS"></span>
+                    <span ng-bind="myHomeLocation.IcaoCode"></span>
+                    (<span ng-bind="myHomeLocation.LocationName"></span>)
+                </h4>
                 <div class="col-md-1" style="min-height: 50px;"></div>
                 <a href="#/flightreports/location-flights-today" class="col-md-2 report-link">
                     <span class="fa fa-4x fa-calendar-check-o"></span>
