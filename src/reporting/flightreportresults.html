@@ -23,6 +23,14 @@
                                  ng-bind="FlightReportFilterCriteria.FlightDate.To | date:'dd.MM.yyyy'"></div>
                         </div>
                         <div class="col-md-2">
+                            <div translate="GLIDER_FLIGHTS"></div>
+                            <div class="filter-value" translate="{{FlightReportFilterCriteria.GliderFlights ? 'YES' : 'NO'}}"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div translate="GLIDER_FLIGHTS"></div>
+                            <div class="filter-value" translate="{{FlightReportFilterCriteria.MotorFlights ? 'YES' : 'NO'}}"></div>
+                        </div>
+                        <div class="col-md-4" ng-if="!!FlightReportFilterCriteria.LocationId">
                             <div translate="LOCATION"></div>
                             <div class="filter-value">
                                 <a target="_blank"
@@ -32,13 +40,14 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div translate="GLIDER_FLIGHTS"></div>
-                            <div class="filter-value" translate="{{FlightReportFilterCriteria.GliderFlights ? 'YES' : 'NO'}}"></div>
-                        </div>
-                        <div class="col-md-2">
-                            <div translate="GLIDER_FLIGHTS"></div>
-                            <div class="filter-value" translate="{{FlightReportFilterCriteria.MotorFlights ? 'YES' : 'NO'}}"></div>
+                        <div class="col-md-4" ng-if="!!FlightReportFilterCriteria.FlightCrewPersonId">
+                            <div translate="PERSON"></div>
+                            <div class="filter-value">
+                                <a target="_blank"
+                                   ng-href="{{'#/masterdata/persons/' + FlightReportFilterCriteria.FlightCrewPersonId}}"
+                                   ng-bind="FlightReportFilterCriteria.FlightCrewPersonId">
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,7 @@ export default class FlightReportsController {
         $scope.showChart = false;
 
         $scope.PersonId = AuthService.getUser().PersonId;
+        $scope.myUser = AuthService.getUser();
         $scope.myClub = AuthService.getUser().myClub;
         LocationPersister.get({id: $scope.myClub.HomebaseId}).$promise
             .then(location => {
