@@ -67,6 +67,30 @@ describe('TimeService', () => {
         expect(JSON.stringify(result)).toEqual('"100.92"');
     });
 
+    it('should format long duration hour format for long time', () => {
+        // arrange
+        let seconds = TimeService.longDurationFormatToSeconds("100:55");
+
+        // act
+        let result = TimeService.formatSecondsToLongHoursFormat(seconds);
+        
+        // assert
+        expect(seconds).toEqual(363300);
+        expect(JSON.stringify(result)).toEqual('"100:55"');
+    });
+
+    it('should format long duration hour format for short time', () => {
+        // arrange
+        let seconds = TimeService.longDurationFormatToSeconds("0:55");
+
+        // act
+        let result = TimeService.formatSecondsToLongHoursFormat(seconds);
+
+        // assert
+        expect(seconds).toEqual(3300);
+        expect(JSON.stringify(result)).toEqual('"0:55"');
+    });
+
     it('should format empty string to undefined', () => {
         // arrange + act
         let res = TimeService.formatTime("");

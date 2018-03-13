@@ -1,19 +1,23 @@
 import AuthService from "./AuthService";
 import coreModule from "./CoreModule";
+import clubsModule from "../masterdata/clubs/ClubsModule";
 
 describe('AuthService', () => {
     let $compile;
     let $rootScope;
     let $httpBackend;
     let AuthService;
+    let Clubs;
 
     beforeEach(() => {
         angular.mock.module(coreModule.name);
+        angular.mock.module(clubsModule.name);
 
-        inject((_$rootScope_, _$compile_, _AuthService_, _$httpBackend_) => {
+        inject((_$rootScope_, _$compile_, _AuthService_, _$httpBackend_, _Clubs_) => {
             $rootScope = _$rootScope_;
             $compile = _$compile_;
             AuthService = _AuthService_;
+            Clubs = _Clubs_;
             $httpBackend = _$httpBackend_;
         });
     });
@@ -53,6 +57,8 @@ describe('AuthService', () => {
 
     function recordRoleForTestUser(roleName) {
         $httpBackend.expectPOST(/Token/).respond({});
+        $httpBackend.whenGET(/clubs\/my/).respond({
+        });
         $httpBackend.whenGET(/users\/my/).respond({
             "UserName": "testuser",
             "UserRoleIds": ["test_role_id"]
