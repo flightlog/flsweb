@@ -12,7 +12,7 @@ export default class FlightReportsController {
         $scope.showChart = false;
 
         $scope.PersonId = AuthService.getUser().PersonId;
-        $scope.LocationId = 'DAC23EBC-143E-4858-90AB-BB657B6B5DD6'; //AuthService.getUser().getMyClub().HomebaseId;
+        $scope.myClub = AuthService.getUser().myClub;
 
         $scope.editFlight = (flight) => {
             $location.path('/flights/' + flight.FlightId);
@@ -24,7 +24,7 @@ export default class FlightReportsController {
             count: 1
         };
 
-        if($routeParams.type) {
+        if ($routeParams.type) {
             switch ($routeParams.type) {
                 case 'my-flights-today':
                     $scope.titleKey = 'MY_FLIGHTS_TODAY';
@@ -133,7 +133,7 @@ export default class FlightReportsController {
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
-                                From: moment().year().format("YYYY-MM-DD"),
+                                From: moment().format("YYYY-MM-DD"),
                                 To: moment().format("YYYY-MM-DD")
                             },
                             FlightCrewPersonId: $scope.PersonId
@@ -150,8 +150,8 @@ export default class FlightReportsController {
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
-                                From: moment().add(-1, "years").year().month(1).days(1).format("YYYY-MM-DD"),
-                                To: moment().add(-1, "years").year().month(12).days(31).format("YYYY-MM-DD")
+                                From: moment().add(-1, "years").month(1).days(1).format("YYYY-MM-DD"),
+                                To: moment().add(-1, "years").month(12).days(31).format("YYYY-MM-DD")
                             },
                             FlightCrewPersonId: $scope.PersonId
                         },
@@ -170,7 +170,7 @@ export default class FlightReportsController {
                                 From: moment().format("YYYY-MM-DD"),
                                 To: moment().format("YYYY-MM-DD")
                             },
-                            LocationId: $scope.HomebaseId
+                            LocationId: $scope.myClub.HomebaseId
                         },
                         sorting: {
                             FlightDate: 'desc'
@@ -187,7 +187,7 @@ export default class FlightReportsController {
                                 From: moment().add(-1, "days").format("YYYY-MM-DD"),
                                 To: moment().add(-1, "days").format("YYYY-MM-DD")
                             },
-                            LocationId: $scope.HomebaseId
+                            LocationId: $scope.myClub.HomebaseId
                         },
                         sorting: {
                             FlightDate: 'desc'
@@ -201,10 +201,10 @@ export default class FlightReportsController {
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
-                                From: moment().year().format("YYYY-MM-DD"),
+                                From: moment().format("YYYY-MM-DD"),
                                 To: moment().format("YYYY-MM-DD")
                             },
-                            LocationId: $scope.HomebaseId
+                            LocationId: $scope.myClub.HomebaseId
                         },
                         sorting: {
                             FlightDate: 'desc'
@@ -218,10 +218,10 @@ export default class FlightReportsController {
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
-                                From: moment().add(-1, "years").year().month(1).days(1).format("YYYY-MM-DD"),
-                                To: moment().add(-1, "years").year().month(12).days(31).format("YYYY-MM-DD")
+                                From: moment().add(-1, "years").month(1).days(1).format("YYYY-MM-DD"),
+                                To: moment().add(-1, "years").month(12).days(31).format("YYYY-MM-DD")
                             },
-                            LocationId: $scope.HomebaseId
+                            LocationId: $scope.myClub.HomebaseId
                         },
                         sorting: {
                             FlightDate: 'desc'

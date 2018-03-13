@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 
 export default class AuthService {
-    constructor($http, $location, $window, GLOBALS, $sessionStorage, $cacheFactory) {
+    constructor($http, $location, $window, GLOBALS, $sessionStorage, $cacheFactory, Clubs) {
         let storage = $sessionStorage.$default({loginResult: {}});
 
         function confirmationLink() {
@@ -86,6 +86,10 @@ export default class AuthService {
                     .then((userRolesResponse) => {
                         storage.userRoles = userRolesResponse.data;
                     })
+                    .then(Clubs.getMyClub)
+                    .then(club => {
+                        storage.user.myClub = club;
+                    })
                     .then(() => {
                         if (srv.requestedRoute) {
                             $location.path(srv.requestedRoute);
@@ -126,11 +130,11 @@ export default class AuthService {
                 }
                 return false;
             },
-            requiresClubAdmin: function(path) {
+            requiresClubAdmin: function (path) {
                 return path.indexOf("users") > 0
                     || path.indexOf("flightTypes") > 0;
             },
-            requiresSystemAdmin: function(path) {
+            requiresSystemAdmin: function (path) {
                 return path.indexOf("system/") > 0;
             },
             userAuth: function ($location) {
