@@ -1,4 +1,5 @@
 import moment from "moment";
+import TimeService from "../core/TimeService";
 import {FlightStateMapper} from "../flights/FlightsServices"
 
 export default class FlightReportsController {
@@ -20,11 +21,11 @@ export default class FlightReportsController {
                 $scope.myHomeLocation = location;
             });
 
-        PersonPersister.get({ id: $scope.PersonId }).$promise
+        PersonPersister.get({id: $scope.PersonId}).$promise
             .then(person => {
                 $scope.person = person;
             });
-        
+
         $scope.editFlight = (flight) => {
             $location.path('/flights/' + flight.FlightId);
         };
@@ -261,6 +262,10 @@ export default class FlightReportsController {
                             $scope.busy = false;
                             $scope.FlightReportFilterCriteria = result.FlightReportFilterCriteria;
                             $scope.FlightReportSummaries = result.FlightReportSummaries;
+                            $scope.FlightReportSummaries.forEach(summary => {
+                                const seconds = moment.duration(summary.TotalFlightDuration).asSeconds();
+                                summary._totalFlightDurationFormatted = TimeService.formatSecondsToLongHoursFormat(seconds);
+                            });
                             params.total(result.Flights.TotalRows);
                             let flights = result.Flights.Items;
                             for (let i = 0; i < result.length; i++) {

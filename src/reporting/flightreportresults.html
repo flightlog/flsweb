@@ -63,7 +63,7 @@
                     <tr ng-repeat="summary in FlightReportSummaries">
                         <td ng-bind="summary.GroupBy"></td>
                         <td ng-bind="summary.TotalStarts"></td>
-                        <td ng-bind="summary.TotalFlightDuration && ('0001-01-01T' + summary.TotalFlightDuration) | date:'HH:mm'"></td>
+                        <td ng-bind="summary._totalFlightDurationFormatted"></td>
                     </tr>
                 </table>
 
