@@ -31,7 +31,7 @@ export default class FlightReportsController {
         if ($routeParams.type) {
             switch ($routeParams.type) {
                 case 'my-flights-today':
-                    $scope.titleKey = 'MY_FLIGHTS_TODAY';
+                    $scope.titleKey = 'REPORT_MY_FLIGHTS_TODAY';
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
@@ -48,7 +48,7 @@ export default class FlightReportsController {
 
                     break;
                 case 'my-flights-yesterday':
-                    $scope.titleKey = 'MY_FLIGHTS_YESTERDAY';
+                    $scope.titleKey = 'REPORT_MY_FLIGHTS_YESTERDAY';
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
@@ -65,7 +65,7 @@ export default class FlightReportsController {
 
                     break;
                 case 'my-flights-last-7-days':
-                    $scope.titleKey = 'MY_FLIGHTS_LAST_7_DAYS';
+                    $scope.titleKey = 'REPORT_MY_FLIGHTS_LAST_7_DAYS';
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
@@ -82,7 +82,7 @@ export default class FlightReportsController {
 
                     break;
                 case 'my-flights-last-30-days':
-                    $scope.titleKey = 'MY_FLIGHTS_LAST_30_DAYS';
+                    $scope.titleKey = 'REPORT_MY_FLIGHTS_LAST_30_DAYS';
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
@@ -99,7 +99,7 @@ export default class FlightReportsController {
 
                     break;
                 case 'my-flights-last-12-months':
-                    $scope.titleKey = 'MY_FLIGHTS_LAST_12_MONTHS';
+                    $scope.titleKey = 'REPORT_MY_FLIGHTS_LAST_12_MONTHS';
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
@@ -116,7 +116,7 @@ export default class FlightReportsController {
 
                     break;
                 case 'my-flights-last-24-months':
-                    $scope.titleKey = 'MY_FLIGHTS_LAST_24_MONTHS';
+                    $scope.titleKey = 'REPORT_MY_FLIGHTS_LAST_24_MONTHS';
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
@@ -133,11 +133,11 @@ export default class FlightReportsController {
 
                     break;
                 case 'my-flights-this-year':
-                    $scope.titleKey = 'MY_FLIGHTS_THIS_YEAR';
+                    $scope.titleKey = 'REPORT_MY_FLIGHTS_THIS_YEAR';
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
-                                From: moment().format("YYYY-MM-DD"),
+                                From: moment().startOf('year').format("YYYY-MM-DD"),
                                 To: moment().format("YYYY-MM-DD")
                             },
                             FlightCrewPersonId: $scope.PersonId
@@ -150,12 +150,12 @@ export default class FlightReportsController {
 
                     break;
                 case 'my-flights-previous-year':
-                    $scope.titleKey = 'MY_FLIGHTS_PREVIOUS_YEAR';
+                    $scope.titleKey = 'REPORT_MY_FLIGHTS_PREVIOUS_YEAR';
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
-                                From: moment().add(-1, "years").month(1).days(1).format("YYYY-MM-DD"),
-                                To: moment().add(-1, "years").month(12).days(31).format("YYYY-MM-DD")
+                                From: moment().add(-1, "years").startOf('year').format("YYYY-MM-DD"),
+                                To: moment().add(-1, "years").endOf('year').format("YYYY-MM-DD")
                             },
                             FlightCrewPersonId: $scope.PersonId
                         },
@@ -205,7 +205,7 @@ export default class FlightReportsController {
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
-                                From: moment().format("YYYY-MM-DD"),
+                                From: moment().startOf('year').format("YYYY-MM-DD"),
                                 To: moment().format("YYYY-MM-DD")
                             },
                             LocationId: $scope.myClub.HomebaseId
@@ -222,8 +222,8 @@ export default class FlightReportsController {
                     tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("FlightReportsController_" + $routeParams.type, {
                         filter: {
                             FlightDate: {
-                                From: moment().add(-1, "years").month(1).days(1).format("YYYY-MM-DD"),
-                                To: moment().add(-1, "years").month(12).days(31).format("YYYY-MM-DD")
+                                From: moment().add(-1, "years").startOf('year').format("YYYY-MM-DD"),
+                                To: moment().add(-1, "years").endOf('year').format("YYYY-MM-DD")
                             },
                             LocationId: $scope.myClub.HomebaseId
                         },
