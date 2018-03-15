@@ -27,7 +27,14 @@ export default class FlightReportsController {
             });
 
         $scope.editFlight = (flight) => {
-            $location.path('/flights/' + flight.FlightId);
+            switch (flight.FlightCategory) {
+                case 'MotorFlight':
+                    $location.path('/airmovements/' + flight.FlightId);
+                break;
+                case 'GliderFlight':
+                    $location.path('/flights/' + flight.FlightId);
+                break;
+            }
         };
 
         let tableSettingsCache = {
