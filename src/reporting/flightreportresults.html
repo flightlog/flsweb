@@ -1,6 +1,6 @@
 <div class="container-fluid flscontainer">
     <div>
-        <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12 fls-report-print-small">
             <fls-busy-indicator busy="busy"
                                 error="error">
                 <fls-message-bar></fls-message-bar>
@@ -11,26 +11,26 @@
                 <div class="filter-criteria-panel"
                      ng-show="!!FlightReportFilterCriteria">
                     <div class="row">
-                        <div class="col-md-1">
+                        <div class="col-md-1 col-xs-3">
                             <div translate="FROM_DATE"></div>
                             <div class="filter-value"
                                  ng-bind="FlightReportFilterCriteria.FlightDate.From | date:'dd.MM.yyyy'"></div>
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-xs-3">
                             <div translate="TO_DATE"></div>
                             <div class="filter-value"
                                  ng-bind="FlightReportFilterCriteria.FlightDate.To | date:'dd.MM.yyyy'"></div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-xs-3">
                             <div translate="GLIDER_FLIGHTS"></div>
                             <div class="filter-value" translate="{{FlightReportFilterCriteria.GliderFlights ? 'YES' : 'NO'}}"></div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-xs-3">
                             <div translate="MOTOR_FLIGHTS"></div>
                             <div class="filter-value" translate="{{FlightReportFilterCriteria.MotorFlights ? 'YES' : 'NO'}}"></div>
                         </div>
-                        <div class="col-md-4" ng-if="!!FlightReportFilterCriteria.LocationId">
+                        <div class="col-md-4 col-xs-12" ng-if="!!FlightReportFilterCriteria.LocationId">
                             <div translate="LOCATION"></div>
                             <div class="filter-value">
                                 <a target="_blank"
@@ -40,7 +40,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-4" ng-if="!!FlightReportFilterCriteria.FlightCrewPersonId">
+                        <div class="col-md-4 col-xs-12" ng-if="!!FlightReportFilterCriteria.FlightCrewPersonId">
                             <div translate="PERSON"></div>
                             <div class="filter-value">
                                 <a target="_blank"
@@ -85,21 +85,24 @@
                             class="flight--glider-cell immatriculation"></td>
                         <td ng-bind="flight.PilotName"
                             data-title="'PILOT' | translate"
-                            class="flight--glider-cell hidden-xs"
+                            class="flight--glider-cell"
                             sortable="'PilotName'"
                             filter="{ PilotName: 'text'}"></td>
                         <td ng-bind="flight.SecondCrewName"
                             data-title="'SECOND_CREW_MEMBER' | translate"
                             class="flight--glider-cell hidden-xs"
+                            header-class="'hidden-xs'"
                             sortable="'SecondCrewName'"
                             filter="{ SecondCrewName: 'text'}"></td>
                         <td data-title="'IS_SOLO_FLIGHT' | translate"
+                            class="hidden-xs"
+                            header-class="'hidden-xs'"
                             sortable="'IsSoloFlight'">
                             <fls-checkbox is-checked="flight.IsSoloFlight"></fls-checkbox>
                         </td>
                         <td ng-bind="flight.FlightTypeName"
                             data-title="'FLIGHT_TYPE' | translate"
-                            class="flight--glider-cell hidden-xs"
+                            class="flight--glider-cell hidden-xs hidden-sm hidden-md"
                             sortable="'FlightTypeName'"
                             header-class="'hidden-xs hidden-sm hidden-md'"></td>
                         <td ng-bind="flight.StartLocation"
@@ -160,25 +163,6 @@
                             header-class="'flight--time hidden-xs hidden-sm'"></td>
                     </tr>
                 </table>
-
-                <div class="row col-md-12 col-sm-12 col-xs-12"
-                     ng-show="debug">
-                    <div class="col-md-6">
-                        <h2>gliderFlightTypes</h2>
-                        <pre ng-show="gliderFlightTypes"
-                             ng-bind="gliderFlightTypes | json"></pre>
-                    </div>
-                    <div class="col-md-6">
-                        <h2>towingFlightTypes</h2>
-                        <pre ng-show="towingFlightTypes"
-                             ng-bind="towingFlightTypes | json"></pre>
-                    </div>
-                    <div class="col-md-12">
-                        <h2>flights</h2>
-                        <pre ng-show="flights"
-                             ng-bind="flights | json"></pre>
-                    </div>
-                </div>
             </fls-busy-indicator>
         </div>
     </div>

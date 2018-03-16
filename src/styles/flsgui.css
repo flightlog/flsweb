@@ -780,3 +780,10 @@ a.report-link span span {
     font-size: 1.2em;
     color: #434343;
 }
+
+
+@media print {
+    .fls-report-print-small {
+        font-size: 70%;
+    }
+}

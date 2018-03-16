@@ -58,7 +58,7 @@ export default class FlightReportsController {
                         sorting: {
                             FlightDate: 'desc'
                         },
-                        count: 100
+                        count: 1000
                     });
 
                     break;
