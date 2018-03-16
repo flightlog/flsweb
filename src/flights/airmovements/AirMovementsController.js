@@ -11,7 +11,7 @@ export default class AirMovementsController {
                 $log, $modal, MessageManager, Aircraft,
                 AirMovements, CounterUnitTypes, PagedFlights, $location,
                 Locations, Persons, PersonsV2, PersonPersister, PassengerPersister, Aircrafts, FlightTypes,
-                SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters, RoutesPerLocation) {
+                SpecificStartTypes, GLOBALS, Clubs, AircraftOperatingCounters, RoutesPerLocation, NavigationCache) {
         const format = 'HH:mm';
         $scope.towPlaneImg = require('../../images/towplane.png');
         $scope.busy = true;
@@ -126,6 +126,7 @@ export default class AirMovementsController {
                 .catch(_.partial(MessageManager.raiseError, 'load', 'masterdata'));
 
         } else {
+            NavigationCache.setCancellingLocationHere();
             reloadFlights();
         }
 
@@ -526,7 +527,7 @@ export default class AirMovementsController {
         };
 
         $scope.cancel = () => {
-            $location.path('/airmovements');
+            $location.path(NavigationCache.cancellingLocation || '/airmovements');
         };
 
         $scope.newFlight = () => {
