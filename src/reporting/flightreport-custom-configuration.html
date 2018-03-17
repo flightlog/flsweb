@@ -1,0 +1,72 @@
+<div class="container-fluid flscontainer">
+    <div>
+        <div class="col-md-12 col-sm-12 col-xs-12 fls-report-print-small">
+            <fls-busy-indicator busy="busy"
+                                error="error">
+                <fls-message-bar></fls-message-bar>
+
+                <h1 translate="REPORT_CUSTOM_CONFIGURATION"></h1>
+
+                <h4 translate="FLIGHT_REPORT_FILTER_CRITERIA"></h4>
+                <div class="filter-criteria-panel">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div translate="DATE"></div>
+                            <fls-date-range-picker ng-model="custom.FlightDate"></fls-date-range-picker>
+                        </div>
+                        <div class="col-md-2 col-xs-3">
+                            <fls-labelled-checkbox entity="custom"
+                                                   attribute="GliderFlights"
+                                                   translation-key="GLIDER_FLIGHTS"></fls-labelled-checkbox>
+                        </div>
+                        <div class="col-md-2 col-xs-3">
+                            <fls-labelled-checkbox entity="custom"
+                                                   attribute="MotorFlights"
+                                                   translation-key="MOTOR_FLIGHTS"></fls-labelled-checkbox>
+                        </div>
+                        <div class="col-md-4 col-xs-12"
+                             ng-if="category === 'location'">
+                            <div translate="LOCATION"></div>
+                            <div>
+                                <selectize name="location"
+                                           options="md.locations"
+                                           config="{
+                                                    inputClass: 'form-control selectize-input',
+                                                    maxItems: 1,
+                                                    valueField: 'LocationId',
+                                                    searchField: ['LocationName', 'IcaoCode'],
+                                                    render: renderLocation,
+                                                    onChange: startLocationChanged
+                                                }"
+                                           ng-model="custom.LocationId"></selectize>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-12"
+                             ng-if="category === 'person'">
+                            <div translate="PERSON"></div>
+                            <div>
+                                <selectize name="person"
+                                           options="md.persons"
+                                           config="{
+                                                    inputClass: 'form-control selectize-input',
+                                                    maxItems: 1,
+                                                    valueField: 'PersonId',
+                                                    searchField: ['Firstname', 'Lastname', 'City'],
+                                                    render: renderPerson
+                                                }"
+                                           ng-model="custom.FlightCrewPersonId"></selectize>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-default"
+                                    ng-click="applyCriteria()"
+                                    translate="OK"></button>
+                        </div>
+                    </div>
+                </div>
+
+            </fls-busy-indicator>
+        </div>
+    </div>
+</div>

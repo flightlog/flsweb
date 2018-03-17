@@ -24,23 +24,27 @@
                         </div>
                         <div class="col-md-2 col-xs-3">
                             <div translate="GLIDER_FLIGHTS"></div>
-                            <div class="filter-value" translate="{{FlightReportFilterCriteria.GliderFlights ? 'YES' : 'NO'}}"></div>
+                            <div class="filter-value"
+                                 translate="{{FlightReportFilterCriteria.GliderFlights ? 'YES' : 'NO'}}"></div>
                         </div>
                         <div class="col-md-2 col-xs-3">
                             <div translate="MOTOR_FLIGHTS"></div>
-                            <div class="filter-value" translate="{{FlightReportFilterCriteria.MotorFlights ? 'YES' : 'NO'}}"></div>
+                            <div class="filter-value"
+                                 translate="{{FlightReportFilterCriteria.MotorFlights ? 'YES' : 'NO'}}"></div>
                         </div>
-                        <div class="col-md-4 col-xs-12" ng-if="!!FlightReportFilterCriteria.LocationId">
+                        <div class="col-md-4 col-xs-12"
+                             ng-if="!!FlightReportFilterCriteria.LocationId">
                             <div translate="LOCATION"></div>
                             <div class="filter-value">
                                 <a target="_blank"
                                    ng-href="{{'#/masterdata/locations/' + FlightReportFilterCriteria.LocationId}}">
-                                    <span ng-bind="myHomeLocation.IcaoCode"></span>
-                                    (<span ng-bind="myHomeLocation.LocationName"></span>)
+                                    <span ng-bind="reportLocation.IcaoCode"></span>
+                                    (<span ng-bind="reportLocation.LocationName"></span>)
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-4 col-xs-12" ng-if="!!FlightReportFilterCriteria.FlightCrewPersonId">
+                        <div class="col-md-4 col-xs-12"
+                             ng-if="!!FlightReportFilterCriteria.FlightCrewPersonId">
                             <div translate="PERSON"></div>
                             <div class="filter-value">
                                 <a target="_blank"
@@ -48,6 +52,11 @@
                                     <span ng-bind="person.Firstname"></span> <span ng-bind="person.Lastname"></span>
                                 </a>
                             </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button ng-click="editReportSettings()"
+                                    class="btn btn-default pull-right"
+                                    translate="EDIT"></button>
                         </div>
                     </div>
                 </div>
