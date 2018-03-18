@@ -1,5 +1,4 @@
 import moment from "moment";
-import TimeService from "../core/TimeService";
 import {FlightStateMapper} from "../flights/FlightsServices"
 import {TableSettingsCache} from "../core/TableSettingsCache";
 
@@ -77,6 +76,13 @@ export default class FlightReportsController {
             });
         }
 
+        PersonsV2.getAllPersons().$promise.then((result) => {
+            $scope.md.persons = result;
+        });
+        Locations.getLocations().$promise.then((result) => {
+            $scope.md.locations = result;
+        });
+
         if ($routeParams.filter) {
             $scope.custom = JSON.parse($routeParams.filter);
             $scope.PersonId = $scope.custom.FlightCrewPersonId || AuthService.getUser().PersonId;
@@ -92,18 +98,10 @@ export default class FlightReportsController {
                 .all([
                     LocationPersister.get({id: ($scope.custom.LocationId || $scope.myClub.HomebaseId)}).$promise.then(location => {
                         $scope.reportLocation = location;
-                    }),
-                    PersonsV2.getAllPersons().$promise.then((result) => {
-                        $scope.md.persons = result;
-                    }),
-                    Locations.getLocations().$promise.then((result) => {
-                        $scope.md.locations = result;
                     })
                 ])
                 .then(() => {
-                    if ($routeParams.mode === 'apply') {
-                        applyTableSettings();
-                    }
+                    applyTableSettings();
                 });
         } else {
             $scope.PersonId = AuthService.getUser().PersonId;
@@ -115,7 +113,7 @@ export default class FlightReportsController {
 
             $scope.busy = true;
 
-            if($routeParams.type) {
+            if ($routeParams.type) {
                 switch ($routeParams.type) {
                     case 'my-flights-today':
                         $scope.titleKey = 'REPORT_MY_FLIGHTS_TODAY';
@@ -371,17 +369,9 @@ export default class FlightReportsController {
 
         $scope.applyCriteria = () => {
             const path = "/flightreports/custom/"
-                + $routeParams.category + "/"
+                + $scope.category + "/"
                 + JSON.stringify($scope.custom) + "/"
                 + "apply";
-            $location.path(path);
-        };
-
-        $scope.editReportSettings = () => {
-            const path = "/flightreports/custom/"
-                + $routeParams.category + "/"
-                + JSON.stringify($scope.tableParams.filter()) + "/"
-                + "edit";
             $location.path(path);
         };
     }

@@ -44,16 +44,6 @@ export default angular.module('fls.flightreports',
                         titleKey: () => "FLIGHTREPORTS"
                     }
                 })
-            .when('/flightreports/custom/:category/:filter/edit',
-                {
-                    controller: flightReportsController,
-                    template: require('./flightreport-custom-configuration.html'),
-                    publicAccess: true,
-                    resolve: {
-                        user: userAuth,
-                        titleKey: () => "FLIGHTREPORTS"
-                    }
-                })
             .when('/flightreports/custom/:category/:filter/:mode',
                 {
                     controller: flightReportsController,

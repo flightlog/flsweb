@@ -56,11 +56,6 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <button ng-click="editReportSettings()"
-                                    class="btn btn-default pull-right"
-                                    translate="EDIT"></button>
-                        </div>
                     </div>
                 </div>
 
@@ -148,23 +143,19 @@
                             data-title="'COMMENT' | translate"
                             class="hidden-xs hidden-sm hidden-md"
                             header-class="'hidden-xs hidden-sm hidden-md'"
-                            filter="{ FlightComment: 'text'}"
                             sortable="'FlightComment'"></td>
                         <td ng-bind="flight.TowFlight.Immatriculation"
                             data-title="'TOWING_PLANE' | translate"
-                            filter="{ TowFlight.Immatriculation: 'text'}"
                             sortable="'TowFlight.Immatriculation'"
                             class="flight--motor-cell immatriculation hidden-xs"
                             header-class="'hidden-xs'"></td>
                         <td ng-bind="flight.TowFlight.PilotName"
                             data-title="'TOWING_PILOT' | translate"
-                            filter="{ TowFlight.PilotName: 'text'}"
                             sortable="'TowFlight.PilotName'"
                             class="flight--motor-cell hidden-xs hidden-sm"
                             header-class="'hidden-xs hidden-sm'"></td>
                         <td ng-bind="flight.TowFlight.LdgDateTime | date:'HH:mm'"
                             data-title="'TOW_LANDING' | translate"
-                            filter="{ TowFlight.LdgDateTime: 'text'}"
                             sortable="'TowFlight.LdgDateTime'"
                             class="flight--motor-cell flight--time hidden-xs"
                             header-class="'flight--time hidden-xs'"></td>

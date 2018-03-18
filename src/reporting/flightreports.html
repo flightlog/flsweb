@@ -1,54 +1,64 @@
 <div class="container-fluid flscontainer">
     <div>
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+            <div class="col-md-12 col-sm-12 col-xs-12"
+                 style="text-align:center;">
                 <h4 translate="MY_REPORTS"
                     style="margin-bottom: 40px;"></h4>
-                <div class="col-md-1" style="min-height: 50px;"></div>
-                <a href="#/flightreports/person/my-flights-today" class="col-md-2 report-link">
+                <div class="col-md-1"
+                     style="min-height: 50px;"></div>
+                <a href="#/flightreports/person/my-flights-today"
+                   class="col-md-2 report-link">
                     <span class="fa fa-4x fa-calendar-check-o"></span>
                     <span translate="REPORT_MY_FLIGHTS_TODAY">Heute</span>
                 </a>
-                <a href="#/flightreports/person/my-flights-yesterday" class="col-md-2 report-link">
+                <a href="#/flightreports/person/my-flights-yesterday"
+                   class="col-md-2 report-link">
                     <span class="fa fa-4x fa-calendar-minus-o"></span>
                     <span translate="REPORT_MY_FLIGHTS_YESTERDAY">Gestern</span>
                 </a>
-                <a href="#/flightreports/person/my-flights-last-7-days" class="col-md-1 report-link">
+                <a href="#/flightreports/person/my-flights-last-7-days"
+                   class="col-md-1 report-link">
                     <span class="fa-stack fa-2x">
                         <span class="fa fa-calendar-o fa-stack-2x"></span>
                         <span class="fa fa-stack-1x calendar-text">7d</span>
                     </span>
                     <span translate="REPORT_MY_FLIGHTS_LAST_7_DAYS">Letzte 7 Tage</span>
                 </a>
-                <a href="#/flightreports/person/my-flights-last-30-days" class="col-md-1 report-link">
+                <a href="#/flightreports/person/my-flights-last-30-days"
+                   class="col-md-1 report-link">
                     <span class="fa-stack fa-2x">
                         <span class="fa fa-calendar-o fa-stack-2x"></span>
                         <span class="fa fa-stack-1x calendar-text">30d</span>
                     </span>
                     <span translate="REPORT_MY_FLIGHTS_LAST_30_DAYS">Letzte 30 Tage</span>
                 </a>
-                <a href="#/flightreports/person/my-flights-last-12-months" class="col-md-1 report-link">
+                <a href="#/flightreports/person/my-flights-last-12-months"
+                   class="col-md-1 report-link">
                     <span class="fa-stack fa-2x">
                         <span class="fa fa-calendar-o fa-stack-2x"></span>
                         <span class="fa fa-stack-1x calendar-text">1y</span>
                     </span>
                     <span translate="REPORT_MY_FLIGHTS_LAST_12_MONTHS">Letzte 12 Monate</span>
                 </a>
-                <a href="#/flightreports/person/my-flights-last-24-months" class="col-md-1 report-link">
+                <a href="#/flightreports/person/my-flights-last-24-months"
+                   class="col-md-1 report-link">
                     <span class="fa-stack fa-2x">
                         <span class="fa fa-calendar-o fa-stack-2x"></span>
                         <span class="fa fa-stack-1x calendar-text">2y</span>
                     </span>
                     <span translate="REPORT_MY_FLIGHTS_LAST_24_MONTHS">Letzte 24 Monate</span>
                 </a>
-                <a href="#/flightreports/person/my-flights-this-year" class="col-md-1 report-link">
+                <a href="#/flightreports/person/my-flights-this-year"
+                   class="col-md-1 report-link">
                     <span class="fa-stack fa-2x">
                         <span class="fa fa-calendar-o fa-stack-2x"></span>
                         <span class="fa fa-stack-1x calendar-text">ytd</span>
                     </span>
                     <span translate="REPORT_MY_FLIGHTS_THIS_YEAR">Dieses Jahr</span>
                 </a>
-                <a href="#/flightreports/person/my-flights-previous-year" class="col-md-1 report-link">
+                <a href="#/flightreports/person/my-flights-previous-year"
+                   class="col-md-1 report-link">
                     <span class="fa-stack fa-2x">
                         <span class="fa fa-calendar-o fa-stack-2x"></span>
                         <span class="fa fa-stack-1x calendar-text">-1y</span>
@@ -65,30 +75,124 @@
                     <span ng-bind="reportLocation.IcaoCode"></span>
                     (<span ng-bind="reportLocation.LocationName"></span>)
                 </h4>
-                <div class="col-md-1" style="min-height: 50px;"></div>
-                <a href="#/flightreports/location/location-flights-today" class="col-md-2 report-link">
+                <div class="col-md-1"
+                     style="min-height: 50px;"></div>
+                <a href="#/flightreports/location/location-flights-today"
+                   class="col-md-2 report-link">
                     <span class="fa fa-4x fa-calendar-check-o"></span>
                     <span translate="REPORT_LOCATION_FLIGHTS_TODAY">Heute</span>
                 </a>
-                <a href="#/flightreports/location/location-flights-yesterday" class="col-md-2 report-link">
+                <a href="#/flightreports/location/location-flights-yesterday"
+                   class="col-md-2 report-link">
                     <span class="fa fa-4x fa-calendar-minus-o"></span>
                     <span translate="REPORT_LOCATION_FLIGHTS_YESTERDAY">Gestern</span>
                 </a>
-                <div class="col-md-4" style="min-height: 50px;"></div>
-                <a href="#/flightreports/location/location-flights-this-year" class="col-md-1 report-link">
+                <div class="col-md-4"
+                     style="min-height: 50px;"></div>
+                <a href="#/flightreports/location/location-flights-this-year"
+                   class="col-md-1 report-link">
                     <span class="fa-stack fa-2x">
                         <span class="fa fa-calendar-o fa-stack-2x"></span>
                         <span class="fa fa-stack-1x calendar-text">ytd</span>
                     </span>
                     <span translate="REPORT_LOCATION_FLIGHTS_THIS_YEAR">Dieses Jahr</span>
-                </a>
-                <a href="#/flightreports/location/location-flights-previous-year" class="col-md-1 report-link">
+                </a>                                                                         
+                <a href="#/flightreports/location/location-flights-previous-year"
+                   class="col-md-1 report-link">
                     <span class="fa-stack fa-2x">
                         <span class="fa fa-calendar-o fa-stack-2x"></span>
                         <span class="fa fa-stack-1x calendar-text">-1y</span>
                     </span>
                     <span translate="REPORT_LOCATION_FLIGHTS_PREVIOUS_YEAR">Letztes Jahr</span>
                 </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12"
+                 style="text-align:center;">
+                <h4 style="margin-bottom: 40px;margin-top: 80px;"
+                    translate="FLIGHT_REPORT_CUSTOM_FILTER_CRITERIA"></h4>
+            </div>
+            <div class="col-md-2"
+                 style="min-height: 50px;"></div>
+            <div class="col-md-8 col-sm-10 col-xs-10 filter-criteria-panel">
+
+                <div class="col-md-2 col-xs-12">
+                    <div translate="REPORT_CATEGORY"></div>
+                    <div>
+                        <selectize name="person"
+                                   options="[{label: 'Person', value: 'person'}, {label: 'Flugplatz', value: 'location'}]"
+                                   config="{
+                                                    inputClass: 'form-control selectize-input',
+                                                    maxItems: 1,
+                                                    valueField: 'value',
+                                                    searchField: ['key'],
+                                                    labelField: 'label'
+                                                }"
+                                   ng-model="category"></selectize>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div translate="DATE"></div>
+                    <fls-date-range-picker ng-model="custom.FlightDate"></fls-date-range-picker>
+                </div>
+                <div class="col-md-1 col-xs-3">
+                    <fls-labelled-checkbox entity="custom"
+                                           attribute="GliderFlights"
+                                           translation-key="GLIDER_FLIGHTS"></fls-labelled-checkbox>
+                </div>
+                <div class="col-md-1 col-xs-3">
+                    <fls-labelled-checkbox entity="custom"
+                                           attribute="MotorFlights"
+                                           translation-key="MOTOR_FLIGHTS"></fls-labelled-checkbox>
+                </div>
+                <div class="col-md-1 col-xs-3">
+                    <fls-labelled-checkbox entity="custom"
+                                           attribute="TowFlights"
+                                           translation-key="TOW_FLIGHTS"></fls-labelled-checkbox>
+                </div>
+                <div class="col-md-3 col-xs-12"
+                     ng-if="category !== 'location' && category !== 'person'"
+                     style="min-height: 50px;"></div>
+                <div class="col-md-3 col-xs-12"
+                     ng-if="category === 'location'">
+                    <div translate="LOCATION"></div>
+                    <div>
+                        <selectize name="location"
+                                   options="md.locations"
+                                   config="{
+                                                    inputClass: 'form-control selectize-input',
+                                                    maxItems: 1,
+                                                    valueField: 'LocationId',
+                                                    searchField: ['LocationName', 'IcaoCode'],
+                                                    render: renderLocation,
+                                                    onChange: startLocationChanged
+                                                }"
+                                   ng-model="custom.LocationId"></selectize>
+
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12"
+                     ng-if="category === 'person'">
+                    <div translate="PERSON"></div>
+                    <div>
+                        <selectize name="person"
+                                   options="md.persons"
+                                   config="{
+                                                    inputClass: 'form-control selectize-input',
+                                                    maxItems: 1,
+                                                    valueField: 'PersonId',
+                                                    searchField: ['Firstname', 'Lastname', 'City'],
+                                                    render: renderPerson
+                                                }"
+                                   ng-model="custom.FlightCrewPersonId"></selectize>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-default"
+                            ng-click="applyCriteria()"
+                            translate="OK"></button>
+                </div>
             </div>
         </div>
     </div>
