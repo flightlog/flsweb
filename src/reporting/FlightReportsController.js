@@ -28,6 +28,9 @@ export default class FlightReportsController {
                 case 'GliderFlight':
                     $location.path('/flights/' + flight.FlightId);
                     break;
+                case 'TowFlight':
+                    $location.path('/flights/' + flight.TowedGliderFlightId);
+                    break;
             }
         };
 
@@ -124,6 +127,7 @@ export default class FlightReportsController {
                                 },
                                 GliderFlights: true,
                                 MotorFlights: true,
+                                TowFlights: true,
                                 FlightCrewPersonId: $scope.PersonId
                             },
                             sorting: {
@@ -143,6 +147,7 @@ export default class FlightReportsController {
                                 },
                                 GliderFlights: true,
                                 MotorFlights: true,
+                                TowFlights: true,
                                 FlightCrewPersonId: $scope.PersonId
                             },
                             sorting: {
@@ -162,6 +167,7 @@ export default class FlightReportsController {
                                 },
                                 GliderFlights: true,
                                 MotorFlights: true,
+                                TowFlights: true,
                                 FlightCrewPersonId: $scope.PersonId
                             },
                             sorting: {
@@ -181,6 +187,7 @@ export default class FlightReportsController {
                                 },
                                 GliderFlights: true,
                                 MotorFlights: true,
+                                TowFlights: true,
                                 FlightCrewPersonId: $scope.PersonId
                             },
                             sorting: {
@@ -200,6 +207,7 @@ export default class FlightReportsController {
                                 },
                                 GliderFlights: true,
                                 MotorFlights: true,
+                                TowFlights: true,
                                 FlightCrewPersonId: $scope.PersonId
                             },
                             sorting: {
@@ -219,6 +227,7 @@ export default class FlightReportsController {
                                 },
                                 GliderFlights: true,
                                 MotorFlights: true,
+                                TowFlights: true,
                                 FlightCrewPersonId: $scope.PersonId
                             },
                             sorting: {
@@ -238,6 +247,7 @@ export default class FlightReportsController {
                                 },
                                 GliderFlights: true,
                                 MotorFlights: true,
+                                TowFlights: true,
                                 FlightCrewPersonId: $scope.PersonId
                             },
                             sorting: {
@@ -257,6 +267,7 @@ export default class FlightReportsController {
                                 },
                                 GliderFlights: true,
                                 MotorFlights: true,
+                                TowFlights: true,
                                 FlightCrewPersonId: $scope.PersonId
                             },
                             sorting: {
@@ -276,6 +287,7 @@ export default class FlightReportsController {
                                 },
                                 GliderFlights: true,
                                 MotorFlights: true,
+                                TowFlights: true,
                                 LocationId: $scope.myClub.HomebaseId
                             },
                             sorting: {
@@ -295,6 +307,7 @@ export default class FlightReportsController {
                                 },
                                 GliderFlights: true,
                                 MotorFlights: true,
+                                TowFlights: true,
                                 LocationId: $scope.myClub.HomebaseId
                             },
                             sorting: {
@@ -314,6 +327,7 @@ export default class FlightReportsController {
                                 },
                                 GliderFlights: true,
                                 MotorFlights: true,
+                                TowFlights: true,
                                 LocationId: $scope.myClub.HomebaseId
                             },
                             sorting: {
@@ -333,6 +347,7 @@ export default class FlightReportsController {
                                 },
                                 GliderFlights: true,
                                 MotorFlights: true,
+                                TowFlights: true,
                                 LocationId: $scope.myClub.HomebaseId
                             },
                             sorting: {

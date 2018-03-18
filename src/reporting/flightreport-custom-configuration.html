@@ -12,15 +12,20 @@
                             <div translate="DATE"></div>
                             <fls-date-range-picker ng-model="custom.FlightDate"></fls-date-range-picker>
                         </div>
-                        <div class="col-md-2 col-xs-3">
+                        <div class="col-md-1 col-xs-3">
                             <fls-labelled-checkbox entity="custom"
                                                    attribute="GliderFlights"
                                                    translation-key="GLIDER_FLIGHTS"></fls-labelled-checkbox>
                         </div>
-                        <div class="col-md-2 col-xs-3">
+                        <div class="col-md-1 col-xs-3">
                             <fls-labelled-checkbox entity="custom"
                                                    attribute="MotorFlights"
                                                    translation-key="MOTOR_FLIGHTS"></fls-labelled-checkbox>
+                        </div>
+                        <div class="col-md-1 col-xs-3">
+                            <fls-labelled-checkbox entity="custom"
+                                                   attribute="TowFlights"
+                                                   translation-key="TOW_FLIGHTS"></fls-labelled-checkbox>
                         </div>
                         <div class="col-md-4 col-xs-12"
                              ng-if="category === 'location'">
