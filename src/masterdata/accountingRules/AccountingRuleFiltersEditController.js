@@ -146,14 +146,14 @@ export default class AccountingRuleFiltersEditController {
             if ($scope.targetTypeRecipientVisible()) {
                 accountingRuleFilter.ArticleTarget = {};
                 accountingRuleFilter.RecipientTarget = $scope.selection.PersonClubMemberNumber && {
-                        PersonClubMemberNumber: $scope.selection.PersonClubMemberNumber,
-                        RecipientName: $scope.text.RecipientName
-                    } || {};
+                    PersonClubMemberNumber: $scope.selection.PersonClubMemberNumber,
+                    RecipientName: $scope.text.RecipientName
+                } || {};
             } else {
                 accountingRuleFilter.ArticleTarget = $scope.selection.ArticleNumber && {
-                        ArticleNumber: $scope.selection.ArticleNumber,
-                        DeliveryLineText: $scope.text.DeliveryLineText
-                    } || {};
+                    ArticleNumber: $scope.selection.ArticleNumber,
+                    DeliveryLineText: $scope.text.DeliveryLineText
+                } || {};
                 accountingRuleFilter.RecipientTarget = {};
             }
 
@@ -203,7 +203,9 @@ export default class AccountingRuleFiltersEditController {
             } else {
                 $scope.text.DeliveryLineText = "";
             }
-            $scope.$apply();
+            setTimeout(() => {
+                $scope.$apply();
+            }, 0);
         };
 
         $scope.recipientChanged = () => {
@@ -213,11 +215,15 @@ export default class AccountingRuleFiltersEditController {
             } else {
                 $scope.text.RecipientName = "";
             }
-            $scope.$apply();
+            setTimeout(() => {
+                $scope.$apply();
+            }, 0);
         };
 
         $scope.unitTypeChanged = () => {
-            $scope.$apply();
+            setTimeout(() => {
+                $scope.$apply();
+            }, 0);
         };
 
         $scope.targetTypeRecipientVisible = () => {
