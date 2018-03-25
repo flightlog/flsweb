@@ -120,10 +120,14 @@ export default class DeliveryCreationTestsEditController {
                     if (result.LastDeliveryCreationTestResult.LastTestSuccessful) {
                         MessageManager.showMessage("Test Result: Success!");
                     } else {
-                        MessageManager.displayError("Test Result: Failure. " + result.LastDeliveryCreationTestResult.LastTestResultMessage);
+                        MessageManager.displayRawMessageError("Test Result: Failure.", "Server Result: \n" + result.LastDeliveryCreationTestResult.LastTestResultMessage);
                     }
                     $scope.lastDeliveryItems = result.LastDeliveryCreationTestResult.LastTestCreatedDeliveryDetails && result.LastDeliveryCreationTestResult.LastTestCreatedDeliveryDetails.DeliveryItems;
                     $scope.lastMatchedRuleFilters = result.LastDeliveryCreationTestResult.LastTestMatchedAccountingRuleFilterIds;
+                })
+                .catch((result) => {
+                    console.log(result);
+                    MessageManager.displayError("Technical problem. Please check Browser Console");
                 })
                 .finally(() => {
                     $scope.busy = false;

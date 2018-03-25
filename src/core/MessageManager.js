@@ -1,16 +1,25 @@
 export default class MessageManager {
     constructor($rootScope) {
-        var srv = {
+        let srv = {
             observers: [],
             messages: [],
             notifyObservers: function () {
-                for (var i = 0; i < srv.observers.length; i++) {
+                for (let i = 0; i < srv.observers.length; i++) {
                     srv.observers[i].notify();
                 }
             },
             displayError: function (msg, isError = true) {
-                var error = {
+                let error = {
                     msg: msg,
+                    isError: isError
+                };
+                srv.messages.push(error);
+                srv.notifyObservers();
+            },
+            displayRawMessageError: function (msg, rawMessage, isError = true) {
+                let error = {
+                    msg: msg,
+                    rawMessage: rawMessage,
                     isError: isError
                 };
                 srv.messages.push(error);

@@ -11,12 +11,12 @@ export default class ErrorBarDirective {
                 MessageManager.registerObserver(scope);
 
                 function parseErrors() {
-                    for (var i = 0; i < scope.messages.length; i++) {
-                        var error = scope.messages[i];
+                    for (let i = 0; i < scope.messages.length; i++) {
+                        let error = scope.messages[i];
                         if (error.data && error.data.ModelState) {
-                            var m = error.data.ModelState;
+                            let m = error.data.ModelState;
                             error.invalidFields = [];
-                            for (var field in m) {
+                            for (let field in m) {
                                 if (m.hasOwnProperty(field)) {
                                     error.invalidFields.push({
                                         name: field,

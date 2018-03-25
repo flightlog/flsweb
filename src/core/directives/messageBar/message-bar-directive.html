@@ -8,6 +8,7 @@
                 <h3 ng-show="message.operation">Failed to <span ng-bind="message.operation"></span> <span ng-bind="message.entity"></span></h3>
                 <h3 ng-show="message.msg" ng-bind="message.msg"></h3>
                 <p ng-bind="message.data.Message"></p>
+                <pre ng-if="!!message.rawMessage" style="border: 0;" ng-bind="message.rawMessage"></pre>
 
                 <div ng-repeat="invalidField in message.invalidFields" style="font-size: 90%;">
                     <p>
