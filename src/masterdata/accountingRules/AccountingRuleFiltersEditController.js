@@ -1,5 +1,5 @@
 export default class AccountingRuleFiltersEditController {
-    constructor($scope, $q, $routeParams, $location, NgTableParams, GLOBALS, AuthService, AccountingRuleFilterService, AircraftsOverviews, FlightTypes, Locations, ArticlesService, PagedPersons,
+    constructor($scope, $q, $routeParams, $location, NgTableParams, GLOBALS, AuthService, AccountingRuleFilterService, AircraftsOverviews, StartTypes, FlightTypes, Locations, ArticlesService, PagedPersons,
                 PagedAccountingRuleFilters, AccountingRuleFilter, MessageManager, DropdownItemsRenderService, AccountingRuleFilterTypesService, FlightCrewTypesService,
                 MemberStates, AccountingUnitTypesService) {
 
@@ -20,6 +20,9 @@ export default class AccountingRuleFiltersEditController {
                 }),
                 AircraftsOverviews.query().$promise.then((result) => {
                     $scope.md.aircrafts = result;
+                }),
+                StartTypes.query().$promise.then((result) => {
+                    $scope.md.startTypes = result;
                 }),
                 FlightTypes.query().$promise.then((result) => {
                     $scope.md.flightTypes = result;
@@ -44,6 +47,7 @@ export default class AccountingRuleFiltersEditController {
                 }),
                 AccountingUnitTypesService.getAccountingUnitTypes().then((result) => {
                     $scope.md.accountingUnitTypes = result;
+                    $scope.unitTypeChanged();
                 })
             ]);
         }
@@ -209,6 +213,10 @@ export default class AccountingRuleFiltersEditController {
             } else {
                 $scope.text.RecipientName = "";
             }
+            $scope.$apply();
+        };
+
+        $scope.unitTypeChanged = () => {
             $scope.$apply();
         };
 

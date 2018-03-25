@@ -253,6 +253,38 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="MatchedStartTypes"
+                                   class="fls-list-selection-label">
+                                <div translate="START_TYPES"
+                                     class="fls-list-selection-label-text"></div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="startTypesIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllStartTypesExceptListed"
+                                           ng-value="false"> nur folgende
+                                </div>
+                                <div class="fls-include-exclude-radio-choice">
+                                    <input type="radio"
+                                           name="startTypesIncl"
+                                           ng-model="accountingRuleFilter.UseRuleForAllStartTypesExceptListed"
+                                           ng-value="true"> alle ausser
+                                </div>
+                            </label>
+
+                            <selectize id="MatchedStartTypes"
+                                       name="MatchedStartTypes"
+                                       options="md.startTypes"
+                                       ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                                       config="{
+                                                    inputClass: 'form-control selectize-input multiline-selectize',
+                                                    valueField: 'StartTypeId',
+                                                    searchField: ['StartTypeName'] ,
+                                                    labelField: 'StartTypeName'
+                                                }"
+                                       ng-model="accountingRuleFilter.MatchedStartTypes"></selectize>
+                        </div>
+
+                        <div class="form-group">
                             <label for="MatchedFlightTypeCodes"
                                    class="fls-list-selection-label">
                                 <div translate="FLIGHT_TYPES"
@@ -479,37 +511,37 @@
                         </div>
 
 
-                        <div class="form-group">
-                            <label for="MatchedPersonCategories"
-                                   class="fls-list-selection-label">
-                                <div translate="PERSON_CATEGORY"
-                                     class="fls-list-selection-label-text"></div>
-                                <div class="fls-include-exclude-radio-choice">
-                                    <input type="radio"
-                                           name="personCategoriesIncl"
-                                           ng-model="accountingRuleFilter.UseRuleForAllPersonCategoriesExceptListed"
-                                           ng-value="false"> nur folgende
-                                </div>
-                                <div class="fls-include-exclude-radio-choice">
-                                    <input type="radio"
-                                           name="personCategoriesIncl"
-                                           ng-model="accountingRuleFilter.UseRuleForAllPersonCategoriesExceptListed"
-                                           ng-value="true"> alle ausser
-                                </div>
-                            </label>
+                        <!--<div class="form-group">
+        <label for="MatchedPersonCategories"
+               class="fls-list-selection-label">
+            <div translate="PERSON_CATEGORY"
+                 class="fls-list-selection-label-text"></div>
+            <div class="fls-include-exclude-radio-choice">
+                <input type="radio"
+                       name="personCategoriesIncl"
+                       ng-model="accountingRuleFilter.UseRuleForAllPersonCategoriesExceptListed"
+                       ng-value="false"> nur folgende
+            </div>
+            <div class="fls-include-exclude-radio-choice">
+                <input type="radio"
+                       name="personCategoriesIncl"
+                       ng-model="accountingRuleFilter.UseRuleForAllPersonCategoriesExceptListed"
+                       ng-value="true"> alle ausser
+            </div>
+        </label>
 
-                            <selectize id="MatchedPersonCategories"
-                                       name="MatchedPersonCategories"
-                                       options="md.personCategories"
-                                       ng-disabled="!accountingRuleFilter.CanUpdateRecord"
-                                       config="{
-                                                inputClass: 'form-control selectize-input multiline-selectize',
-                                                valueField: 'PersonCategoryId',
-                                                searchField: ['PersonCategoryName'] ,
-                                                labelField: 'PersonCategoryName'
-                                            }"
-                                       ng-model="accountingRuleFilter.MatchedPersonCategories"></selectize>
-                        </div>
+        <selectize id="MatchedPersonCategories"
+                   name="MatchedPersonCategories"
+                   options="md.personCategories"
+                   ng-disabled="!accountingRuleFilter.CanUpdateRecord"
+                   config="{
+                            inputClass: 'form-control selectize-input multiline-selectize',
+                            valueField: 'PersonCategoryId',
+                            searchField: ['PersonCategoryName'] ,
+                            labelField: 'PersonCategoryName'
+                        }"
+                   ng-model="accountingRuleFilter.MatchedPersonCategories"></selectize>
+    </div>-->
 
                     </div>
                 </div>
