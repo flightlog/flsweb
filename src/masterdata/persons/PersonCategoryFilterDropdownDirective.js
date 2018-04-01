@@ -1,3 +1,5 @@
+import {FlightStateMapper} from "../../flights/FlightsServices";
+
 export default class PersonCategoryFilterDropdownDirective {
     static factory(PersonCategoryService, AuthService) {
         return {
@@ -30,17 +32,25 @@ export default class PersonCategoryFilterDropdownDirective {
             link: function (scope, element, attrs, modelCtrl) {
                 function updateViewValue() {
                     modelCtrl.$setViewValue(scope.masterdata.personCategories.filter(node => node.selected).map(node => node.PersonCategoryId));
+                    scope.filterIndicator = scope.masterdata.personCategories.filter(node => !node.selected).length > 0 ? "*" : "";
                 }
 
-                scope.masterdata = {
-                    personCategories: []
-                };
-                PersonCategoryService.loadPersonCategories().then((result) => {
-                    scope.masterdata.personCategories = Object.assign([], result);
-                    scope.reset();
+                if (scope.ngModel) {
+                    scope.masterdata = {
+                        personCategories: scope.ngModel
+                    };
+                } else {
+                    scope.masterdata = {
+                        personCategories: []
+                    };
+                    PersonCategoryService.loadPersonCategories().then((result) => {
+                        scope.masterdata.personCategories = Object.assign([], result);
+                        scope.reset();
 
-                    updateViewValue();
-                });
+                        updateViewValue();
+                    });
+                }
+
                 scope.clubName = AuthService.getUser().myClub.ClubName;
 
                 scope.toggleEditor = () => {
@@ -67,5 +77,6 @@ export default class PersonCategoryFilterDropdownDirective {
                 };
             }
         };
-    };
+    }
+    ;
 }
