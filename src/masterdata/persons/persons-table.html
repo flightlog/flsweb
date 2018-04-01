@@ -1,15 +1,4 @@
 <div>
-    <section class="hidden-print row col-xs-12" style="margin-bottom: 10px;">
-        <div class="btn-group">
-            <button class="btn btn-default" ng-class="{'active': requiredFlagsFilter[requiredFlag]}"
-                    translate="FILTER_PERSON_FLAG_{{requiredFlag}}"
-                    ng-click="toggleRequiredFlagFilter(requiredFlag)"
-                    ng-repeat="requiredFlag in requiredFlagsFilterList"></button>
-            <button class="btn btn-default"
-                    translate="ALL"
-                    ng-click="resetRequiredFlagsFilters()"></button>
-        </div>
-    </section>
     <table ng-table="tableParams" class="fls fls-table-with-details" show-filter="true">
         <tr ng-repeat="person in $data" ng-click="editPerson(person)" title="{{'EDIT' | translate}}">
             <td ng-bind="person.Firstname" data-title="'FIRST_NAME' | translate" filter="{ Firstname: 'text'}" sortable="'Firstname'"></td>

@@ -6,26 +6,6 @@ export default class PersonsEditController {
         $scope.busy = false;
         $scope.masterdata = {};
         $scope.isClubAdmin = AuthService.isClubAdmin();
-        $scope.requiredFlagsFilterList = [
-            'HasGliderInstructorLicence',
-            'HasGliderPilotLicence',
-            'HasGliderTraineeLicence',
-            'HasMotorPilotLicence',
-            'HasMotorInstructorLicence',
-            'HasTowPilotLicence'
-        ];
-        $scope.requiredFlagsFilter = {};
-        $scope.toggleRequiredFlagFilter = (flag) => {
-            let previousValue = $scope.requiredFlagsFilter[flag];
-            $scope.requiredFlagsFilter = {};
-            $scope.requiredFlagsFilter[flag] = !previousValue;
-            $scope.tableParams.reload();
-        };
-        $scope.resetRequiredFlagsFilters = () => {
-            $scope.requiredFlagsFilter = {};
-            $scope.tableParams.reload();
-        };
-
 
         function loadPerson() {
             let deferred = $q.defer();
@@ -88,7 +68,7 @@ export default class PersonsEditController {
                     let pageSize = params.count();
                     let pageStart = (params.page() - 1) * pageSize;
 
-                    let filter = Object.assign({}, $scope.tableParams.filter(), $scope.requiredFlagsFilter);
+                    let filter = Object.assign({}, $scope.tableParams.filter());
 
                     return PagedPersons.getPersons(filter, $scope.tableParams.sorting(), pageStart, pageSize)
                         .then((result) => {
