@@ -526,7 +526,7 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
     background-color: rgba(130, 126, 131, 0.2);
 }
 
-.flight-state-choice-dropdown {
+.filter-choice-dropdown {
     position: absolute;
     z-index: 9999;
     background-color: white;
@@ -535,31 +535,29 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
     border-radius: 5px;
 }
 
-.flight-state-choices {
+.filter-choices {
     display: flex;
 }
 
-.flight-state-choice-list:first-child {
+.filter-choice-list:first-child {
     margin-right: 10px;
 }
 
-.flight-state-choice-list {
+.filter-choice-list {
     flex: 1;
-    border: 1px solid #ededed;
     padding: 10px;
-    border-radius: 3px;
 }
 
-.flight-state-choice-list ul {
+.filter-choice-list ul {
     padding: 2px;
 }
 
-.flight-state-choice-list li {
+.filter-choice-list li {
     list-style: none;
 }
 
-.flight-state-choice-list .tow-state-icon,
-.flight-state-choice-list .glider-state-icon {
+.filter-choice-list .tow-state-icon,
+.filter-choice-list .glider-state-icon {
     margin-right: 10px;
     width: 14px;
 }

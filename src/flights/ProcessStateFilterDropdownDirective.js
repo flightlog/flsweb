@@ -10,9 +10,9 @@ export default class ProcessStateFilterDropdownDirective {
                 <div>
                     <input class="form-control" ng-model="filterIndicator" ng-click="toggleEditor()" readonly>
                     <div ng-if="editorVisible"
-                         class="flight-state-choice-dropdown">
-                        <div class="flight-state-choices">
-                            <div class="flight-state-choice-list">
+                         class="filter-choice-dropdown">
+                        <div class="filter-choices">
+                            <div class="filter-choice-list">
                                 <label translate="PROCESS_STATUS"></label>
                                 <ul>
                                    <li><span class="fa fa-check-circle glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.valid" ng-click="updateIndicator()"> <span translate="FLIGHT_VALID"></span></li>

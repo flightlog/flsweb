@@ -45,6 +45,10 @@ export default class PersonsEditController {
             $location.path('/masterdata/persons/' + person.PersonId);
         };
 
+        PersonCategoryService.loadPersonCategories().then((result) => {
+            $scope.masterdata.personCategories = result;
+        });
+
         if ($routeParams.id !== undefined) {
             $scope.busy = true;
             $q
@@ -54,9 +58,6 @@ export default class PersonsEditController {
                     }),
                     MemberStates.query().$promise.then(function (result) {
                         $scope.masterdata.memberStates = result;
-                    }),
-                    PersonCategoryService.loadPersonCategories().then((result) => {
-                        $scope.masterdata.personCategories = result;
                     })
                 ])
                 .then(loadPerson)

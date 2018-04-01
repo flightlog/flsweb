@@ -9,9 +9,9 @@ export class AirMovementAirStateFilterDropdownDirective {
                 <div>
                     <input class="form-control" ng-model="filterIndicator" ng-click="toggleEditor()" readonly>
                     <div ng-if="editorVisible"
-                         class="flight-state-choice-dropdown">
-                        <div class="flight-state-choices">
-                            <div class="flight-state-choice-list">
+                         class="filter-choice-dropdown">
+                        <div class="filter-choices">
+                            <div class="filter-choice-list">
                                 <label translate="MOTOR_STATES"></label>
                                 <ul>
                                    <li><span class="lnr lnr-hand glider-state-icon"></span> <input type="checkbox" ng-model="states.flight.ready" ng-click="updateIndicator()"> <span translate="FLIGHT_READY"></span></li>

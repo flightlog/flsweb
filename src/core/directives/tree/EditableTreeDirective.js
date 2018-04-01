@@ -8,6 +8,7 @@ export default class EditableTreeDirective {
                 onAddNode: "=",
                 onEditNode: "=",
                 onDeleteNode: "=",
+                onSelectionChanged: "=",
                 nodeNameAttribute: "@",
                 editMode: "="
             },
@@ -42,6 +43,9 @@ class EditableTreeController {
                 child.selected = node.selected;
                 this.toggleChildren(child);
             });
+        }
+        if(this.ctrlScope.onSelectionChanged) {
+            this.ctrlScope.onSelectionChanged(node);
         }
     }
 

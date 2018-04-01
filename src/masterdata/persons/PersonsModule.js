@@ -3,11 +3,13 @@ import PersonsEditController from './PersonsEditController';
 import AddPersonController from './modal/AddPersonController';
 import PersonsEditDirective from './PersonsEditDirective';
 import PersonFormDirective from './PersonFormDirective';
+import PersonCategoryFilterDropdownDirective from './PersonCategoryFilterDropdownDirective';
 import * as PersonsServices from './PersonsServices';
 import coreModule from '../../core/CoreModule';
 import memberStatesModule from '../memberStates/MemberStatesModule';
 import personCategoryModule from '../personCategories/PersonCategoryModule';
 import {userAuth} from '../../core/AuthService';
+
 
 export default angular.module('fls.masterdata.persons', [
     coreModule.name,
@@ -22,6 +24,7 @@ export default angular.module('fls.masterdata.persons', [
     .service('PagedPersons', PersonsServices.PagedPersons)
     .service('PersonsV2', PersonsServices.PersonsV2)
     .service('PersonService', PersonsServices.PersonService)
+    .directive('flsPersonCategoryFilter', PersonCategoryFilterDropdownDirective.factory)
     .directive('flsPersons', PersonsEditDirective.factory)
     .directive('flsPersonForm', PersonFormDirective.factory)
     .filter('filterByRequiredFlags', function () {
@@ -35,7 +38,7 @@ export default angular.module('fls.masterdata.persons', [
             });
         };
     })
-    .config(function ($routeProvider) {
+    .config(($routeProvider) => {
         $routeProvider
             .when('/masterdata/persons',
                 {
@@ -57,4 +60,14 @@ export default angular.module('fls.masterdata.persons', [
                         titleKey: () => "PERSONS"
                     }
                 });
+    })
+    .config((ngTableFilterConfigProvider) => {
+        ngTableFilterConfigProvider.setConfig({
+            aliasUrls: {
+                "person-category-list": "./tableFilters/person-category-filter.html"
+            }
+        });
+    })
+    .run(($templateCache) => {
+        $templateCache.put("./tableFilters/person-category-filter.html", require("./tableFilters/person-category-filter.html"));
     });
