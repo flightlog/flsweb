@@ -32,7 +32,7 @@ export default class PersonCategoryFilterDropdownDirective {
             link: function (scope, element, attrs, modelCtrl) {
                 function updateViewValue() {
                     modelCtrl.$setViewValue(scope.masterdata.personCategories.filter(node => node.selected).map(node => node.PersonCategoryId));
-                    scope.filterIndicator = scope.masterdata.personCategories.filter(node => !node.selected).length > 0 ? "*" : "";
+                    scope.filterIndicator = scope.masterdata.personCategories.filter(node => node.selected).length > 0 ? "*" : "";
                 }
 
                 if (scope.ngModel) {
@@ -60,7 +60,7 @@ export default class PersonCategoryFilterDropdownDirective {
 
                 scope.reset = () => {
                     scope.masterdata.personCategories.forEach(node => {
-                        node.selected = true;
+                        node.selected = false;
                     });
                 };
 
