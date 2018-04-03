@@ -537,6 +537,8 @@ table.fls-table-with-details tr.fls-flight-row-warning td.flight--motor-cell {
 
 .filter-choices {
     display: flex;
+    overflow-y: auto;
+    max-height: 50vh;
 }
 
 .filter-choice-list:first-child {

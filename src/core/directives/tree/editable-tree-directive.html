@@ -2,9 +2,11 @@
     <div ng-repeat="node in ctrl.data.nodes"
          ng-style="{'margin-left': node.level * 30 + 'px'}"
          class="editable-tree-row">
+
         <input ng-if="!ctrl.editMode"
                type="checkbox"
                style="margin: 5px;"
+               ng-disabled="ctrl.checkboxDisabled"
                ng-model="node.selected"
                ng-change="ctrl.toggleChildren(node)"/>
         <span ng-if="ctrl.editMode"

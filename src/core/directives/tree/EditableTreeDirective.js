@@ -9,7 +9,8 @@ export default class EditableTreeDirective {
                 onEditNode: "=",
                 onDeleteNode: "=",
                 nodeNameAttribute: "@",
-                editMode: "="
+                editMode: "=",
+                checkboxDisabled: "="
             },
             bindToController: true,
             controllerAs: "ctrl",
