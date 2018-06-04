@@ -38,7 +38,8 @@ export default class AuthService {
                         memberStates: srv.isClubAdmin(),
                         personCategories: srv.isClubAdmin(),
                         accountingRuleFilters: srv.isClubAdmin(),
-                        deliveryCreationTests: srv.isClubAdmin()
+                        deliveryCreationTests: srv.isClubAdmin(),
+                        deliveries: srv.isClubAdmin()
                     },
                     system: srv.isSystemAdmin()
                 }

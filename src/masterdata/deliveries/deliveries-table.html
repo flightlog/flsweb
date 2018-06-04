@@ -1,0 +1,51 @@
+<div class="col-xs-12">
+    <table ng-table="tableParams"
+           class="fls fls-table-with-details"
+           show-filter="true">
+        <tr ng-repeat="delivery in $data"
+            ng-click="editDelivery(delivery)"
+            title="{{'EDIT' | translate}}">
+            <td ng-bind="delivery.BatchId"
+                data-title="'BATCH_ID' | translate"
+                filter="{ BatchId: 'text'}"
+                sortable="'BatchId'"></td>
+            <td ng-bind="delivery.DeliveryInformation"
+                data-title="'DELIVERY_INFORMATION' | translate"
+                filter="{ DeliveryInformation: 'text'}"
+                sortable="'DeliveryInformation'"></td>
+            <td ng-bind="delivery.RecipientName"
+                data-title="'DELIVERY_RECIPIENTNAME' | translate"
+                filter="{ RecipientName: 'text'}"
+                sortable="'RecipientName'"></td>
+            <td ng-bind="delivery.FlightInformation.AircraftImmatriculation"
+                data-title="'DELIVERY_FLIGHT_INFORMATION_IMMATRICULATION' | translate"
+                filter="{ FlightInformation.AircraftImmatriculation: 'text'}"
+                sortable="'FlightInformation.AircraftImmatriculation'"></td>
+            <td ng-bind="delivery.FlightInformation.StartDateTime | date:'dd.MM.yyyy HH:mm'"
+                data-title="'DELIVERY_FLIGHT_INFORMATION_START_DATETIME' | translate"
+                filter="{ FlightInformation.StartDateTime: 'date'}"
+                sortable="'FlightInformation.StartDateTime'"></td>
+            <td ng-bind="delivery.DeliveryNumber"
+                data-title="'DELIVERY_NUMBER' | translate"
+                filter="{ DeliveryNumber: 'text'}"
+                sortable="'DeliveryNumber'"></td>
+            <td ng-bind="delivery.DeliveredOn | date:'dd.MM.yyyy'"
+                data-title="'DELIVERED_ON' | translate"
+                filter="{ DeliveredOn: 'date'}"
+                sortable="'DeliveredOn'"></td>
+            <td class="hidden-print controls-column">
+                <div class="controls-cell">
+                    <a ng-show="delivery.CanDeleteRecord"
+                       title="{{'DELETE' | translate}}"
+                       ng-click="deleteDelivery(delivery); $event.stopPropagation();"
+                       class="col-xs-4 delete-link">
+                        <span class="fa fa-trash-o"></span>
+                    </a>
+                    <fls-history entity-name="Delivery"
+                                 entity-id="delivery.DeliveryId"
+                                 class="col-xs-4"></fls-history>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

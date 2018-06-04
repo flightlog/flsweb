@@ -10,6 +10,7 @@ import memberStatesModule from './memberStates/MemberStatesModule';
 import accountingRuleFiltersModule from './accountingRules/AccountingRuleFiltersModule';
 import deliveryCreationTestsModule from './deliveryCreationTests/DeliveryCreationTestsModule';
 import personCategoriesModule from './personCategories/PersonCategoryModule';
+import deliveriesModule from './deliveries/DeliveriesModule';
 import 'ng-table';
 
 export default angular.module('fls.masterdata', [
@@ -24,5 +25,6 @@ export default angular.module('fls.masterdata', [
     memberStatesModule.name,
     accountingRuleFiltersModule.name,
     deliveryCreationTestsModule.name,
-    personCategoriesModule.name
+    personCategoriesModule.name,
+    deliveriesModule.name
 ]);
