@@ -19,12 +19,12 @@
                 sortable="'RecipientName'"></td>
             <td ng-bind="delivery.FlightInformation.AircraftImmatriculation"
                 data-title="'DELIVERY_FLIGHT_INFORMATION_IMMATRICULATION' | translate"
-                filter="{ FlightInformation.AircraftImmatriculation: 'text'}"
-                sortable="'FlightInformation.AircraftImmatriculation'"></td>
+                filter="{ FlightAircraftImmatriculation: 'text'}"
+                sortable="'FlightAircraftImmatriculation'"></td>
             <td ng-bind="delivery.FlightInformation.StartDateTime | date:'dd.MM.yyyy HH:mm'"
                 data-title="'DELIVERY_FLIGHT_INFORMATION_START_DATETIME' | translate"
-                filter="{ FlightInformation.StartDateTime: 'date'}"
-                sortable="'FlightInformation.StartDateTime'"></td>
+                filter="{ FlightStartDateTime: 'date'}"
+                sortable="'FlightStartDateTime'"></td>
             <td ng-bind="delivery.DeliveryNumber"
                 data-title="'DELIVERY_NUMBER' | translate"
                 filter="{ DeliveryNumber: 'text'}"

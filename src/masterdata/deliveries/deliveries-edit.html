@@ -5,7 +5,6 @@
             <fls-message-bar></fls-message-bar>
 
             <form role="form"
-                  ng-submit="save(delivery)"
                   class="css-form"
                   ng-class="{'readonly-form':!delivery.CanUpdateRecord}"
                   name="deliveryForm">
@@ -20,9 +19,42 @@
                                    ng-model="delivery.DeliveryNumber"
                                    required>
                         </div>
-                        
+
                     </div>
-                    
+                    <div class="col-md-8">
+
+                        <div class="form-group">
+                            <label for="DeliveryInformation"><span translate="DELIVERY_INFORMATION"></span></label>
+                            <input class="form-control"
+                                   id="DeliveryInformation"
+                                   ng-model="delivery.DeliveryInformation">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="AircraftImmatriculation"><span translate="AIRCRAFT_IMMATRICULATION"></span></label>
+                            <input class="form-control"
+                                   id="AircraftImmatriculation"
+                                   ng-model="delivery.FlightInformation.AircraftImmatriculation">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="DeliveryItems"><span translate="DELIVERY_ITEMS"></span></label>
+                        <table width="100%">
+                            <tr>
+                                <th>ArticleNumber</th>
+                                <th>ItemText</th>
+                                <th>Quantity</th>
+                                <th>UnitType</th>
+                            </tr>
+                            <tr ng-repeat="deliveryItem in delivery.DeliveryItems">
+                                <td ng-bind="deliveryItem.ArticleNumber"></td>
+                                <td ng-bind="deliveryItem.ItemText"></td>
+                                <td ng-bind="deliveryItem.Quantity"></td>
+                                <td ng-bind="deliveryItem.UnitType"></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <div class="form-group" style="margin-bottom:200px;">
                     <button type="button"

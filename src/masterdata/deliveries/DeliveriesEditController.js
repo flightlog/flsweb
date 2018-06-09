@@ -8,15 +8,22 @@ export default class DeliveriesEditController {
         $scope.md = {};
         $scope.selection = {};
         $scope.text = {};
-        
+
+        function loadMasterData() {
+            return $q.all([]);
+        }
+
         if ($routeParams.id !== undefined) {
             $scope.busy = true;
-                $q.then(() => {
+                loadMasterData().then(() => {
                     if ($routeParams.id === 'new') {
                         $scope.delivery = {
                         };
                     } else {
-                        PagedDeliveries.getDelivery($routeParams.id);
+                        PagedDeliveries.getDelivery($routeParams.id)
+                            .then((result) => {
+                                $scope.delivery = result;
+                            })
                     }
                 })
                 .finally(() => {
@@ -55,6 +62,11 @@ export default class DeliveriesEditController {
         $scope.cancel = function () {
             $location.path('/masterdata/deliveries');
         };
+
+        $scope.editDelivery = function (delivery) {
+            $location.path('/masterdata/deliveries/' + delivery.DeliveryId);
+        };
+
         $scope.save = function (delivery) {
             $scope.busy = true;
             
