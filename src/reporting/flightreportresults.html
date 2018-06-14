@@ -70,11 +70,13 @@
                     <tr>
                         <th translate="GroupBy"></th>
                         <th translate="TotalStarts"></th>
+                        <th translate="TotalLdgs"></th>
                         <th translate="TotalFlightDuration"></th>
                     </tr>
                     <tr ng-repeat="summary in FlightReportSummaries">
                         <td ng-bind="summary.GroupBy"></td>
                         <td ng-bind="summary.TotalStarts"></td>
+                        <td ng-bind="summary.TotalLdgs"></td>
                         <td ng-bind="summary._totalFlightDurationFormatted"></td>
                     </tr>
                 </table>
