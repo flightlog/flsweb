@@ -6,6 +6,7 @@ import coreModule from "./core/CoreModule";
 import mainModule from "./main/MainModule";
 import lostPasswordModule from "./lostpassword/LostPasswordModule";
 import tryFlightModule from "./tryflight/TryFlightModule";
+import passengerFlightModule from "./passengerflight/PassengerFlightModule";
 import masterdataModule from "./masterdata/MasterdataModule";
 import flightsModule from "./flights/FlightsModule";
 import airMovementFlightsModule from "./flights/airmovements/AirMovementsModule";
@@ -24,6 +25,7 @@ angular.module('app.starter', [
     coreModule.name,
     mainModule.name,
     tryFlightModule.name,
+    passengerFlightModule.name,
     lostPasswordModule.name,
     profileModule.name,
     planningModule.name,
@@ -45,7 +47,7 @@ angular.module('app.starter', [
     .run(($rootScope, $location, AuthService) => {
         $rootScope.$on("$routeChangeSuccess",
             () => {
-                AuthService.setShowNavBar($location.path() !== '/tryflight');
+                AuthService.setShowNavBar($location.path() !== '/tryflight' || $location.path() !== '/passengerflight');
             });
     });
 

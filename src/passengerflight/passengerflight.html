@@ -1,0 +1,265 @@
+<div class="passenger-flight-root">
+    <div class="passenger-flight-container">
+        <div class="passenger-flight-header"></div>
+        <h1 translate="PASSENGER_FLIGHT_APPLICATION"></h1>
+        <div>
+            <fls-message-bar ng-show="!busy"></fls-message-bar>
+            <fls-busy-indicator busy="ctrl.busy"
+                                error="ctrl.error">
+                <div ng-show="!ctrl.success">
+                    <p class="col-xs-12"
+                       translate="PASSENGER_FLIGHT_FORM_EXPLANATION"></p>
+
+                    <form role="form"
+                          ng-submit="ctrl.passengerflight()"
+                          class="col-xs-12"
+                          name="passengerflightForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name"><span translate="NAME"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="name"
+                                           required
+                                           ng-model="ctrl.PassengerFlightRegistrationDetails.Lastname">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstname"><span translate="FIRST_NAME"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="firstname"
+                                           required
+                                           ng-model="ctrl.PassengerFlightRegistrationDetails.Firstname">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="AddressLine1"><span translate="ADDRESS"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="AddressLine1"
+                                           required
+                                           ng-model="ctrl.PassengerFlightRegistrationDetails.AddressLine1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="zip"><span translate="ZIP_CODE"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="zip"
+                                           required
+                                           ng-model="ctrl.PassengerFlightRegistrationDetails.ZipCode">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="city"><span translate="CITY"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="city"
+                                           required
+                                           ng-model="ctrl.PassengerFlightRegistrationDetails.City">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="PrivatePhoneNumber"><span translate="PRIVATE_PHONE"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="PrivatePhoneNumber"
+                                           ng-model="ctrl.PassengerFlightRegistrationDetails.PrivatePhoneNumber">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="BusinessPhoneNumber"><span translate="BUSINESS_PHONE"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="BusinessPhoneNumber"
+                                           ng-model="ctrl.PassengerFlightRegistrationDetails.BusinessPhoneNumber">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="MobilePhoneNumber"><span translate="MOBILE_NUMBER"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="MobilePhoneNumber"
+                                           ng-required="!ctrl.PassengerFlightRegistrationDetails.PrivateEmail"
+                                           ng-model="ctrl.PassengerFlightRegistrationDetails.MobilePhoneNumber">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="PrivateEmail"><span translate="EMAIL"></span>:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="PrivateEmail"
+                                           ng-required="!ctrl.PassengerFlightRegistrationDetails.MobilePhoneNumber"
+                                           ng-model="ctrl.PassengerFlightRegistrationDetails.PrivateEmail">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Remarks"><span translate="REMARKS"></span>:</label>
+                                    <textarea type="text"
+                                              rows="6"
+                                           class="form-control"
+                                           id="Remarks"
+                                           ng-model="ctrl.PassengerFlightRegistrationDetails.Remarks">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row passenger-flight-section">
+                            <div class="col-md-12">
+                                <span translate="INVOICE_TO"></span>:
+                            </div>
+                            <div class="col-md-12">
+                                <fls-labelled-checkbox entity="ctrl.PassengerFlightRegistrationDetails"
+                                                       attribute="InvoiceAddressIsSame"
+                                                       translation-key="SAME_ADDRESS_AS_PASSENGER"></fls-labelled-checkbox>
+                            </div>
+                        </div>
+                        <div ng-if="!ctrl.PassengerFlightRegistrationDetails.InvoiceAddressIsSame">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="SendCouponToInvoiceAddress"><span translate="SEND_COUPON_TO"></span>:</label><br>
+                                        
+                                        <div class="col-md-offset-1 col-md-11">
+                                            <input type="radio"
+                                                   ng-value="false"
+                                                   ng-model="ctrl.PassengerFlightRegistrationDetails.SendCouponToInvoiceAddress">
+                                            <span translate="SEND_COUPON_TO_PASSENGER"></span>:
+                                            <i>{{ctrl.PassengerFlightRegistrationDetails.Firstname + " " + ctrl.PassengerFlightRegistrationDetails.Lastname}}</i><br>
+                                            <input type="radio"
+                                                   ng-value="true"
+                                                   ng-model="ctrl.PassengerFlightRegistrationDetails.SendCouponToInvoiceAddress">
+                                            <span translate="SEND_COUPON_TO_INVOICE_RECIPIENT"></span>:
+                                            <i>{{ctrl.PassengerFlightRegistrationDetails.InvoiceToFirstname + " " + ctrl.PassengerFlightRegistrationDetails.InvoiceToLastname}}</i><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="InvoiceToLastname"><span translate="NAME"></span>:</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-required="!ctrl.PassengerFlightRegistrationDetails.InvoiceAddressIsSame"
+                                               id="InvoiceToLastname"
+                                               ng-model="ctrl.PassengerFlightRegistrationDetails.InvoiceToLastname">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="InvoiceToFirstname"><span translate="FIRST_NAME"></span>:</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-required="!ctrl.PassengerFlightRegistrationDetails.InvoiceAddressIsSame"
+                                               id="InvoiceToFirstname"
+                                               ng-model="ctrl.PassengerFlightRegistrationDetails.InvoiceToFirstname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="InvoiceToAddressLine1"><span translate="ADDRESS"></span>:</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-required="!ctrl.PassengerFlightRegistrationDetails.InvoiceAddressIsSame"
+                                               id="InvoiceToAddressLine1"
+                                               ng-model="ctrl.PassengerFlightRegistrationDetails.InvoiceToAddressLine1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="InvoiceToZipCode"><span translate="ZIP_CODE"></span>:</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-required="!ctrl.PassengerFlightRegistrationDetails.InvoiceAddressIsSame"
+                                               id="InvoiceToZipCode"
+                                               ng-model="ctrl.PassengerFlightRegistrationDetails.InvoiceToZipCode">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="InvoiceToCity"><span translate="CITY"></span>:</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-required="!ctrl.PassengerFlightRegistrationDetails.InvoiceAddressIsSame"
+                                               id="InvoiceToCity"
+                                               ng-model="ctrl.PassengerFlightRegistrationDetails.InvoiceToCity">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="NotificationEmail"><span translate="EMAIL"></span>:</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-required="!ctrl.PassengerFlightRegistrationDetails.InvoiceAddressIsSame"
+                                               id="NotificationEmail"
+                                               ng-model="ctrl.PassengerFlightRegistrationDetails.NotificationEmail">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row col-md-12 passenger-flight-section">
+                            <!--<div class="fls-recaptcha"
+                                 vc-recaptcha
+                                 theme="'light'"
+                                 key="ctrl.recaptcha.key"
+                                 on-create="ctrl.recaptcha.setWidgetId(widgetId)"
+                                 on-success="ctrl.recaptcha.setResponse(response)"
+                                 on-expire="ctrl.recaptcha.cbExpiration()"></div> -->
+
+                            <button type="submit"
+                                    class="btn btn-default"
+                                    translate="APPLY_FOR_PASSENGER_FLIGHT"
+                                    ng-disabled="passengerflightForm.$pristine">
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div ng-show="!ctrl.success"
+                     class="passenger-flight-section">
+                    <div class="col-md-12 passenger-flight-section">
+                        <p>Der Passagierflug kostet CHF 200.- und wird vom Sekretariat nach der Registrierung in Rechnung gestellt.</p>
+                        <p>Passagierflüge werden hauptsächlich an Samstagen oder Sonntagen durchgeführt. 
+                           Für einen Termin wenden Sie sich bitte an die entsprechende Kontaktperson, welche auf dem Gutschein aufgeführt ist.</p>
+                    </div>
+                </div>
+
+                <div ng-show="ctrl.success"
+                     class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <p translate="APPLICATION_FOR_PASSENGER_FLIGHT_WAS_SUCCESSFUL"></p>
+                    <p><a href="http://www.fgzo.ch"
+                          translate="BACK_TO_HOMEPAGE"></a></p>
+                </div>
+
+            </fls-busy-indicator>
+        </div>
+    </div>
+</div>
