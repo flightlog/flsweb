@@ -42,12 +42,14 @@
                         <label for="DeliveryItems"><span translate="DELIVERY_ITEMS"></span></label>
                         <table width="100%">
                             <tr>
+                                <th>Position</th>
                                 <th>ArticleNumber</th>
                                 <th>ItemText</th>
                                 <th>Quantity</th>
                                 <th>UnitType</th>
                             </tr>
                             <tr ng-repeat="deliveryItem in delivery.DeliveryItems">
+                                <td ng-bind="deliveryItem.Position"></td>
                                 <td ng-bind="deliveryItem.ArticleNumber"></td>
                                 <td ng-bind="deliveryItem.ItemText"></td>
                                 <td ng-bind="deliveryItem.Quantity"></td>
