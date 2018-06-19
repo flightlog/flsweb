@@ -1,5 +1,5 @@
 export default class DeliveriesEditController {
-    constructor($scope, $q, $routeParams, $location, NgTableParams, GLOBALS, AuthService,
+    constructor($scope, $q, $routeParams, $location, NgTableParams, GLOBALS, AuthService, //DeliveryService, 
                 PagedDeliveries, MessageManager) {
 
         $scope.debug = GLOBALS.DEBUG;
