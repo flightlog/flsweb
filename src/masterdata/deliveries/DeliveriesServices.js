@@ -53,7 +53,7 @@ export class Delivery {
 }
 
 export class DeliveryService {
-    constructor($q, delivery) {
+    constructor($q) {
         return {
             delete: function (delivery, deliveries) {
                 var deferred = $q.defer();
