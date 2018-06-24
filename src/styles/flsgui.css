@@ -447,7 +447,7 @@ td.flight--time {
     padding: 0;
 }
 
-.try-flight-root {
+.fgzo-registrationform-root {
     margin: -50px 0 0;
     padding: 20px;
     width: 100%;
@@ -456,7 +456,7 @@ td.flight--time {
     background-color: #336699;
 }
 
-.try-flight-container {
+.fgzo-registrationform-container {
     background-color: white;
     border-radius: 8px;
     padding: 50px;
@@ -466,13 +466,13 @@ td.flight--time {
     max-width: 950px;
 }
 
-.try-flight-container .try-flight-header {
+.fgzo-registrationform-container .fgzo-registrationform-header {
     margin: -50px -50px 50px;
     height: 130px;
     background-image: url(https://fgzo.ch/images/header950x130-07.jpg);
 }
 
-.try-flight-section {
+.fgzo-registrationform-section {
     margin-top: 30px;
 }
 
