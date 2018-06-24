@@ -2,7 +2,8 @@
     <div class="hidden-print fls-new-button">
         <button type="button"
                 title="{{'SETUP'|translate}}"
-                ng-click="setup()">
+                ng-click="setup()"
+                ng-show="isClubAdmin">
             <span class="fa fa-cogs fa-2x"></span>
         </button>
         <button type="button"
@@ -65,7 +66,8 @@
                         sortable="'NumberOfAircraftReservations'"></td>
                     <td class="hidden-print controls-column hidden-xs"
                         header-class="'hidden-print hidden-xs'">
-                        <a title="{{'DELETE' | translate}}"
+                        <a ng-show="planningDay.CanDeleteRecord"
+                           title="{{'DELETE' | translate}}"
                            ng-click="deletePlanningDay(planningDay, $event); $event.stopPropagation();"
                            class="col-xs-4 delete-link">
                             <span class="fa fa-trash-o"></span>

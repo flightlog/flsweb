@@ -147,7 +147,7 @@
                         ng-click="edit()"
                         class="btn btn-default pull-right"
                         style="margin-right:10px;"
-                        ng-show="!planningDay.CanUpdateRecord && editAllowed">
+                        ng-disabled="!planningDay.CanUpdateRecord && !editAllowed">
                     <span class="fa fa-pencil"></span>
                     Edit
                 </button>

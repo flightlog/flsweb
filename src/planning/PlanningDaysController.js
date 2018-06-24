@@ -1,11 +1,12 @@
 import moment from "moment";
 
 export default class PlanningDaysController {
-    constructor(GLOBALS, $scope, $location, PagedPlanningDays, NgTableParams, PlanningDaysDeleter, MessageManager, TableSettingsCacheFactory) {
+    constructor(GLOBALS, $scope, $location, AuthService, PagedPlanningDays, NgTableParams, PlanningDaysDeleter, MessageManager, TableSettingsCacheFactory) {
 
         $scope.busy = false;
         $scope.loadingTable = false;
         $scope.debug = GLOBALS.DEBUG;
+        $scope.isClubAdmin = AuthService.hasRole('ClubAdministrator');
 
         let tableSettingsCache = TableSettingsCacheFactory.getSettingsCache("PlanningDaysController", {
             filter: {
