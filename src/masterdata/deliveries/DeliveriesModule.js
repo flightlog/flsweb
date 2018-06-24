@@ -9,6 +9,7 @@ export default angular.module('fls.masterdata.deliveries', ['ngTable'])
     .directive('flsDeliveries', DeliveriesEditDirective.factory)
     .controller('DeliveriesEditController', DeliveriesEditController)
     .service('DeliveryService', DeliveriesServices.DeliveryService)
+    .service('Delivery', DeliveriesServices.Delivery)
     .service('PagedDeliveries', DeliveriesServices.PagedDeliveries)
     .config(function ($routeProvider) {
         $routeProvider

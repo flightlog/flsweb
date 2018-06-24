@@ -53,12 +53,12 @@ export class Delivery {
 }
 
 export class DeliveryService {
-    constructor($q) {
+    constructor($q, Delivery) {
         return {
             delete: function (delivery, deliveries) {
                 var deferred = $q.defer();
                 if (window.confirm('Do you really want to delete this delivery from the database and reset the flights process state?')) {
-                    delivery.delete({id: delivery.DeliveryId}).$promise
+                    Delivery.delete({id: delivery.DeliveryId}).$promise
                         .then(function () {
                             deliveries = _.filter(deliveries, function (d) {
                                 return d.DeliveryId !== delivery.DeliveryId;
