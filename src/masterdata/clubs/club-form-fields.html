@@ -104,6 +104,20 @@
                     <label for="SendDeliveryMailExportTo"><span translate="SEND_DELIVERY_MAIL_EXPORT_TO"></span></label>
                     <input class="form-control" id="SendDeliveryMailExportTo" ng-model="club.SendDeliveryMailExportTo">
                 </div>
+                <div class="form-group col-md-12">
+                    <label for="SendTrialFlightRegistrationOperatorEmailTo"><span translate="SEND_TRIAL_FLIGHT_REGISTRATION_OPERATOR_EMAIL_TO"></span></label>
+                    <input class="form-control" id="SendTrialFlightRegistrationOperatorEmailTo" ng-model="club.SendTrialFlightRegistrationOperatorEmailTo">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="SendPassengerFlightRegistrationOperatorEmailTo"><span translate="SEND_PASSENGER_FLIGHT_REGISTRATION_OPERATOR_EMAIL_TO"></span></label>
+                    <input class="form-control" id="SendPassengerFlightRegistrationOperatorEmailTo" ng-model="club.SendPassengerFlightRegistrationOperatorEmailTo">
+                </div>
+                <fls-labelled-checkbox class="col-md-6" entity="club"
+                                       attribute="RunDeliveryCreationJob"
+                                       translation-key="RUN_DELIVERY_CREATION_JOB"></fls-labelled-checkbox>
+                <fls-labelled-checkbox class="col-md-6" entity="club"
+                                       attribute="RunDeliveryMailExportJob"
+                                       translation-key="RUN_DELIVERY_MAIL_EXPORT_JOB"></fls-labelled-checkbox>
             </div>
         </accordion-group>
         <accordion-group is-open="status3">
