@@ -10,18 +10,20 @@
                   name="deliveryForm">
                 
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
 
-                        <div class="form-group">
+                        <div class="form-group col-md-6">
                             <label for="DeliveryNumber"><span translate="DELIVERY_NUMBER"></span></label>
                             <input class="form-control"
                                    id="DeliveryNumber"
-                                   ng-model="delivery.DeliveryNumber"
-                                   required>
+                                   ng-model="delivery.DeliveryNumber">
                         </div>
 
+                        <fls-labelled-checkbox class="col-md-6" entity="delivery"
+                                               attribute="IsFurtherProcessed"
+                                               translation-key="IS_FURTHER_PROCESSED"></fls-labelled-checkbox>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-12">
 
                         <div class="form-group">
                             <label for="DeliveryInformation"><span translate="DELIVERY_INFORMATION"></span></label>
@@ -29,47 +31,129 @@
                                    id="DeliveryInformation"
                                    ng-model="delivery.DeliveryInformation">
                         </div>
+                    </div>
 
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label for="AircraftImmatriculation"><span translate="AIRCRAFT_IMMATRICULATION"></span></label>
+                            <label for="DeliveryItems"><span translate="DELIVERY_ITEMS"></span></label>
+                            <table width="100%">
+                                <tr>
+                                    <th><span translate="POSITION"></span></th>
+                                    <th><span translate="ARTICLE_NUMBER"></span></th>
+                                    <th><span translate="ITEM_TEXT"></span></th>
+                                    <th><span translate="QUANTITY"></span></th>
+                                    <th><span translate="UNIT_TYPE"></span></th>
+                                </tr>
+                                <tr ng-repeat="deliveryItem in delivery.DeliveryItems">
+                                    <td ng-bind="deliveryItem.Position"></td>
+                                    <td ng-bind="deliveryItem.ArticleNumber"></td>
+                                    <td ng-bind="deliveryItem.ItemText"></td>
+                                    <td ng-bind="deliveryItem.Quantity"></td>
+                                    <td ng-bind="deliveryItem.UnitType"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <p></p>
+                        <h1 translate="RECIPIENT"></h1>
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <div class="form-group col-md-4">
+                            <label for="RecipientDetailsFirstname"><span translate="FIRST_NAME"></span></label>
+                            <input class="form-control"
+                                   id="RecipientDetailsFirstname"
+                                   ng-model="delivery.RecipientDetails.Firstname">
+                        </div>
+
+                        <div class="form-group col-md-5">
+                            <label for="RecipientDetailsLastname"><span translate="LAST_NAME"></span></label>
+                            <input class="form-control"
+                                   id="RecipientDetailsLastname"
+                                   ng-model="delivery.RecipientDetails.Lastname">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="RecipientDetailsPersonClubMemberNumber"><span translate="CLUB_MEMBER_NUMBER"></span></label>
+                            <input class="form-control"
+                                   id="RecipientDetailsPersonClubMemberNumber"
+                                   ng-model="delivery.RecipientDetails.PersonClubMemberNumber">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group col-md-12">
+                            <label for="AddressLine1"><span translate="ADDRESS_LINE1"></span></label>
+                            <input class="form-control"
+                                   id="AddressLine1"
+                                   ng-model="delivery.RecipientDetails.AddressLine1">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group col-md-3">
+                            <label for="ZipCode"><span translate="ZIP_CODE"></span></label>
+                            <input class="form-control"
+                                   id="ZipCode"
+                                   ng-model="delivery.RecipientDetails.ZipCode">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="City"><span translate="CITY"></span></label>
+                            <input class="form-control"
+                                   id="City"
+                                   ng-model="delivery.RecipientDetails.City">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <p></p>
+                        <h1 translate="FLIGHT_INFORMATION"></h1>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group col-md-3">
+                            <label for="FlightDate"><span translate="DATE"></span></label>
+                            <input class="form-control"
+                                   id="FlightDate"
+                                   ng-model="delivery.FlightInformation.FlightDate | date:'dd.MM.yyyy'">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="AircraftImmatriculation"><span translate="IMMATRICULATION"></span></label>
                             <input class="form-control"
                                    id="AircraftImmatriculation"
                                    ng-model="delivery.FlightInformation.AircraftImmatriculation">
                         </div>
 
-                    </div>
-                    <div class="form-group">
-                        <label for="DeliveryItems"><span translate="DELIVERY_ITEMS"></span></label>
-                        <table width="100%">
-                            <tr>
-                                <th>Position</th>
-                                <th>ArticleNumber</th>
-                                <th>ItemText</th>
-                                <th>Quantity</th>
-                                <th>UnitType</th>
-                            </tr>
-                            <tr ng-repeat="deliveryItem in delivery.DeliveryItems">
-                                <td ng-bind="deliveryItem.Position"></td>
-                                <td ng-bind="deliveryItem.ArticleNumber"></td>
-                                <td ng-bind="deliveryItem.ItemText"></td>
-                                <td ng-bind="deliveryItem.Quantity"></td>
-                                <td ng-bind="deliveryItem.UnitType"></td>
-                            </tr>
-                        </table>
+                        <div class="form-group col-md-12">
+                            <label for="FlightTypeName"><span translate="FLIGHT_TYPE"></span></label>
+                            <input class="form-control"
+                                   id="FlightTypeName"
+                                   ng-model="delivery.FlightInformation.FlightTypeName">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="PilotName"><span translate="PILOT"></span></label>
+                            <input class="form-control"
+                                   id="PilotName"
+                                   ng-model="delivery.FlightInformation.PilotName">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="SecondCrewName"><span translate="SECOND_CREW_MEMBER"></span></label>
+                            <input class="form-control"
+                                   id="SecondCrewName"
+                                   ng-model="delivery.FlightInformation.SecondCrewName">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group" style="margin-bottom:200px;">
                     <button type="button"
                             ng-click="cancel()"
                             class="btn btn-default pull-right"
-                            translate="CANCEL">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                            class="btn btn-default pull-right"
-                            ng-disabled="deliveryForm.$invalid || !delivery.CanUpdateRecord"
-                            translate="SAVE"
-                            style="margin-right:10px;">Save
+                            translate="CLOSE">
+                        Close
                     </button>
                 </div>
             </form>
