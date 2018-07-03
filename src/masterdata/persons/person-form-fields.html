@@ -407,7 +407,7 @@
                     <label for="MemberNumber"><span translate="CLUB_MEMBER_NUMBER"></span></label>
                     <input class="form-control"
                            id="MemberNumber"
-                           ng-model="person.ClubRelatedPersonDetails.MemberNumber">
+                           ng-model="person.ClubRelatedPersonDetails.MemberNumber" ng-disabled="person.ClubRelatedPersonDetails.IsMemberNumberReadonly">
                 </div>
 
                 <div class="form-group col-md-12">
