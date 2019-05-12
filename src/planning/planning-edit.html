@@ -200,7 +200,7 @@
                         <th class="hidden-md hidden-lg">
                             <span translate="RESERVATION_TYPE">Reservation Type</span> <br>
                             <span translate="PILOT_NAME">Pilot Name</span><br>
-                            <span translate="INSTRUCTOR_NAME">Instructor Name</span>
+                            <span translate="SECOND_CREW_MEMBER">Mit an Bord</span>
                         </th>
                     </tr>
                     <tr ng-click="showReservationDetails(reservation)"
@@ -217,7 +217,7 @@
                         <td ng-bind="reservation.LocationName"></td>
                         <td ng-bind="reservation.Immatriculation"></td>
                         <td ng-bind="reservation.PilotName"></td>
-                        <td ng-bind="reservation.InstructorName"></td>
+                        <td ng-bind="reservation.SecondCrewName"></td>
                         <td ng-bind="reservation.ReservationTypeName"></td>
                         <td ng-bind="reservation.Remarks"></td>
                         <td class="hidden-print controls-column">
