@@ -36,7 +36,7 @@
                                                attribute="StopRuleEngineWhenRuleApplied"
                                                translation-key="STOP_RULE_ENGINE_WHEN_RULE_APPLIED"></fls-labelled-checkbox>
                     </div>
-                    <div class="form-group col-md-6" ng-if="!targetTypeRecipientVisible()">
+                    <div class="form-group col-md-6" ng-if="targetTypeArticleVisible()">
                         <label for="AccountingUnitTypeId"><span
                                 translate="ACCOUNTING_UNIT_TYPE"></span></label>
 
@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="form-group col-md-6"
-                         ng-if="!targetTypeRecipientVisible()">
+                         ng-if="targetTypeArticleVisible()">
                         <label for="ArticleTarget"><span translate="ARTICLE"></span></label>
 
                         <selectize id="ArticleTarget"
@@ -109,7 +109,7 @@
                     </div>
 
                     <div class="form-group col-md-6"
-                         ng-if="!targetTypeRecipientVisible()">
+                         ng-if="targetTypeArticleVisible()">
                         <label for="DeliveryLineText"><span translate="DELIVERY_LINE_TEXT"></span></label>
                         <input class="form-control"
                                id="DeliveryLineText"

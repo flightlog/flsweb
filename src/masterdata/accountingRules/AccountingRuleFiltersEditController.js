@@ -149,11 +149,15 @@ export default class AccountingRuleFiltersEditController {
                     PersonClubMemberNumber: $scope.selection.PersonClubMemberNumber,
                     RecipientName: $scope.text.RecipientName
                 } || {};
-            } else {
+            } else if ($scope.targetTypeArticleVisible()) {
                 accountingRuleFilter.ArticleTarget = $scope.selection.ArticleNumber && {
                     ArticleNumber: $scope.selection.ArticleNumber,
                     DeliveryLineText: $scope.text.DeliveryLineText
                 } || {};
+                accountingRuleFilter.RecipientTarget = {};
+            }
+            else {
+                accountingRuleFilter.ArticleTarget = {};
                 accountingRuleFilter.RecipientTarget = {};
             }
 
@@ -224,6 +228,12 @@ export default class AccountingRuleFiltersEditController {
             setTimeout(() => {
                 $scope.$apply();
             }, 0);
+        };
+
+        $scope.targetTypeArticleVisible = () => {
+            return $scope.accountingRuleFilter
+                && ($scope.accountingRuleFilter.AccountingRuleFilterTypeId != 5
+                && $scope.accountingRuleFilter.AccountingRuleFilterTypeId != 10);
         };
 
         $scope.targetTypeRecipientVisible = () => {
